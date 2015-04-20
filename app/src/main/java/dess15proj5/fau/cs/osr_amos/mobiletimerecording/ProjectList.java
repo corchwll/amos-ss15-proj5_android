@@ -1,19 +1,61 @@
 package dess15proj5.fau.cs.osr_amos.mobiletimerecording;
 
+import android.os.SystemClock;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Chronometer;
 
 
-public class ProjectList extends ActionBarActivity {
+public class ProjectList extends ActionBarActivity implements View.OnClickListener{
+
+    private Chronometer chronometer;
+    private Button startButton;
+    private boolean chronometerRunning = false;
+    private long lastPause = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_project_list);
+
+        chronometer = (Chronometer) findViewById(R.id.chronometer);
+        startButton = ((Button) findViewById(R.id.start_button));
+        startButton.setOnClickListener(this);
     }
 
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.start_button)
+        {
+            if (chronometerRunning == false)
+            {
+                if(lastPause == 0)
+                {
+                    chronometer.setBase(SystemClock.elapsedRealtime());
+                }
+                else
+                {
+                    chronometer.setBase(chronometer.getBase() + SystemClock.elapsedRealtime() - lastPause);
+                }
+                chronometer.start();
+                chronometerRunning = true;
+                startButton.setText("Stop");
+            }
+            else if (chronometerRunning)
+            {
+                chronometer.stop();
+                lastPause = SystemClock.elapsedRealtime();
+                chronometerRunning = false;
+                startButton.setText("Start");
+            }
+
+
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

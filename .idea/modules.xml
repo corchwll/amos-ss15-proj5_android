@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/MobileTimeRecording.iml" filepath="$PROJECT_DIR$/MobileTimeRecording.iml" />
+      <module fileurl="file://$PROJECT_DIR$/amos-ss15-proj5_android.iml" filepath="$PROJECT_DIR$/amos-ss15-proj5_android.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
