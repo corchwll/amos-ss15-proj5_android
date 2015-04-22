@@ -10,52 +10,57 @@ import android.widget.Button;
 import android.widget.Chronometer;
 
 
-public class ProjectList extends ActionBarActivity implements View.OnClickListener{
-
+public class ProjectList extends ActionBarActivity
+{
     private Chronometer chronometer;
     private Button startButton;
     private boolean chronometerRunning = false;
-    private long lastPause = 0;
+    private long lastBreak = 0L;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+	{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_project_list);
 
         chronometer = (Chronometer) findViewById(R.id.chronometer);
         startButton = ((Button) findViewById(R.id.start_button));
-        startButton.setOnClickListener(this);
+		initializeStartButton();
     }
 
-    @Override
-    public void onClick(View v) {
-        if (v.getId() == R.id.start_button)
-        {
-            if (chronometerRunning == false)
-            {
-                if(lastPause == 0)
-                {
-                    chronometer.setBase(SystemClock.elapsedRealtime());
-                }
-                else
-                {
-                    chronometer.setBase(chronometer.getBase() + SystemClock.elapsedRealtime() - lastPause);
-                }
-                chronometer.start();
-                chronometerRunning = true;
-                startButton.setText("Stop");
-            }
-            else if (chronometerRunning)
-            {
-                chronometer.stop();
-                lastPause = SystemClock.elapsedRealtime();
-                chronometerRunning = false;
-                startButton.setText("Start");
-            }
+	/**
+	 * @methodtype command method
+	 */
+	private void initializeStartButton()
+	{
+		startButton.setOnClickListener(new View.OnClickListener()
+		{
+			@Override
+			public void onClick(View v)
+			{
+				if(!chronometerRunning)
+				{
+					if(lastBreak == 0L)
+					{
+						chronometer.setBase(SystemClock.elapsedRealtime());
+					} else
+					{
+						chronometer.setBase(chronometer.getBase() + SystemClock.elapsedRealtime() - lastBreak);
+					}
+					chronometer.start();
+					chronometerRunning = true;
+					startButton.setText("Stop");
+				} else
+				{
+					chronometer.stop();
+					lastBreak = SystemClock.elapsedRealtime();
+					chronometerRunning = false;
+					startButton.setText("Start");
+				}
 
-
-        }
-    }
+			}
+		});
+	}
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
