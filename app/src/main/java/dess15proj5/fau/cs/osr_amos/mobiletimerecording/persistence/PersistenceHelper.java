@@ -18,17 +18,18 @@ public class PersistenceHelper extends SQLiteOpenHelper
 	public static final String TABLE_SESSIONS = "sessions";
 	public static final String SESSIONS_ID = "id";
 	public static final String SESSIONS_PROJECT_ID = "project_id";
-	public static final String SESSIONS_TIMESTAMP_START = "timestamp_start";
-	public static final String SESSIONS_TIMESTAMP_STOP = "timestamp_stop";
+	public static final String SESSIONS_TIMESTAMP_START = "start_time";
+	public static final String SESSIONS_TIMESTAMP_STOP = "stop_time";
 
 	private static final String CREATE_SESSIONS =
 			"create table " + TABLE_SESSIONS + "(" + SESSIONS_ID + " integer primary key autoincrement, " +
-					SESSIONS_PROJECT_ID + " integer, " + SESSIONS_TIMESTAMP_START + " timestamp not null, " +
-					SESSIONS_TIMESTAMP_STOP + " timestamp, " + "foreign key(" + SESSIONS_PROJECT_ID + ") references " +
+					SESSIONS_PROJECT_ID + " integer, " + SESSIONS_TIMESTAMP_START + " integer not null, " +
+					SESSIONS_TIMESTAMP_STOP + " integer not null, " + "foreign key(" + SESSIONS_PROJECT_ID + ") " +
+					"references " +
 					TABLE_PROJECTS + "(" + PROJECTS_ID + "));";
 
 	private static final String DATABASE_NAME = "mobile_time_recording";
-	private static final int DATABASE_VERSION = 1;
+	private static final int DATABASE_VERSION = 2;
 
 	public PersistenceHelper(Context context)
 	{
