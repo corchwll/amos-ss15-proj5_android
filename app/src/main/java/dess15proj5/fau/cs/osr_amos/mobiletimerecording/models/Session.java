@@ -5,7 +5,7 @@ import java.util.Date;
 public class Session
 {
 	private long id;
-	private long project_id;
+	private long projectId;
 	private Date startTime;
 	private Date stopTime;
 
@@ -19,14 +19,14 @@ public class Session
 		this.id = id;
 	}
 
-	public long getProject_id()
+	public long getProjectId()
 	{
-		return project_id;
+		return projectId;
 	}
 
-	public void setProject_id(long project_id)
+	public void setProjectId(long projectId)
 	{
-		this.project_id = project_id;
+		this.projectId = projectId;
 	}
 
 	public Date getStartTime()
