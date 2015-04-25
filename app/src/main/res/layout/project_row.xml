@@ -6,7 +6,8 @@
             android:id="@+id/projectName"
             android:layout_column="0" />
 
-    <Button
+    <view
+            class="dess15proj5.fau.cs.osr_amos.mobiletimerecording.utility.ProjectButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/start_button"

@@ -14,11 +14,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.*;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.models.Project;
+import dess15proj5.fau.cs.osr_amos.mobiletimerecording.models.Session;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.persistence.DataAccessObjectFactory;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.persistence.ProjectsDAO;
+import dess15proj5.fau.cs.osr_amos.mobiletimerecording.persistence.SessionsDAO;
+import dess15proj5.fau.cs.osr_amos.mobiletimerecording.utility.ProjectButton;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.utility.ProjectTimer;
 
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 
 public class ProjectList extends ActionBarActivity
@@ -80,7 +84,8 @@ public class ProjectList extends ActionBarActivity
 														 } catch(SQLException e)
 														 {
 															 Toast.makeText(context, "Could not create new project " +
-																	 "due to database errors!", Toast.LENGTH_LONG);
+																	 "due to database errors!", Toast.LENGTH_LONG)
+																  .show();
 														 }
 
 													 }
@@ -118,7 +123,7 @@ public class ProjectList extends ActionBarActivity
 			}
 		} catch(SQLException e)
 		{
-			Toast.makeText(context, "Could not load project list due to database errors!", Toast.LENGTH_LONG);
+			Toast.makeText(context, "Could not load project list due to database errors!", Toast.LENGTH_LONG).show();
 		}
 	}
 
@@ -139,7 +144,11 @@ public class ProjectList extends ActionBarActivity
 		TableRow row = (TableRow)LayoutInflater.from(ProjectList.this)
 											   .inflate(R.layout.project_row, null);
 		((TextView)row.findViewById(R.id.projectName)).setText(project.getName());
-		initializeStartButton((Button)row.findViewById(R.id.startButton), (ProjectTimer)row.findViewById(R.id.timer));
+
+		ProjectButton button = ((ProjectButton)row.findViewById(R.id.startButton));
+		button.setProject(project);
+		initializeStartButton(button, (ProjectTimer)row.findViewById(R.id
+				.timer));
 		tableLayout.addView(row);
 		tableLayout.requestLayout();
 	}
@@ -147,7 +156,7 @@ public class ProjectList extends ActionBarActivity
 	/**
 	 * @methodtype command method
 	 */
-	private void initializeStartButton(final Button button, final ProjectTimer timer)
+	private void initializeStartButton(final ProjectButton button, final ProjectTimer timer)
 	{
 		button.setOnClickListener(new View.OnClickListener()
 		{
@@ -156,14 +165,50 @@ public class ProjectList extends ActionBarActivity
 			{
 				if(!timer.isRunning())
 				{
-					timer.start();
-					button.setText("Stop");
+					startNewSession(button, timer);
 				} else
 				{
-					timer.stop();
-					button.setText("Start");
+					stopCurrentSession(button, timer);
 				}
 			}
 		});
+	}
+
+	private void startNewSession(ProjectButton button, ProjectTimer timer)
+	{
+		try
+		{
+			SessionsDAO sessionsDAO = DataAccessObjectFactory.getInstance().createSessionsDAO(context);
+			sessionsDAO.open();
+			Session session = sessionsDAO.create(button.getProject().getId(), new Date());
+			sessionsDAO.close();
+
+			timer.start();
+			button.setText("Stop");
+			button.setCurrentSession(session);
+		} catch(SQLException e)
+		{
+			Toast.makeText(context, "Could not start timer due to database errors!", Toast.LENGTH_LONG).show();
+		}
+	}
+
+	private void stopCurrentSession(ProjectButton button, ProjectTimer timer)
+	{
+		try
+		{
+			button.getCurrentSession().setStopTime(new Date());
+
+			SessionsDAO sessionsDAO = DataAccessObjectFactory.getInstance()
+															 .createSessionsDAO(context);
+			sessionsDAO.open();
+			sessionsDAO.update(button.getCurrentSession());
+			sessionsDAO.close();
+
+			timer.stop();
+			button.setText("Start");
+		} catch(SQLException e)
+		{
+			Toast.makeText(context, "Could not stop timer due to database errors!", Toast.LENGTH_LONG).show();
+		}
 	}
 }
