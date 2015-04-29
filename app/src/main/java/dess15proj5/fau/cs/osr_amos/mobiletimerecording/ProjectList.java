@@ -1,17 +1,17 @@
 package dess15proj5.fau.cs.osr_amos.mobiletimerecording;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.*;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
+import android.widget.Toast;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.models.Project;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.models.Session;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.persistence.DataAccessObjectFactory;
@@ -25,9 +25,10 @@ import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
-public class ProjectList extends ActionBarActivity
+public class ProjectList extends ActionBarActivity implements AddProjectDialogFragment.AddProjectDialogListener
 {
 	private TableLayout tableLayout;
+	private List<Project> projects;
 	private final Context context = this;
 
 	@Override
@@ -66,34 +67,18 @@ public class ProjectList extends ActionBarActivity
 		}
 	}
 
+	@Override
+	public void onDialogPositiveClick(DialogFragment fragment)
+	{
+		TableLayout tableRow = (TableLayout)findViewById(R.id.project_list);
+		tableRow.removeAllViews();
+		loadProjectList();
+	}
+
 	private void addNewProject()
 	{
         DialogFragment newFragment = new AddProjectDialogFragment();
-        newFragment.show(getFragmentManager(), "missiles");
-/*		final EditText inputProjectName = new EditText(this);
-		new AlertDialog.Builder(ProjectList.this).setTitle("Add new project")
-                                                 .setView(inputProjectName)
-												 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                                                     public void onClick(DialogInterface dialog, int whichButton) {
-                                                         try {
-                                                             Project project = createNewProject(Long.parseLong(inputProjectName.getText().toString()), inputProjectName.getText()
-                                                                     .toString());
-                                                             createTableRow(project);
-                                                         } catch (SQLException e) {
-                                                             Toast.makeText(context, "Could not create new project " +
-                                                                     "due to database errors!", Toast.LENGTH_LONG)
-                                                                     .show();
-                                                         }
-
-                                                     }
-                                                 })
-												 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                                                     public void onClick(DialogInterface dialog, int whichButton) {
-                                                         // Do nothing.
-                                                     }
-                                                 })
-												 .show();
-												*/
+        newFragment.show(getFragmentManager(), "dialog");
 	}
 
 
@@ -101,7 +86,7 @@ public class ProjectList extends ActionBarActivity
 	{
 		try
 		{
-			List<Project> projects = loadAllProjects();
+			projects = loadAllProjects();
 			for(Project project : projects)
 			{
 				createTableRow(project);

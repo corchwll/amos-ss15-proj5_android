@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
 
     <EditText
-        android:id="@+id/addProjectId"
+        android:id="@+id/newProjectId"
         android:inputType="number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -12,7 +12,7 @@
         />
 
     <EditText
-        android:id="@+id/addProjectName"
+        android:id="@+id/newProjectName"
         android:inputType="text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
