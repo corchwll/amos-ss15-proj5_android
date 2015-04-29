@@ -11,9 +11,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.R;
-import dess15proj5.fau.cs.osr_amos.mobiletimerecording.models.Project;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.persistence.DataAccessObjectFactory;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.persistence.ProjectsDAO;
+
 import java.sql.SQLException;
 
 public class AddProjectDialogFragment extends DialogFragment
@@ -67,7 +67,7 @@ public class AddProjectDialogFragment extends DialogFragment
 														 .createProjectsDAO(getActivity());
 
 		projectsDAO.open();
-		Project project = projectsDAO.create(projectId, projectName);
+		projectsDAO.create(projectId, projectName);
 		projectsDAO.close();
 	}
 
