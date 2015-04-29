@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.R;
@@ -12,7 +13,6 @@ import dess15proj5.fau.cs.osr_amos.mobiletimerecording.models.Project;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.models.Session;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.persistence.DataAccessObjectFactory;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.persistence.SessionsDAO;
-import dess15proj5.fau.cs.osr_amos.mobiletimerecording.utility.ProjectButton;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.utility.ProjectTimer;
 
 import java.sql.SQLException;
@@ -20,6 +20,9 @@ import java.util.Date;
 
 public class ProjectArrayAdapter extends ArrayAdapter<Project>
 {
+	private Project project;
+	private Session session;
+
 	public ProjectArrayAdapter(Context context)
 	{
 		super(context, R.layout.project_row);
@@ -32,12 +35,11 @@ public class ProjectArrayAdapter extends ArrayAdapter<Project>
 		View projectRow = inflater.inflate(R.layout.project_row, parent, false);
 
 		final TextView projectNameView = (TextView)projectRow.findViewById(R.id.projectName);
-		final ProjectButton button = (ProjectButton)projectRow.findViewById(R.id.startButton);
+		final Button button = (Button)projectRow.findViewById(R.id.startButton);
 		final ProjectTimer timer = (ProjectTimer)projectRow.findViewById(R.id.timer);
 
-		Project project = getItem(position);
+		project = getItem(position);
 		projectNameView.setText(project.getName());
-		button.setProject(project);
 		button.setOnClickListener(new View.OnClickListener()
 		{
 			@Override
@@ -55,34 +57,33 @@ public class ProjectArrayAdapter extends ArrayAdapter<Project>
 		return projectRow;
 	}
 
-	private void startNewSession(ProjectButton button, ProjectTimer timer)
+	private void startNewSession(Button button, ProjectTimer timer)
 	{
 		try
 		{
 			SessionsDAO sessionsDAO = DataAccessObjectFactory.getInstance().createSessionsDAO(getContext());
 			sessionsDAO.open();
-			Session session = sessionsDAO.create(button.getProject().getId(), new Date());
+			session = sessionsDAO.create(project.getId(), new Date());
 			sessionsDAO.close();
 
 			timer.start();
 			button.setText("Stop");
-			button.setCurrentSession(session);
 		} catch(SQLException e)
 		{
 			Toast.makeText(getContext(), "Could not start timer due to database errors!", Toast.LENGTH_LONG).show();
 		}
 	}
 
-	private void stopCurrentSession(ProjectButton button, ProjectTimer timer)
+	private void stopCurrentSession(Button button, ProjectTimer timer)
 	{
 		try
 		{
-			button.getCurrentSession().setStopTime(new Date());
+			session.setStopTime(new Date());
 
 			SessionsDAO sessionsDAO = DataAccessObjectFactory.getInstance()
 															 .createSessionsDAO(getContext());
 			sessionsDAO.open();
-			sessionsDAO.update(button.getCurrentSession());
+			sessionsDAO.update(session);
 			sessionsDAO.close();
 
 			timer.stop();

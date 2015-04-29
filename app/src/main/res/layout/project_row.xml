@@ -11,8 +11,7 @@
             android:layout_weight="0.4"
             />
 
-    <view
-            class="dess15proj5.fau.cs.osr_amos.mobiletimerecording.utility.ProjectButton"
+    <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/start_button"
