@@ -6,4 +6,6 @@
     <string name="action_settings">Settings</string>
 
     <string name="add_project">Add Project</string>
+    <string name="inputProjectId">project id</string>
+    <string name="inputProjectName">project name</string>
 </resources>

@@ -12,7 +12,7 @@ public class PersistenceHelper extends SQLiteOpenHelper
 	public static final String PROJECTS_NAME = "name";
 
 	private static final String CREATE_PROJECTS =
-			"create table " + TABLE_PROJECTS + "(" + PROJECTS_ID + " integer primary key autoincrement, " +
+			"create table " + TABLE_PROJECTS + "(" + PROJECTS_ID + " integer primary key not null, " +
 					PROJECTS_NAME + " text);";
 
 	public static final String TABLE_SESSIONS = "sessions";

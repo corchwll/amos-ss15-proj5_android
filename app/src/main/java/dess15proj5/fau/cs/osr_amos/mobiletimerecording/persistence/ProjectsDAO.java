@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface ProjectsDAO extends DAO
 {
-	public Project create(String projectName);
+	public Project create(long projectId, String projectName);
 	public void update(Project project);
 	public Project load(long projectId);
 	public void delete(long projectId);

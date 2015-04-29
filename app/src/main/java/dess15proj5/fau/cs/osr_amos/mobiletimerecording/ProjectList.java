@@ -1,13 +1,12 @@
 package dess15proj5.fau.cs.osr_amos.mobiletimerecording;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.os.SystemClock;
-import android.provider.ContactsContract;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,6 +17,7 @@ import dess15proj5.fau.cs.osr_amos.mobiletimerecording.models.Session;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.persistence.DataAccessObjectFactory;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.persistence.ProjectsDAO;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.persistence.SessionsDAO;
+import dess15proj5.fau.cs.osr_amos.mobiletimerecording.utility.AddProjectDialogFragment;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.utility.ProjectButton;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.utility.ProjectTimer;
 
@@ -68,49 +68,34 @@ public class ProjectList extends ActionBarActivity
 
 	private void addNewProject()
 	{
-		final EditText input = new EditText(this);
-		new AlertDialog.Builder(ProjectList.this).setTitle("Update Status")
-												 .setMessage("hi")
-												 .setView(input)
-												 .setPositiveButton("Ok", new DialogInterface.OnClickListener()
-												 {
-													 public void onClick(DialogInterface dialog, int whichButton)
-													 {
-														 try
-														 {
-															 Project project = createNewProject(input.getText()
-																									 .toString());
-															 createTableRow(project);
-														 } catch(SQLException e)
-														 {
-															 Toast.makeText(context, "Could not create new project " +
-																	 "due to database errors!", Toast.LENGTH_LONG)
-																  .show();
-														 }
+        DialogFragment newFragment = new AddProjectDialogFragment();
+        newFragment.show(getFragmentManager(), "missiles");
+/*		final EditText inputProjectName = new EditText(this);
+		new AlertDialog.Builder(ProjectList.this).setTitle("Add new project")
+                                                 .setView(inputProjectName)
+												 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                                     public void onClick(DialogInterface dialog, int whichButton) {
+                                                         try {
+                                                             Project project = createNewProject(Long.parseLong(inputProjectName.getText().toString()), inputProjectName.getText()
+                                                                     .toString());
+                                                             createTableRow(project);
+                                                         } catch (SQLException e) {
+                                                             Toast.makeText(context, "Could not create new project " +
+                                                                     "due to database errors!", Toast.LENGTH_LONG)
+                                                                     .show();
+                                                         }
 
-													 }
-												 })
-												 .setNegativeButton("Cancel", new DialogInterface.OnClickListener()
-												 {
-													 public void onClick(DialogInterface dialog, int whichButton)
-													 {
-														 // Do nothing.
-													 }
-												 })
+                                                     }
+                                                 })
+												 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                                     public void onClick(DialogInterface dialog, int whichButton) {
+                                                         // Do nothing.
+                                                     }
+                                                 })
 												 .show();
+												*/
 	}
 
-	private Project createNewProject(String projectName) throws SQLException
-	{
-		ProjectsDAO projectsDAO = DataAccessObjectFactory.getInstance()
-														 .createProjectsDAO(context);
-
-		projectsDAO.open();
-		Project project = projectsDAO.create(projectName);
-		projectsDAO.close();
-
-		return project;
-	}
 
 	private void loadProjectList()
 	{

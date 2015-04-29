@@ -34,9 +34,10 @@ public class ProjectsDAOImpl implements ProjectsDAO
 	}
 
 	@Override
-	public Project create(String projectName)
+	public Project create(long projectId, String projectName)
 	{
 		ContentValues values = new ContentValues();
+        values.put(PersistenceHelper.PROJECTS_ID, projectId);
 		values.put(PersistenceHelper.PROJECTS_NAME, projectName);
 		long insertId = database.insert(PersistenceHelper.TABLE_PROJECTS, null, values);
 
