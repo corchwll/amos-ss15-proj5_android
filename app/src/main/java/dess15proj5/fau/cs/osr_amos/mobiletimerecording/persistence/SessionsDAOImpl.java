@@ -3,36 +3,20 @@ package dess15proj5.fau.cs.osr_amos.mobiletimerecording.persistence;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.models.Session;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class SessionsDAOImpl implements SessionsDAO
+public class SessionsDAOImpl extends AbstractDAO implements SessionsDAO
 {
-	private SQLiteDatabase database;
-	private PersistenceHelper persistenceHelper;
 	private String[] allColumns = {PersistenceHelper.SESSIONS_ID, PersistenceHelper.SESSIONS_PROJECT_ID,
 			PersistenceHelper.SESSIONS_TIMESTAMP_START, PersistenceHelper.SESSIONS_TIMESTAMP_STOP};
 
 	public SessionsDAOImpl(Context context)
 	{
 		persistenceHelper = new PersistenceHelper(context);
-	}
-
-	@Override
-	public void open() throws SQLException
-	{
-		database = persistenceHelper.getWritableDatabase();
-	}
-
-	@Override
-	public void close()
-	{
-		persistenceHelper.close();
 	}
 
 	@Override
