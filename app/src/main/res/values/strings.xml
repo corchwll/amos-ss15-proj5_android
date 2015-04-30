@@ -18,4 +18,5 @@
     <string name="total_vacation_time">Total vacation time</string>
     <string name="current_vacation_time">Current Vacation Time</string>
     <string name="current_overtime">Current overtime</string>
+    <string name="createUser">OK</string>
 </resources>
