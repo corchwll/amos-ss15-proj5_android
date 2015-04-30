@@ -28,8 +28,24 @@ public class PersistenceHelper extends SQLiteOpenHelper
 					"references " +
 					TABLE_PROJECTS + "(" + PROJECTS_ID + "));";
 
+	public static final String TABLE_USERS = "users";
+	public static final String USERS_ID = "id";
+	public static final String USERS_LAST_NAME = "last_name";
+	public static final String USERS_FIRST_NAME = "first_name";
+	public static final String USERS_WEEKLY_WORKING_TIME = "weekly_working_time";
+	public static final String USERS_TOTAL_VACATION_TIME = "total_vacation_time";
+	public static final String USERS_CURRENT_VACATION_TIME = "current_vacation_time";
+	public static final String USERS_CURRENT_OVERTIME = "current_overtime";
+	public static final String USERS_REGISTRATION_DATE = "registration_date";
+
+	private static final String CREATE_USERS =
+			"create table " + TABLE_USERS + "(" + USERS_ID + " integer primary key not null, " +
+					USERS_LAST_NAME + " text, " + USERS_FIRST_NAME + " text, " + USERS_WEEKLY_WORKING_TIME + " " +
+					"integer, " + USERS_TOTAL_VACATION_TIME + " integer, " + USERS_CURRENT_VACATION_TIME + " integer," +
+					USERS_CURRENT_OVERTIME + " integer, " + USERS_REGISTRATION_DATE + " integer);";
+
 	private static final String DATABASE_NAME = "mobile_time_recording";
-	private static final int DATABASE_VERSION = 2;
+	private static final int DATABASE_VERSION = 3;
 
 	public PersistenceHelper(Context context)
 	{
@@ -41,6 +57,7 @@ public class PersistenceHelper extends SQLiteOpenHelper
 	{
 		db.execSQL(CREATE_PROJECTS);
 		db.execSQL(CREATE_SESSIONS);
+		db.execSQL(CREATE_USERS);
 	}
 
 	@Override
@@ -50,6 +67,7 @@ public class PersistenceHelper extends SQLiteOpenHelper
 						", which will destroy all old data");
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_SESSIONS);
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_PROJECTS);
+		db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
 		onCreate(db);
 	}
 }
