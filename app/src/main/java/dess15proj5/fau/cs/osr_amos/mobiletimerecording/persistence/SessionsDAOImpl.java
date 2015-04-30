@@ -73,7 +73,7 @@ public class SessionsDAOImpl extends AbstractDAO implements SessionsDAO
 	{
 		List<Session> sessions= new ArrayList<>();
 
-		Cursor cursor = database.query(PersistenceHelper.TABLE_PROJECTS, allColumns, null, null, null, null, null);
+		Cursor cursor = database.query(PersistenceHelper.TABLE_SESSIONS, allColumns, null, null, null, null, null);
 
 		cursor.moveToFirst();
 		while(!cursor.isAfterLast())
