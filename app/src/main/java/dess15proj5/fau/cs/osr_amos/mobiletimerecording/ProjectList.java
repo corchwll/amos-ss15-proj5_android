@@ -10,8 +10,8 @@ import android.widget.Toast;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.models.Project;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.persistence.DataAccessObjectFactory;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.persistence.ProjectsDAO;
-import dess15proj5.fau.cs.osr_amos.mobiletimerecording.utility.AddProjectDialogFragment;
-import dess15proj5.fau.cs.osr_amos.mobiletimerecording.utility.ProjectArrayAdapter;
+import dess15proj5.fau.cs.osr_amos.mobiletimerecording.ui.AddProjectDialogFragment;
+import dess15proj5.fau.cs.osr_amos.mobiletimerecording.ui.ProjectArrayAdapter;
 
 import java.sql.SQLException;
 import java.util.List;
