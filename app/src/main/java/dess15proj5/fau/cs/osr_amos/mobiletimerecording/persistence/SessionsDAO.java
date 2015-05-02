@@ -5,7 +5,7 @@ import dess15proj5.fau.cs.osr_amos.mobiletimerecording.models.Session;
 import java.util.Date;
 import java.util.List;
 
-public interface SessionsDAO extends DAO
+public interface SessionsDAO
 {
 	public Session create(long projectId, Date startTime);
 	public void update(Session session);

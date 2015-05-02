@@ -27,4 +27,10 @@ public class SQLiteDataAccessObjectFactory extends DataAccessObjectFactory
 	{
 		return new SessionsDAOImpl(context);
 	}
+
+	@Override
+	public UsersDAO createUsersDAO(Context context)
+	{
+		return new UsersDAOImpl(context);
+	}
 }

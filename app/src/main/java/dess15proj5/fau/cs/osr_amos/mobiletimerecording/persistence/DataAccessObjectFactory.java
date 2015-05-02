@@ -25,4 +25,9 @@ public abstract class DataAccessObjectFactory
 	{
 		return instance.createSessionsDAO(context);
 	}
+
+	public UsersDAO createUsersDAO(Context context)
+	{
+		return instance.createUsersDAO(context);
+	}
 }
