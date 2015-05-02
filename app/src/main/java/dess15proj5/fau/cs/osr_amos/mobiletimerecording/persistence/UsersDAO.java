@@ -2,6 +2,7 @@ package dess15proj5.fau.cs.osr_amos.mobiletimerecording.persistence;
 
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.models.User;
 
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
@@ -13,4 +14,6 @@ public interface UsersDAO
 	public User load(long userId);
 	public void delete(long userId);
 	public List<User> listAll();
+	public void open() throws SQLException;
+	public void close();
 }

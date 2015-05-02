@@ -11,12 +11,12 @@
     
     <!--for registrationActivity-->
     <string name="registrationText">Create new User Profile</string>
-    <string name="personalId">Personal ID</string>
-    <string name="firstname">firstname</string>
-    <string name="lastname">lastname</string>
-    <string name="weekly_working_time">Weekly working time</string>
-    <string name="total_vacation_time">Total vacation time</string>
+    <string name="employeeId">Employee ID</string>
+    <string name="firstname">Firstname</string>
+    <string name="lastname">Lastname</string>
+    <string name="weekly_working_time">Weekly Working Time</string>
+    <string name="total_vacation_time">Total Vacation Time</string>
     <string name="current_vacation_time">Current Vacation Time</string>
-    <string name="current_overtime">Current overtime</string>
+    <string name="current_overtime">Current Overtime</string>
     <string name="createUser">OK</string>
 </resources>

@@ -5,16 +5,49 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.R;
+import dess15proj5.fau.cs.osr_amos.mobiletimerecording.models.User;
+import dess15proj5.fau.cs.osr_amos.mobiletimerecording.persistence.DataAccessObjectFactory;
+import dess15proj5.fau.cs.osr_amos.mobiletimerecording.persistence.UsersDAO;
+
+import java.sql.SQLException;
+import java.util.Date;
+import java.util.List;
 
 public class RegistrationActivity extends ActionBarActivity
 {
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.registration);
 		setClickListener();
+		checkIfUserExistsInDatabase();
+	}
+
+	private void checkIfUserExistsInDatabase()
+	{
+		UsersDAO userDao = DataAccessObjectFactory.getInstance().createUsersDAO(getBaseContext());
+		try
+		{
+			userDao.open();
+		} catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+		List<User> users = userDao.listAll();
+		if(!users.isEmpty())
+		{
+			showProjectListActivity();
+		}
+	}
+
+	private void showProjectListActivity()
+	{
+		Intent intent = new Intent(getBaseContext(), ProjectListActivity.class);
+		startActivity(intent);
 	}
 
 	private void setClickListener()
@@ -25,10 +58,42 @@ public class RegistrationActivity extends ActionBarActivity
 			@Override
 			public void onClick(View v)
 			{
-				Intent intent = new Intent(getBaseContext(), ProjectListActivity.class);
-				startActivity(intent);
+				createUserInDatabase();
+				showProjectListActivity();
+			}
+
+			private void createUserInDatabase()
+			{
+				UsersDAO userDAO = DataAccessObjectFactory.getInstance().createUsersDAO(getBaseContext());
+				try
+				{
+					userDAO.open();
+				} catch(SQLException e)
+				{
+					e.printStackTrace();
+				}
+
+				//TODO will be refactored
+				EditText employeeIdAsEditText = (EditText) findViewById(R.id.employeeId);
+				Long employeeId = Long.parseLong(employeeIdAsEditText.getText()
+																	 .toString());
+				String lastName = ((EditText) findViewById(R.id.lastname)).getText().toString();
+				String firstName = ((EditText) findViewById(R.id.firstname)).getText().toString();
+				int weeklyWorkingTime = Integer.parseInt(((EditText)findViewById((R.id.weekly_working_time))).getText()
+																											 .toString());
+				int totalVacationTime = Integer.parseInt(((EditText)findViewById((R.id.total_vacation_time))).getText()
+																											 .toString());
+				int currentVacationTime = Integer.parseInt(
+						((EditText)findViewById((R.id.current_vacation_time))).getText()
+																			  .toString());
+				int currentOvertime = Integer.parseInt(((EditText)findViewById((R.id.current_overtime))).getText()
+																										.toString());
+				Date registrationDate = new Date();
+
+				userDAO.create(employeeId, lastName, firstName, weeklyWorkingTime, totalVacationTime,
+						currentVacationTime, currentOvertime, registrationDate);
+				userDAO.close();
 			}
 		});
 	}
-
 }
