@@ -5,13 +5,16 @@
               android:layout_height="match_parent">
 
     <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            style="@android:style/TextAppearance.DeviceDefault.Large"
+            android:layout_gravity="center"
             android:text="@string/registrationText" />
 
     <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="number"
             android:id="@+id/employeeId"
             android:hint="@string/employeeId" />
 
@@ -30,35 +33,33 @@
     <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="numberSigned"
+            android:inputType="number"
             android:id="@+id/weekly_working_time"
             android:hint="@string/weekly_working_time" />
 
     <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="numberSigned"
+            android:inputType="number"
+            android:id="@+id/current_overtime"
+            android:hint="@string/current_overtime" />
+    <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
             android:id="@+id/total_vacation_time"
             android:hint="@string/total_vacation_time" />
 
     <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="numberSigned"
+            android:inputType="number"
             android:id="@+id/current_vacation_time"
             android:hint="@string/current_vacation_time" />
-
-    <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="numberSigned"
-            android:id="@+id/current_overtime"
-            android:hint="@string/current_overtime" />
 
     <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/createUserButton"
             android:text="@string/createUser" />
-
 </LinearLayout>

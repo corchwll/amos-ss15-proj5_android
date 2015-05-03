@@ -29,7 +29,8 @@ public class RegistrationActivity extends ActionBarActivity
 
 	private void checkIfUserExistsInDatabase()
 	{
-		UsersDAO userDao = DataAccessObjectFactory.getInstance().createUsersDAO(getBaseContext());
+		UsersDAO userDao = DataAccessObjectFactory.getInstance().createUsersDAO(this);
+
 		try
 		{
 			userDao.open();
@@ -37,6 +38,7 @@ public class RegistrationActivity extends ActionBarActivity
 		{
 			e.printStackTrace();
 		}
+
 		List<User> users = userDao.listAll();
 		if(!users.isEmpty())
 		{
@@ -46,7 +48,7 @@ public class RegistrationActivity extends ActionBarActivity
 
 	private void showProjectListActivity()
 	{
-		Intent intent = new Intent(getBaseContext(), ProjectListActivity.class);
+		Intent intent = new Intent(this, ProjectListActivity.class);
 		startActivity(intent);
 	}
 
@@ -79,20 +81,30 @@ public class RegistrationActivity extends ActionBarActivity
 																	 .toString());
 				String lastName = ((EditText) findViewById(R.id.lastname)).getText().toString();
 				String firstName = ((EditText) findViewById(R.id.firstname)).getText().toString();
-				int weeklyWorkingTime = Integer.parseInt(((EditText)findViewById((R.id.weekly_working_time))).getText()
-																											 .toString());
-				int totalVacationTime = Integer.parseInt(((EditText)findViewById((R.id.total_vacation_time))).getText()
-																											 .toString());
-				int currentVacationTime = Integer.parseInt(
-						((EditText)findViewById((R.id.current_vacation_time))).getText()
-																			  .toString());
-				int currentOvertime = Integer.parseInt(((EditText)findViewById((R.id.current_overtime))).getText()
+				int weeklyWorkingTime = tryParseInt(((EditText)findViewById((R.id.weekly_working_time))).getText()
+																										.toString());
+				int totalVacationTime = tryParseInt(((EditText)findViewById((R.id.total_vacation_time))).getText()
+																										.toString());
+				int currentVacationTime = tryParseInt(((EditText)findViewById((R.id.current_vacation_time))).getText()
+																											.toString());
+				int currentOvertime = tryParseInt(((EditText)findViewById((R.id.current_overtime))).getText()
 																										.toString());
 				Date registrationDate = new Date();
 
 				userDAO.create(employeeId, lastName, firstName, weeklyWorkingTime, totalVacationTime,
 						currentVacationTime, currentOvertime, registrationDate);
 				userDAO.close();
+			}
+
+			private int tryParseInt(String integer)
+			{
+				try
+				{
+					return Integer.parseInt(integer);
+				} catch(NumberFormatException nfe)
+				{
+					return 0;
+				}
 			}
 		});
 	}

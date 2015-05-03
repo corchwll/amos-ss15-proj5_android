@@ -8,10 +8,10 @@
     <string name="employeeId">Employee ID</string>
     <string name="firstname">Firstname</string>
     <string name="lastname">Lastname</string>
-    <string name="weekly_working_time">Weekly Working Time</string>
-    <string name="total_vacation_time">Total Vacation Time</string>
-    <string name="current_vacation_time">Current Vacation Time</string>
-    <string name="current_overtime">Current Overtime</string>
+    <string name="weekly_working_time">Weekly Working Time (in hours)</string>
+    <string name="current_overtime">Current Overtime (in hours)</string>
+    <string name="total_vacation_time">Total Vacation Time (in days)</string>
+    <string name="current_vacation_time">Current Vacation Time (in days)</string>
     <string name="createUser">OK</string>
     
     <!--ProjectListActivity-->
