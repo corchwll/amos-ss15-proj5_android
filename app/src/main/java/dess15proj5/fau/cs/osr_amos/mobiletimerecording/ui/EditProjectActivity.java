@@ -29,7 +29,7 @@ public class EditProjectActivity extends ActionBarActivity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.edit_project);
 		getDataFromIntent();
-		getIdsAndInitialize();
+		getWidgetsAndInitialize();
 
 		confirmButton.setOnClickListener(new View.OnClickListener()
 		{
@@ -78,7 +78,7 @@ public class EditProjectActivity extends ActionBarActivity
 		projectId = data.getLong("project_id");
 	}
 
-	private void getIdsAndInitialize()
+	private void getWidgetsAndInitialize()
 	{
 		datePicker = (DatePicker) findViewById(R.id.datePicker);
 		numberPicker = (NumberPicker) findViewById(R.id.hoursToBeAdded);
