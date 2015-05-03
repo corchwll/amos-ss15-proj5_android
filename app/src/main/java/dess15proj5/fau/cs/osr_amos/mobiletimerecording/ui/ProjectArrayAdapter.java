@@ -1,6 +1,7 @@
 package dess15proj5.fau.cs.osr_amos.mobiletimerecording.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,22 +36,35 @@ public class ProjectArrayAdapter extends ArrayAdapter<Project>
 		View projectRow = inflater.inflate(R.layout.project_row, parent, false);
 
 		final TextView projectNameView = (TextView)projectRow.findViewById(R.id.projectName);
-		final Button button = (Button)projectRow.findViewById(R.id.startButton);
+		final Button editProjectButton = (Button) projectRow.findViewById(R.id.editProjectButton);
+		final Button startSessionButton = (Button)projectRow.findViewById(R.id.startButton);
 		final ProjectTimer timer = (ProjectTimer)projectRow.findViewById(R.id.timer);
 
 		project = getItem(position);
 		projectNameView.setText(project.getName());
-		button.setOnClickListener(new View.OnClickListener()
+
+		editProjectButton.setOnClickListener(new View.OnClickListener()
+		{
+			@Override
+			public void onClick(View v)
+			{
+				Intent intent = new Intent(getContext(), EditProjectActivity.class);
+				intent.putExtra("project_id", project.getId());
+				getContext().startActivity(intent);
+			}
+		});
+
+		startSessionButton.setOnClickListener(new View.OnClickListener()
 		{
 			@Override
 			public void onClick(View v)
 			{
 				if(!timer.isRunning())
 				{
-					startNewSession(button, timer);
+					startNewSession(startSessionButton, timer);
 				} else
 				{
-					stopCurrentSession(button, timer);
+					stopCurrentSession(startSessionButton, timer);
 				}
 			}
 		});

@@ -9,7 +9,8 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".ui.RegistrationActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:noHistory="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -18,6 +19,9 @@
         <activity
             android:name=".ui.ProjectListActivity"
                 android:label="@string/app_name" >
+        </activity>
+        <activity android:name=".ui.EditProjectActivity"
+                  android:label="@string/app_name" >
         </activity>
     </application>
 
