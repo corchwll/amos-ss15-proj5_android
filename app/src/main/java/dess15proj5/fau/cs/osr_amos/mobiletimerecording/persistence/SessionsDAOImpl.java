@@ -22,10 +22,16 @@ public class SessionsDAOImpl extends AbstractDAO implements SessionsDAO
 	@Override
 	public Session create(long projectId, Date startTime)
 	{
+		return create(projectId, startTime, startTime);
+	}
+
+	@Override
+	public Session create(long projectId, Date startTime, Date stopTime)
+	{
 		ContentValues values = new ContentValues();
 		values.put(PersistenceHelper.SESSIONS_PROJECT_ID, projectId);
 		values.put(PersistenceHelper.SESSIONS_TIMESTAMP_START, startTime.getTime());
-		values.put(PersistenceHelper.SESSIONS_TIMESTAMP_STOP, startTime.getTime());
+		values.put(PersistenceHelper.SESSIONS_TIMESTAMP_STOP, stopTime.getTime());
 		long insertId = database.insert(PersistenceHelper.TABLE_SESSIONS, null, values);
 
 		Cursor cursor = database.query(PersistenceHelper.TABLE_SESSIONS, allColumns, PersistenceHelper.SESSIONS_ID +

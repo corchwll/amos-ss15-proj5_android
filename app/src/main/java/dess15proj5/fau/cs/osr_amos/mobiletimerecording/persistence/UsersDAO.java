@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
-public interface UsersDAO
+public interface UsersDAO extends DAO
 {
 	public User create(long employeeId, String lastName, String firstName, int weeklyWorkingTime,
 					   int totalVacationTime, int currentVacationTime, int currentOvertimer, Date registrationDate);
@@ -14,6 +14,4 @@ public interface UsersDAO
 	public User load(long userId);
 	public void delete(long userId);
 	public List<User> listAll();
-	public void open() throws SQLException;
-	public void close();
 }
