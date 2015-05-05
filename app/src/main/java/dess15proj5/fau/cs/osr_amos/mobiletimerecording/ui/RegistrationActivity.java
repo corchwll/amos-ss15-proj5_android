@@ -3,6 +3,8 @@ package dess15proj5.fau.cs.osr_amos.mobiletimerecording.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,20 +19,41 @@ import java.util.List;
 
 public class RegistrationActivity extends ActionBarActivity
 {
+	EditText employeeId;
+	EditText lastNameWidget;
+	EditText firstNameWidget;
+	EditText weeklyWorkingTimeWidget;
+	EditText totalVacationTimeWidget;
+	EditText currentVacationTimeWidget;
+	EditText currentOvertimeWidget;
+	Button createUserButton;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.registration);
+		getWidgets();
 		setClickListener();
+		addTextChangeListener();
 		checkIfUserExistsInDatabase();
+	}
+
+	private void getWidgets()
+	{
+		employeeId = (EditText) findViewById(R.id.employeeId);
+		lastNameWidget = (EditText) findViewById(R.id.lastname);
+		firstNameWidget = (EditText) findViewById(R.id.firstname);
+		weeklyWorkingTimeWidget = (EditText) findViewById(R.id.weekly_working_time);
+		totalVacationTimeWidget = (EditText) findViewById(R.id.total_vacation_time);
+		currentVacationTimeWidget = (EditText) findViewById(R.id.current_vacation_time);
+		currentOvertimeWidget = (EditText) findViewById(R.id.current_overtime);
+		createUserButton = (Button) findViewById(R.id.createUserButton);
 	}
 
 	private void checkIfUserExistsInDatabase()
 	{
 		UsersDAO userDao = DataAccessObjectFactory.getInstance().createUsersDAO(this);
-
 		try
 		{
 			userDao.open();
@@ -54,17 +77,17 @@ public class RegistrationActivity extends ActionBarActivity
 
 	private void setClickListener()
 	{
-		Button createUserButton = (Button) findViewById(R.id.createUserButton);
+		createUserButton.setEnabled(false);
 		createUserButton.setOnClickListener(new View.OnClickListener()
 		{
 			@Override
 			public void onClick(View v)
 			{
-				createUserInDatabase();
+				createUserProfile();
 				showProjectListActivity();
 			}
 
-			private void createUserInDatabase()
+			private void createUserProfile()
 			{
 				UsersDAO userDAO = DataAccessObjectFactory.getInstance().createUsersDAO(getBaseContext());
 				try
@@ -75,37 +98,59 @@ public class RegistrationActivity extends ActionBarActivity
 					e.printStackTrace();
 				}
 
-				//TODO will be refactored
-				EditText employeeIdAsEditText = (EditText) findViewById(R.id.employeeId);
-				Long employeeId = Long.parseLong(employeeIdAsEditText.getText()
-																	 .toString());
-				String lastName = ((EditText) findViewById(R.id.lastname)).getText().toString();
-				String firstName = ((EditText) findViewById(R.id.firstname)).getText().toString();
-				int weeklyWorkingTime = tryParseInt(((EditText)findViewById((R.id.weekly_working_time))).getText()
-																										.toString());
-				int totalVacationTime = tryParseInt(((EditText)findViewById((R.id.total_vacation_time))).getText()
-																										.toString());
-				int currentVacationTime = tryParseInt(((EditText)findViewById((R.id.current_vacation_time))).getText()
-																											.toString());
-				int currentOvertime = tryParseInt(((EditText)findViewById((R.id.current_overtime))).getText()
-																								   .toString());
-				Date registrationDate = new Date();
+				Long employeeIdAsLong = Long.parseLong(getStringFromWidget(employeeId));
+				String lastName = getStringFromWidget(lastNameWidget);
+				String firstName = getStringFromWidget(firstNameWidget);
 
-				userDAO.create(employeeId, lastName, firstName, weeklyWorkingTime, totalVacationTime,
-						currentVacationTime, currentOvertime, registrationDate);
+				int weeklyWorkingTime = getIntFromWidget(weeklyWorkingTimeWidget);
+				int totalVacationTime = getIntFromWidget(totalVacationTimeWidget);
+				int currentVacationTime = getIntFromWidget(currentVacationTimeWidget);
+				int currentOvertime = getIntFromWidget(currentOvertimeWidget);
+
+				userDAO.create(employeeIdAsLong, lastName, firstName, weeklyWorkingTime, totalVacationTime,
+						currentVacationTime, currentOvertime, new Date());
 				userDAO.close();
 			}
 
-			private int tryParseInt(String integer)
+			private int getIntFromWidget(EditText editText)
 			{
+				int integer = 0;
 				try
 				{
-					return Integer.parseInt(integer);
+					integer = Integer.parseInt(editText.getText().toString());
 				} catch(NumberFormatException nfe)
 				{
-					return 0;
+				}
+				return integer;
+			}
+
+			private String getStringFromWidget(EditText editText)
+			{
+				return editText.getText().toString();
+			}
+		});
+	}
+
+	private void addTextChangeListener()
+	{
+		employeeId.addTextChangedListener(new TextWatcher()
+		{
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) { }
+
+			@Override
+			public void afterTextChanged(Editable s)
+			{
+				String employeeIdAsString = createUserButton.getText().toString();
+				if (!employeeIdAsString.isEmpty())
+				{
+					createUserButton.setEnabled(true);
 				}
 			}
 		});
 	}
+
 }
