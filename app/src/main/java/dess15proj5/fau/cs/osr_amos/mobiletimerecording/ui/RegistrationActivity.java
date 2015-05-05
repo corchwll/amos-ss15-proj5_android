@@ -88,7 +88,7 @@ public class RegistrationActivity extends ActionBarActivity
 				int currentVacationTime = tryParseInt(((EditText)findViewById((R.id.current_vacation_time))).getText()
 																											.toString());
 				int currentOvertime = tryParseInt(((EditText)findViewById((R.id.current_overtime))).getText()
-																										.toString());
+																								   .toString());
 				Date registrationDate = new Date();
 
 				userDAO.create(employeeId, lastName, firstName, weeklyWorkingTime, totalVacationTime,

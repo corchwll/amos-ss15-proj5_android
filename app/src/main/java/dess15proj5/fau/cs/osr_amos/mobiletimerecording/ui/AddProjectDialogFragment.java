@@ -77,32 +77,45 @@ public class AddProjectDialogFragment extends DialogFragment
 				boolean wantToCloseDialog = false;
 				try
 				{
-//					TODO NumberFormatException
-					Long newProjectIdAsLong = Long.parseLong(projectIdWidget.getText()
-																			.toString());
-					String newProjectNameAsString = projectNameWidget.getText()
-																	 .toString();
-					try
+					String projectIdAsString = projectIdWidget.getText().toString();
+					boolean isEmpty = projectIdAsString.isEmpty();
+					if(isEmpty == false)
 					{
-						createNewProject(newProjectIdAsLong, newProjectNameAsString);
-						wantToCloseDialog = true;
-					} catch(CursorIndexOutOfBoundsException e)
-					{
-						projectIdWidget.setError("ID is already registered in the database.");
-					}
+						Long newProjectIdAsLong = Long.parseLong(projectIdAsString);
+						String newProjectNameAsString = projectNameWidget.getText()
+																		 .toString();
+						try
+						{
+							createNewProject(newProjectIdAsLong, newProjectNameAsString);
+							wantToCloseDialog = true;
+						} catch(CursorIndexOutOfBoundsException e)
+						{
+							setErrorMessageToWidget(projectIdWidget, "ID is already registered in the database.");
+						}
 
-					if(wantToCloseDialog)
-					{
-						dialog.dismiss();
-					}
+						if(wantToCloseDialog)
+						{
+							dialog.dismiss();
+						}
 
-					callbackListener.onDialogPositiveClick(AddProjectDialogFragment.this);
+						callbackListener.onDialogPositiveClick(AddProjectDialogFragment.this);
+					}
+					else
+					{
+						setErrorMessageToWidget(projectIdWidget, "ID field can not be blank.");
+					}
 				} catch(SQLException e)
 				{
 					Toast.makeText(getActivity(), "Could not create new project " + "due to database errors!",
 							Toast.LENGTH_LONG)
 						 .show();
 				}
+			}
+
+			private void setErrorMessageToWidget(EditText projectIdWidget, String message)
+			{
+				projectIdWidget.setError(message);
+				projectIdWidget.requestFocus();
 			}
 		});
 		return dialog;
