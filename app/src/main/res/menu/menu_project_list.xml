@@ -1,8 +1,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools" tools:context=".ProjectList">
-    <item android:id="@+id/action_add_project" android:title="Add Project"
+    <item android:id="@+id/action_add_project" android:title="@string/add_project"
           android:icon="@drawable/add_project" app:showAsAction="ifRoom"/>
+    <item android:id="@+id/action_change_user_profile" android:title="@string/change_user_profile"
+          app:showAsAction="never" />
     <item android:id="@+id/action_settings" android:title="@string/action_settings"
         android:orderInCategory="100" app:showAsAction="never" />
 </menu>
