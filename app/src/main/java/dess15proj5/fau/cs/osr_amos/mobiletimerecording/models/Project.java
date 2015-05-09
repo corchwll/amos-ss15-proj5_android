@@ -5,6 +5,9 @@ public class Project
 {
 	private long id;
 	private String name;
+	private boolean isDisplayed;
+	private boolean isUsed;
+	private boolean isArchived;
 
 	/**
 	 * Returns the project id.
@@ -50,5 +53,65 @@ public class Project
 	{
 		assert name != null: "project name should not be null!";
 		this.name = name;
+	}
+
+	/**
+	 * Returns whether this project is displayed or not.
+	 *
+	 * @methodtype boolean query method
+	 */
+	public boolean isDisplayed()
+	{
+		return isDisplayed;
+	}
+
+	/**
+	 * Sets whether this project is displayed or not.
+	 *
+	 * @methodtype set method
+	 */
+	public void setIsDisplayed(boolean isDisplayed)
+	{
+		this.isDisplayed = isDisplayed;
+	}
+
+	/**
+	 * Returns whether this project is used or not.
+	 *
+	 * @methodtype boolean query method
+	 */
+	public boolean isUsed()
+	{
+		return isUsed;
+	}
+
+	/**
+	 * Sets whether this project is used or not.
+	 *
+	 * @methodtype set method
+	 */
+	public void setIsUsed(boolean isUsed)
+	{
+		this.isUsed = isUsed;
+	}
+
+	/**
+	 * Returns whether this project is archived or not.
+	 *
+	 * @methodtype boolean query method
+	 */
+	public boolean isArchived()
+	{
+		return isArchived;
+	}
+
+	/**
+	 * Sets whether this project is archived or not.
+	 *
+	 * @methodtype set method
+	 */
+	public void setIsArchived(boolean isArchived)
+	{
+		this.isArchived = isArchived;
 	}
 }

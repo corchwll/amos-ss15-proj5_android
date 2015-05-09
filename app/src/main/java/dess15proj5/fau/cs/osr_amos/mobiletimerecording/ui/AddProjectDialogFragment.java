@@ -133,7 +133,7 @@ public class AddProjectDialogFragment extends DialogFragment
 														 .createProjectsDAO(getActivity());
 
 		projectsDAO.open();
-		projectsDAO.create(projectId, projectName);
+		projectsDAO.create(projectId, projectName, true, true, false);
 		projectsDAO.close();
 	}
 }

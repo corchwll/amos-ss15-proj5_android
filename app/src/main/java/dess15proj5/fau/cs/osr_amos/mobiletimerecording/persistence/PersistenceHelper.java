@@ -10,10 +10,14 @@ public class PersistenceHelper extends SQLiteOpenHelper
 	public static final String TABLE_PROJECTS = "projects";
 	public static final String PROJECTS_ID = "id";
 	public static final String PROJECTS_NAME = "name";
+	public static final String PROJECTS_IS_DISPLAYED = "is_displayed";
+	public static final String PROJECTS_IS_USED = "is_used";
+	public static final String PROJECTS_IS_ARCHIVED = "is_archived";
 
 	private static final String CREATE_PROJECTS =
 			"create table " + TABLE_PROJECTS + "(" + PROJECTS_ID + " integer primary key not null, " +
-					PROJECTS_NAME + " text);";
+					PROJECTS_NAME + " text, " + PROJECTS_IS_DISPLAYED + " integer, " + PROJECTS_IS_USED + " integer, " +
+					PROJECTS_IS_ARCHIVED + " integer);";
 
 	public static final String TABLE_SESSIONS = "sessions";
 	public static final String SESSIONS_ID = "id";
@@ -45,7 +49,7 @@ public class PersistenceHelper extends SQLiteOpenHelper
 					USERS_CURRENT_OVERTIME + " integer, " + USERS_REGISTRATION_DATE + " integer);";
 
 	private static final String DATABASE_NAME = "mobile_time_recording";
-	private static final int DATABASE_VERSION = 3;
+	private static final int DATABASE_VERSION = 4;
 
 	public PersistenceHelper(Context context)
 	{
