@@ -1,14 +1,15 @@
 <resources>
     <string name="app_name">Mobile Time Recording</string>
+    <string name="save_user_profile">Save User Profile</string>
 
     <!--actionBar-->
     <string name="add_project">Add Project</string>
     <string name="change_user_profile">Change User Profile</string>
     <string name="action_settings">Settings</string>
 
-    <!--registration.xml-->
+    <!--user_profile_registration.xml-->
     <string name="registrationText">Create new User Profile</string>
-    <string name="employeeId">Employee ID</string>
+    <string name="employeeId">Employee ID (five-digit number)</string>
     <string name="firstname">Firstname</string>
     <string name="lastname">Lastname</string>
     <string name="weekly_working_time">Weekly Working Time (in hours)</string>

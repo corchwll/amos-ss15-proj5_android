@@ -81,12 +81,5 @@
                 android:layout_height="wrap_content"
                 android:inputType="number"
                 android:id="@+id/current_vacation_time" />
-
-        <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/change_user_profile_btn"
-                android:text="@string/changeUserProfileBtn" />
-
     </LinearLayout>
 </ScrollView>
