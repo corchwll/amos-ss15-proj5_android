@@ -1,10 +1,21 @@
 <resources>
     <string name="app_name">Mobile Time Recording</string>
+
+    <!--menu_user_profile_registration-->
     <string name="save_user_profile">Save User Profile</string>
+
+    <!--navigationDrawer-->
+    <string name="change_user_profile">Change User Profile</string>
+    <string name="drawer_open">open</string>
+    <string name="drawer_close">close</string>
+    <string-array name="drawer_list_items">
+        <item name="overview">Overview</item>
+        <item name="changeUserProfile">Change User Profile</item>
+        <item name="settings">Settings</item>
+    </string-array>
 
     <!--actionBar-->
     <string name="add_project">Add Project</string>
-    <string name="change_user_profile">Change User Profile</string>
     <string name="action_settings">Settings</string>
 
     <!--user_profile_registration.xml-->
