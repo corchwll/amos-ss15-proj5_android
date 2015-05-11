@@ -1,29 +1,23 @@
 package dess15proj5.fau.cs.osr_amos.mobiletimerecording.ui;
 
 import android.app.DialogFragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.R;
-import dess15proj5.fau.cs.osr_amos.mobiletimerecording.models.Project;
-import dess15proj5.fau.cs.osr_amos.mobiletimerecording.persistence.DataAccessObjectFactory;
-import dess15proj5.fau.cs.osr_amos.mobiletimerecording.persistence.ProjectsDAO;
-
-import java.sql.SQLException;
-import java.util.List;
 
 public class ProjectListActivity extends ActionBarActivity implements AddProjectDialogFragment.AddProjectDialogListener
 {
-	private ProjectArrayAdapter adapter;
 	private ActionBarDrawerToggle actionBarDrawerToggle;
 
 	@Override
@@ -31,25 +25,14 @@ public class ProjectListActivity extends ActionBarActivity implements AddProject
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_project_list);
-
-		setAdapterToProjectList();
-
-		setAdapterToNavigationDrawer();
-
-		loadProjectList();
+		initNavigationDrawer();
+		showProjectsListFragment();
 	}
 
-	private void setAdapterToProjectList()
-	{
-		adapter = new ProjectArrayAdapter(this);
-		ListView projectList = (ListView) findViewById(R.id.project_list);
-		projectList.setAdapter(adapter);
-	}
-
-	private void setAdapterToNavigationDrawer()
+	private void initNavigationDrawer()
 	{
 		String[] drawerListItems = getResources().getStringArray(R.array.drawer_list_items);
-		DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.navigation_drawer);
+		final DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.navigation_drawer);
 		final ListView leftDrawer = (ListView) findViewById(R.id.left_drawer);
 		leftDrawer.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_list_item, drawerListItems));
 		leftDrawer.setOnItemClickListener(new AdapterView.OnItemClickListener()
@@ -59,18 +42,42 @@ public class ProjectListActivity extends ActionBarActivity implements AddProject
 			{
 				switch(position)
 				{
+//					Project overview
+					case 0:
+						drawerLayout.closeDrawers();
+						break;
+//					Project list
 					case 1:
+						showProjectsListFragment();
+						drawerLayout.closeDrawers();
+						break;
+//					Change user profile
+					case 2:
 						Intent intent = new Intent(getBaseContext(), ChangeUserProfileActivity.class);
 						startActivity(intent);
+						drawerLayout.closeDrawers();
+						break;
+//					Settings
+					case 3:
+						drawerLayout.closeDrawers();
+						break;
 				}
 			}
 		});
-		actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout,
-				 R.string.drawer_open, R.string.drawer_close);
+		actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.drawer_open, R.string.drawer_close);
 		actionBarDrawerToggle.syncState();
 		drawerLayout.setDrawerListener(actionBarDrawerToggle);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
+	}
+
+	private void showProjectsListFragment()
+	{
+		FragmentManager fragmentManager = getFragmentManager();
+		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+		ProjectsListFragment projectsListFragment = new ProjectsListFragment();
+		fragmentTransaction.replace(R.id.frameLayout, projectsListFragment);
+		fragmentTransaction.commit();
 	}
 
 	@Override
@@ -92,8 +99,6 @@ public class ProjectListActivity extends ActionBarActivity implements AddProject
 			case R.id.action_add_project:
 				addNewProject();
 				return true;
-			case R.id.action_settings:
-				return true;
 			default:
 				return super.onOptionsItemSelected(item);
 		}
@@ -102,37 +107,12 @@ public class ProjectListActivity extends ActionBarActivity implements AddProject
 	@Override
 	public void onDialogPositiveClick(DialogFragment fragment)
 	{
-		loadProjectList();
+		showProjectsListFragment();
 	}
 
 	private void addNewProject()
 	{
         DialogFragment newFragment = new AddProjectDialogFragment();
         newFragment.show(getFragmentManager(), "dialog");
-	}
-
-	private void loadProjectList()
-	{
-		try
-		{
-			adapter.clear();
-			adapter.addAll(loadAllProjects());
-			adapter.notifyDataSetChanged();
-		} catch(SQLException e)
-		{
-			Toast.makeText(this, "Could not load project list due to database errors!", Toast.LENGTH_LONG).show();
-		}
-	}
-
-	private List<Project> loadAllProjects() throws SQLException
-	{
-		ProjectsDAO projectsDAO = DataAccessObjectFactory.getInstance()
-														 .createProjectsDAO(this);
-
-		projectsDAO.open();
-		List<Project> projects = projectsDAO.listAll();
-		projectsDAO.close();
-
-		return projects;
 	}
 }
