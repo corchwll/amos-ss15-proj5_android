@@ -9,7 +9,8 @@
     <string name="drawer_open">open</string>
     <string name="drawer_close">close</string>
     <string-array name="drawer_list_items">
-        <item name="overview">Overview</item>
+        <item name="overview">Time Recording</item>
+        <item name="project_list">Project List</item>
         <item name="changeUserProfile">Change User Profile</item>
         <item name="settings">Settings</item>
     </string-array>

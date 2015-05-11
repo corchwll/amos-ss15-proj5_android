@@ -66,20 +66,8 @@ public class ProjectListActivity extends ActionBarActivity implements AddProject
 			}
 		});
 		actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout,
-				 R.string.drawer_open, R.string.drawer_close)
-		{
-			@Override
-			public void onDrawerClosed(View drawerView)
-			{
-				super.onDrawerClosed(drawerView);
-			}
-
-			@Override
-			public void onDrawerOpened(View drawerView)
-			{
-				super.onDrawerOpened(drawerView);
-			}
-		};
+				 R.string.drawer_open, R.string.drawer_close);
+		actionBarDrawerToggle.syncState();
 		drawerLayout.setDrawerListener(actionBarDrawerToggle);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
