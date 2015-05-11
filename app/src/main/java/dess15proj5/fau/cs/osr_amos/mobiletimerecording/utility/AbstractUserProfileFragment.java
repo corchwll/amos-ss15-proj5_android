@@ -1,21 +1,28 @@
 package dess15proj5.fau.cs.osr_amos.mobiletimerecording.utility;
 
-import android.content.Intent;
+import android.app.Activity;
+import android.app.Fragment;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.R;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.persistence.DataAccessObjectFactory;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.persistence.UsersDAO;
-import dess15proj5.fau.cs.osr_amos.mobiletimerecording.ui.MainActivity;
 
 import java.sql.SQLException;
 
-public abstract class UserProfileActionBarActivity extends ActionBarActivity
+public abstract class AbstractUserProfileFragment extends Fragment
 {
-//duplicated attributes!!
+	public interface UserProfileFragmentListener
+	{
+		void onUserProfileSaved();
+	}
+
+	private UserProfileFragmentListener listener;
+
 	protected EditText employeeId;
 	protected EditText lastNameWidget;
 	protected EditText firstNameWidget;
@@ -26,25 +33,36 @@ public abstract class UserProfileActionBarActivity extends ActionBarActivity
 	protected MenuItem saveUserProfileBtn;
 
 	protected UsersDAO userDAO;
-	//copied
+
 	@Override
-	protected void onCreate(Bundle savedInstanceState)
+	public void onAttach(Activity activity)
 	{
-		super.onCreate(savedInstanceState);
+		super.onAttach(activity);
+		try
+		{
+			listener = (UserProfileFragmentListener) activity;
+		} catch(ClassCastException exception)
+		{
+			throw new RuntimeException("Activity must implement UserProfileFragmentListener");
+		}
+	}
+
+	@Override
+	public void onCreate(Bundle savedInstanceState)
+	{
+		setHasOptionsMenu(true);
 		getUserDAO();
+		super.onCreate(savedInstanceState);
 	}
 
-
-	//copied
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu)
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
 	{
-		getMenuInflater().inflate(R.menu.menu_user_profile_registration, menu);
+		super.onCreateOptionsMenu(menu, inflater);
+		getActivity().getMenuInflater().inflate(R.menu.menu_user_profile_registration, menu);
 		saveUserProfileBtn = menu.findItem(R.id.action_save_user_profile);
-		return true;
 	}
 
-	//copiyed
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
@@ -56,9 +74,8 @@ public abstract class UserProfileActionBarActivity extends ActionBarActivity
 					prepareDBConnection();
 					getInputsFromWidgets();
 					closeDBConnection();
-					showProjectListActivity();
-				}
-				else
+					listener.onUserProfileSaved();
+				} else
 				{
 					employeeId.setError("EmployeeID must be a five-digit number.");
 					employeeId.requestFocus();
@@ -69,7 +86,25 @@ public abstract class UserProfileActionBarActivity extends ActionBarActivity
 		}
 	}
 
-	//copied
+	protected void getWidgets(View view)
+	{
+		employeeId = (EditText) view.findViewById(R.id.employeeId);
+		lastNameWidget = (EditText) view.findViewById(R.id.lastname);
+		firstNameWidget = (EditText) view.findViewById(R.id.firstname);
+		weeklyWorkingTimeWidget = (EditText) view.findViewById(R.id.weekly_working_time);
+		totalVacationTimeWidget = (EditText) view.findViewById(R.id.total_vacation_time);
+		currentVacationTimeWidget = (EditText) view.findViewById(R.id.current_vacation_time);
+		currentOvertimeWidget = (EditText) view.findViewById(R.id.current_overtime);
+	}
+
+	private void getUserDAO()
+	{
+		userDAO = DataAccessObjectFactory.getInstance().createUsersDAO(getActivity());
+	}
+
+	protected abstract void runDBTransaction(Long employeeIdAsLong, String lastName, String firstName, int
+			weeklyWorkingTime, int totalVacationTime, int currentVacationTime, int currentOvertime);
+
 	private void getInputsFromWidgets()
 	{
 		Long employeeIdAsLong = Long.parseLong(getStringFromWidget(employeeId));
@@ -84,7 +119,6 @@ public abstract class UserProfileActionBarActivity extends ActionBarActivity
 				currentVacationTime, currentOvertime);
 	}
 
-	//copiey
 	private int getIntFromWidget(EditText editText)
 	{
 		int integer = 0;
@@ -97,13 +131,11 @@ public abstract class UserProfileActionBarActivity extends ActionBarActivity
 		return integer;
 	}
 
-	//copieyd
 	private String getStringFromWidget(EditText editText)
 	{
 		return editText.getText().toString();
 	}
 
-	//cpiedy
 	private void prepareDBConnection()
 	{
 		try
@@ -115,41 +147,11 @@ public abstract class UserProfileActionBarActivity extends ActionBarActivity
 		}
 	}
 
-	//copiyed
-	protected abstract void runDBTransaction(Long employeeIdAsLong, String lastName, String firstName, int
-			weeklyWorkingTime, int totalVacationTime, int currentVacationTime, int currentOvertime);
-
-	//copiyed
 	private void closeDBConnection()
 	{
 		userDAO.close();
 	}
 
-
-	protected void showProjectListActivity()
-	{
-		Intent intent = new Intent(this, MainActivity.class);
-		startActivity(intent);
-	}
-
-	//copied
-	private void getUserDAO()
-	{
-		userDAO = DataAccessObjectFactory.getInstance().createUsersDAO(this);
-	}
-
-	//copied
-	protected void getWidgets()
-	{
-		employeeId = (EditText) findViewById(R.id.employeeId);
-		lastNameWidget = (EditText) findViewById(R.id.lastname);
-		firstNameWidget = (EditText) findViewById(R.id.firstname);
-		weeklyWorkingTimeWidget = (EditText) findViewById(R.id.weekly_working_time);
-		totalVacationTimeWidget = (EditText) findViewById(R.id.total_vacation_time);
-		currentVacationTimeWidget = (EditText) findViewById(R.id.current_vacation_time);
-		currentOvertimeWidget = (EditText) findViewById(R.id.current_overtime);
-	}
-	//cpieyd
 	protected boolean isEmployeeIdValid()
 	{
 		boolean isValid = false;

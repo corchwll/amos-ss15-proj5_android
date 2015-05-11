@@ -1,6 +1,5 @@
 package dess15proj5.fau.cs.osr_amos.mobiletimerecording.ui;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -21,7 +20,7 @@ public class AddProjectDialogFragment extends DialogFragment
 {
 	public interface AddProjectDialogListener
 	{
-		public void onDialogPositiveClick(DialogFragment fragment);
+		void onDialogPositiveClick();
 	}
 
 	AddProjectDialogListener callbackListener;
@@ -29,17 +28,9 @@ public class AddProjectDialogFragment extends DialogFragment
 	private EditText projectIdWidget;
 	private EditText projectNameWidget;
 
-	@Override
-	public void onAttach(Activity activity)
+	public void setAddProjectDialogListener(AddProjectDialogListener listener)
 	{
-		super.onAttach(activity);
-		try
-		{
-			callbackListener = (AddProjectDialogListener)activity;
-		} catch(ClassCastException e)
-		{
-			throw new ClassCastException(activity.toString() + " must implement AddProjectDialogListener");
-		}
+		callbackListener = listener;
 	}
 
 	@Override
@@ -98,7 +89,7 @@ public class AddProjectDialogFragment extends DialogFragment
 							dialog.dismiss();
 						}
 
-						callbackListener.onDialogPositiveClick(AddProjectDialogFragment.this);
+						callbackListener.onDialogPositiveClick();
 					}
 					else
 					{

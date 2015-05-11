@@ -30,7 +30,7 @@
     <string name="current_vacation_time">Current Vacation Time (in days)</string>
     <string name="createUser">OK</string>
     
-    <!--activity_project_list.xml-->
+    <!--main_activity.xml-->
     <string name="edit_project_button">Add Time</string>
     <string name="start_button">Start</string>
     
