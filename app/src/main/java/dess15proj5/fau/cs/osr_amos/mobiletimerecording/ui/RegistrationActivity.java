@@ -1,24 +1,29 @@
 package dess15proj5.fau.cs.osr_amos.mobiletimerecording.ui;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.R;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.models.User;
-import dess15proj5.fau.cs.osr_amos.mobiletimerecording.utility.UserProfileActionBarActivity;
+import dess15proj5.fau.cs.osr_amos.mobiletimerecording.persistence.DataAccessObjectFactory;
+import dess15proj5.fau.cs.osr_amos.mobiletimerecording.persistence.UsersDAO;
+import dess15proj5.fau.cs.osr_amos.mobiletimerecording.utility.AbstractUserProfileFragment;
 
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.List;
 
-public class RegistrationActivity extends UserProfileActionBarActivity
+public class RegistrationActivity extends ActionBarActivity implements AbstractUserProfileFragment.UserProfileFragmentListener
 {
+	UsersDAO userDAO;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.user_profile_registration);
-		//TODO move it to the superclass
-		getWidgets();
+		setContentView(R.layout.main_activity);
+		userDAO = DataAccessObjectFactory.getInstance().createUsersDAO(this);
 		checkIfUserExistsInDatabase();
 	}
 
@@ -31,21 +36,31 @@ public class RegistrationActivity extends UserProfileActionBarActivity
 		{
 			e.printStackTrace();
 		}
-
 		List<User> users = userDAO.listAll();
 		if(!users.isEmpty())
 		{
-			showProjectListActivity();
+			startMainActivity();
+		}
+		else
+		{
+			RegisterUserProfileFragment fragment = new RegisterUserProfileFragment();
+			FragmentManager fragmentManager = getFragmentManager();
+			FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+			fragmentTransaction.replace(R.id.frameLayout, fragment);
+			fragmentTransaction.commit();
 		}
 		userDAO.close();
 	}
 
-	@Override
-	protected void runDBTransaction(Long employeeIdAsLong, String lastName, String firstName, int weeklyWorkingTime,
-									int totalVacationTime, int currentVacationTime, int currentOvertime)
+	private void startMainActivity()
 	{
-		Date date = new Date();
-		userDAO.create(employeeIdAsLong, lastName, firstName, weeklyWorkingTime, totalVacationTime,
-				currentVacationTime, currentOvertime, date);
+		Intent intent = new Intent(this, MainActivity.class);
+		startActivity(intent);
+	}
+
+	@Override
+	public void onUserProfileSaved()
+	{
+		startMainActivity();
 	}
 }

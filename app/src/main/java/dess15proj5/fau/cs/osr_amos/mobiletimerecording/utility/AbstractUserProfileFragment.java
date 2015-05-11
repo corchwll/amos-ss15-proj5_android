@@ -50,9 +50,14 @@ public abstract class AbstractUserProfileFragment extends Fragment
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
+		super.onCreate(savedInstanceState);
 		setHasOptionsMenu(true);
 		getUserDAO();
-		super.onCreate(savedInstanceState);
+	}
+
+	private void getUserDAO()
+	{
+		userDAO = DataAccessObjectFactory.getInstance().createUsersDAO(getActivity());
 	}
 
 	@Override
@@ -95,11 +100,6 @@ public abstract class AbstractUserProfileFragment extends Fragment
 		totalVacationTimeWidget = (EditText) view.findViewById(R.id.total_vacation_time);
 		currentVacationTimeWidget = (EditText) view.findViewById(R.id.current_vacation_time);
 		currentOvertimeWidget = (EditText) view.findViewById(R.id.current_overtime);
-	}
-
-	private void getUserDAO()
-	{
-		userDAO = DataAccessObjectFactory.getInstance().createUsersDAO(getActivity());
 	}
 
 	protected abstract void runDBTransaction(Long employeeIdAsLong, String lastName, String firstName, int

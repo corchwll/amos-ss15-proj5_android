@@ -1,7 +1,6 @@
 package dess15proj5.fau.cs.osr_amos.mobiletimerecording.ui;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +14,6 @@ import java.util.List;
 
 public class EditUserProfileFragment extends AbstractUserProfileFragment
 {
-
-	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
