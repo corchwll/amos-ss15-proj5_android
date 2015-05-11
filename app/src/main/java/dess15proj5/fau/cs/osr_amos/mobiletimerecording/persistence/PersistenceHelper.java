@@ -1,5 +1,6 @@
 package dess15proj5.fau.cs.osr_amos.mobiletimerecording.persistence;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -49,7 +50,7 @@ public class PersistenceHelper extends SQLiteOpenHelper
 					USERS_CURRENT_OVERTIME + " integer, " + USERS_REGISTRATION_DATE + " integer);";
 
 	private static final String DATABASE_NAME = "mobile_time_recording";
-	private static final int DATABASE_VERSION = 4;
+	private static final int DATABASE_VERSION = 5;
 
 	public PersistenceHelper(Context context)
 	{
@@ -60,8 +61,36 @@ public class PersistenceHelper extends SQLiteOpenHelper
 	public void onCreate(SQLiteDatabase db)
 	{
 		db.execSQL(CREATE_PROJECTS);
+		insertDefaultProjects(db);
 		db.execSQL(CREATE_SESSIONS);
 		db.execSQL(CREATE_USERS);
+	}
+
+	private void insertDefaultProjects(SQLiteDatabase db)
+	{
+		ContentValues values = new ContentValues();
+		values.put(PROJECTS_ID, 10000);
+		values.put(PROJECTS_NAME, "Vacation");
+		values.put(PROJECTS_IS_DISPLAYED, 1);
+		values.put(PROJECTS_IS_USED, 1);
+		values.put(PROJECTS_IS_ARCHIVED, 0);
+		db.insert(TABLE_PROJECTS, null, values);
+
+		values = new ContentValues();
+		values.put(PROJECTS_ID, 10001);
+		values.put(PROJECTS_NAME, "Training");
+		values.put(PROJECTS_IS_DISPLAYED, 1);
+		values.put(PROJECTS_IS_USED, 1);
+		values.put(PROJECTS_IS_ARCHIVED, 0);
+		db.insert(TABLE_PROJECTS, null, values);
+
+		values = new ContentValues();
+		values.put(PROJECTS_ID, 10002);
+		values.put(PROJECTS_NAME, "Illness");
+		values.put(PROJECTS_IS_DISPLAYED, 1);
+		values.put(PROJECTS_IS_USED, 1);
+		values.put(PROJECTS_IS_ARCHIVED, 0);
+		db.insert(TABLE_PROJECTS, null, values);
 	}
 
 	@Override
