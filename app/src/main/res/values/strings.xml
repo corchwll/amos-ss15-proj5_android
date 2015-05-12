@@ -4,6 +4,10 @@
     <!--menu_user_profile_registration-->
     <string name="save_user_profile">Save User Profile</string>
 
+    <!--menu_add_session-->
+    <string name="add_new_session">Add new session</string>
+    <string name="cancel">Cancel</string>
+
     <!--navigationDrawer-->
     <string name="change_user_profile">Change User Profile</string>
     <string name="drawer_open">open</string>
@@ -38,9 +42,9 @@
     <string name="inputProjectId">Project Id</string>
     <string name="inputProjectName">Project Name</string>
     
-    <!--edit_project.xml-->
+    <!--add_session_to_project.xml-->
     <string name="dateText">Specify the date on which you want to add extra hours:</string>
-    <string name="hoursText">Enter the number of hours that you want to add the Project:</string>
+    <string name="hoursText">Specify the start and end time</string>
     <string name="confirm_project_change_button">OK</string>
     
     <!--change_user_profile.xml-->

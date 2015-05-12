@@ -9,28 +9,27 @@
             android:layout_height="wrap_content"
             android:text="@string/dateText" />
 
-    <DatePicker
-            android:layout_width="match_parent"
+    <EditText
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/datePicker"
-            android:datePickerMode="calendar"
-            android:calendarViewShown="false"
-            android:firstDayOfWeek="2" />
+            android:id="@+id/datePickerEditText"
+            android:editable="false"/>
 
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/hoursText" />
 
-    <NumberPicker
-            android:layout_width="match_parent"
+    <EditText
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/hoursToBeAdded" />
+            android:id="@+id/startTimePickerEditText"
+            android:editable="false" />
 
-    <Button
-            android:layout_width="match_parent"
+    <EditText
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/confirmProjectChangeButton"
-            android:text="@string/confirm_project_change_button"/>
+            android:id="@+id/stopTimePickerEditText"
+            android:editable="false" />
 
 </LinearLayout>

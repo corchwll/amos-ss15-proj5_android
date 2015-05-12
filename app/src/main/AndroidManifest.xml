@@ -20,7 +20,7 @@
             android:name=".ui.MainActivity"
                 android:label="@string/app_name" >
         </activity>
-        <activity android:name=".ui.EditProjectActivity"
+        <activity android:name=".ui.AddSessionActivity"
                   android:label="@string/app_name" >
         </activity>
     </application>

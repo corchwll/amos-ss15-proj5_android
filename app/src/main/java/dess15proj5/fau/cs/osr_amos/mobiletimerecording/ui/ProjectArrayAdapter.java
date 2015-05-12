@@ -48,7 +48,7 @@ public class ProjectArrayAdapter extends ArrayAdapter<Project>
 			@Override
 			public void onClick(View v)
 			{
-				Intent intent = new Intent(getContext(), EditProjectActivity.class);
+				Intent intent = new Intent(getContext(), AddSessionActivity.class);
 				intent.putExtra("project_id", project.getId());
 				getContext().startActivity(intent);
 			}
