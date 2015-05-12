@@ -27,9 +27,7 @@ public class EditUserProfileFragment extends AbstractUserProfileFragment
 	protected void runDBTransaction(Long employeeIdAsLong, String lastName, String firstName, int weeklyWorkingTime,
 									int totalVacationTime, int currentVacationTime, int currentOvertime)
 	{
-		List<User> userList = userDAO.listAll();
-		//TODO only get one user
-		User user = userList.get(0);
+		User user = userDAO.load();
 		user.setEmployeeId(employeeIdAsLong);
 		user.setLastName(lastName);
 		user.setFirstName(firstName);
