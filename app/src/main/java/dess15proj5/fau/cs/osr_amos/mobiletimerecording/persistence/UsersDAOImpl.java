@@ -62,6 +62,13 @@ public class UsersDAOImpl extends AbstractDAO implements UsersDAO
 	}
 
 	@Override
+	public User load()
+	{
+		List<User> users = listAll();
+		return users.get(0);
+	}
+
+	@Override
 	public User load(long userId)
 	{
 		Cursor cursor =	database.query(PersistenceHelper.TABLE_USERS, allColumns, PersistenceHelper.USERS_ID +
