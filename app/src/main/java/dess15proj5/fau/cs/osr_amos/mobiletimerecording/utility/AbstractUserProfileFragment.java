@@ -89,6 +89,10 @@ public abstract class AbstractUserProfileFragment extends Fragment
 					listener.onUserProfileSaved();
 				}
 				return true;
+			case R.id.cancel:
+				getActivity().getFragmentManager().beginTransaction().remove(this).commit();
+				//TODO load next activity/fragment
+				return true;
 			default:
 				return super.onOptionsItemSelected(item);
 		}
