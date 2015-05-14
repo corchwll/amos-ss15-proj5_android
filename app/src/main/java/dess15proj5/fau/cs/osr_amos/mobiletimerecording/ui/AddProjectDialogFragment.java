@@ -93,7 +93,7 @@ public class AddProjectDialogFragment extends DialogFragment
 					}
 					else
 					{
-						setErrorMessageToWidget(projectIdWidget, "ID field can not be blank.");
+						setErrorMessageToWidget(projectIdWidget, "Your personal ID must consist of 5 numbers");
 					}
 				} catch(SQLException e)
 				{
