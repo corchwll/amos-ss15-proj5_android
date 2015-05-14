@@ -56,7 +56,7 @@ public class EditUserProfileFragment extends AbstractUserProfileFragment
 
 	private void fillWidgetsWithValuesFromDatabase(User user)
 	{
-		employeeId.setText(Long.toString(user.getEmployeeId()));
+		employeeIdWidget.setText(Long.toString(user.getEmployeeId()));
 		lastNameWidget.setText(user.getLastName());
 		firstNameWidget.setText(user.getFirstName());
 		weeklyWorkingTimeWidget.setText(Integer.toString(user.getWeeklyWorkingTime()));
