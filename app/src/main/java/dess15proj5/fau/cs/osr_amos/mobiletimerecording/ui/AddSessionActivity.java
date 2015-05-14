@@ -84,9 +84,10 @@ public class AddSessionActivity extends ActionBarActivity
 		}
 		else
 		{
+			//TODO change to DialogFragment
 			AlertDialog.Builder builder = new AlertDialog.Builder(this)
 					.setTitle("Error")
-					.setMessage("Start time must be before stop time")
+					.setMessage("Negative time are not allowed.")
 					.setPositiveButton("OK", new DialogInterface.OnClickListener()
 					{
 						@Override

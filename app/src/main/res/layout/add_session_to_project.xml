@@ -13,7 +13,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/datePickerEditText"
-            android:editable="false"/>
+            android:focusable="false"/>
 
     <TextView
             android:layout_width="wrap_content"
@@ -24,12 +24,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/startTimePickerEditText"
-            android:editable="false" />
+            android:focusable="false" />
 
     <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/stopTimePickerEditText"
-            android:editable="false" />
+            android:focusable="false" />
 
 </LinearLayout>
