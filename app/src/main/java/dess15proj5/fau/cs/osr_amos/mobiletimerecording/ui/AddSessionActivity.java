@@ -87,7 +87,7 @@ public class AddSessionActivity extends ActionBarActivity
 			//TODO change to DialogFragment
 			AlertDialog.Builder builder = new AlertDialog.Builder(this)
 					.setTitle("Error")
-					.setMessage("Negative time are not allowed.")
+					.setMessage("Negative times are not allowed.")
 					.setPositiveButton("OK", new DialogInterface.OnClickListener()
 					{
 						@Override

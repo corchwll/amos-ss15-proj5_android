@@ -90,8 +90,8 @@ public abstract class AbstractUserProfileFragment extends Fragment
 				}
 				return true;
 			case R.id.cancel:
-				getActivity().getFragmentManager().beginTransaction().remove(this).commit();
-				//TODO load next activity/fragment
+				//TODO RegistrationActivity can skip registration
+				listener.onUserProfileSaved();
 				return true;
 			default:
 				return super.onOptionsItemSelected(item);

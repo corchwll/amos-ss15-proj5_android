@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Mobile Time Recording</string>
 
+    <string name="delete_project">Delete project</string>
+
     <!--menu_user_profile_registration-->
     <string name="save_user_profile">Save User Profile</string>
 
@@ -14,7 +16,8 @@
     <string name="drawer_close">close</string>
     <string-array name="drawer_list_items">
         <item name="overview">Time Recording</item>
-        <item name="project_list">Project List</item>
+        <item name="project_list">Projects</item>
+        <item name="dashboard">Dashboard</item>
         <item name="changeUserProfile">Change User Profile</item>
         <item name="settings">Settings</item>
     </string-array>

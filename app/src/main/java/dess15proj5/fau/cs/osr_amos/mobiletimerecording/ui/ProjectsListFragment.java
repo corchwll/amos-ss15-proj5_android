@@ -1,5 +1,6 @@
 package dess15proj5.fau.cs.osr_amos.mobiletimerecording.ui;
 
+import android.app.Activity;
 import android.app.ListFragment;
 import android.os.Bundle;
 import android.view.*;
@@ -17,6 +18,25 @@ public class ProjectsListFragment extends ListFragment implements AddProjectDial
 {
 	private ListView projectList;
 	private ProjectArrayAdapter adapter;
+	private static ProjectsListFragmentListener listener;
+
+	public interface ProjectsListFragmentListener
+	{
+		void projectSelected(Project selectedProject);
+	}
+
+	@Override
+	public void onAttach(Activity activity)
+	{
+		super.onAttach(activity);
+		try
+		{
+			listener = (ProjectsListFragmentListener) activity;
+		} catch(ClassCastException exception)
+		{
+			throw new RuntimeException("Activity must implement SelectedProjectFragmentListener");
+		}
+	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -93,5 +113,10 @@ public class ProjectsListFragment extends ListFragment implements AddProjectDial
 	public void onDialogPositiveClick()
 	{
 		loadProjectList();
+	}
+
+	public static void onItemSelected(Project selectedProject)
+	{
+		listener.projectSelected(selectedProject);
 	}
 }
