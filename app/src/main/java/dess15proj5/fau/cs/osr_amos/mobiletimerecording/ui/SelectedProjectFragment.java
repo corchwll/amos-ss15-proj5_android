@@ -1,7 +1,9 @@
 package dess15proj5.fau.cs.osr_amos.mobiletimerecording.ui;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.*;
 import android.widget.Button;
@@ -19,6 +21,7 @@ import java.util.Date;
 
 public class SelectedProjectFragment extends Fragment
 {
+	private SharedPreferences sharedPref;
 	private Long projectId;
 	private String projectName;
 	private Session session;
@@ -28,16 +31,32 @@ public class SelectedProjectFragment extends Fragment
 	{
 		super.onCreate(savedInstanceState);
 		setHasOptionsMenu(true);
+
+		if(getArguments() != null)
+		{
+			getArgumentsFromBundle();
+			saveArgumentsIntoSharedPreferences();
+		}
+	}
+
+	private void getArgumentsFromBundle()
+	{
+		projectId = getArguments().getLong("project_id");
+		projectName = getArguments().getString("project_name");
+	}
+
+	private void saveArgumentsIntoSharedPreferences()
+	{
+		sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = sharedPref.edit();
+		editor.putLong("project_id", projectId);
+		editor.putString("project_name", projectName);
+		editor.commit();
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
-		if(getArguments() != null)
-		{
-			projectId = getArguments().getLong("project_id");
-			projectName = getArguments().getString("project_name");
-		}
 		return inflater.inflate(R.layout.selected_project, container, false);
 	}
 
@@ -45,16 +64,19 @@ public class SelectedProjectFragment extends Fragment
 	public void onActivityCreated(Bundle savedInstanceState)
 	{
 		super.onActivityCreated(savedInstanceState);
+		getArgumentsFromSharedPreferences();
+
 		TextView textView = (TextView) getActivity().findViewById(R.id.name_of_selected_project);
-		if(projectId == null && projectName == null)
+		final ProjectTimer timer = (ProjectTimer)getActivity().findViewById(R.id.timer);
+		final Button startStopBtn = (Button)getActivity().findViewById(R.id.startStopBtn);
+
+		if(projectId == -1L && projectName == null)
 		{
 			textView.setText("No project selected. Please select one in the projects tab.");
 		}
 		else
 		{
 			textView.setText(projectName);
-			final ProjectTimer timer = (ProjectTimer)getActivity().findViewById(R.id.timer);
-			final Button startStopBtn = (Button)getActivity().findViewById(R.id.startStopBtn);
 			startStopBtn.setOnClickListener(new View.OnClickListener()
 			{
 				@Override
@@ -110,6 +132,13 @@ public class SelectedProjectFragment extends Fragment
 				}
 			});
 		}
+	}
+
+	private void getArgumentsFromSharedPreferences()
+	{
+		SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+		projectId = sharedPref.getLong("project_id", -1L);
+		projectName = sharedPref.getString("project_name", null);
 	}
 
 	@Override
