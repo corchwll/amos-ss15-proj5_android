@@ -25,32 +25,35 @@ public abstract class DataAccessObjectFactory
 	{
 		if(projectsDAO == null)
 		{
-			projectsDAO = instance.createProjectsDAO(context);
+			projectsDAO = doCreateProjectsDAO(context);
 			projectsDAO.open();
 		}
-
 		return projectsDAO;
 	}
+
+	protected abstract ProjectsDAO doCreateProjectsDAO(Context context);
 
 	public SessionsDAO createSessionsDAO(Context context) throws SQLException
 	{
 		if(sessionsDAO == null)
 		{
-			sessionsDAO = instance.createSessionsDAO(context);
+			sessionsDAO = doCreateSessionsDAO(context);
 			sessionsDAO.open();
 		}
-
 		return sessionsDAO;
 	}
+
+	protected abstract SessionsDAO doCreateSessionsDAO(Context context);
 
 	public UsersDAO createUsersDAO(Context context) throws SQLException
 	{
 		if(usersDAO == null)
 		{
-			usersDAO = instance.createUsersDAO(context);
+			usersDAO = doCreateUsersDAO(context);
 			usersDAO.open();
 		}
-
 		return usersDAO;
 	}
+
+	protected abstract UsersDAO doCreateUsersDAO(Context context);
 }

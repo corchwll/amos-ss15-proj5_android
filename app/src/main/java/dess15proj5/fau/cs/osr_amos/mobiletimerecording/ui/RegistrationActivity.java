@@ -25,8 +25,7 @@ public class RegistrationActivity extends ActionBarActivity implements AbstractU
 		setContentView(R.layout.main_activity);
 		try
 		{
-			userDAO = DataAccessObjectFactory.getInstance()
-											 .createUsersDAO(this);
+			userDAO = DataAccessObjectFactory.getInstance().createUsersDAO(this);
 			checkIfUserExistsInDatabase();
 		} catch(SQLException e)
 		{

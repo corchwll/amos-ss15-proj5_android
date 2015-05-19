@@ -17,19 +17,19 @@ public class SQLiteDataAccessObjectFactory extends DataAccessObjectFactory
 	}
 
 	@Override
-	public ProjectsDAO createProjectsDAO(Context context)
+	public ProjectsDAO doCreateProjectsDAO(Context context)
 	{
 		return new ProjectsDAOImpl(context);
 	}
 
 	@Override
-	public SessionsDAO createSessionsDAO(Context context)
+	public SessionsDAO doCreateSessionsDAO(Context context)
 	{
 		return new SessionsDAOImpl(context);
 	}
 
 	@Override
-	public UsersDAO createUsersDAO(Context context)
+	protected UsersDAO doCreateUsersDAO(Context context)
 	{
 		return new UsersDAOImpl(context);
 	}
