@@ -27,8 +27,7 @@ public class MainActivity extends ActionBarActivity implements AbstractUserProfi
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main_activity);
 		initNavigationDrawer();
-		ProjectsListFragment projectsListFragment = new ProjectsListFragment();
-		showFragment(projectsListFragment);
+		showProjectsListFragment();
 	}
 
 	private void initNavigationDrawer()
@@ -61,7 +60,7 @@ public class MainActivity extends ActionBarActivity implements AbstractUserProfi
 //					Change user profile
 					case 3:
 						EditUserProfileFragment editUserProfileFragment = new EditUserProfileFragment();
-						showFragment(editUserProfileFragment);
+						showFragment(editUserProfileFragment, getResources().getString(R.string.settings));
 						drawerLayout.closeDrawers();
 						break;
 //					Settings
@@ -81,17 +80,18 @@ public class MainActivity extends ActionBarActivity implements AbstractUserProfi
 	private void showProjectsListFragment()
 	{
 		ProjectsListFragment projectsListFragment = new ProjectsListFragment();
-		showFragment(projectsListFragment);
+		showFragment(projectsListFragment, getResources().getString(R.string.project_list));
 	}
 
 	private void showSelectedFragment()
 	{
 		SelectedProjectFragment selectedProjectFragment = new SelectedProjectFragment();
-		showFragment(selectedProjectFragment);
+		showFragment(selectedProjectFragment, getResources().getString(R.string.overview));
 	}
 
-	private void showFragment(Fragment fragment)
+	private void showFragment(Fragment fragment, String title)
 	{
+		getSupportActionBar().setTitle(title);
 		FragmentManager fragmentManager = getFragmentManager();
 		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 		fragmentTransaction.replace(R.id.frameLayout, fragment);
@@ -122,6 +122,6 @@ public class MainActivity extends ActionBarActivity implements AbstractUserProfi
 		args.putLong("project_id", selectedProject.getId());
 		args.putString("project_name", selectedProject.getName());
 		selectedProjectFragment.setArguments(args);
-		showFragment(selectedProjectFragment);
+		showFragment(selectedProjectFragment, getResources().getString(R.string.overview));
 	}
 }

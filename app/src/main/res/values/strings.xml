@@ -21,6 +21,10 @@
         <item name="changeUserProfile">Change User Profile</item>
         <item name="settings">Settings</item>
     </string-array>
+    <string name="overview">Time Recording</string>
+    <string name="project_list">Projects</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="settings">Settings</string>
 
     <!--actionBar-->
     <string name="add_project">Add Project</string>
