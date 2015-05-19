@@ -66,7 +66,11 @@ public class ProjectsDAOImpl extends AbstractDAO implements ProjectsDAO
 	@Override
 	public void delete(long projectId)
 	{
-		database.delete(PersistenceHelper.TABLE_PROJECTS, PersistenceHelper.PROJECTS_ID + " = " + projectId, null);
+		ContentValues values = new ContentValues();
+		values.put(PersistenceHelper.PROJECTS_IS_ARCHIVED, true);
+
+		database.update(PersistenceHelper.TABLE_PROJECTS, values, PersistenceHelper.PROJECTS_ID + " = " + projectId,
+				null);
 	}
 
 	@Override
@@ -74,7 +78,8 @@ public class ProjectsDAOImpl extends AbstractDAO implements ProjectsDAO
 	{
 		List<Project> projects = new ArrayList<>();
 
-		Cursor cursor = database.query(PersistenceHelper.TABLE_PROJECTS, allColumns, null, null, null, null, null);
+		Cursor cursor = database.query(PersistenceHelper.TABLE_PROJECTS, allColumns,
+				PersistenceHelper.PROJECTS_IS_ARCHIVED + " <> 1", null, null, null, null);
 
 		cursor.moveToFirst();
 		while(!cursor.isAfterLast())

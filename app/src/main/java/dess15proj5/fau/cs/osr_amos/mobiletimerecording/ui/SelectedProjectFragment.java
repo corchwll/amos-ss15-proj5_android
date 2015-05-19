@@ -97,9 +97,7 @@ public class SelectedProjectFragment extends Fragment
 					{
 						SessionsDAO sessionsDAO = DataAccessObjectFactory.getInstance()
 																		 .createSessionsDAO(getActivity());
-						sessionsDAO.open();
 						session = sessionsDAO.create(projectId, new Date());
-						sessionsDAO.close();
 
 						timer.start();
 						button.setText("Stop");
@@ -118,9 +116,7 @@ public class SelectedProjectFragment extends Fragment
 
 						SessionsDAO sessionsDAO = DataAccessObjectFactory.getInstance()
 																		 .createSessionsDAO(getActivity());
-						sessionsDAO.open();
 						sessionsDAO.update(session);
-						sessionsDAO.close();
 
 						timer.stop();
 						button.setText("Start");
@@ -173,15 +169,13 @@ public class SelectedProjectFragment extends Fragment
 
 	private void deleteProject()
 	{
-		ProjectsDAO projectsDAO = DataAccessObjectFactory.getInstance().createProjectsDAO(getActivity());
 		try
 		{
-			projectsDAO.open();
+			ProjectsDAO projectsDAO = DataAccessObjectFactory.getInstance().createProjectsDAO(getActivity());
+			projectsDAO.delete(projectId);
 		} catch(SQLException e)
 		{
 			e.printStackTrace();
 		}
-		projectsDAO.delete(projectId);
-		projectsDAO.close();
 	}
 }

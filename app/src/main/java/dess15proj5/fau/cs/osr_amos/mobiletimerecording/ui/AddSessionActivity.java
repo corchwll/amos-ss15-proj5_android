@@ -103,17 +103,14 @@ public class AddSessionActivity extends ActionBarActivity
 
 	private void saveSessionInDatabase(Date startDate, Date stopDate)
 	{
-		SessionsDAO sessionDAO = DataAccessObjectFactory.getInstance().createSessionsDAO(getBaseContext());
 		try
 		{
-			sessionDAO.open();
-
+			SessionsDAO sessionDAO = DataAccessObjectFactory.getInstance().createSessionsDAO(getBaseContext());
+			sessionDAO.create(projectId, startDate, stopDate);
 		} catch(SQLException e)
 		{
 			e.printStackTrace();
 		}
-		sessionDAO.create(projectId, startDate, stopDate);
-		sessionDAO.close();
 		finish();
 	}
 

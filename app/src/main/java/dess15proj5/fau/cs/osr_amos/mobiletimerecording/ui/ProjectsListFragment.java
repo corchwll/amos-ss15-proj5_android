@@ -76,9 +76,7 @@ public class ProjectsListFragment extends ListFragment implements AddProjectDial
 	private List<Project> loadAllProjects() throws SQLException
 	{
 		ProjectsDAO projectsDAO = DataAccessObjectFactory.getInstance().createProjectsDAO(getActivity());
-		projectsDAO.open();
 		List<Project> projects = projectsDAO.listAll();
-		projectsDAO.close();
 		return projects;
 	}
 
