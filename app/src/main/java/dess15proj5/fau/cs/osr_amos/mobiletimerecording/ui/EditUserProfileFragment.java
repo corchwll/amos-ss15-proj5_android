@@ -18,6 +18,7 @@ public class EditUserProfileFragment extends AbstractUserProfileFragment
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
 		ScrollView scrollView = (ScrollView) inflater.inflate(R.layout.change_user_profile, container, false);
+		//TODO is it ok to call this methods here? same in RegisterUserProfileFragment
 		getWidgets(scrollView);
 		getUserFromDatabase();
 		return scrollView;
@@ -56,7 +57,7 @@ public class EditUserProfileFragment extends AbstractUserProfileFragment
 
 	private void fillWidgetsWithValuesFromDatabase(User user)
 	{
-		employeeId.setText(Long.toString(user.getEmployeeId()));
+		employeeIdWidget.setText(Long.toString(user.getEmployeeId()));
 		lastNameWidget.setText(user.getLastName());
 		firstNameWidget.setText(user.getFirstName());
 		weeklyWorkingTimeWidget.setText(Integer.toString(user.getWeeklyWorkingTime()));

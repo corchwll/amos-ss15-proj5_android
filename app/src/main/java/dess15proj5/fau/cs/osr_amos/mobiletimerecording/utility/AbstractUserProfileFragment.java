@@ -23,7 +23,7 @@ public abstract class AbstractUserProfileFragment extends Fragment
 
 	private UserProfileFragmentListener listener;
 
-	protected EditText employeeId;
+	protected EditText employeeIdWidget;
 	protected EditText lastNameWidget;
 	protected EditText firstNameWidget;
 	protected EditText weeklyWorkingTimeWidget;
@@ -31,6 +31,14 @@ public abstract class AbstractUserProfileFragment extends Fragment
 	protected EditText currentVacationTimeWidget;
 	protected EditText currentOvertimeWidget;
 	protected MenuItem saveUserProfileBtn;
+
+	protected String employeeId;
+	protected String lastName;
+	protected String firstName;
+	protected String weeklyWorkingTime;
+	protected String totalVacationTime;
+	protected String currentVacationTime;
+	protected String currentOvertime;
 
 	protected UsersDAO userDAO;
 
@@ -74,26 +82,46 @@ public abstract class AbstractUserProfileFragment extends Fragment
 		switch(item.getItemId())
 		{
 			case R.id.action_save_user_profile:
-				if(isEmployeeIdValid())
+				getInputsFromWidgets();
+				if(allInputFieldsAreFilledOut() && UserInputIsValidated())
 				{
-					prepareDBConnection();
-					getInputsFromWidgets();
-					closeDBConnection();
+					writeIntoDatabase();
 					listener.onUserProfileSaved();
-				} else
-				{
-					employeeId.setError("EmployeeID must be a five-digit number.");
-					employeeId.requestFocus();
 				}
+				return true;
+			case R.id.cancel:
+				//TODO RegistrationActivity can skip registration
+				listener.onUserProfileSaved();
 				return true;
 			default:
 				return super.onOptionsItemSelected(item);
 		}
 	}
 
+	private void writeIntoDatabase()
+	{
+		try
+		{
+			userDAO.open();
+		} catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+
+		long employeeIdAsLong = Long.parseLong(employeeId);
+		int weeklyWorkingTimeAsInt = Integer.parseInt(weeklyWorkingTime);
+		int totalVacationTimeAsInt = Integer.parseInt(totalVacationTime);
+		int currentVacationTimeAsInt = Integer.parseInt(currentVacationTime);
+		int currentOvertimeAsInt = Integer.parseInt(currentOvertime);
+		runDBTransaction(employeeIdAsLong, lastName, firstName, weeklyWorkingTimeAsInt, totalVacationTimeAsInt,
+				currentVacationTimeAsInt, currentOvertimeAsInt);
+
+		userDAO.close();
+	}
+
 	protected void getWidgets(View view)
 	{
-		employeeId = (EditText) view.findViewById(R.id.employeeId);
+		employeeIdWidget = (EditText) view.findViewById(R.id.employeeId);
 		lastNameWidget = (EditText) view.findViewById(R.id.lastname);
 		firstNameWidget = (EditText) view.findViewById(R.id.firstname);
 		weeklyWorkingTimeWidget = (EditText) view.findViewById(R.id.weekly_working_time);
@@ -107,28 +135,13 @@ public abstract class AbstractUserProfileFragment extends Fragment
 
 	private void getInputsFromWidgets()
 	{
-		Long employeeIdAsLong = Long.parseLong(getStringFromWidget(employeeId));
-		String lastName = getStringFromWidget(lastNameWidget);
-		String firstName = getStringFromWidget(firstNameWidget);
-
-		int weeklyWorkingTime = getIntFromWidget(weeklyWorkingTimeWidget);
-		int totalVacationTime = getIntFromWidget(totalVacationTimeWidget);
-		int currentVacationTime = getIntFromWidget(currentVacationTimeWidget);
-		int currentOvertime = getIntFromWidget(currentOvertimeWidget);
-		runDBTransaction(employeeIdAsLong, lastName, firstName, weeklyWorkingTime, totalVacationTime,
-				currentVacationTime, currentOvertime);
-	}
-
-	private int getIntFromWidget(EditText editText)
-	{
-		int integer = 0;
-		try
-		{
-			integer = Integer.parseInt(editText.getText().toString());
-		} catch(NumberFormatException nfe)
-		{
-		}
-		return integer;
+		employeeId = getStringFromWidget(employeeIdWidget);
+		lastName = getStringFromWidget(lastNameWidget);
+		firstName = getStringFromWidget(firstNameWidget);
+		weeklyWorkingTime = getStringFromWidget(weeklyWorkingTimeWidget);
+		totalVacationTime = getStringFromWidget(totalVacationTimeWidget);
+		currentVacationTime = getStringFromWidget(currentVacationTimeWidget);
+		currentOvertime = getStringFromWidget(currentOvertimeWidget);
 	}
 
 	private String getStringFromWidget(EditText editText)
@@ -136,30 +149,95 @@ public abstract class AbstractUserProfileFragment extends Fragment
 		return editText.getText().toString();
 	}
 
-	private void prepareDBConnection()
+	private boolean allInputFieldsAreFilledOut()
 	{
-		try
+		boolean allFieldsFilledOut = true;
+		if(!checkIfStringIsNotNull(employeeId, employeeIdWidget))
+			allFieldsFilledOut = false;
+		if(!checkIfStringIsNotNull(lastName, lastNameWidget))
+			allFieldsFilledOut = false;
+		if(!checkIfStringIsNotNull(firstName, firstNameWidget))
+			allFieldsFilledOut = false;
+		if(!checkIfStringIsNotNull(weeklyWorkingTime, weeklyWorkingTimeWidget))
+			allFieldsFilledOut = false;
+		if(!checkIfStringIsNotNull(totalVacationTime, totalVacationTimeWidget))
+			allFieldsFilledOut = false;
+		if(!checkIfStringIsNotNull(currentVacationTime, currentVacationTimeWidget))
+			allFieldsFilledOut = false;
+		if(!checkIfStringIsNotNull(currentOvertime, currentOvertimeWidget))
+			allFieldsFilledOut = false;
+		return allFieldsFilledOut;
+	}
+
+	private boolean checkIfStringIsNotNull(String s, EditText editText)
+	{
+		boolean stringIsNotNull = true;
+		if(s.isEmpty())
 		{
-			userDAO.open();
-		} catch(SQLException e)
-		{
-			e.printStackTrace();
+			editText.setError("Please fill out field");
+			stringIsNotNull = false;
 		}
+		return stringIsNotNull;
 	}
 
-	private void closeDBConnection()
+	protected boolean UserInputIsValidated()
 	{
-		userDAO.close();
+		boolean isValid = true;
+		if(!employeeIdIsValid())
+			isValid = false;
+		if(!weeklyWorkingTimeIsValid())
+			isValid = false;
+		if(!totalVacationTimeIsValid())
+			isValid = false;
+		if(!currentVacationTimeIsValid())
+			isValid = false;
+		return isValid;
 	}
 
-	protected boolean isEmployeeIdValid()
+	private boolean employeeIdIsValid()
 	{
-		boolean isValid = false;
-		String employeeIdAsString = employeeId.getText().toString();
-		int lengthOfEmployeeId = employeeIdAsString.length();
-		if (lengthOfEmployeeId == 5)
+		boolean isValid = true;
+		int lengthOfEmployeeId = employeeId.length();
+		if(lengthOfEmployeeId != 5)
 		{
-			isValid = true;
+			employeeIdWidget.setError("Your project ID must consist of 5 numbers");
+			isValid = false;
+		}
+		return isValid;
+	}
+
+	private boolean weeklyWorkingTimeIsValid()
+	{
+		boolean isValid = true;
+		int weeklyWorkingTimeAsInt = Integer.parseInt(weeklyWorkingTime);
+		if(weeklyWorkingTimeAsInt < 10 || weeklyWorkingTimeAsInt > 50)
+		{
+			weeklyWorkingTimeWidget.setError("10 <= weekly working time <= 50");
+			isValid = false;
+		}
+		return isValid;
+	}
+
+	private boolean totalVacationTimeIsValid()
+	{
+		boolean isValid = true;
+		int totalVacationTimeAsInt = Integer.parseInt(totalVacationTime);
+		if(totalVacationTimeAsInt > 40)
+		{
+			totalVacationTimeWidget.setError("Total vacation time <= 40");
+			isValid = false;
+		}
+		return isValid;
+	}
+
+	private boolean currentVacationTimeIsValid()
+	{
+		boolean isValid = true;
+		int currentVacationTimeAsInt = Integer.parseInt(currentVacationTime);
+		if(currentVacationTimeAsInt > 40)
+		{
+			currentVacationTimeWidget.setError("Current vacation time <= 40");
+			isValid = false;
 		}
 		return isValid;
 	}

@@ -7,8 +7,9 @@
           android:icon="@drawable/ic_action_cancel"
           app:showAsAction="always" />
 
-    <item android:id="@+id/action_save_user_profile"
+    <item android:id="@+id/saveNewSession"
           android:title="@string/save_user_profile"
           android:icon="@drawable/ic_action_accept"
           app:showAsAction="always" />
+
 </menu>
