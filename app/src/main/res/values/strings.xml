@@ -18,12 +18,12 @@
         <item name="overview">Time Recording</item>
         <item name="project_list">Projects</item>
         <item name="dashboard">Dashboard</item>
-        <item name="changeUserProfile">Change User Profile</item>
         <item name="settings">Settings</item>
     </string-array>
     <string name="overview">Time Recording</string>
     <string name="project_list">Projects</string>
     <string name="dashboard">Dashboard</string>
+    <string name="changeUserProfile">Change User Profile</string>
     <string name="settings">Settings</string>
 
     <!--actionBar-->

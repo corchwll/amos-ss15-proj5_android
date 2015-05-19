@@ -3,6 +3,7 @@ package dess15proj5.fau.cs.osr_amos.mobiletimerecording.ui;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
@@ -57,14 +58,10 @@ public class MainActivity extends ActionBarActivity implements AbstractUserProfi
 					case 2:
 						drawerLayout.closeDrawers();
 						break;
-//					Change user profile
-					case 3:
-						EditUserProfileFragment editUserProfileFragment = new EditUserProfileFragment();
-						showFragment(editUserProfileFragment, getResources().getString(R.string.settings));
-						drawerLayout.closeDrawers();
-						break;
 //					Settings
-					case 4:
+					case 3:
+						Intent intent = new Intent(getBaseContext(), SettingsActivity.class);
+						startActivity(intent);
 						drawerLayout.closeDrawers();
 						break;
 				}
