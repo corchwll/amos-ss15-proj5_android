@@ -41,16 +41,7 @@ public class EditUserProfileFragment extends AbstractUserProfileFragment
 
 	private void getUserFromDatabase()
 	{
-		try
-		{
-			userDAO.open();
-		} catch(SQLException e)
-		{
-			e.printStackTrace();
-		}
-
 		List<User> users = userDAO.listAll();
-		userDAO.close();
 		User user = users.get(0);
 		fillWidgetsWithValuesFromDatabase(user);
 	}

@@ -65,7 +65,14 @@ public abstract class AbstractUserProfileFragment extends Fragment
 
 	private void getUserDAO()
 	{
-		userDAO = DataAccessObjectFactory.getInstance().createUsersDAO(getActivity());
+		try
+		{
+			userDAO = DataAccessObjectFactory.getInstance()
+											 .createUsersDAO(getActivity());
+		} catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -100,14 +107,6 @@ public abstract class AbstractUserProfileFragment extends Fragment
 
 	private void writeIntoDatabase()
 	{
-		try
-		{
-			userDAO.open();
-		} catch(SQLException e)
-		{
-			e.printStackTrace();
-		}
-
 		long employeeIdAsLong = Long.parseLong(employeeId);
 		int weeklyWorkingTimeAsInt = Integer.parseInt(weeklyWorkingTime);
 		int totalVacationTimeAsInt = Integer.parseInt(totalVacationTime);
@@ -115,8 +114,6 @@ public abstract class AbstractUserProfileFragment extends Fragment
 		int currentOvertimeAsInt = Integer.parseInt(currentOvertime);
 		runDBTransaction(employeeIdAsLong, lastName, firstName, weeklyWorkingTimeAsInt, totalVacationTimeAsInt,
 				currentVacationTimeAsInt, currentOvertimeAsInt);
-
-		userDAO.close();
 	}
 
 	protected void getWidgets(View view)

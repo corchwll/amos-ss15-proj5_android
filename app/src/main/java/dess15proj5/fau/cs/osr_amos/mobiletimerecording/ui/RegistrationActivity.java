@@ -23,19 +23,19 @@ public class RegistrationActivity extends ActionBarActivity implements AbstractU
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main_activity);
-		userDAO = DataAccessObjectFactory.getInstance().createUsersDAO(this);
-		checkIfUserExistsInDatabase();
-	}
-
-	private void checkIfUserExistsInDatabase()
-	{
 		try
 		{
-			userDAO.open();
+			userDAO = DataAccessObjectFactory.getInstance()
+											 .createUsersDAO(this);
+			checkIfUserExistsInDatabase();
 		} catch(SQLException e)
 		{
 			e.printStackTrace();
 		}
+	}
+
+	private void checkIfUserExistsInDatabase()
+	{
 		List<User> users = userDAO.listAll();
 		if(!users.isEmpty())
 		{
@@ -49,7 +49,6 @@ public class RegistrationActivity extends ActionBarActivity implements AbstractU
 			fragmentTransaction.replace(R.id.frameLayout, fragment);
 			fragmentTransaction.commit();
 		}
-		userDAO.close();
 	}
 
 	private void startMainActivity()
