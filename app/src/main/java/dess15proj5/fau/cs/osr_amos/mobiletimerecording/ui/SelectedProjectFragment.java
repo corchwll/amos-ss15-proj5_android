@@ -66,15 +66,14 @@ public class SelectedProjectFragment extends Fragment
 		super.onActivityCreated(savedInstanceState);
 		getArgumentsFromSharedPreferences();
 
-		TextView textView = (TextView) getActivity().findViewById(R.id.name_of_selected_project);
+		TextView textView = (TextView)getActivity().findViewById(R.id.name_of_selected_project);
 		final ProjectTimer timer = (ProjectTimer)getActivity().findViewById(R.id.timer);
 		final Button startStopBtn = (Button)getActivity().findViewById(R.id.startStopBtn);
 
 		if(projectId == -1L && projectName == null)
 		{
 			textView.setText("No project selected. Please select one in the projects tab.");
-		}
-		else
+		} else
 		{
 			textView.setText(projectName);
 			startStopBtn.setOnClickListener(new View.OnClickListener()
@@ -103,7 +102,8 @@ public class SelectedProjectFragment extends Fragment
 						button.setText("Stop");
 					} catch(SQLException e)
 					{
-						Toast.makeText(getActivity(), "Could not start timer due to database errors!", Toast.LENGTH_LONG)
+						Toast.makeText(getActivity(), "Could not start timer due to database errors!",
+								Toast.LENGTH_LONG)
 							 .show();
 					}
 				}
@@ -141,7 +141,8 @@ public class SelectedProjectFragment extends Fragment
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
 	{
 		super.onCreateOptionsMenu(menu, inflater);
-		getActivity().getMenuInflater().inflate(R.menu.menu_selected_project, menu);
+		getActivity().getMenuInflater()
+					 .inflate(R.menu.menu_selected_project, menu);
 	}
 
 	@Override
@@ -171,11 +172,20 @@ public class SelectedProjectFragment extends Fragment
 	{
 		try
 		{
-			ProjectsDAO projectsDAO = DataAccessObjectFactory.getInstance().createProjectsDAO(getActivity());
+			ProjectsDAO projectsDAO = DataAccessObjectFactory.getInstance()
+															 .createProjectsDAO(getActivity());
 			projectsDAO.delete(projectId);
 		} catch(SQLException e)
 		{
 			e.printStackTrace();
 		}
+		showProjectsListFragment();
+	}
+
+	private void showProjectsListFragment()
+	{
+		getFragmentManager().beginTransaction()
+							.replace(R.id.frameLayout, new ProjectsListFragment())
+							.commit();
 	}
 }
