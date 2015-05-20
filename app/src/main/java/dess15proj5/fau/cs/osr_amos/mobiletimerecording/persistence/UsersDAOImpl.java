@@ -23,7 +23,7 @@ public class UsersDAOImpl extends AbstractDAO implements UsersDAO
 	}
 
 	@Override
-	public User create(long employeeId, String lastName, String firstName, int weeklyWorkingTime, int totalVacationTime,
+	public User create(String employeeId, String lastName, String firstName, int weeklyWorkingTime, int totalVacationTime,
 					   int currentVacationTime, int currentOvertime, Date registrationDate)
 	{
 		ContentValues values = new ContentValues();
@@ -35,10 +35,10 @@ public class UsersDAOImpl extends AbstractDAO implements UsersDAO
 		values.put(PersistenceHelper.USERS_CURRENT_VACATION_TIME, currentVacationTime);
 		values.put(PersistenceHelper.USERS_CURRENT_OVERTIME, currentOvertime);
 		values.put(PersistenceHelper.USERS_REGISTRATION_DATE, registrationDate.getTime());
-		long insertId = database.insert(PersistenceHelper.TABLE_USERS, null, values);
+		database.insert(PersistenceHelper.TABLE_USERS, null, values);
 
 		Cursor cursor = database.query(PersistenceHelper.TABLE_USERS, allColumns, PersistenceHelper.USERS_ID +
-				" = " + insertId, null, null, null, null);
+				" = '" + employeeId + "'", null, null, null, null);
 		cursor.moveToFirst();
 		User newUser = cursorToUser(cursor);
 		cursor.close();
@@ -69,7 +69,7 @@ public class UsersDAOImpl extends AbstractDAO implements UsersDAO
 	}
 
 	@Override
-	public User load(long userId)
+	public User load(String userId)
 	{
 		Cursor cursor =	database.query(PersistenceHelper.TABLE_USERS, allColumns, PersistenceHelper.USERS_ID +
 						" = " + userId,	null, null, null, null);
@@ -80,7 +80,7 @@ public class UsersDAOImpl extends AbstractDAO implements UsersDAO
 	}
 
 	@Override
-	public void delete(long userId)
+	public void delete(String userId)
 	{
 		database.delete(PersistenceHelper.TABLE_USERS, PersistenceHelper.USERS_ID + " = " + userId, null);
 	}
@@ -107,7 +107,7 @@ public class UsersDAOImpl extends AbstractDAO implements UsersDAO
 	private User cursorToUser(Cursor cursor)
 	{
 		User user = new User();
-		user.setEmployeeId(cursor.getLong(0));
+		user.setEmployeeId(cursor.getString(0));
 		user.setLastName(cursor.getString(1));
 		user.setFirstName(cursor.getString(2));
 		user.setWeeklyWorkingTime(cursor.getInt(3));

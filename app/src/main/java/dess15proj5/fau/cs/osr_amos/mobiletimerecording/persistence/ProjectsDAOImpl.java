@@ -20,7 +20,7 @@ public class ProjectsDAOImpl extends AbstractDAO implements ProjectsDAO
 	}
 
 	@Override
-	public Project create(long projectId, String projectName, boolean isDisplayed, boolean isUsed, boolean isArchived)
+	public Project create(String projectId, String projectName, boolean isDisplayed, boolean isUsed, boolean isArchived)
 	{
 		ContentValues values = new ContentValues();
         values.put(PersistenceHelper.PROJECTS_ID, projectId);
@@ -28,10 +28,10 @@ public class ProjectsDAOImpl extends AbstractDAO implements ProjectsDAO
 		values.put(PersistenceHelper.PROJECTS_IS_DISPLAYED, isDisplayed);
 		values.put(PersistenceHelper.PROJECTS_IS_USED, isUsed);
 		values.put(PersistenceHelper.PROJECTS_IS_ARCHIVED, isArchived);
-		long insertId = database.insert(PersistenceHelper.TABLE_PROJECTS, null, values);
+		database.insert(PersistenceHelper.TABLE_PROJECTS, null, values);
 
 		Cursor cursor = database.query(PersistenceHelper.TABLE_PROJECTS, allColumns,
-				PersistenceHelper.PROJECTS_ID + " = " + insertId, null, null, null, null);
+				PersistenceHelper.PROJECTS_ID + " = '" + projectId + "'", null, null, null, null);
 		cursor.moveToFirst();
 		Project newProject = cursorToProject(cursor);
 		cursor.close();
@@ -53,7 +53,7 @@ public class ProjectsDAOImpl extends AbstractDAO implements ProjectsDAO
 	}
 
 	@Override
-	public Project load(long projectId)
+	public Project load(String projectId)
 	{
 		Cursor cursor = database.query(PersistenceHelper.TABLE_PROJECTS, allColumns,
 				PersistenceHelper.PROJECTS_ID + " = " + projectId, null, null, null, null);
@@ -64,7 +64,7 @@ public class ProjectsDAOImpl extends AbstractDAO implements ProjectsDAO
 	}
 
 	@Override
-	public void delete(long projectId)
+	public void delete(String projectId)
 	{
 		ContentValues values = new ContentValues();
 		values.put(PersistenceHelper.PROJECTS_IS_ARCHIVED, true);
@@ -96,7 +96,7 @@ public class ProjectsDAOImpl extends AbstractDAO implements ProjectsDAO
 	private Project cursorToProject(Cursor cursor)
 	{
 		Project project = new Project();
-		project.setId(cursor.getLong(0));
+		project.setId(cursor.getString(0));
 		project.setName(cursor.getString(1));
 		project.setIsDisplayed(cursor.getInt(2) == 1);
 		project.setIsUsed(cursor.getInt(3) == 1);

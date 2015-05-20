@@ -8,8 +8,8 @@ import java.util.List;
 
 public interface SessionsDAO extends DAO
 {
-	public Session create(long projectId, Date startTime);
-	public Session create(long projectId, Date startTime, Date stopTime);
+	public Session create(String projectId, Date startTime);
+	public Session create(String projectId, Date startTime, Date stopTime);
 	public void update(Session session);
 	public Session load(long sessionId);
 	public void delete(long sessionId);

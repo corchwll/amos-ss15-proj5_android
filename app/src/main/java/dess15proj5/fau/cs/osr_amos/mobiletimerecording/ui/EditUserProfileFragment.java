@@ -9,7 +9,6 @@ import dess15proj5.fau.cs.osr_amos.mobiletimerecording.R;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.models.User;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.utility.AbstractUserProfileFragment;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public class EditUserProfileFragment extends AbstractUserProfileFragment
@@ -25,11 +24,11 @@ public class EditUserProfileFragment extends AbstractUserProfileFragment
 	}
 
 	@Override
-	protected void runDBTransaction(Long employeeIdAsLong, String lastName, String firstName, int weeklyWorkingTime,
+	protected void runDBTransaction(String employeeId, String lastName, String firstName, int weeklyWorkingTime,
 									int totalVacationTime, int currentVacationTime, int currentOvertime)
 	{
 		User user = userDAO.load();
-		user.setEmployeeId(employeeIdAsLong);
+		user.setEmployeeId(employeeId);
 		user.setLastName(lastName);
 		user.setFirstName(firstName);
 		user.setWeeklyWorkingTime(weeklyWorkingTime);
@@ -48,7 +47,7 @@ public class EditUserProfileFragment extends AbstractUserProfileFragment
 
 	private void fillWidgetsWithValuesFromDatabase(User user)
 	{
-		employeeIdWidget.setText(Long.toString(user.getEmployeeId()));
+		employeeIdWidget.setText(user.getEmployeeId());
 		lastNameWidget.setText(user.getLastName());
 		firstNameWidget.setText(user.getFirstName());
 		weeklyWorkingTimeWidget.setText(Integer.toString(user.getWeeklyWorkingTime()));

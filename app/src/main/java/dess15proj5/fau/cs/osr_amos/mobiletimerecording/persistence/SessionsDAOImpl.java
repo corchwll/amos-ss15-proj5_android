@@ -3,6 +3,7 @@ package dess15proj5.fau.cs.osr_amos.mobiletimerecording.persistence;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.util.Log;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.models.Session;
 
 import java.util.ArrayList;
@@ -20,13 +21,13 @@ public class SessionsDAOImpl extends AbstractDAO implements SessionsDAO
 	}
 
 	@Override
-	public Session create(long projectId, Date startTime)
+	public Session create(String projectId, Date startTime)
 	{
 		return create(projectId, startTime, startTime);
 	}
 
 	@Override
-	public Session create(long projectId, Date startTime, Date stopTime)
+	public Session create(String projectId, Date startTime, Date stopTime)
 	{
 		ContentValues values = new ContentValues();
 		values.put(PersistenceHelper.SESSIONS_PROJECT_ID, projectId);
@@ -97,7 +98,7 @@ public class SessionsDAOImpl extends AbstractDAO implements SessionsDAO
 	{
 		Session session = new Session();
 		session.setId(cursor.getLong(0));
-		session.setProjectId(cursor.getLong(1));
+		session.setProjectId(cursor.getString(1));
 		session.setStartTime(new Date(cursor.getLong(2)));
 		session.setStopTime(new Date(cursor.getLong(3)));
 		return session;

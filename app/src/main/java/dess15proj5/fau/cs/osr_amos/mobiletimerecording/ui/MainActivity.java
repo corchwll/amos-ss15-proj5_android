@@ -116,7 +116,7 @@ public class MainActivity extends ActionBarActivity implements AbstractUserProfi
 	{
 		SelectedProjectFragment selectedProjectFragment = new SelectedProjectFragment();
 		Bundle args = new Bundle();
-		args.putLong("project_id", selectedProject.getId());
+		args.putString("project_id", selectedProject.getId());
 		args.putString("project_name", selectedProject.getName());
 		selectedProjectFragment.setArguments(args);
 		showFragment(selectedProjectFragment, getResources().getString(R.string.overview));

@@ -21,11 +21,11 @@ public class RegisterUserProfileFragment extends AbstractUserProfileFragment
 	}
 
 	@Override
-	protected void runDBTransaction(Long employeeIdAsLong, String lastName, String firstName, int weeklyWorkingTime,
+	protected void runDBTransaction(String employeeId, String lastName, String firstName, int weeklyWorkingTime,
 									int totalVacationTime, int currentVacationTime, int currentOvertime)
 	{
 		Date date = new Date();
-		userDAO.create(employeeIdAsLong, lastName, firstName, weeklyWorkingTime, totalVacationTime,
+		userDAO.create(employeeId, lastName, firstName, weeklyWorkingTime, totalVacationTime,
 				currentVacationTime, currentOvertime, date);
 	}
 }

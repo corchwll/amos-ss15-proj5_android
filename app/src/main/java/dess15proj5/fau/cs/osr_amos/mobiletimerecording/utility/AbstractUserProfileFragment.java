@@ -107,12 +107,11 @@ public abstract class AbstractUserProfileFragment extends Fragment
 
 	private void writeIntoDatabase()
 	{
-		long employeeIdAsLong = Long.parseLong(employeeId);
 		int weeklyWorkingTimeAsInt = Integer.parseInt(weeklyWorkingTime);
 		int totalVacationTimeAsInt = Integer.parseInt(totalVacationTime);
 		int currentVacationTimeAsInt = Integer.parseInt(currentVacationTime);
 		int currentOvertimeAsInt = Integer.parseInt(currentOvertime);
-		runDBTransaction(employeeIdAsLong, lastName, firstName, weeklyWorkingTimeAsInt, totalVacationTimeAsInt,
+		runDBTransaction(employeeId, lastName, firstName, weeklyWorkingTimeAsInt, totalVacationTimeAsInt,
 				currentVacationTimeAsInt, currentOvertimeAsInt);
 	}
 
@@ -127,7 +126,7 @@ public abstract class AbstractUserProfileFragment extends Fragment
 		currentOvertimeWidget = (EditText) view.findViewById(R.id.current_overtime);
 	}
 
-	protected abstract void runDBTransaction(Long employeeIdAsLong, String lastName, String firstName, int
+	protected abstract void runDBTransaction(String employeeId, String lastName, String firstName, int
 			weeklyWorkingTime, int totalVacationTime, int currentVacationTime, int currentOvertime);
 
 	private void getInputsFromWidgets()

@@ -22,7 +22,7 @@ import java.util.Date;
 public class SelectedProjectFragment extends Fragment
 {
 	private SharedPreferences sharedPref;
-	private Long projectId;
+	private String projectId;
 	private String projectName;
 	private Session session;
 
@@ -41,7 +41,7 @@ public class SelectedProjectFragment extends Fragment
 
 	private void getArgumentsFromBundle()
 	{
-		projectId = getArguments().getLong("project_id");
+		projectId = getArguments().getString("project_id");
 		projectName = getArguments().getString("project_name");
 	}
 
@@ -49,7 +49,7 @@ public class SelectedProjectFragment extends Fragment
 	{
 		sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
 		SharedPreferences.Editor editor = sharedPref.edit();
-		editor.putLong("project_id", projectId);
+		editor.putString("project_id", projectId);
 		editor.putString("project_name", projectName);
 		editor.commit();
 	}
@@ -70,7 +70,7 @@ public class SelectedProjectFragment extends Fragment
 		final ProjectTimer timer = (ProjectTimer)getActivity().findViewById(R.id.timer);
 		final Button startStopBtn = (Button)getActivity().findViewById(R.id.startStopBtn);
 
-		if(projectId == -1L && projectName == null)
+		if(projectId == null && projectName == null)
 		{
 			textView.setText("No project selected. Please select one in the projects tab.");
 		} else
@@ -133,7 +133,7 @@ public class SelectedProjectFragment extends Fragment
 	private void getArgumentsFromSharedPreferences()
 	{
 		SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
-		projectId = sharedPref.getLong("project_id", -1L);
+		projectId = sharedPref.getString("project_id", null);
 		projectName = sharedPref.getString("project_name", null);
 	}
 

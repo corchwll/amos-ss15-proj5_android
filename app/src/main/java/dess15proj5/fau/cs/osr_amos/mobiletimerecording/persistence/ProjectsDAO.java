@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface ProjectsDAO extends DAO
 {
-	public Project create(long projectId, String projectName, boolean isDisplayed, boolean isUsed, boolean isArchived);
+	public Project create(String projectId, String projectName, boolean isDisplayed, boolean isUsed, boolean isArchived);
 	public void update(Project project);
-	public Project load(long projectId);
-	public void delete(long projectId);
+	public Project load(String projectId);
+	public void delete(String projectId);
 	public List<Project> listAll();
 }

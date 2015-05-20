@@ -24,7 +24,7 @@ import java.util.Date;
 
 public class AddSessionActivity extends ActionBarActivity
 {
-	private long projectId;
+	private String projectId;
 	private int startHour = 8;
 	private int startMinute = 0;
 	private int stopHour = 16;
@@ -129,7 +129,7 @@ public class AddSessionActivity extends ActionBarActivity
 	{
 		Intent intent = getIntent();
 		Bundle data = intent.getExtras();
-		projectId = data.getLong("project_id");
+		projectId = data.getString("project_id");
 	}
 
 	private void getWidgets()

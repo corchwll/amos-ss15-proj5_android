@@ -6,6 +6,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class PersistenceHelper extends SQLiteOpenHelper
 {
 	public static final String TABLE_PROJECTS = "projects";
@@ -16,9 +19,11 @@ public class PersistenceHelper extends SQLiteOpenHelper
 	public static final String PROJECTS_IS_ARCHIVED = "is_archived";
 
 	private static final String CREATE_PROJECTS =
-			"create table " + TABLE_PROJECTS + "(" + PROJECTS_ID + " integer primary key not null, " +
+			"create table " + TABLE_PROJECTS + "(" + PROJECTS_ID + " text primary key not null, " +
 					PROJECTS_NAME + " text, " + PROJECTS_IS_DISPLAYED + " integer, " + PROJECTS_IS_USED + " integer, " +
 					PROJECTS_IS_ARCHIVED + " integer);";
+
+	public static List<String> defaultProjects = new ArrayList<>();
 
 	public static final String TABLE_SESSIONS = "sessions";
 	public static final String SESSIONS_ID = "id";
@@ -28,7 +33,7 @@ public class PersistenceHelper extends SQLiteOpenHelper
 
 	private static final String CREATE_SESSIONS =
 			"create table " + TABLE_SESSIONS + "(" + SESSIONS_ID + " integer primary key autoincrement, " +
-					SESSIONS_PROJECT_ID + " integer, " + SESSIONS_TIMESTAMP_START + " integer not null, " +
+					SESSIONS_PROJECT_ID + " text, " + SESSIONS_TIMESTAMP_START + " integer not null, " +
 					SESSIONS_TIMESTAMP_STOP + " integer not null, " + "foreign key(" + SESSIONS_PROJECT_ID + ") " +
 					"references " +
 					TABLE_PROJECTS + "(" + PROJECTS_ID + "));";
@@ -44,7 +49,7 @@ public class PersistenceHelper extends SQLiteOpenHelper
 	public static final String USERS_REGISTRATION_DATE = "registration_date";
 
 	private static final String CREATE_USERS =
-			"create table " + TABLE_USERS + "(" + USERS_ID + " integer primary key not null, " +
+			"create table " + TABLE_USERS + "(" + USERS_ID + " text primary key not null, " +
 					USERS_LAST_NAME + " text, " + USERS_FIRST_NAME + " text, " + USERS_WEEKLY_WORKING_TIME + " " +
 					"integer, " + USERS_TOTAL_VACATION_TIME + " integer, " + USERS_CURRENT_VACATION_TIME + " integer," +
 					USERS_CURRENT_OVERTIME + " integer, " + USERS_REGISTRATION_DATE + " integer);";
@@ -69,7 +74,7 @@ public class PersistenceHelper extends SQLiteOpenHelper
 	private void insertDefaultProjects(SQLiteDatabase db)
 	{
 		ContentValues values = new ContentValues();
-		values.put(PROJECTS_ID, 10000);
+		values.put(PROJECTS_ID, "10000");
 		values.put(PROJECTS_NAME, "Vacation");
 		values.put(PROJECTS_IS_DISPLAYED, 1);
 		values.put(PROJECTS_IS_USED, 1);
@@ -77,7 +82,7 @@ public class PersistenceHelper extends SQLiteOpenHelper
 		db.insert(TABLE_PROJECTS, null, values);
 
 		values = new ContentValues();
-		values.put(PROJECTS_ID, 10001);
+		values.put(PROJECTS_ID, "10001");
 		values.put(PROJECTS_NAME, "Training");
 		values.put(PROJECTS_IS_DISPLAYED, 1);
 		values.put(PROJECTS_IS_USED, 1);
@@ -85,7 +90,7 @@ public class PersistenceHelper extends SQLiteOpenHelper
 		db.insert(TABLE_PROJECTS, null, values);
 
 		values = new ContentValues();
-		values.put(PROJECTS_ID, 10002);
+		values.put(PROJECTS_ID, "10002");
 		values.put(PROJECTS_NAME, "Illness");
 		values.put(PROJECTS_IS_DISPLAYED, 1);
 		values.put(PROJECTS_IS_USED, 1);
@@ -93,12 +98,17 @@ public class PersistenceHelper extends SQLiteOpenHelper
 		db.insert(TABLE_PROJECTS, null, values);
 
 		values = new ContentValues();
-		values.put(PROJECTS_ID, 10003);
+		values.put(PROJECTS_ID, "10003");
 		values.put(PROJECTS_NAME, "Office");
 		values.put(PROJECTS_IS_DISPLAYED, 1);
 		values.put(PROJECTS_IS_USED, 1);
 		values.put(PROJECTS_IS_ARCHIVED, 0);
 		db.insert(TABLE_PROJECTS, null, values);
+
+		defaultProjects.add("10000");
+		defaultProjects.add("10001");
+		defaultProjects.add("10002");
+		defaultProjects.add("10003");
 	}
 
 	@Override

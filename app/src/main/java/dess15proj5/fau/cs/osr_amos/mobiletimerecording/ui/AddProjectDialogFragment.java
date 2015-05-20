@@ -68,16 +68,15 @@ public class AddProjectDialogFragment extends DialogFragment
 				boolean wantToCloseDialog = false;
 				try
 				{
-					String projectIdAsString = projectIdWidget.getText().toString();
-					boolean isEmpty = projectIdAsString.isEmpty();
-					if(isEmpty == false && projectIdAsString.length() == 5)
+					String projectId = projectIdWidget.getText().toString();
+					boolean isEmpty = projectId.isEmpty();
+					if(!isEmpty && projectId.length() == 5)
 					{
-						Long newProjectIdAsLong = Long.parseLong(projectIdAsString);
 						String newProjectNameAsString = projectNameWidget.getText()
 																		 .toString();
 						try
 						{
-							createNewProject(newProjectIdAsLong, newProjectNameAsString);
+							createNewProject(projectId, newProjectNameAsString);
 							wantToCloseDialog = true;
 						} catch(CursorIndexOutOfBoundsException e)
 						{
@@ -118,7 +117,7 @@ public class AddProjectDialogFragment extends DialogFragment
 		projectNameWidget = (EditText) view.findViewById(R.id.newProjectName);
 	}
 
-	private void createNewProject(long projectId, String projectName) throws SQLException
+	private void createNewProject(String projectId, String projectName) throws SQLException
 	{
 		ProjectsDAO projectsDAO = DataAccessObjectFactory.getInstance()
 														 .createProjectsDAO(getActivity());
