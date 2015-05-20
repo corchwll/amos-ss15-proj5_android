@@ -15,7 +15,7 @@
     <string name="drawer_open">open</string>
     <string name="drawer_close">close</string>
     <string-array name="drawer_list_items">
-        <item name="overview">Time Recording</item>
+        <item name="overview">Recording</item>
         <item name="project_list">Projects</item>
         <item name="dashboard">Dashboard</item>
         <item name="settings">Settings</item>
