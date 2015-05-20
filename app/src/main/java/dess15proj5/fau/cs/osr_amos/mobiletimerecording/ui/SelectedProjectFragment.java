@@ -39,10 +39,13 @@ import java.util.Date;
 
 public class SelectedProjectFragment extends Fragment
 {
-	private SharedPreferences sharedPref;
 	private String projectId;
 	private String projectName;
 	private Session session;
+
+	private TextView textView;
+	private ProjectTimer timer;
+	private Button startStopBtn;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -65,11 +68,11 @@ public class SelectedProjectFragment extends Fragment
 
 	private void saveArgumentsIntoSharedPreferences()
 	{
-		sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+		SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
 		SharedPreferences.Editor editor = sharedPref.edit();
 		editor.putString("project_id", projectId);
 		editor.putString("project_name", projectName);
-		editor.commit();
+		editor.apply();
 	}
 
 	@Override
@@ -83,15 +86,12 @@ public class SelectedProjectFragment extends Fragment
 	{
 		super.onActivityCreated(savedInstanceState);
 		getArgumentsFromSharedPreferences();
-
-		TextView textView = (TextView)getActivity().findViewById(R.id.name_of_selected_project);
-		final ProjectTimer timer = (ProjectTimer)getActivity().findViewById(R.id.timer);
-		final Button startStopBtn = (Button)getActivity().findViewById(R.id.startStopBtn);
-
-		if(projectId == null && projectName == null)
+		getWidgets();
+		if(attributesAreNull())
 		{
-			textView.setText("No project selected. Please select one in the projects tab.");
-		} else
+			setTextViewToNoProjectSelected();
+		}
+		else
 		{
 			textView.setText(projectName);
 			startStopBtn.setOnClickListener(new View.OnClickListener()
@@ -148,6 +148,26 @@ public class SelectedProjectFragment extends Fragment
 		}
 	}
 
+	private void getWidgets()
+	{
+		textView = (TextView)getActivity().findViewById(R.id.name_of_selected_project);
+		timer = (ProjectTimer)getActivity().findViewById(R.id.timer);
+		startStopBtn = (Button)getActivity().findViewById(R.id.startStopBtn);
+	}
+
+	private boolean attributesAreNull()
+	{
+		boolean attributesAreNull = false;
+		if(projectId == null && projectName == null)
+			attributesAreNull = true;
+		return attributesAreNull;
+	}
+
+	private void setTextViewToNoProjectSelected()
+	{
+		textView.setText("No project selected. Please select one in the projects tab.");
+	}
+
 	private void getArgumentsFromSharedPreferences()
 	{
 		SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
@@ -179,6 +199,17 @@ public class SelectedProjectFragment extends Fragment
 		}
 	}
 
+	@Override
+	public void onPrepareOptionsMenu(Menu menu)
+	{
+		super.onPrepareOptionsMenu(menu);
+		if(projectId == null && projectName == null)
+		{
+			menu.getItem(0).setEnabled(false);
+			menu.getItem(1).setEnabled(false);
+		}
+	}
+
 	private void createAddSessionActivity()
 	{
 		Intent intent = new Intent(getActivity(), AddSessionActivity.class);
@@ -197,7 +228,21 @@ public class SelectedProjectFragment extends Fragment
 		{
 			e.printStackTrace();
 		}
+		setAttributesNull();
+		disableMenuItems();
 		showProjectsListFragment();
+	}
+
+	private void setAttributesNull()
+	{
+		projectId = null;
+		projectName = null;
+		saveArgumentsIntoSharedPreferences();
+	}
+
+	private void disableMenuItems()
+	{
+		getActivity().invalidateOptionsMenu();
 	}
 
 	private void showProjectsListFragment()
