@@ -6,13 +6,15 @@ import android.database.Cursor;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.models.Project;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ProjectsDAOImpl extends AbstractDAO implements ProjectsDAO
 {
 	private String[] allColumns =
-			{PersistenceHelper.PROJECTS_ID, PersistenceHelper.PROJECTS_NAME, PersistenceHelper.PROJECTS_IS_DISPLAYED,
-					PersistenceHelper.PROJECTS_IS_USED, PersistenceHelper.PROJECTS_IS_ARCHIVED};
+			{PersistenceHelper.PROJECTS_ID, PersistenceHelper.PROJECTS_NAME, PersistenceHelper.PROJECTS_FINAL_DATE,
+					PersistenceHelper.PROJECTS_IS_DISPLAYED, PersistenceHelper.PROJECTS_IS_USED,
+					PersistenceHelper.PROJECTS_IS_ARCHIVED};
 
 	public ProjectsDAOImpl(Context context)
 	{
@@ -20,11 +22,13 @@ public class ProjectsDAOImpl extends AbstractDAO implements ProjectsDAO
 	}
 
 	@Override
-	public Project create(String projectId, String projectName, boolean isDisplayed, boolean isUsed, boolean isArchived)
+	public Project create(String projectId, String projectName, Date finalDate, boolean isUsed, boolean isArchived,
+						  boolean isDisplayed)
 	{
 		ContentValues values = new ContentValues();
         values.put(PersistenceHelper.PROJECTS_ID, projectId);
 		values.put(PersistenceHelper.PROJECTS_NAME, projectName);
+		values.put(PersistenceHelper.PROJECTS_FINAL_DATE, finalDate.getTime());
 		values.put(PersistenceHelper.PROJECTS_IS_DISPLAYED, isDisplayed);
 		values.put(PersistenceHelper.PROJECTS_IS_USED, isUsed);
 		values.put(PersistenceHelper.PROJECTS_IS_ARCHIVED, isArchived);
@@ -44,6 +48,7 @@ public class ProjectsDAOImpl extends AbstractDAO implements ProjectsDAO
 		ContentValues values = new ContentValues();
 		values.put(PersistenceHelper.PROJECTS_ID, project.getId());
 		values.put(PersistenceHelper.PROJECTS_NAME, project.getName());
+		values.put(PersistenceHelper.PROJECTS_FINAL_DATE, project.getFinalDate().getTime());
 		values.put(PersistenceHelper.PROJECTS_IS_DISPLAYED, project.isDisplayed());
 		values.put(PersistenceHelper.PROJECTS_IS_USED, project.isUsed());
 		values.put(PersistenceHelper.PROJECTS_IS_ARCHIVED, project.isArchived());
@@ -114,9 +119,10 @@ public class ProjectsDAOImpl extends AbstractDAO implements ProjectsDAO
 		Project project = new Project();
 		project.setId(cursor.getString(0));
 		project.setName(cursor.getString(1));
-		project.setIsDisplayed(cursor.getInt(2) == 1);
-		project.setIsUsed(cursor.getInt(3) == 1);
-		project.setIsArchived(cursor.getInt(4) == 1);
+		project.setFinalDate(new Date(cursor.getLong(2)));
+		project.setIsDisplayed(cursor.getInt(3) == 1);
+		project.setIsUsed(cursor.getInt(4) == 1);
+		project.setIsArchived(cursor.getInt(5) == 1);
 		return project;
 	}
 }

@@ -15,6 +15,7 @@ import dess15proj5.fau.cs.osr_amos.mobiletimerecording.persistence.DataAccessObj
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.persistence.ProjectsDAO;
 
 import java.sql.SQLException;
+import java.util.Date;
 
 public class AddProjectDialogFragment extends DialogFragment
 {
@@ -122,6 +123,6 @@ public class AddProjectDialogFragment extends DialogFragment
 		ProjectsDAO projectsDAO = DataAccessObjectFactory.getInstance()
 														 .createProjectsDAO(getActivity());
 
-		projectsDAO.create(projectId, projectName, true, true, false);
+		projectsDAO.create(projectId, projectName, new Date(), true, false, true);
 	}
 }

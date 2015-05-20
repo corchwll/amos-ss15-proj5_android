@@ -14,14 +14,15 @@ public class PersistenceHelper extends SQLiteOpenHelper
 	public static final String TABLE_PROJECTS = "projects";
 	public static final String PROJECTS_ID = "id";
 	public static final String PROJECTS_NAME = "name";
+	public static final String PROJECTS_FINAL_DATE = "final_date";
 	public static final String PROJECTS_IS_DISPLAYED = "is_displayed";
 	public static final String PROJECTS_IS_USED = "is_used";
 	public static final String PROJECTS_IS_ARCHIVED = "is_archived";
 
 	private static final String CREATE_PROJECTS =
 			"create table " + TABLE_PROJECTS + "(" + PROJECTS_ID + " text primary key not null, " +
-					PROJECTS_NAME + " text, " + PROJECTS_IS_DISPLAYED + " integer, " + PROJECTS_IS_USED + " integer, " +
-					PROJECTS_IS_ARCHIVED + " integer);";
+					PROJECTS_NAME + " text, " + PROJECTS_FINAL_DATE + " integer," + PROJECTS_IS_DISPLAYED +
+					"integer, " + PROJECTS_IS_USED + " " + "integer, " + PROJECTS_IS_ARCHIVED + " integer);";
 
 	public static List<String> defaultProjects = new ArrayList<>();
 
@@ -55,7 +56,7 @@ public class PersistenceHelper extends SQLiteOpenHelper
 					USERS_CURRENT_OVERTIME + " integer, " + USERS_REGISTRATION_DATE + " integer);";
 
 	private static final String DATABASE_NAME = "mobile_time_recording";
-	private static final int DATABASE_VERSION = 6;
+	private static final int DATABASE_VERSION = 7;
 
 	public PersistenceHelper(Context context)
 	{
@@ -76,6 +77,7 @@ public class PersistenceHelper extends SQLiteOpenHelper
 		ContentValues values = new ContentValues();
 		values.put(PROJECTS_ID, "10000");
 		values.put(PROJECTS_NAME, "Vacation");
+		values.put(PROJECTS_FINAL_DATE, 0);
 		values.put(PROJECTS_IS_DISPLAYED, 1);
 		values.put(PROJECTS_IS_USED, 1);
 		values.put(PROJECTS_IS_ARCHIVED, 0);
@@ -84,6 +86,7 @@ public class PersistenceHelper extends SQLiteOpenHelper
 		values = new ContentValues();
 		values.put(PROJECTS_ID, "10001");
 		values.put(PROJECTS_NAME, "Training");
+		values.put(PROJECTS_FINAL_DATE, 0);
 		values.put(PROJECTS_IS_DISPLAYED, 1);
 		values.put(PROJECTS_IS_USED, 1);
 		values.put(PROJECTS_IS_ARCHIVED, 0);
@@ -92,6 +95,7 @@ public class PersistenceHelper extends SQLiteOpenHelper
 		values = new ContentValues();
 		values.put(PROJECTS_ID, "10002");
 		values.put(PROJECTS_NAME, "Illness");
+		values.put(PROJECTS_FINAL_DATE, 0);
 		values.put(PROJECTS_IS_DISPLAYED, 1);
 		values.put(PROJECTS_IS_USED, 1);
 		values.put(PROJECTS_IS_ARCHIVED, 0);
@@ -100,6 +104,7 @@ public class PersistenceHelper extends SQLiteOpenHelper
 		values = new ContentValues();
 		values.put(PROJECTS_ID, "10003");
 		values.put(PROJECTS_NAME, "Office");
+		values.put(PROJECTS_FINAL_DATE, 0);
 		values.put(PROJECTS_IS_DISPLAYED, 1);
 		values.put(PROJECTS_IS_USED, 1);
 		values.put(PROJECTS_IS_ARCHIVED, 0);

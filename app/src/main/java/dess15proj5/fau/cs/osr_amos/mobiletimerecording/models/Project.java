@@ -1,10 +1,12 @@
 package dess15proj5.fau.cs.osr_amos.mobiletimerecording.models;
 
+import java.util.Date;
 
 public class Project
 {
 	private String id;
 	private String name;
+	private Date finalDate;
 	private boolean isDisplayed;
 	private boolean isUsed;
 	private boolean isArchived;
@@ -53,6 +55,29 @@ public class Project
 	{
 		assert name != null: "project name should not be null!";
 		this.name = name;
+	}
+
+	/**
+	 * Returns the final date of the project.
+	 *
+	 * @methodtype get method
+	 */
+	public Date getFinalDate()
+	{
+		return finalDate;
+	}
+
+	/**
+	 * Sets the final date of the project if not null.
+	 *
+	 * @methodtype set method
+	 * @pre finalDate != null
+	 * @post finalDate successfully set
+	 */
+	public void setFinalDate(Date finalDate)
+	{
+		assert finalDate != null: "finalDate should not be null!";
+		this.finalDate = finalDate;
 	}
 
 	/**
