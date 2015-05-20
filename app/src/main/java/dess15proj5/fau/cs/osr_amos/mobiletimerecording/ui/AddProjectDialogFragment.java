@@ -70,7 +70,7 @@ public class AddProjectDialogFragment extends DialogFragment
 				{
 					String projectIdAsString = projectIdWidget.getText().toString();
 					boolean isEmpty = projectIdAsString.isEmpty();
-					if(isEmpty == false)
+					if(isEmpty == false && projectIdAsString.length() == 5)
 					{
 						Long newProjectIdAsLong = Long.parseLong(projectIdAsString);
 						String newProjectNameAsString = projectNameWidget.getText()
@@ -93,7 +93,7 @@ public class AddProjectDialogFragment extends DialogFragment
 					}
 					else
 					{
-						setErrorMessageToWidget(projectIdWidget, "Your personal ID must consist of 5 numbers");
+						setErrorMessageToWidget(projectIdWidget, "Your project ID must consist of 5 numbers");
 					}
 				} catch(SQLException e)
 				{
