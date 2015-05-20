@@ -197,7 +197,7 @@ public abstract class AbstractUserProfileFragment extends Fragment
 		int lengthOfEmployeeId = employeeId.length();
 		if(lengthOfEmployeeId != 5)
 		{
-			employeeIdWidget.setError("Your project ID must consist of 5 numbers");
+			employeeIdWidget.setError("Your project ID must consist of 5 digits");
 			isValid = false;
 		}
 		return isValid;

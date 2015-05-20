@@ -93,7 +93,7 @@ public class AddProjectDialogFragment extends DialogFragment
 					}
 					else
 					{
-						setErrorMessageToWidget(projectIdWidget, "Your project ID must consist of 5 numbers");
+						setErrorMessageToWidget(projectIdWidget, "Your project ID must consist of 5 digits");
 					}
 				} catch(SQLException e)
 				{
