@@ -16,7 +16,7 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package dess15proj5.fau.cs.osr_amos.mobiletimerecording.utility;
+package dess15proj5.fau.cs.osr_amos.mobiletimerecording.ui;
 
 import android.app.Activity;
 import android.app.Fragment;

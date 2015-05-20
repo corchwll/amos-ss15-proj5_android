@@ -35,6 +35,7 @@ import android.widget.TimePicker;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.R;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.persistence.DataAccessObjectFactory;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.persistence.SessionsDAO;
+import dess15proj5.fau.cs.osr_amos.mobiletimerecording.utility.StringFormatterForPicker;
 
 import java.sql.SQLException;
 import java.util.Calendar;
@@ -99,21 +100,22 @@ public class AddSessionActivity extends ActionBarActivity
 		if(startDate.compareTo(stopDate) < 0)
 		{
 			saveSessionInDatabase(startDate, stopDate);
-		}
-		else
+		} else
 		{
 			//TODO change to DialogFragment
-			AlertDialog.Builder builder = new AlertDialog.Builder(this)
-					.setTitle("Error")
-					.setMessage("Negative times are not allowed.")
-					.setPositiveButton("OK", new DialogInterface.OnClickListener()
-					{
-						@Override
-						public void onClick(DialogInterface dialog, int which)
-						{
-							dialog.dismiss();
-						}
-					});
+			AlertDialog.Builder builder = new AlertDialog.Builder(this).setTitle("Error")
+																	   .setMessage("Negative times are not allowed.")
+																	   .setPositiveButton("OK",
+																			   new DialogInterface.OnClickListener()
+																			   {
+																				   @Override
+																				   public void onClick(
+																						   DialogInterface dialog,
+																						   int which)
+																				   {
+																					   dialog.dismiss();
+																				   }
+																			   });
 			AlertDialog dialog = builder.create();
 			dialog.show();
 		}
@@ -123,7 +125,8 @@ public class AddSessionActivity extends ActionBarActivity
 	{
 		try
 		{
-			SessionsDAO sessionDAO = DataAccessObjectFactory.getInstance().createSessionsDAO(getBaseContext());
+			SessionsDAO sessionDAO = DataAccessObjectFactory.getInstance()
+															.createSessionsDAO(getBaseContext());
 			sessionDAO.create(projectId, startDate, stopDate);
 		} catch(SQLException e)
 		{
@@ -152,9 +155,9 @@ public class AddSessionActivity extends ActionBarActivity
 
 	private void getWidgets()
 	{
-		datePickerEditText = (EditText) findViewById(R.id.datePickerEditText);
-		startTimePickerEditText = (EditText) findViewById(R.id.startTimePickerEditText);
-		stopTimePickerEditText = (EditText) findViewById(R.id.stopTimePickerEditText);
+		datePickerEditText = (EditText)findViewById(R.id.datePickerEditText);
+		startTimePickerEditText = (EditText)findViewById(R.id.startTimePickerEditText);
+		stopTimePickerEditText = (EditText)findViewById(R.id.stopTimePickerEditText);
 	}
 
 	private void initEditTextFields()
@@ -171,27 +174,21 @@ public class AddSessionActivity extends ActionBarActivity
 
 	private void setDatePickerEditText(int year, int month, int day)
 	{
-		datePickerEditText.setText(formatInt(day) + "." + formatInt(month + 1) + "." + year);
+		datePickerEditText.setText(
+				StringFormatterForPicker.formatInt(day) + "." + StringFormatterForPicker.formatInt(month + 1) + "." +
+						year);
 	}
 
 	private void setStartTimePickerEditText(int hour, int minute)
 	{
-		startTimePickerEditText.setText(formatInt(hour) + ":" + formatInt(minute));
+		startTimePickerEditText.setText(
+				StringFormatterForPicker.formatInt(hour) + ":" + StringFormatterForPicker.formatInt(minute));
 	}
 
 	private void setStopTimePickerEditText(int hour, int minute)
 	{
-		stopTimePickerEditText.setText(formatInt(hour) +":" + formatInt(minute));
-	}
-
-	private String formatInt(int i)
-	{
-		String returnString = Integer.toString(i);
-		if (i < 10)
-		{
-			returnString = "0" + i;
-		}
-		return returnString;
+		stopTimePickerEditText.setText(
+				StringFormatterForPicker.formatInt(hour) + ":" + StringFormatterForPicker.formatInt(minute));
 	}
 
 	private void initDatePicker()
@@ -212,8 +209,8 @@ public class AddSessionActivity extends ActionBarActivity
 			@Override
 			public void onClick(View v)
 			{
-				new DatePickerDialog(AddSessionActivity.this, datePickerDialog, selectedYear,
-						selectedMonth, selectedDay).show();
+				new DatePickerDialog(AddSessionActivity.this, datePickerDialog, selectedYear, selectedMonth,
+						selectedDay).show();
 			}
 		});
 	}
@@ -236,8 +233,8 @@ public class AddSessionActivity extends ActionBarActivity
 			@Override
 			public void onClick(View v)
 			{
-				new TimePickerDialog(AddSessionActivity.this, startTimePickerDialog,
-						startHour, startMinute, true).show();
+				new TimePickerDialog(AddSessionActivity.this, startTimePickerDialog, startHour, startMinute,
+						true).show();
 			}
 		});
 	}

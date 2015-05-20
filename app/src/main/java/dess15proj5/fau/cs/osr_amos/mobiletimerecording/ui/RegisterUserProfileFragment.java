@@ -24,7 +24,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ScrollView;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.R;
-import dess15proj5.fau.cs.osr_amos.mobiletimerecording.utility.AbstractUserProfileFragment;
 
 import java.util.Date;
 

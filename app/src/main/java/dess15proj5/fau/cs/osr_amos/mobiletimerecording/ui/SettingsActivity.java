@@ -22,7 +22,6 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.R;
-import dess15proj5.fau.cs.osr_amos.mobiletimerecording.utility.AbstractUserProfileFragment;
 
 public class SettingsActivity extends ActionBarActivity implements AbstractUserProfileFragment.UserProfileFragmentListener
 {

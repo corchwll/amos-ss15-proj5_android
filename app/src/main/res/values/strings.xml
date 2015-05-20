@@ -66,6 +66,8 @@
     <!--add_project.xml-->
     <string name="inputProjectId">Project Id</string>
     <string name="inputProjectName">Project Name</string>
+    <string name="finalProjectString">Want to add final project date to project?</string>
+    <string name="finalProjectDate">Final project date: </string>
     
     <!--add_session_to_project.xml-->
     <string name="dateText">Specify the date on which you want to add extra hours:</string>

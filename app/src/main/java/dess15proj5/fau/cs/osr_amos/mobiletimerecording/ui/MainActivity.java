@@ -31,7 +31,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.R;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.models.Project;
-import dess15proj5.fau.cs.osr_amos.mobiletimerecording.utility.AbstractUserProfileFragment;
 
 public class MainActivity extends ActionBarActivity implements AbstractUserProfileFragment.UserProfileFragmentListener,
 		ProjectsListFragment.ProjectsListFragmentListener

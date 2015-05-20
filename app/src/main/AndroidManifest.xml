@@ -39,7 +39,7 @@
                 android:label="@string/app_name" >
         </activity>
         <activity android:name=".ui.AddSessionActivity"
-                  android:label="@string/app_name" >
+                  android:label="@string/add_new_session" >
         </activity>
         <activity android:name=".ui.SettingsActivity"
                   android:label="@string/settings">
