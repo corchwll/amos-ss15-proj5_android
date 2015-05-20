@@ -3,7 +3,7 @@ package dess15proj5.fau.cs.osr_amos.mobiletimerecording.models;
 
 public class Project
 {
-	private long id;
+	private String id;
 	private String name;
 	private boolean isDisplayed;
 	private boolean isUsed;
@@ -14,7 +14,7 @@ public class Project
 	 *
 	 * @methodtype get method
 	 */
-	public long getId()
+	public String getId()
 	{
 		return id;
 	}
@@ -26,9 +26,9 @@ public class Project
 	 * @pre id > 0
 	 * @post id successfully set
 	 */
-	public void setId(long id)
+	public void setId(String id)
 	{
-		assert id > 0L: "project id has to be greater than zero!";
+		assert id.length() == 5: "project id has to have 5 digits.";
 		this.id = id;
 	}
 

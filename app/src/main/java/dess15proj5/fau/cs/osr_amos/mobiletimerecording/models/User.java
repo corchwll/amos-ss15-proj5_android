@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class User
 {
-	private long employeeId;
+	private String employeeId;
 	private String lastName;
 	private String firstName;
 	private int weeklyWorkingTime;
@@ -18,7 +18,7 @@ public class User
 	 *
 	 * @methodtype get method
 	 */
-	public long getEmployeeId()
+	public String getEmployeeId()
 	{
 		return employeeId;
 	}
@@ -30,9 +30,9 @@ public class User
 	 * @pre employeeId > 0;
 	 * @post user id successfully set.
 	 */
-	public void setEmployeeId(long employeeId)
+	public void setEmployeeId(String employeeId)
 	{
-		assert employeeId > 0 : "user id has to be greater than zero!";
+		assert employeeId.length() == 5: "user id has to have 5 digits!";
 		this.employeeId = employeeId;
 	}
 
