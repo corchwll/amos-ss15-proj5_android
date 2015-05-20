@@ -22,7 +22,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
-import android.database.CursorIndexOutOfBoundsException;
+import android.database.sqlite.SQLiteConstraintException;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -97,7 +97,7 @@ public class AddProjectDialogFragment extends DialogFragment
 						{
 							createNewProject(projectId, newProjectNameAsString);
 							wantToCloseDialog = true;
-						} catch(CursorIndexOutOfBoundsException e)
+						} catch(SQLiteConstraintException e)
 						{
 							setErrorMessageToWidget(projectIdWidget, "ID is already registered in the database.");
 						}

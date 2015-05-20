@@ -50,7 +50,7 @@ public class ProjectsDAOImpl extends AbstractDAO implements ProjectsDAO
 		values.put(PersistenceHelper.PROJECTS_IS_DISPLAYED, isDisplayed);
 		values.put(PersistenceHelper.PROJECTS_IS_USED, isUsed);
 		values.put(PersistenceHelper.PROJECTS_IS_ARCHIVED, isArchived);
-		database.insert(PersistenceHelper.TABLE_PROJECTS, null, values);
+		database.insertOrThrow(PersistenceHelper.TABLE_PROJECTS, null, values);
 
 		Cursor cursor = database.query(PersistenceHelper.TABLE_PROJECTS, allColumns,
 				PersistenceHelper.PROJECTS_ID + " = '" + projectId + "'", null, null, null, null);

@@ -39,8 +39,8 @@ public class PersistenceHelper extends SQLiteOpenHelper
 
 	private static final String CREATE_PROJECTS =
 			"create table " + TABLE_PROJECTS + "(" + PROJECTS_ID + " text primary key not null, " +
-					PROJECTS_NAME + " text, " + PROJECTS_FINAL_DATE + " integer," + PROJECTS_IS_DISPLAYED +
-					"integer, " + PROJECTS_IS_USED + " " + "integer, " + PROJECTS_IS_ARCHIVED + " integer);";
+					PROJECTS_NAME + " text, " + PROJECTS_FINAL_DATE + " integer, " + PROJECTS_IS_DISPLAYED +
+					" integer, " + PROJECTS_IS_USED + " integer, " + PROJECTS_IS_ARCHIVED + " integer);";
 
 	public static List<String> defaultProjects = new ArrayList<>();
 
