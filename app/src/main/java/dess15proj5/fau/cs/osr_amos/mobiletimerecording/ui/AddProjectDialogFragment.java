@@ -141,6 +141,6 @@ public class AddProjectDialogFragment extends DialogFragment
 		ProjectsDAO projectsDAO = DataAccessObjectFactory.getInstance()
 														 .createProjectsDAO(getActivity());
 
-		projectsDAO.create(projectId, projectName, new Date(), true, false, true);
+		projectsDAO.create(projectId, projectName, new Date(0L), true, false, true);
 	}
 }

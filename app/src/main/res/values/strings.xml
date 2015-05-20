@@ -38,7 +38,7 @@
         <item name="dashboard">Dashboard</item>
         <item name="settings">Settings</item>
     </string-array>
-    <string name="overview">Time Recording</string>
+    <string name="overview">Recording</string>
     <string name="project_list">Projects</string>
     <string name="dashboard">Dashboard</string>
     <string name="changeUserProfile">Change User Profile</string>

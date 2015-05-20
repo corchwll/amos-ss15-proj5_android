@@ -19,8 +19,6 @@
 package dess15proj5.fau.cs.osr_amos.mobiletimerecording.ui;
 
 import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
@@ -35,8 +33,8 @@ import dess15proj5.fau.cs.osr_amos.mobiletimerecording.R;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.models.Project;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.utility.AbstractUserProfileFragment;
 
-public class MainActivity extends ActionBarActivity implements AbstractUserProfileFragment
-		.UserProfileFragmentListener, ProjectsListFragment.ProjectsListFragmentListener
+public class MainActivity extends ActionBarActivity implements AbstractUserProfileFragment.UserProfileFragmentListener,
+		ProjectsListFragment.ProjectsListFragmentListener
 {
 	private ActionBarDrawerToggle actionBarDrawerToggle;
 
@@ -62,21 +60,21 @@ public class MainActivity extends ActionBarActivity implements AbstractUserProfi
 			{
 				switch(position)
 				{
-//					Time Recording
+					//					Time Recording
 					case 0:
 						showSelectedFragment();
 						drawerLayout.closeDrawers();
 						break;
-//					Projects
+					//					Projects
 					case 1:
 						showProjectsListFragment();
 						drawerLayout.closeDrawers();
 						break;
-//					Dashboard
+					//					Dashboard
 					case 2:
 						drawerLayout.closeDrawers();
 						break;
-//					Settings
+					//					Settings
 					case 3:
 						Intent intent = new Intent(getBaseContext(), SettingsActivity.class);
 						startActivity(intent);
@@ -89,7 +87,7 @@ public class MainActivity extends ActionBarActivity implements AbstractUserProfi
 		actionBarDrawerToggle.syncState();
 		drawerLayout.setDrawerListener(actionBarDrawerToggle);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
+		getSupportActionBar().setHomeButtonEnabled(true);
 	}
 
 	private void showProjectsListFragment()
@@ -107,16 +105,15 @@ public class MainActivity extends ActionBarActivity implements AbstractUserProfi
 	private void showFragment(Fragment fragment, String title)
 	{
 		getSupportActionBar().setTitle(title);
-		FragmentManager fragmentManager = getFragmentManager();
-		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-		fragmentTransaction.replace(R.id.frameLayout, fragment);
-		fragmentTransaction.commit();
+		getFragmentManager().beginTransaction()
+							.replace(R.id.frameLayout, fragment)
+							.commit();
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
-		if (actionBarDrawerToggle.onOptionsItemSelected(item))
+		if(actionBarDrawerToggle.onOptionsItemSelected(item))
 		{
 			return true;
 		}
@@ -137,6 +134,9 @@ public class MainActivity extends ActionBarActivity implements AbstractUserProfi
 		args.putString("project_id", selectedProject.getId());
 		args.putString("project_name", selectedProject.getName());
 		selectedProjectFragment.setArguments(args);
-		showFragment(selectedProjectFragment, getResources().getString(R.string.overview));
+		getSupportActionBar().setTitle(getResources().getString(R.string.overview));
+		getFragmentManager().beginTransaction()
+							.replace(R.id.frameLayout, selectedProjectFragment)
+							.commit();
 	}
 }

@@ -148,6 +148,13 @@ public class SelectedProjectFragment extends Fragment
 		}
 	}
 
+	private void getArgumentsFromSharedPreferences()
+	{
+		SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+		projectId = sharedPref.getString("project_id", null);
+		projectName = sharedPref.getString("project_name", null);
+	}
+
 	private void getWidgets()
 	{
 		textView = (TextView)getActivity().findViewById(R.id.name_of_selected_project);
@@ -166,13 +173,6 @@ public class SelectedProjectFragment extends Fragment
 	private void setTextViewToNoProjectSelected()
 	{
 		textView.setText("No project selected. Please select one in the projects tab.");
-	}
-
-	private void getArgumentsFromSharedPreferences()
-	{
-		SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
-		projectId = sharedPref.getString("project_id", null);
-		projectName = sharedPref.getString("project_name", null);
 	}
 
 	@Override
