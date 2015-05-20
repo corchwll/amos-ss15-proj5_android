@@ -67,10 +67,26 @@ public class ProjectsDAOImpl extends AbstractDAO implements ProjectsDAO
 	public void delete(String projectId)
 	{
 		ContentValues values = new ContentValues();
-		values.put(PersistenceHelper.PROJECTS_IS_ARCHIVED, true);
+		values.put(PersistenceHelper.PROJECTS_IS_ARCHIVED, isNotADefaultProject(projectId));
 
-		database.update(PersistenceHelper.TABLE_PROJECTS, values, PersistenceHelper.PROJECTS_ID + " = " + projectId,
-				null);
+		database.update(PersistenceHelper.TABLE_PROJECTS, values, PersistenceHelper.PROJECTS_ID + " = '" +
+							projectId + "'", null);
+	}
+
+	private boolean isNotADefaultProject(String projectId)
+	{
+		boolean result = true;
+
+		for(String s : PersistenceHelper.defaultProjects)
+		{
+			if(s.equals(projectId))
+			{
+				result = false;
+				break;
+			}
+		}
+
+		return result;
 	}
 
 	@Override
