@@ -50,7 +50,7 @@ public class PersistenceHelper extends SQLiteOpenHelper
 					USERS_CURRENT_OVERTIME + " integer, " + USERS_REGISTRATION_DATE + " integer);";
 
 	private static final String DATABASE_NAME = "mobile_time_recording";
-	private static final int DATABASE_VERSION = 5;
+	private static final int DATABASE_VERSION = 6;
 
 	public PersistenceHelper(Context context)
 	{
@@ -87,6 +87,14 @@ public class PersistenceHelper extends SQLiteOpenHelper
 		values = new ContentValues();
 		values.put(PROJECTS_ID, 10002);
 		values.put(PROJECTS_NAME, "Illness");
+		values.put(PROJECTS_IS_DISPLAYED, 1);
+		values.put(PROJECTS_IS_USED, 1);
+		values.put(PROJECTS_IS_ARCHIVED, 0);
+		db.insert(TABLE_PROJECTS, null, values);
+
+		values = new ContentValues();
+		values.put(PROJECTS_ID, 10003);
+		values.put(PROJECTS_NAME, "Office");
 		values.put(PROJECTS_IS_DISPLAYED, 1);
 		values.put(PROJECTS_IS_USED, 1);
 		values.put(PROJECTS_IS_ARCHIVED, 0);
