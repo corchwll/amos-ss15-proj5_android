@@ -76,6 +76,6 @@ public class RegistrationActivity extends ActionBarActivity implements AbstractU
 	@Override
 	public void onUserProfileSaved()
 	{
-		startMainActivity();
+		checkIfUserExistsInDatabase();
 	}
 }

@@ -35,16 +35,29 @@ public class ProjectArrayAdapter extends ArrayAdapter<Project>
 		super(context, R.layout.project_row);
 	}
 
+	static class ViewHolder {
+		TextView text;
+	}
+
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent)
 	{
 		LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		View projectRow = inflater.inflate(R.layout.project_row, parent, false);
-
+		ViewHolder viewHolder;
+		if(convertView == null)
+		{
+			convertView = inflater.inflate(R.layout.project_row, parent, false);
+			viewHolder = new ViewHolder();
+			viewHolder.text = (TextView) convertView.findViewById(R.id.projectName);
+			convertView.setTag(viewHolder);
+		}
+		else
+		{
+			viewHolder = (ViewHolder) convertView.getTag();
+		}
 		final Project project = getItem(position);
-		TextView projectNameView = (TextView) projectRow.findViewById(R.id.projectName);
-		projectNameView.setText(project.getName());
-		projectNameView.setOnClickListener(new View.OnClickListener()
+		viewHolder.text.setText(project.getName());
+		viewHolder.text.setOnClickListener(new View.OnClickListener()
 		{
 			@Override
 			public void onClick(View v)
@@ -52,6 +65,6 @@ public class ProjectArrayAdapter extends ArrayAdapter<Project>
 				ProjectsListFragment.onItemSelected(project);
 			}
 		});
-		return projectRow;
+		return convertView;
 	}
 }

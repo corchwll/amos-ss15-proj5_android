@@ -18,9 +18,14 @@
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="horizontal"
+              android:orientation="vertical"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content">
+
+<LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
     <TextView
             android:layout_width="match_parent"
@@ -31,13 +36,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/startStopBtn"
-            android:text="@string/start_button"
-            />
+            android:text="@string/start_button" />
 
     <view
             class="dess15proj5.fau.cs.osr_amos.mobiletimerecording.utility.ProjectTimer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/timer"/>
+
+</LinearLayout>
+
+    <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/sessionList">
+    </ListView>
 
 </LinearLayout>
