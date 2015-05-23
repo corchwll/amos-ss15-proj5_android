@@ -22,6 +22,6 @@ import java.sql.SQLException;
 
 public interface DAO
 {
-	public void open() throws SQLException;
-	public void close();
+	void open() throws SQLException;
+	void close();
 }

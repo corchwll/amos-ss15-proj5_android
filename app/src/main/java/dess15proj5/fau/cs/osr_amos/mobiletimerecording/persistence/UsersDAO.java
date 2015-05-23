@@ -25,11 +25,11 @@ import java.util.List;
 
 public interface UsersDAO extends DAO
 {
-	public User create(String employeeId, String lastName, String firstName, int weeklyWorkingTime,
+	User create(String employeeId, String lastName, String firstName, int weeklyWorkingTime,
 					   int totalVacationTime, int currentVacationTime, int currentOvertimer, Date registrationDate);
-	public void update(User user);
-	public User load();
-	public User load(String userId);
-	public void delete(String userId);
-	public List<User> listAll();
+	void update(User user);
+	User load();
+	User load(String userId);
+	void delete(String userId);
+	List<User> listAll();
 }
