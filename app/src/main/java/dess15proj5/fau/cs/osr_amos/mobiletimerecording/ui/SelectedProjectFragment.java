@@ -182,7 +182,7 @@ public class SelectedProjectFragment extends Fragment
 		try
 		{
 			SessionsDAO sessionsDAO = DataAccessObjectFactory.getInstance().createSessionsDAO(getActivity());
-			sessions = sessionsDAO.listAll();
+			sessions = sessionsDAO.listAllForProject(projectId);
 		} catch(SQLException e)
 		{
 			Toast.makeText(getActivity(), "Could not load project list due to database errors!", Toast.LENGTH_LONG).show();

@@ -93,9 +93,32 @@ public class SessionsDAOImpl extends AbstractDAO implements SessionsDAO
 	}
 
 	@Override
+	public List<Session> listAllForProject(String projectId)
+	{
+		List<Session> sessions = new ArrayList<>();
+
+		String query = "SELECT * FROM " + PersistenceHelper.TABLE_SESSIONS + " s INNER JOIN " +
+				PersistenceHelper.TABLE_PROJECTS + " p ON s." + PersistenceHelper.SESSIONS_PROJECT_ID + " = p." +
+				PersistenceHelper.PROJECTS_ID + " WHERE p." + PersistenceHelper.PROJECTS_ID + " = ?;";
+
+		Cursor cursor = database.rawQuery(query, new String[]{projectId});
+
+		cursor.moveToFirst();
+		while(!cursor.isAfterLast())
+		{
+			Session session = cursorToSession(cursor);
+			sessions.add(session);
+			cursor.moveToNext();
+		}
+
+		cursor.close();
+		return sessions;
+	}
+
+	@Override
 	public List<Session> listAll()
 	{
-		List<Session> sessions= new ArrayList<>();
+		List<Session> sessions = new ArrayList<>();
 
 		Cursor cursor = database.query(PersistenceHelper.TABLE_SESSIONS, allColumns, null, null, null, null, null);
 

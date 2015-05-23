@@ -25,10 +25,11 @@ import java.util.List;
 
 public interface SessionsDAO extends DAO
 {
-	public Session create(String projectId, Date startTime);
-	public Session create(String projectId, Date startTime, Date stopTime);
-	public void update(Session session);
-	public Session load(long sessionId);
-	public void delete(long sessionId);
-	public List<Session> listAll();
+	Session create(String projectId, Date startTime);
+	Session create(String projectId, Date startTime, Date stopTime);
+	void update(Session session);
+	Session load(long sessionId);
+	void delete(long sessionId);
+	List<Session> listAllForProject(String projectId);
+	List<Session> listAll();
 }
