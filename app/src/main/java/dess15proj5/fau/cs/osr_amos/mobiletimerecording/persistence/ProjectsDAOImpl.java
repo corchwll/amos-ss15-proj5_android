@@ -29,20 +29,40 @@ import java.util.List;
 
 public class ProjectsDAOImpl extends AbstractDAO implements ProjectsDAO
 {
+	//an array of strings, containing all column names of the projects table
 	private String[] allColumns =
 			{PersistenceHelper.PROJECTS_ID, PersistenceHelper.PROJECTS_NAME, PersistenceHelper.PROJECTS_FINAL_DATE,
 					PersistenceHelper.PROJECTS_IS_DISPLAYED, PersistenceHelper.PROJECTS_IS_USED,
 					PersistenceHelper.PROJECTS_IS_ARCHIVED};
 
+	/**
+	 * Constructs a concrete ProjectsDAO object.
+	 *
+	 * @param context the application context under which the object is constructed
+	 * @methodtype constructor
+	 */
 	public ProjectsDAOImpl(Context context)
 	{
 		persistenceHelper = new PersistenceHelper(context);
 	}
 
+	/**
+	 * This method inserts the given information into the projects table and creates an object of type project.
+	 *
+	 * @param projectId the project id of the required project
+	 * @param projectName the project name of the required project
+	 * @param finalDate the optional final date for the required project
+	 * @param isUsed a boolean whether the required project is used or not
+	 * @param isArchived a boolean whether the required project is archived or not
+	 * @param isDisplayed a boolean whether the required project is displayed or not
+	 * @return the required project object is returned
+	 * @methodtype conversion method (since the given information is converted into an object of type project)
+	 */
 	@Override
 	public Project create(String projectId, String projectName, Date finalDate, boolean isUsed, boolean isArchived,
 						  boolean isDisplayed)
 	{
+		//preparation and insert of the new project
 		ContentValues values = new ContentValues();
         values.put(PersistenceHelper.PROJECTS_ID, projectId);
 		values.put(PersistenceHelper.PROJECTS_NAME, projectName);
@@ -52,14 +72,22 @@ public class ProjectsDAOImpl extends AbstractDAO implements ProjectsDAO
 		values.put(PersistenceHelper.PROJECTS_IS_ARCHIVED, isArchived);
 		database.insertOrThrow(PersistenceHelper.TABLE_PROJECTS, null, values);
 
+		//retrieving the new project from database and constructing the object
 		Cursor cursor = database.query(PersistenceHelper.TABLE_PROJECTS, allColumns,
 				PersistenceHelper.PROJECTS_ID + " = '" + projectId + "'", null, null, null, null);
 		cursor.moveToFirst();
 		Project newProject = cursorToProject(cursor);
 		cursor.close();
+
 		return newProject;
 	}
 
+	/**
+	 * This method is used to update a given project in the database.
+	 *
+	 * @param project the project which has to be updated.
+	 * @methodtype command method
+	 */
 	@Override
 	public void update(Project project)
 	{
@@ -75,6 +103,13 @@ public class ProjectsDAOImpl extends AbstractDAO implements ProjectsDAO
 				PersistenceHelper.PROJECTS_ID + " = " + project.getId(), null);
 	}
 
+	/**
+	 * This method loads the project with the given id from the database.
+	 *
+	 * @param projectId the id of the project that should be loaded from database
+	 * @return the project matching the given id
+	 * @methodtype query method
+	 */
 	@Override
 	public Project load(String projectId)
 	{
@@ -86,6 +121,12 @@ public class ProjectsDAOImpl extends AbstractDAO implements ProjectsDAO
 		return project;
 	}
 
+	/**
+	 * This method deletes the project with the given id from the database.
+	 *
+	 * @param projectId the id of the project that should be deleted
+	 * @methodtype command method
+	 */
 	@Override
 	public void delete(String projectId)
 	{
@@ -96,6 +137,13 @@ public class ProjectsDAOImpl extends AbstractDAO implements ProjectsDAO
 							projectId + "'", null);
 	}
 
+	/**
+	 * This method checks whether a given project id belongs to one of the default projects or not.
+	 *
+	 * @param projectId the project id that has to be checked
+	 * @return true if the project is not a default project and false if it is one
+	 * @methodtype boolean query method
+	 */
 	private boolean isNotADefaultProject(String projectId)
 	{
 		boolean result = true;
@@ -112,6 +160,12 @@ public class ProjectsDAOImpl extends AbstractDAO implements ProjectsDAO
 		return result;
 	}
 
+	/**
+	 * This method loads all projects from the database that are not archived.
+	 *
+	 * @return a list containing all projects
+	 * @methodtype query method
+	 */
 	@Override
 	public List<Project> listAll()
 	{
@@ -132,12 +186,20 @@ public class ProjectsDAOImpl extends AbstractDAO implements ProjectsDAO
 		return projects;
 	}
 
+	/**
+	 * This method converts a database cursor containing a row of the projects table into a concrete project object.
+	 *
+	 * @param cursor the database cursor containing a row of the projects table
+	 * @return the project object representing one row of the projects table
+	 * @methodtype conversion method
+	 */
 	private Project cursorToProject(Cursor cursor)
 	{
 		Project project = new Project();
 		project.setId(cursor.getString(0));
 		project.setName(cursor.getString(1));
 		project.setFinalDate(new Date(cursor.getLong(2)));
+		//to convert an integer from the database into a boolean one needs to compare the values with 1
 		project.setIsDisplayed(cursor.getInt(3) == 1);
 		project.setIsUsed(cursor.getInt(4) == 1);
 		project.setIsArchived(cursor.getInt(5) == 1);
