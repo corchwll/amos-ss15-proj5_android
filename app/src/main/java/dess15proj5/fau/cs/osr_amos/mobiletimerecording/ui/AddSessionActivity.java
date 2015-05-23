@@ -56,19 +56,31 @@ public class AddSessionActivity extends ActionBarActivity
 	private EditText startTimePickerEditText;
 	private EditText stopTimePickerEditText;
 
+	/**
+	 * This method is called in the android lifecycle when the activity is created.
+	 *
+	 * @param savedInstanceState this param contains several key value pairs in order to save the instance state
+	 * methodtype initialization method
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.add_session_to_project);
-		getDataFromIntent();
-		getWidgets();
+		setDataFromIntent();
+		setWidgets();
 		initEditTextFields();
 		initDatePicker();
 		initStartTimePicker();
 		initStopTimePicker();
 	}
 
+	/**
+	 * This method is called in the android lifecycle when a menu is created.
+	 *
+	 * @param menu the menu item which has to be created
+	 * methodtype initialization method
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
@@ -77,6 +89,13 @@ public class AddSessionActivity extends ActionBarActivity
 		return true;
 	}
 
+	/**
+	 * This method is called in the android lifecycle when a menu item is clicked on.
+	 *
+	 * @param item the item which was targeted
+	 * @return true if there was an item clicked
+	 * methodtype boolean query method
+	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
@@ -93,6 +112,12 @@ public class AddSessionActivity extends ActionBarActivity
 		}
 	}
 
+	/**
+	 * This method is used to validate the start and the stop time of a new session. It checks whether the start time
+	 * is before the stop time and if not it displays an error message.
+	 *
+	 * methodtype assertion method
+	 */
 	private void validateStartAndStopTime()
 	{
 		Date startDate = createDate(selectedYear, selectedMonth, selectedDay, startHour, startMinute);
@@ -121,6 +146,13 @@ public class AddSessionActivity extends ActionBarActivity
 		}
 	}
 
+	/**
+	 * This method is used to store a session into the database.
+	 *
+	 * @param startDate the start time of the new session
+	 * @param stopDate the stop time of the new session
+	 * methodtype command method
+	 */
 	private void saveSessionInDatabase(Date startDate, Date stopDate)
 	{
 		try
@@ -135,6 +167,17 @@ public class AddSessionActivity extends ActionBarActivity
 		finish();
 	}
 
+	/**
+	 * This method creates a Date object based on the given information.
+	 *
+	 * @param year the year for the new date
+	 * @param month the month for the new date
+	 * @param day the day for the new date
+	 * @param hours the hours for the new date
+	 * @param minute the minutes for the new date
+	 * @return the specified date object
+	 * methodtype conversion method
+	 */
 	private Date createDate(int year, int month, int day, int hours, int minute)
 	{
 		Calendar cal = Calendar.getInstance();
@@ -146,20 +189,35 @@ public class AddSessionActivity extends ActionBarActivity
 		return cal.getTime();
 	}
 
-	private void getDataFromIntent()
+	/**
+	 * This method sets the value of the attribute projectId based on the intent of this activity.
+	 *
+	 * methodtype set method
+	 */
+	private void setDataFromIntent()
 	{
 		Intent intent = getIntent();
 		Bundle data = intent.getExtras();
 		projectId = data.getString("project_id");
 	}
 
-	private void getWidgets()
+	/**
+	 * This method sets the widgets used for the date picker.
+	 *
+	 * methodtype set method
+	 */
+	private void setWidgets()
 	{
 		datePickerEditText = (EditText)findViewById(R.id.datePickerEditText);
 		startTimePickerEditText = (EditText)findViewById(R.id.startTimePickerEditText);
 		stopTimePickerEditText = (EditText)findViewById(R.id.stopTimePickerEditText);
 	}
 
+	/**
+	 * This method initializes the edit text fields.
+	 *
+	 * methodtype initialization method
+	 */
 	private void initEditTextFields()
 	{
 		Calendar currentDateAndTime = Calendar.getInstance();
@@ -172,6 +230,14 @@ public class AddSessionActivity extends ActionBarActivity
 		setStopTimePickerEditText(stopHour, stopMinute);
 	}
 
+	/**
+	 * This method is used to set the edit text of the date picker to the given date.
+	 *
+	 * @param year the year the date picker should display
+	 * @param month the month the date picker should display
+	 * @param day the day the date picker should display
+	 * methodtype set method
+	 */
 	private void setDatePickerEditText(int year, int month, int day)
 	{
 		datePickerEditText.setText(
@@ -179,18 +245,37 @@ public class AddSessionActivity extends ActionBarActivity
 						year);
 	}
 
+	/**
+	 * This method sets the edit text for the start time picker based on the given time
+	 *
+	 * @param hour the hour the time picker should display
+	 * @param minute the minute the time picker should display
+	 * methodtype set method
+	 */
 	private void setStartTimePickerEditText(int hour, int minute)
 	{
 		startTimePickerEditText.setText(
 				StringFormatterForPicker.formatInt(hour) + ":" + StringFormatterForPicker.formatInt(minute));
 	}
 
+	/**
+	 * This method sets the edit text for the stop time picker based on the given time
+	 *
+	 * @param hour the hour the time picker should display
+	 * @param minute the minute the time picker should display
+	 * methodtype set method
+	 */
 	private void setStopTimePickerEditText(int hour, int minute)
 	{
 		stopTimePickerEditText.setText(
 				StringFormatterForPicker.formatInt(hour) + ":" + StringFormatterForPicker.formatInt(minute));
 	}
 
+	/**
+	 * This method initializes the date picker and sets an onclickListener to the datePickerEditText.
+	 *
+	 * methodtype initialization method
+	 */
 	private void initDatePicker()
 	{
 		final DatePickerDialog.OnDateSetListener datePickerDialog = new DatePickerDialog.OnDateSetListener()
@@ -215,6 +300,11 @@ public class AddSessionActivity extends ActionBarActivity
 		});
 	}
 
+	/**
+	 * This method initializes the start time picker and sets an onclickListener to the startTimePickerEditText.
+	 *
+	 * methodtype initialization method
+	 */
 	private void initStartTimePicker()
 	{
 		final TimePickerDialog.OnTimeSetListener startTimePickerDialog = new TimePickerDialog.OnTimeSetListener()
@@ -239,6 +329,11 @@ public class AddSessionActivity extends ActionBarActivity
 		});
 	}
 
+	/**
+	 * This method initializes the stop time picker and sets an onclickListener to the stopTimePickerEditText.
+	 *
+	 * methodtype initialization method
+	 */
 	private void initStopTimePicker()
 	{
 		final TimePickerDialog.OnTimeSetListener stopTimePickerDialog = new TimePickerDialog.OnTimeSetListener()

@@ -134,7 +134,7 @@ public abstract class AbstractUserProfileFragment extends Fragment
 	 * This method is called in the android lifecycle when a menu item is clicked on.
 	 *
 	 * @param item the item which was targeted
-	 * @return true if their was an item clicked
+	 * @return true if there was an item clicked
 	 * @methodtype boolean query method
 	 */
 	@Override
