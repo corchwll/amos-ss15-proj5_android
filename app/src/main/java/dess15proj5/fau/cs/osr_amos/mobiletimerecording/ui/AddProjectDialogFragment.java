@@ -41,6 +41,11 @@ public class AddProjectDialogFragment extends DialogFragment
 {
 	public interface AddProjectDialogListener
 	{
+		/**
+		 * This method is used when a new project is added.
+		 *
+		 * methodtype callback method
+		 */
 		void onDialogPositiveClick();
 	}
 
@@ -55,18 +60,30 @@ public class AddProjectDialogFragment extends DialogFragment
 
 	private Calendar cal = Calendar.getInstance();
 
+	/**
+	 * This method sets an AddProjectDialogListener to the callbackListener attribute.
+	 *
+	 * @param listener the AddProjectDialogListener that should be used
+	 * methodtype set method
+	 */
 	public void setAddProjectDialogListener(AddProjectDialogListener listener)
 	{
 		callbackListener = listener;
 	}
 
+	/**
+	 * This method is called in the android lifecycle when the fragment is created.
+	 *
+	 * @param savedInstanceState this param contains several key value pairs in order to save the instance state
+	 * methodtype initialization method
+	 */
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState)
 	{
 		LayoutInflater inflater = getActivity().getLayoutInflater();
 		view = inflater.inflate(R.layout.add_project, null);
 
-		getWidgets();
+		setWidgets();
 		initCheckBox();
 		setActualDateToAttributes();
 		initDatePickerEditText();
@@ -92,7 +109,7 @@ public class AddProjectDialogFragment extends DialogFragment
 		final AlertDialog dialog = builder.create();
 		dialog.show();
 
-		//		Overwrite onClick method to set error message if there is a SQLiteConstraintException (projectId
+		// Overwrite onClick method to set error message if there is a SQLiteConstraintException (projectId
 		// already in database)
 		dialog.getButton(AlertDialog.BUTTON_POSITIVE)
 			  .setOnClickListener(new View.OnClickListener()
@@ -143,10 +160,16 @@ public class AddProjectDialogFragment extends DialogFragment
 					  projectIdWidget.requestFocus();
 				  }
 			  });
+
 		return dialog;
 	}
 
-	private void getWidgets()
+	/**
+	 * This method is used to set the widget attributes.
+	 *
+	 * methodtype set method
+	 */
+	private void setWidgets()
 	{
 		projectIdWidget = (EditText)view.findViewById(R.id.newProjectId);
 		projectNameWidget = (EditText)view.findViewById(R.id.newProjectName);
@@ -155,6 +178,11 @@ public class AddProjectDialogFragment extends DialogFragment
 		datePickerEditText = (EditText)view.findViewById(R.id.datePickerAddProject);
 	}
 
+	/**
+	 * This method initializes the checkbox and sets an onclickListener.
+	 *
+	 * methodtype initialization method
+	 */
 	private void initCheckBox()
 	{
 		checkBox.setOnClickListener(new View.OnClickListener()
@@ -175,11 +203,21 @@ public class AddProjectDialogFragment extends DialogFragment
 		});
 	}
 
+	/**
+	 * This method sets the actual date to attributes.
+	 *
+	 * methodtype set method
+	 */
 	private void setActualDateToAttributes()
 	{
 		setDatePickerEditText(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
 	}
 
+	/**
+	 * This method initializes the edit text of the date picker.
+	 *
+	 * methodtype initialization method
+	 */
 	private void initDatePickerEditText()
 	{
 		final DatePickerDialog.OnDateSetListener datePickerdialog = new DatePickerDialog.OnDateSetListener()
@@ -204,6 +242,14 @@ public class AddProjectDialogFragment extends DialogFragment
 		});
 	}
 
+	/**
+	 * This method sets the edit text of the date picker.
+	 *
+	 * @param year the year of the date that should be set
+	 * @param month the month of the date that should be set
+	 * @param day the day of the date that should be set
+	 * methodtype set method
+	 */
 	private void setDatePickerEditText(int year, int month, int day)
 	{
 		datePickerEditText.setText(
@@ -211,6 +257,14 @@ public class AddProjectDialogFragment extends DialogFragment
 						year);
 	}
 
+	/**
+	 * This method creates a new project and stores it to the database.
+	 *
+	 * @param projectId the projectId for the new project
+	 * @param projectName the name for the new project
+	 * @throws SQLException
+	 * methodtype command method
+	 */
 	private void createNewProject(String projectId, String projectName) throws SQLException
 	{
 		ProjectsDAO projectsDAO = DataAccessObjectFactory.getInstance()
