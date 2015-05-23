@@ -26,6 +26,12 @@ import dess15proj5.fau.cs.osr_amos.mobiletimerecording.R;
 
 public class SettingsFragment extends PreferenceFragment
 {
+	/**
+	 * This method is called in the android lifecycle when the fragment is created.
+	 *
+	 * @param savedInstanceState this param contains several key value pairs in order to save the instance state
+	 * methodtype initialization method
+	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{

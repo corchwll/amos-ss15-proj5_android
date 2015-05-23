@@ -25,6 +25,12 @@ import dess15proj5.fau.cs.osr_amos.mobiletimerecording.R;
 
 public class SettingsActivity extends ActionBarActivity implements AbstractUserProfileFragment.UserProfileFragmentListener
 {
+	/**
+	 * This method is called in the android lifecycle when the fragment is created.
+	 *
+	 * @param savedInstanceState this param contains several key value pairs in order to save the instance state
+	 * methodtype initialization method
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -35,6 +41,13 @@ public class SettingsActivity extends ActionBarActivity implements AbstractUserP
 		showSettingsFragment();
 	}
 
+	/**
+	 * This method is called in the android lifecycle when a menu item is clicked on.
+	 *
+	 * @param item the item which was targeted
+	 * @return true if there was an item clicked
+	 * methodtype boolean query method
+	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
@@ -48,6 +61,11 @@ public class SettingsActivity extends ActionBarActivity implements AbstractUserP
 		}
 	}
 
+	/**
+	 * This method is used to display the settings fragment.
+	 *
+	 * methodtype command method
+	 */
 	private void showSettingsFragment()
 	{
 		getFragmentManager().beginTransaction()
@@ -55,6 +73,11 @@ public class SettingsActivity extends ActionBarActivity implements AbstractUserP
 							.commit();
 	}
 
+	/**
+	 * This method is called from a callback when the user profile is saved.
+	 *
+	 * methodtype command method
+	 */
 	@Override
 	public void onUserProfileSaved()
 	{
