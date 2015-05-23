@@ -34,7 +34,7 @@ public class User
 	/**
 	 * Returns the user id.
 	 *
-	 * @methodtype get method
+	 * methodtype get method
 	 */
 	public String getEmployeeId()
 	{
@@ -44,9 +44,9 @@ public class User
 	/**
 	 * Sets the user id if greater than zero.
 	 *
-	 * @methodtype set method
-	 * @pre employeeId > 0;
-	 * @post user id successfully set.
+	 * methodtype set method
+	 * pre employeeId > 0;
+	 * post user id successfully set.
 	 */
 	public void setEmployeeId(String employeeId)
 	{
@@ -57,7 +57,7 @@ public class User
 	/**
 	 * Returns the last name of the user.
 	 *
-	 * @methodtype get method
+	 * methodtype get method
 	 */
 	public String getLastName()
 	{
@@ -67,9 +67,9 @@ public class User
 	/**
 	 * Sets the users last name if not null.
 	 *
-	 * @methodtype set method
-	 * @pre lastName != null;
-	 * @post lastName successfully set.
+	 * methodtype set method
+	 * pre lastName != null;
+	 * post lastName successfully set.
 	 */
 	public void setLastName(String lastName)
 	{
@@ -80,7 +80,7 @@ public class User
 	/**
 	 * Returns the first name of the user.
 	 *
-	 * @methodtype get method
+	 * methodtype get method
 	 */
 	public String getFirstName()
 	{
@@ -90,9 +90,9 @@ public class User
 	/**
 	 * Sets the users first name if not null.
 	 *
-	 * @methodtype set method
-	 * @pre firstName != null;
-	 * @post firstName successfully set.
+	 * methodtype set method
+	 * pre firstName != null;
+	 * post firstName successfully set.
 	 */
 	public void setFirstName(String firstName)
 	{
@@ -103,7 +103,7 @@ public class User
 	/**
 	 * Returns the working time per week of the user.
 	 *
-	 * @methodtype get method
+	 * methodtype get method
 	 */
 	public int getWeeklyWorkingTime()
 	{
@@ -113,9 +113,9 @@ public class User
 	/**
 	 * Sets the working time per week of the user if greater than zero.
 	 *
-	 * @methodtype set method
-	 * @pre weeklyWorkingTime > 0;
-	 * @post weeklyWorkingTime successfully set.
+	 * methodtype set method
+	 * pre weeklyWorkingTime > 0;
+	 * post weeklyWorkingTime successfully set.
 	 */
 	public void setWeeklyWorkingTime(int weeklyWorkingTime)
 	{
@@ -126,7 +126,7 @@ public class User
 	/**
 	 * Returns the total vacation time per year of the user.
 	 *
-	 * @methodtype get method
+	 * methodtype get method
 	 */
 	public int getTotalVacationTime()
 	{
@@ -136,9 +136,9 @@ public class User
 	/**
 	 * Sets the total vacation time per year of the user if greater than zero.
 	 *
-	 * @methodtype set method
-	 * @pre totalVacationTime > 0;
-	 * @post totalVacationTime successfully set.
+	 * methodtype set method
+	 * pre totalVacationTime > 0;
+	 * post totalVacationTime successfully set.
 	 */
 	public void setTotalVacationTime(int totalVacationTime)
 	{
@@ -149,7 +149,7 @@ public class User
 	/**
 	 * Returns the vacation time the user has already taken.
 	 *
-	 * @methodtype get method
+	 * methodtype get method
 	 */
 	public int getCurrentVacationTime()
 	{
@@ -159,9 +159,9 @@ public class User
 	/**
 	 * Sets the vacation time the user has already taken if greater or equals zero.
 	 *
-	 * @methodtype set method
-	 * @pre currentVacationTime >= 0;
-	 * @post currentVacationTime successfully set.
+	 * methodtype set method
+	 * pre currentVacationTime >= 0;
+	 * post currentVacationTime successfully set.
 	 */
 	public void setCurrentVacationTime(int currentVacationTime)
 	{
@@ -173,7 +173,7 @@ public class User
 	/**
 	 * Returns the current overtime of the user.
 	 *
-	 * @methodtype get method
+	 * methodtype get method
 	 */
 	public int getCurrentOvertime()
 	{
@@ -183,7 +183,7 @@ public class User
 	/**
 	 * Sets the users current overtime.
 	 *
-	 * @methodtype set method
+	 * methodtype set method
 	 */
 	public void setCurrentOvertime(int currentOvertime)
 	{
@@ -193,7 +193,7 @@ public class User
 	/**
 	 * Returns the registration date of the user.
 	 *
-	 * @methodtype get method
+	 * methodtype get method
 	 */
 	public Date getRegistrationDate()
 	{
@@ -203,9 +203,9 @@ public class User
 	/**
 	 * Sets the users registration date if not null.
 	 *
-	 * @methodtype set method
-	 * @pre registrationDate != null;
-	 * @post registrationDate successfully set.
+	 * methodtype set method
+	 * pre registrationDate != null;
+	 * post registrationDate successfully set.
 	 */
 	public void setRegistrationDate(Date registrationDate)
 	{

@@ -29,7 +29,7 @@ public class SQLiteDataAccessObjectFactory extends DataAccessObjectFactory
 	 * initialized an instance yet, it will be constructed.
 	 *
 	 * @return the singleton instance of the DataAccessObjectFactory
-	 * @methodtype get method
+	 * methodtype get method
 	 */
 	public static DataAccessObjectFactory getInstance()
 	{
@@ -46,7 +46,7 @@ public class SQLiteDataAccessObjectFactory extends DataAccessObjectFactory
 	 *
 	 * @param context The application context under which the database object will be created
 	 * @return The concrete ProjectsDAO will be returned
-	 * @methodtype initialization method
+	 * methodtype initialization method
 	 */
 	@Override
 	public ProjectsDAO doCreateProjectsDAO(Context context)
@@ -59,7 +59,7 @@ public class SQLiteDataAccessObjectFactory extends DataAccessObjectFactory
 	 *
 	 * @param context The application context under which the database object will be created
 	 * @return The concrete SessionsDAO will be returned
-	 * @methodtype initialization method
+	 * methodtype initialization method
 	 */
 	@Override
 	public SessionsDAO doCreateSessionsDAO(Context context)
@@ -72,7 +72,7 @@ public class SQLiteDataAccessObjectFactory extends DataAccessObjectFactory
 	 *
 	 * @param context The application context under which the database object will be created
 	 * @return The concrete UsersDAO will be returned
-	 * @methodtype initialization method
+	 * methodtype initialization method
 	 */
 	@Override
 	protected UsersDAO doCreateUsersDAO(Context context)

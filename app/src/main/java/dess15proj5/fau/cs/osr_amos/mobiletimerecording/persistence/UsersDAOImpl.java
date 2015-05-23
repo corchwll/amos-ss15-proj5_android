@@ -40,7 +40,7 @@ public class UsersDAOImpl extends AbstractDAO implements UsersDAO
 	 * Constructs a concrete UsersDAO object.
 	 *
 	 * @param context the application context under which the object is constructed
-	 * @methodtype constructor
+	 * methodtype constructor
 	 */
 	public UsersDAOImpl(Context context)
 	{
@@ -59,7 +59,7 @@ public class UsersDAOImpl extends AbstractDAO implements UsersDAO
 	 * @param currentOvertime the current overtime the user has
 	 * @param registrationDate the registration date when the user started to use the application
 	 * @return the required user object is returned
-	 * @methodtype conversion method (since the given information is converted into an object of type user)
+	 * methodtype conversion method (since the given information is converted into an object of type user)
 	 */
 	@Override
 	public User create(String employeeId, String lastName, String firstName, int weeklyWorkingTime, int totalVacationTime,
@@ -90,7 +90,7 @@ public class UsersDAOImpl extends AbstractDAO implements UsersDAO
 	 * This method is used to update a given user in the database.
 	 *
 	 * @param user the user which has to be updated.
-	 * @methodtype command method
+	 * methodtype command method
 	 */
 	@Override
 	public void update(User user)
@@ -112,7 +112,7 @@ public class UsersDAOImpl extends AbstractDAO implements UsersDAO
 	 * This method loads the default user from the database.
 	 *
 	 * @return the default user
-	 * @methodtype query method
+	 * methodtype query method
 	 */
 	@Override
 	public User load()
@@ -126,7 +126,7 @@ public class UsersDAOImpl extends AbstractDAO implements UsersDAO
 	 *
 	 * @param userId the id of the user that should be loaded from database
 	 * @return the user matching the given id
-	 * @methodtype query method
+	 * methodtype query method
 	 */
 	@Override
 	public User load(String userId)
@@ -143,7 +143,7 @@ public class UsersDAOImpl extends AbstractDAO implements UsersDAO
 	 * This method deletes the user with the given id from the database.
 	 *
 	 * @param userId the id of the user that should be deleted
-	 * @methodtype command method
+	 * methodtype command method
 	 */
 	@Override
 	public void delete(String userId)
@@ -155,7 +155,7 @@ public class UsersDAOImpl extends AbstractDAO implements UsersDAO
 	 * This method loads all users from the database.
 	 *
 	 * @return a list containing all users
-	 * @methodtype query method
+	 * methodtype query method
 	 */
 	@Override
 	public List<User> listAll()
@@ -181,7 +181,7 @@ public class UsersDAOImpl extends AbstractDAO implements UsersDAO
 	 *
 	 * @param cursor the database cursor containing a row of the users table
 	 * @return the user object representing one row of the users table
-	 * @methodtype conversion method
+	 * methodtype conversion method
 	 */
 	private User cursorToUser(Cursor cursor)
 	{

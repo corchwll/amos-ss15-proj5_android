@@ -35,7 +35,7 @@ public interface ProjectsDAO extends DAO
 	 * @param isArchived a boolean whether the required project is archived or not
 	 * @param isDisplayed a boolean whether the required project is displayed or not
 	 * @return the required project object is returned
-	 * @methodtype conversion method (since the given information is converted into an object of type project)
+	 * methodtype conversion method (since the given information is converted into an object of type project)
 	 */
 	Project create(String projectId, String projectName, Date finalDate, boolean isUsed, boolean isArchived,
 						  boolean isDisplayed);
@@ -44,7 +44,7 @@ public interface ProjectsDAO extends DAO
 	 * This method is used to update a given project in the database.
 	 *
 	 * @param project the project which has to be updated.
-	 * @methodtype command method
+	 * methodtype command method
 	 */
 	void update(Project project);
 
@@ -53,7 +53,7 @@ public interface ProjectsDAO extends DAO
 	 *
 	 * @param projectId the id of the project that should be loaded from database
 	 * @return the project matching the given id
-	 * @methodtype query method
+	 * methodtype query method
 	 */
 	Project load(String projectId);
 
@@ -61,7 +61,7 @@ public interface ProjectsDAO extends DAO
 	 * This method deletes the project with the given id from the database.
 	 *
 	 * @param projectId the id of the project that should be deleted
-	 * @methodtype command method
+	 * methodtype command method
 	 */
 	void delete(String projectId);
 
@@ -69,7 +69,7 @@ public interface ProjectsDAO extends DAO
 	 * This method loads all projects from the database that are not archived.
 	 *
 	 * @return a list containing all projects
-	 * @methodtype query method
+	 * methodtype query method
 	 */
 	List<Project> listAll();
 }

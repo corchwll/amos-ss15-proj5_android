@@ -37,7 +37,7 @@ public interface UsersDAO extends DAO
 	 * @param currentOvertime the current overtime the user has
 	 * @param registrationDate the registration date when the user started to use the application
 	 * @return the required user object is returned
-	 * @methodtype conversion method (since the given information is converted into an object of type user)
+	 * methodtype conversion method (since the given information is converted into an object of type user)
 	 */
 	User create(String employeeId, String lastName, String firstName, int weeklyWorkingTime,
 					   int totalVacationTime, int currentVacationTime, int currentOvertime, Date registrationDate);
@@ -46,7 +46,7 @@ public interface UsersDAO extends DAO
 	 * This method is used to update a given user in the database.
 	 *
 	 * @param user the user which has to be updated.
-	 * @methodtype command method
+	 * methodtype command method
 	 */
 	void update(User user);
 
@@ -54,7 +54,7 @@ public interface UsersDAO extends DAO
 	 * This method loads the default user from the database.
 	 *
 	 * @return the default user
-	 * @methodtype query method
+	 * methodtype query method
 	 */
 	User load();
 
@@ -63,7 +63,7 @@ public interface UsersDAO extends DAO
 	 *
 	 * @param userId the id of the user that should be loaded from database
 	 * @return the user matching the given id
-	 * @methodtype query method
+	 * methodtype query method
 	 */
 	User load(String userId);
 
@@ -71,7 +71,7 @@ public interface UsersDAO extends DAO
 	 * This method deletes the user with the given id from the database.
 	 *
 	 * @param userId the id of the user that should be deleted
-	 * @methodtype command method
+	 * methodtype command method
 	 */
 	void delete(String userId);
 
@@ -79,7 +79,7 @@ public interface UsersDAO extends DAO
 	 * This method loads all users from the database.
 	 *
 	 * @return a list containing all users
-	 * @methodtype query method
+	 * methodtype query method
 	 */
 	List<User> listAll();
 }

@@ -34,7 +34,7 @@ public abstract class DataAccessObjectFactory
 	 * initialized an instance yet, it will be constructed.
 	 *
 	 * @return the singleton instance of the DataAccessObjectFactory
-	 * @methodtype get method
+	 * methodtype get method
 	 */
 	public static DataAccessObjectFactory getInstance()
 	{
@@ -50,7 +50,7 @@ public abstract class DataAccessObjectFactory
 	 * This method allows to inject another DataAccessObjectFactory if needed.
 	 *
 	 * @param dAOFactory DataAccessObjectFactory
-	 * @methodtype set method
+	 * methodtype set method
 	 */
 	public static void setInstance(DataAccessObjectFactory dAOFactory)
 	{
@@ -64,7 +64,7 @@ public abstract class DataAccessObjectFactory
 	 * @param context The application context under which the database object will be created
 	 * @return The requested ProjectsDAO will be returned
 	 * @throws SQLException
-	 * @methodtype factory method
+	 * methodtype factory method
 	 */
 	public ProjectsDAO createProjectsDAO(Context context) throws SQLException
 	{
@@ -83,7 +83,7 @@ public abstract class DataAccessObjectFactory
 	 *
 	 * @param context The application context under which the database object will be created
 	 * @return The concrete ProjectsDAO will be returned
-	 * @methodtype initialization method
+	 * methodtype initialization method
 	 */
 	protected abstract ProjectsDAO doCreateProjectsDAO(Context context);
 
@@ -94,7 +94,7 @@ public abstract class DataAccessObjectFactory
 	 * @param context The application context under which the database object will be created
 	 * @return The requested SessionsDAO will be returned
 	 * @throws SQLException
-	 * @methodtype factory method
+	 * methodtype factory method
 	 */
 	public SessionsDAO createSessionsDAO(Context context) throws SQLException
 	{
@@ -113,7 +113,7 @@ public abstract class DataAccessObjectFactory
 	 *
 	 * @param context The application context under which the database object will be created
 	 * @return The concrete SessionsDAO will be returned
-	 * @methodtype initialization method
+	 * methodtype initialization method
 	 */
 	protected abstract SessionsDAO doCreateSessionsDAO(Context context);
 
@@ -124,7 +124,7 @@ public abstract class DataAccessObjectFactory
 	 * @param context The application context under which the database object will be created
 	 * @return The requested UsersDAO will be returned
 	 * @throws SQLException
-	 * @methodtype factory method
+	 * methodtype factory method
 	 */
 	public UsersDAO createUsersDAO(Context context) throws SQLException
 	{
@@ -143,7 +143,7 @@ public abstract class DataAccessObjectFactory
 	 *
 	 * @param context The application context under which the database object will be created
 	 * @return The concrete UsersDAO will be returned
-	 * @methodtype initialization method
+	 * methodtype initialization method
 	 */
 	protected abstract UsersDAO doCreateUsersDAO(Context context);
 }

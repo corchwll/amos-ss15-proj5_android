@@ -101,7 +101,7 @@ public class PersistenceHelper extends SQLiteOpenHelper
 	 * Constructor for the PersistenceHelper.
 	 *
 	 * @param context the application context under which this object should be constructed.
-	 * @methodtype constructor
+	 * methodtype constructor
 	 */
 	public PersistenceHelper(Context context)
 	{
@@ -112,7 +112,7 @@ public class PersistenceHelper extends SQLiteOpenHelper
 	 * This method is called in the android lifecycle when the database is used for the first time.
 	 *
 	 * @param db the database object provided by the android application.
-	 * @methodtype initialization method
+	 * methodtype initialization method
 	 */
 	@Override
 	public void onCreate(SQLiteDatabase db)
@@ -127,7 +127,7 @@ public class PersistenceHelper extends SQLiteOpenHelper
 	 * This method is internally used to insert the default projects in to the created database.
 	 *
 	 * @param db the database object provided by the android application.
-	 * @methodtype command method
+	 * methodtype command method
 	 */
 	private void insertDefaultProjects(SQLiteDatabase db)
 	{
@@ -184,7 +184,7 @@ public class PersistenceHelper extends SQLiteOpenHelper
 	 * @param db the database object provided by the android application
 	 * @param oldVersion the version number of the old database
 	 * @param newVersion the version number of the new database
-	 * @methodtype command method
+	 * methodtype command method
 	 */
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)

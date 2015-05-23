@@ -30,7 +30,7 @@ public class Session
 	/**
 	 * Returns the session id.
 	 *
-	 * @methodtype get method
+	 * methodtype get method
 	 */
 	public long getId()
 	{
@@ -40,9 +40,9 @@ public class Session
 	/**
 	 * Sets the session id if greater than zero.
 	 *
-	 * @methodtype set method
-	 * @pre id > 0
-	 * @post session id successfully set.
+	 * methodtype set method
+	 * pre id > 0
+	 * post session id successfully set.
 	 */
 	public void setId(long id)
 	{
@@ -52,7 +52,7 @@ public class Session
 	/**
 	 * Returns the project id related with this session.
 	 *
-	 * @methodtype get method
+	 * methodtype get method
 	 */
 	public String getProjectId()
 	{
@@ -62,9 +62,9 @@ public class Session
 	/**
 	 * Sets the related project id if greater than zero.
 	 *
-	 * @methodtype set method
-	 * @pre projectId > 0
-	 * @post project id successfully set.
+	 * methodtype set method
+	 * pre projectId > 0
+	 * post project id successfully set.
 	 */
 	public void setProjectId(String projectId)
 	{
@@ -74,7 +74,7 @@ public class Session
 	/**
 	 * Returns the starting time of this session.
 	 *
-	 * @methodtype get method
+	 * methodtype get method
 	 */
 	public Date getStartTime()
 	{
@@ -84,9 +84,9 @@ public class Session
 	/**
 	 * Sets the starting time of this session if not null.
 	 *
-	 * @methodtype set method
-	 * @pre startTime != null;
-	 * @post startTime successfully set.
+	 * methodtype set method
+	 * pre startTime != null;
+	 * post startTime successfully set.
 	 */
 	public void setStartTime(Date startTime)
 	{
@@ -96,7 +96,7 @@ public class Session
 	/**
 	 * Returns the stopping time of this session.
 	 *
-	 * @methodtype get method
+	 * methodtype get method
 	 */
 	public Date getStopTime()
 	{
@@ -106,9 +106,9 @@ public class Session
 	/**
 	 * Sets the stopping time if not null.
 	 *
-	 * @methodtype set method
-	 * @pre stopTime != null;
-	 * @post stopTime successfully set.
+	 * methodtype set method
+	 * pre stopTime != null;
+	 * post stopTime successfully set.
 	 */
 	public void setStopTime(Date stopTime)
 	{

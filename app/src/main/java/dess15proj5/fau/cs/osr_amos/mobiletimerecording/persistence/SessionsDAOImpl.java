@@ -37,7 +37,7 @@ public class SessionsDAOImpl extends AbstractDAO implements SessionsDAO
 	 * Constructs a concrete SessionsDAO object.
 	 *
 	 * @param context the application context under which the object is constructed
-	 * @methodtype constructor
+	 * methodtype constructor
 	 */
 	public SessionsDAOImpl(Context context)
 	{
@@ -50,7 +50,7 @@ public class SessionsDAOImpl extends AbstractDAO implements SessionsDAO
 	 * @param projectId the project id the required session belongs to
 	 * @param startTime the time when the new session started
 	 * @return the required session object is returned
-	 * @methodtype conversion method (since the given information is converted into an object of type session)
+	 * methodtype conversion method (since the given information is converted into an object of type session)
 	 */
 	@Override
 	public Session create(String projectId, Date startTime)
@@ -65,7 +65,7 @@ public class SessionsDAOImpl extends AbstractDAO implements SessionsDAO
 	 * @param startTime the time when the new session started
 	 * @param stopTime the time when the new session terminated
 	 * @return the required session object is returned
-	 * @methodtype conversion method (since the given information is converted into an object of type session)
+	 * methodtype conversion method (since the given information is converted into an object of type session)
 	 */
 	@Override
 	public Session create(String projectId, Date startTime, Date stopTime)
@@ -90,7 +90,7 @@ public class SessionsDAOImpl extends AbstractDAO implements SessionsDAO
 	 * This method is used to update a given session in the database.
 	 *
 	 * @param session the session which has to be updated.
-	 * @methodtype command method
+	 * methodtype command method
 	 */
 	@Override
 	public void update(Session session)
@@ -112,7 +112,7 @@ public class SessionsDAOImpl extends AbstractDAO implements SessionsDAO
 	 *
 	 * @param sessionId the id of the session that should be loaded from database
 	 * @return the session matching the given id
-	 * @methodtype query method
+	 * methodtype query method
 	 */
 	@Override
 	public Session load(long sessionId)
@@ -129,7 +129,7 @@ public class SessionsDAOImpl extends AbstractDAO implements SessionsDAO
 	 * This method deletes the session with the given id from the database.
 	 *
 	 * @param sessionId the id of the session that should be deleted
-	 * @methodtype command method
+	 * methodtype command method
 	 */
 	@Override
 	public void delete(long sessionId)
@@ -142,7 +142,7 @@ public class SessionsDAOImpl extends AbstractDAO implements SessionsDAO
 	 *
 	 * @param projectId the id the sessions have to belong to
 	 * @return a list containing all sessions for the given projectId
-	 * @methodtype query method
+	 * methodtype query method
 	 */
 	@Override
 	public List<Session> listAllForProject(String projectId)
@@ -171,7 +171,7 @@ public class SessionsDAOImpl extends AbstractDAO implements SessionsDAO
 	 * This method loads all sessions from the database.
 	 *
 	 * @return a list containing all sessions
-	 * @methodtype query method
+	 * methodtype query method
 	 */
 	@Override
 	public List<Session> listAll()
@@ -197,7 +197,7 @@ public class SessionsDAOImpl extends AbstractDAO implements SessionsDAO
 	 *
 	 * @param cursor the database cursor containing a row of the sessions table
 	 * @return the session object representing one row of the sessions table
-	 * @methodtype conversion method
+	 * methodtype conversion method
 	 */
 	private Session cursorToSession(Cursor cursor)
 	{

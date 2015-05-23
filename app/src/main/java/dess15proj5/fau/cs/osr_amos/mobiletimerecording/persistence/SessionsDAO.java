@@ -31,7 +31,7 @@ public interface SessionsDAO extends DAO
 	 * @param projectId the project id the required session belongs to
 	 * @param startTime the time when the new session started
 	 * @return the required session object is returned
-	 * @methodtype conversion method (since the given information is converted into an object of type session)
+	 * methodtype conversion method (since the given information is converted into an object of type session)
 	 */
 	Session create(String projectId, Date startTime);
 
@@ -42,7 +42,7 @@ public interface SessionsDAO extends DAO
 	 * @param startTime the time when the new session started
 	 * @param stopTime the time when the new session terminated
 	 * @return the required session object is returned
-	 * @methodtype conversion method (since the given information is converted into an object of type session)
+	 * methodtype conversion method (since the given information is converted into an object of type session)
 	 */
 	Session create(String projectId, Date startTime, Date stopTime);
 
@@ -50,7 +50,7 @@ public interface SessionsDAO extends DAO
 	 * This method is used to update a given session in the database.
 	 *
 	 * @param session the session which has to be updated.
-	 * @methodtype command method
+	 * methodtype command method
 	 */
 	void update(Session session);
 
@@ -59,7 +59,7 @@ public interface SessionsDAO extends DAO
 	 *
 	 * @param sessionId the id of the session that should be loaded from database
 	 * @return the session matching the given id
-	 * @methodtype query method
+	 * methodtype query method
 	 */
 	Session load(long sessionId);
 
@@ -67,7 +67,7 @@ public interface SessionsDAO extends DAO
 	 * This method deletes the session with the given id from the database.
 	 *
 	 * @param sessionId the id of the session that should be deleted
-	 * @methodtype command method
+	 * methodtype command method
 	 */
 	void delete(long sessionId);
 
@@ -76,7 +76,7 @@ public interface SessionsDAO extends DAO
 	 *
 	 * @param projectId the id the sessions have to belong to
 	 * @return a list containing all sessions for the given projectId
-	 * @methodtype query method
+	 * methodtype query method
 	 */
 	List<Session> listAllForProject(String projectId);
 
@@ -84,7 +84,7 @@ public interface SessionsDAO extends DAO
 	 * This method loads all sessions from the database.
 	 *
 	 * @return a list containing all sessions
-	 * @methodtype query method
+	 * methodtype query method
 	 */
 	List<Session> listAll();
 }

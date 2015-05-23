@@ -32,7 +32,7 @@ public class Project
 	/**
 	 * Returns the project id.
 	 *
-	 * @methodtype get method
+	 * methodtype get method
 	 */
 	public String getId()
 	{
@@ -42,9 +42,9 @@ public class Project
 	/**
 	 * Sets the project id to the given one if greater than zero.
 	 *
-	 * @methodtype set method
-	 * @pre id > 0
-	 * @post id successfully set
+	 * methodtype set method
+	 * pre id > 0
+	 * post id successfully set
 	 */
 	public void setId(String id)
 	{
@@ -55,7 +55,7 @@ public class Project
 	/**
 	 * Returns the name of the project.
 	 *
-	 * @methodtype get method
+	 * methodtype get method
 	 */
 	public String getName()
 	{
@@ -65,9 +65,9 @@ public class Project
 	/**
 	 * Sets the name of the project if not null.
 	 *
-	 * @methodtype set method
-	 * @pre name != null
-	 * @post name successfully set
+	 * methodtype set method
+	 * pre name != null
+	 * post name successfully set
 	 */
 	public void setName(String name)
 	{
@@ -78,7 +78,7 @@ public class Project
 	/**
 	 * Returns the final date of the project.
 	 *
-	 * @methodtype get method
+	 * methodtype get method
 	 */
 	public Date getFinalDate()
 	{
@@ -88,9 +88,9 @@ public class Project
 	/**
 	 * Sets the final date of the project if not null.
 	 *
-	 * @methodtype set method
-	 * @pre finalDate != null
-	 * @post finalDate successfully set
+	 * methodtype set method
+	 * pre finalDate != null
+	 * post finalDate successfully set
 	 */
 	public void setFinalDate(Date finalDate)
 	{
@@ -101,7 +101,7 @@ public class Project
 	/**
 	 * Returns whether this project is displayed or not.
 	 *
-	 * @methodtype boolean query method
+	 * methodtype boolean query method
 	 */
 	public boolean isDisplayed()
 	{
@@ -111,7 +111,7 @@ public class Project
 	/**
 	 * Sets whether this project is displayed or not.
 	 *
-	 * @methodtype set method
+	 * methodtype set method
 	 */
 	public void setIsDisplayed(boolean isDisplayed)
 	{
@@ -121,7 +121,7 @@ public class Project
 	/**
 	 * Returns whether this project is used or not.
 	 *
-	 * @methodtype boolean query method
+	 * methodtype boolean query method
 	 */
 	public boolean isUsed()
 	{
@@ -131,7 +131,7 @@ public class Project
 	/**
 	 * Sets whether this project is used or not.
 	 *
-	 * @methodtype set method
+	 * methodtype set method
 	 */
 	public void setIsUsed(boolean isUsed)
 	{
@@ -141,7 +141,7 @@ public class Project
 	/**
 	 * Returns whether this project is archived or not.
 	 *
-	 * @methodtype boolean query method
+	 * methodtype boolean query method
 	 */
 	public boolean isArchived()
 	{
@@ -151,7 +151,7 @@ public class Project
 	/**
 	 * Sets whether this project is archived or not.
 	 *
-	 * @methodtype set method
+	 * methodtype set method
 	 */
 	public void setIsArchived(boolean isArchived)
 	{

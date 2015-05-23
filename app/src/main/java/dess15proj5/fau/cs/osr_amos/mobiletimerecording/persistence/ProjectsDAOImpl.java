@@ -39,7 +39,7 @@ public class ProjectsDAOImpl extends AbstractDAO implements ProjectsDAO
 	 * Constructs a concrete ProjectsDAO object.
 	 *
 	 * @param context the application context under which the object is constructed
-	 * @methodtype constructor
+	 * methodtype constructor
 	 */
 	public ProjectsDAOImpl(Context context)
 	{
@@ -56,7 +56,7 @@ public class ProjectsDAOImpl extends AbstractDAO implements ProjectsDAO
 	 * @param isArchived a boolean whether the required project is archived or not
 	 * @param isDisplayed a boolean whether the required project is displayed or not
 	 * @return the required project object is returned
-	 * @methodtype conversion method (since the given information is converted into an object of type project)
+	 * methodtype conversion method (since the given information is converted into an object of type project)
 	 */
 	@Override
 	public Project create(String projectId, String projectName, Date finalDate, boolean isUsed, boolean isArchived,
@@ -86,7 +86,7 @@ public class ProjectsDAOImpl extends AbstractDAO implements ProjectsDAO
 	 * This method is used to update a given project in the database.
 	 *
 	 * @param project the project which has to be updated.
-	 * @methodtype command method
+	 * methodtype command method
 	 */
 	@Override
 	public void update(Project project)
@@ -108,7 +108,7 @@ public class ProjectsDAOImpl extends AbstractDAO implements ProjectsDAO
 	 *
 	 * @param projectId the id of the project that should be loaded from database
 	 * @return the project matching the given id
-	 * @methodtype query method
+	 * methodtype query method
 	 */
 	@Override
 	public Project load(String projectId)
@@ -125,7 +125,7 @@ public class ProjectsDAOImpl extends AbstractDAO implements ProjectsDAO
 	 * This method deletes the project with the given id from the database.
 	 *
 	 * @param projectId the id of the project that should be deleted
-	 * @methodtype command method
+	 * methodtype command method
 	 */
 	@Override
 	public void delete(String projectId)
@@ -142,7 +142,7 @@ public class ProjectsDAOImpl extends AbstractDAO implements ProjectsDAO
 	 *
 	 * @param projectId the project id that has to be checked
 	 * @return true if the project is not a default project and false if it is one
-	 * @methodtype boolean query method
+	 * methodtype boolean query method
 	 */
 	private boolean isNotADefaultProject(String projectId)
 	{
@@ -164,7 +164,7 @@ public class ProjectsDAOImpl extends AbstractDAO implements ProjectsDAO
 	 * This method loads all projects from the database that are not archived.
 	 *
 	 * @return a list containing all projects
-	 * @methodtype query method
+	 * methodtype query method
 	 */
 	@Override
 	public List<Project> listAll()
@@ -191,7 +191,7 @@ public class ProjectsDAOImpl extends AbstractDAO implements ProjectsDAO
 	 *
 	 * @param cursor the database cursor containing a row of the projects table
 	 * @return the project object representing one row of the projects table
-	 * @methodtype conversion method
+	 * methodtype conversion method
 	 */
 	private Project cursorToProject(Cursor cursor)
 	{

@@ -26,14 +26,14 @@ public interface DAO
 	 *	This method fetches a writable database via android SQLiteOpenHelper and prepares it for usage.
 	 *
 	 * @throws SQLException
-	 * @methodtype initialization method
+	 * methodtype initialization method
 	 */
 	void open() throws SQLException;
 
 	/**
 	 * This method closes the writable database.
 	 *
-	 * @methodtype command method
+	 * methodtype command method
 	 */
 	void close();
 }
