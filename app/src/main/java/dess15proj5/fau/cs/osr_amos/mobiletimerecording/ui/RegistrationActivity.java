@@ -35,6 +35,12 @@ public class RegistrationActivity extends ActionBarActivity implements AbstractU
 {
 	UsersDAO userDAO;
 
+	/**
+	 * This method is called in the android lifecycle when the fragment is created.
+	 *
+	 * @param savedInstanceState this param contains several key value pairs in order to save the instance state
+	 * methodtype initialization method
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -50,6 +56,12 @@ public class RegistrationActivity extends ActionBarActivity implements AbstractU
 		}
 	}
 
+	/**
+	 * This method checks whether a default user exists in database or not. If the user does not exist a registration
+	 * process is started.
+	 *
+	 * methodtype command method
+	 */
 	private void checkIfUserExistsInDatabase()
 	{
 		List<User> users = userDAO.listAll();
@@ -67,12 +79,22 @@ public class RegistrationActivity extends ActionBarActivity implements AbstractU
 		}
 	}
 
+	/**
+	 * This method is used to start the main activity.
+	 *
+	 * method command method
+	 */
 	private void startMainActivity()
 	{
 		Intent intent = new Intent(this, MainActivity.class);
 		startActivity(intent);
 	}
 
+	/**
+	 * This method is called from a callback when the user profile is saved.
+	 *
+	 * methodtype command method
+	 */
 	@Override
 	public void onUserProfileSaved()
 	{
