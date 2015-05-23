@@ -25,10 +25,51 @@ import java.util.List;
 
 public interface ProjectsDAO extends DAO
 {
+	/**
+	 * This method inserts the given information into the projects table and creates an object of type project.
+	 *
+	 * @param projectId the project id of the required project
+	 * @param projectName the project name of the required project
+	 * @param finalDate the optional final date for the required project
+	 * @param isUsed a boolean whether the required project is used or not
+	 * @param isArchived a boolean whether the required project is archived or not
+	 * @param isDisplayed a boolean whether the required project is displayed or not
+	 * @return the required project object is returned
+	 * @methodtype conversion method (since the given information is converted into an object of type project)
+	 */
 	Project create(String projectId, String projectName, Date finalDate, boolean isUsed, boolean isArchived,
 						  boolean isDisplayed);
+
+	/**
+	 * This method is used to update a given project in the database.
+	 *
+	 * @param project the project which has to be updated.
+	 * @methodtype command method
+	 */
 	void update(Project project);
+
+	/**
+	 * This method loads the project with the given id from the database.
+	 *
+	 * @param projectId the id of the project that should be loaded from database
+	 * @return the project matching the given id
+	 * @methodtype query method
+	 */
 	Project load(String projectId);
+
+	/**
+	 * This method deletes the project with the given id from the database.
+	 *
+	 * @param projectId the id of the project that should be deleted
+	 * @methodtype command method
+	 */
 	void delete(String projectId);
+
+	/**
+	 * This method loads all projects from the database that are not archived.
+	 *
+	 * @return a list containing all projects
+	 * @methodtype query method
+	 */
 	List<Project> listAll();
 }
