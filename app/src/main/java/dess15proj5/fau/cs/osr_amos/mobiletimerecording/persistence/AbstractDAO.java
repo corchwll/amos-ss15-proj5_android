@@ -27,11 +27,22 @@ public abstract class AbstractDAO
 	protected SQLiteDatabase database;
 	protected PersistenceHelper persistenceHelper;
 
+	/**
+	 *	This method fetches a writable database via android SQLiteOpenHelper and prepares it for usage.
+	 *
+	 * @throws SQLException
+	 * @methodtype initialization method
+	 */
 	public void open() throws SQLException
 	{
 		database = persistenceHelper.getWritableDatabase();
 	}
 
+	/**
+	 * This method closes the writable database.
+	 *
+	 * @methodtype command method
+	 */
 	public void close()
 	{
 		persistenceHelper.close();
