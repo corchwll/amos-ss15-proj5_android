@@ -29,29 +29,55 @@ import java.util.List;
 
 public class SessionsDAOImpl extends AbstractDAO implements SessionsDAO
 {
+	//an array of strings, containing all column names of the sessions table
 	private String[] allColumns = {PersistenceHelper.SESSIONS_ID, PersistenceHelper.SESSIONS_PROJECT_ID,
 			PersistenceHelper.SESSIONS_TIMESTAMP_START, PersistenceHelper.SESSIONS_TIMESTAMP_STOP};
 
+	/**
+	 * Constructs a concrete SessionsDAO object.
+	 *
+	 * @param context the application context under which the object is constructed
+	 * @methodtype constructor
+	 */
 	public SessionsDAOImpl(Context context)
 	{
 		persistenceHelper = new PersistenceHelper(context);
 	}
 
+	/**
+	 * This method inserts the given information into the sessions table and creates an object of type session.
+	 *
+	 * @param projectId the project id the required session belongs to
+	 * @param startTime the time when the new session started
+	 * @return the required session object is returned
+	 * @methodtype conversion method (since the given information is converted into an object of type session)
+	 */
 	@Override
 	public Session create(String projectId, Date startTime)
 	{
 		return create(projectId, startTime, startTime);
 	}
 
+	/**
+	 * This method inserts the given information into the sessions table and creates an object of type session.
+	 *
+	 * @param projectId the project id the required session belongs to
+	 * @param startTime the time when the new session started
+	 * @param stopTime the time when the new session terminated
+	 * @return the required session object is returned
+	 * @methodtype conversion method (since the given information is converted into an object of type session)
+	 */
 	@Override
 	public Session create(String projectId, Date startTime, Date stopTime)
 	{
+		//preparation and insert of the new session
 		ContentValues values = new ContentValues();
 		values.put(PersistenceHelper.SESSIONS_PROJECT_ID, projectId);
 		values.put(PersistenceHelper.SESSIONS_TIMESTAMP_START, startTime.getTime());
 		values.put(PersistenceHelper.SESSIONS_TIMESTAMP_STOP, stopTime.getTime());
 		long insertId = database.insert(PersistenceHelper.TABLE_SESSIONS, null, values);
 
+		//retrieving the new session from database and constructing the object
 		Cursor cursor = database.query(PersistenceHelper.TABLE_SESSIONS, allColumns, PersistenceHelper.SESSIONS_ID +
 				" = " + insertId, null, null, null, null);
 		cursor.moveToFirst();
@@ -60,6 +86,12 @@ public class SessionsDAOImpl extends AbstractDAO implements SessionsDAO
 		return newSession;
 	}
 
+	/**
+	 * This method is used to update a given session in the database.
+	 *
+	 * @param session the session which has to be updated.
+	 * @methodtype command method
+	 */
 	@Override
 	public void update(Session session)
 	{
@@ -75,6 +107,13 @@ public class SessionsDAOImpl extends AbstractDAO implements SessionsDAO
 				PersistenceHelper.SESSIONS_ID + " = " + session.getId(), null);
 	}
 
+	/**
+	 * This method loads the session with the given id from the database.
+	 *
+	 * @param sessionId the id of the project that should be loaded from database
+	 * @return the session matching the given id
+	 * @methodtype query method
+	 */
 	@Override
 	public Session load(long sessionId)
 	{
@@ -86,12 +125,25 @@ public class SessionsDAOImpl extends AbstractDAO implements SessionsDAO
 		return session;
 	}
 
+	/**
+	 * This method deletes the session with the given id from the database.
+	 *
+	 * @param sessionId the id of the project that should be deleted
+	 * @methodtype command method
+	 */
 	@Override
 	public void delete(long sessionId)
 	{
 		database.delete(PersistenceHelper.TABLE_SESSIONS, PersistenceHelper.SESSIONS_ID + " = " + sessionId, null);
 	}
 
+	/**
+	 * This method loads all sessions from the database that are belonging to the given projectId.
+	 *
+	 * @param projectId the id the sessions have to belong to
+	 * @return a list containing all sessions for the given projectId
+	 * @methodtype query method
+	 */
 	@Override
 	public List<Session> listAllForProject(String projectId)
 	{
@@ -115,6 +167,12 @@ public class SessionsDAOImpl extends AbstractDAO implements SessionsDAO
 		return sessions;
 	}
 
+	/**
+	 * This method loads all sessions from the database.
+	 *
+	 * @return a list containing all sessions
+	 * @methodtype query method
+	 */
 	@Override
 	public List<Session> listAll()
 	{
@@ -134,6 +192,13 @@ public class SessionsDAOImpl extends AbstractDAO implements SessionsDAO
 		return sessions;
 	}
 
+	/**
+	 * This method converts a database cursor containing a row of the sessions table into a concrete session object.
+	 *
+	 * @param cursor the database cursor containing a row of the sessions table
+	 * @return the session object representing one row of the sessions table
+	 * @methodtype conversion method
+	 */
 	private Session cursorToSession(Cursor cursor)
 	{
 		Session session = new Session();
