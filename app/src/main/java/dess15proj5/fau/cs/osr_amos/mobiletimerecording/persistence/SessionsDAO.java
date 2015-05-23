@@ -57,7 +57,7 @@ public interface SessionsDAO extends DAO
 	/**
 	 * This method loads the session with the given id from the database.
 	 *
-	 * @param sessionId the id of the project that should be loaded from database
+	 * @param sessionId the id of the session that should be loaded from database
 	 * @return the session matching the given id
 	 * @methodtype query method
 	 */
@@ -66,7 +66,7 @@ public interface SessionsDAO extends DAO
 	/**
 	 * This method deletes the session with the given id from the database.
 	 *
-	 * @param sessionId the id of the project that should be deleted
+	 * @param sessionId the id of the session that should be deleted
 	 * @methodtype command method
 	 */
 	void delete(long sessionId);
