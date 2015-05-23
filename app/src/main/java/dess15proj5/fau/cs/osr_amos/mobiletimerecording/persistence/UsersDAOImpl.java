@@ -29,21 +29,43 @@ import java.util.List;
 
 public class UsersDAOImpl extends AbstractDAO implements UsersDAO
 {
+	//an array of strings, containing all column names of the users table
 	private String[] allColumns =
 			{PersistenceHelper.USERS_ID, PersistenceHelper.USERS_LAST_NAME, PersistenceHelper.USERS_FIRST_NAME,
 					PersistenceHelper.USERS_WEEKLY_WORKING_TIME, PersistenceHelper.USERS_TOTAL_VACATION_TIME,
 					PersistenceHelper.USERS_CURRENT_VACATION_TIME, PersistenceHelper.USERS_CURRENT_OVERTIME,
 					PersistenceHelper.USERS_REGISTRATION_DATE};
 
+	/**
+	 * Constructs a concrete UsersDAO object.
+	 *
+	 * @param context the application context under which the object is constructed
+	 * @methodtype constructor
+	 */
 	public UsersDAOImpl(Context context)
 	{
 		persistenceHelper = new PersistenceHelper(context);
 	}
 
+	/**
+	 * This method inserts the given information into the users table and creates an object of type user.
+	 *
+	 * @param employeeId the id of the new user object
+	 * @param lastName the last name of the new user object
+	 * @param firstName the first name of the new user object
+	 * @param weeklyWorkingTime the hours the new user has to work per week
+	 * @param totalVacationTime the amount of days the new user can take off per year
+	 * @param currentVacationTime the amount of days the new user has already taken off this year
+	 * @param currentOvertime the current overtime the user has
+	 * @param registrationDate the registration date when the user started to use the application
+	 * @return the required user object is returned
+	 * @methodtype conversion method (since the given information is converted into an object of type user)
+	 */
 	@Override
 	public User create(String employeeId, String lastName, String firstName, int weeklyWorkingTime, int totalVacationTime,
 					   int currentVacationTime, int currentOvertime, Date registrationDate)
 	{
+		//preparation and insert of the new user
 		ContentValues values = new ContentValues();
 		values.put(PersistenceHelper.USERS_ID, employeeId);
 		values.put(PersistenceHelper.USERS_LAST_NAME, lastName);
@@ -55,6 +77,7 @@ public class UsersDAOImpl extends AbstractDAO implements UsersDAO
 		values.put(PersistenceHelper.USERS_REGISTRATION_DATE, registrationDate.getTime());
 		database.insert(PersistenceHelper.TABLE_USERS, null, values);
 
+		//retrieving the new user from database and constructing the object
 		Cursor cursor = database.query(PersistenceHelper.TABLE_USERS, allColumns, PersistenceHelper.USERS_ID +
 				" = '" + employeeId + "'", null, null, null, null);
 		cursor.moveToFirst();
@@ -63,6 +86,12 @@ public class UsersDAOImpl extends AbstractDAO implements UsersDAO
 		return newUser;
 	}
 
+	/**
+	 * This method is used to update a given user in the database.
+	 *
+	 * @param user the user which has to be updated.
+	 * @methodtype command method
+	 */
 	@Override
 	public void update(User user)
 	{
@@ -79,6 +108,12 @@ public class UsersDAOImpl extends AbstractDAO implements UsersDAO
 				PersistenceHelper.USERS_ID + " = " + user.getEmployeeId(), null);
 	}
 
+	/**
+	 * This method loads the default user from the database.
+	 *
+	 * @return the default user
+	 * @methodtype query method
+	 */
 	@Override
 	public User load()
 	{
@@ -86,6 +121,13 @@ public class UsersDAOImpl extends AbstractDAO implements UsersDAO
 		return users.get(0);
 	}
 
+	/**
+	 * This method loads the user with the given id from the database.
+	 *
+	 * @param userId the id of the user that should be loaded from database
+	 * @return the user matching the given id
+	 * @methodtype query method
+	 */
 	@Override
 	public User load(String userId)
 	{
@@ -97,12 +139,24 @@ public class UsersDAOImpl extends AbstractDAO implements UsersDAO
 		return user;
 	}
 
+	/**
+	 * This method deletes the user with the given id from the database.
+	 *
+	 * @param userId the id of the user that should be deleted
+	 * @methodtype command method
+	 */
 	@Override
 	public void delete(String userId)
 	{
 		database.delete(PersistenceHelper.TABLE_USERS, PersistenceHelper.USERS_ID + " = " + userId, null);
 	}
 
+	/**
+	 * This method loads all users from the database.
+	 *
+	 * @return a list containing all users
+	 * @methodtype query method
+	 */
 	@Override
 	public List<User> listAll()
 	{
@@ -122,6 +176,13 @@ public class UsersDAOImpl extends AbstractDAO implements UsersDAO
 		return users;
 	}
 
+	/**
+	 * This method converts a database cursor containing a row of the users table into a concrete user object.
+	 *
+	 * @param cursor the database cursor containing a row of the users table
+	 * @return the user object representing one row of the users table
+	 * @methodtype conversion method
+	 */
 	private User cursorToUser(Cursor cursor)
 	{
 		User user = new User();
