@@ -30,16 +30,36 @@ import java.util.List;
 
 public class EditUserProfileFragment extends AbstractUserProfileFragment
 {
+	/**
+	 * This method is called in the android lifecycle when the view of the fragment is created.
+	 *
+	 * @param inflater this param contains the layout inflater which is used to generate the gui
+	 * @param container the container is used by the layout inflater
+	 * @param savedInstanceState this param contains several key value pairs in order to save the instance state
+	 * methodtype initialization method
+	 */
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
 		ScrollView scrollView = (ScrollView) inflater.inflate(R.layout.change_user_profile, container, false);
 		//TODO is it ok to call this methods here? same in RegisterUserProfileFragment
 		setWidgets(scrollView);
-		getUserFromDatabase();
+		loadUserFromDatabase();
 		return scrollView;
 	}
 
+	/**
+	 * This method is used to store an user object to the database.
+	 *
+	 * @param employeeId the id of the user that has to be stored
+	 * @param lastName the last name of the user that has to be stored
+	 * @param firstName the first name of the user that has to be stored
+	 * @param weeklyWorkingTime the hours a user has to work per week
+	 * @param totalVacationTime the amount of days a user can take off per year
+	 * @param currentVacationTime the amount of days a user has left to take off this year
+	 * @param currentOvertime the overtime the user actual has
+	 * methodtype command method
+	 */
 	@Override
 	protected void runDBTransaction(String employeeId, String lastName, String firstName, int weeklyWorkingTime,
 									int totalVacationTime, int currentVacationTime, int currentOvertime)
@@ -55,13 +75,24 @@ public class EditUserProfileFragment extends AbstractUserProfileFragment
 		userDAO.update(user);
 	}
 
-	private void getUserFromDatabase()
+	/**
+	 * This method is used to load the default user from database and fill the widgets with the information.
+	 *
+	 * methodtype initialization method
+	 */
+	private void loadUserFromDatabase()
 	{
 		List<User> users = userDAO.listAll();
 		User user = users.get(0);
 		fillWidgetsWithValuesFromDatabase(user);
 	}
 
+	/**
+	 * This method fills the widgets with the information from the default user.
+	 *
+	 * @param user the default user object
+	 * methodtype initialization method
+	 */
 	private void fillWidgetsWithValuesFromDatabase(User user)
 	{
 		employeeIdWidget.setText(user.getEmployeeId());
