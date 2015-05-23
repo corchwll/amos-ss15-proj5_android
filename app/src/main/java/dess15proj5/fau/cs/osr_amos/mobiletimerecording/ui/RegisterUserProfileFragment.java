@@ -34,7 +34,7 @@ public class RegisterUserProfileFragment extends AbstractUserProfileFragment
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
 		ScrollView scrollView = (ScrollView) inflater.inflate(R.layout.user_profile_registration, container, false);
-		getWidgets(scrollView);
+		setWidgets(scrollView);
 		return scrollView;
 	}
 

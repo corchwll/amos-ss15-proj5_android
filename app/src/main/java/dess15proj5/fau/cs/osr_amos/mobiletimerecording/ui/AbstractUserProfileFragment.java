@@ -36,6 +36,11 @@ public abstract class AbstractUserProfileFragment extends Fragment
 {
 	public interface UserProfileFragmentListener
 	{
+		/**
+		 * This method is used when the user profile is saved.
+		 *
+		 * @methodtype callback method
+		 */
 		void onUserProfileSaved();
 	}
 
@@ -60,6 +65,12 @@ public abstract class AbstractUserProfileFragment extends Fragment
 
 	protected UsersDAO userDAO;
 
+	/**
+	 * This method is called in the android lifecycle when the fragment is displayed.
+	 *
+	 * @param activity the activity in which context the fragment is attached.
+	 * @methodtype initialization method
+	 */
 	@Override
 	public void onAttach(Activity activity)
 	{
@@ -73,6 +84,12 @@ public abstract class AbstractUserProfileFragment extends Fragment
 		}
 	}
 
+	/**
+	 * This method is called in the android lifecycle when the fragment is created.
+	 *
+	 * @param savedInstanceState this param contains several key value pairs in order to save the instance state
+	 * @methodtype initialization method
+	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
@@ -81,6 +98,11 @@ public abstract class AbstractUserProfileFragment extends Fragment
 		getUserDAO();
 	}
 
+	/**
+	 * This method is used to initialize the userDAO attribute.
+	 *
+	 * @methodtype initialization method
+	 */
 	private void getUserDAO()
 	{
 		try
@@ -93,6 +115,13 @@ public abstract class AbstractUserProfileFragment extends Fragment
 		}
 	}
 
+	/**
+	 * This method is called in the android lifecycle when a menu is created.
+	 *
+	 * @param menu the menu item which has to be created
+	 * @param inflater contains the information for the layout of the menu
+	 * @methodtype initialization method
+	 */
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
 	{
@@ -101,13 +130,20 @@ public abstract class AbstractUserProfileFragment extends Fragment
 		saveUserProfileBtn = menu.findItem(R.id.action_save_user_profile);
 	}
 
+	/**
+	 * This method is called in the android lifecycle when a menu item is clicked on.
+	 *
+	 * @param item the item which was targeted
+	 * @return true if their was an item clicked
+	 * @methodtype boolean query method
+	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
 		switch(item.getItemId())
 		{
 			case R.id.action_save_user_profile:
-				getInputsFromWidgets();
+				extractInputsFromWidgets();
 				if(allInputFieldsAreFilledOut() && UserInputIsValidated())
 				{
 					writeIntoDatabase();
@@ -123,6 +159,11 @@ public abstract class AbstractUserProfileFragment extends Fragment
 		}
 	}
 
+	/**
+	 * This method is used to if an user has to be stored into the database.
+	 *
+	 * @methodtype command method
+	 */
 	private void writeIntoDatabase()
 	{
 		int weeklyWorkingTimeAsInt = Integer.parseInt(weeklyWorkingTime);
@@ -133,7 +174,13 @@ public abstract class AbstractUserProfileFragment extends Fragment
 				currentVacationTimeAsInt, currentOvertimeAsInt);
 	}
 
-	protected void getWidgets(View view)
+	/**
+	 * This method is used to set the widget attributes.
+	 *
+	 * @param view the view in which the widgets have to be searched.
+	 * @methodtype set method
+	 */
+	protected void setWidgets(View view)
 	{
 		employeeIdWidget = (EditText) view.findViewById(R.id.employeeId);
 		lastNameWidget = (EditText) view.findViewById(R.id.lastname);
@@ -144,10 +191,27 @@ public abstract class AbstractUserProfileFragment extends Fragment
 		currentOvertimeWidget = (EditText) view.findViewById(R.id.current_overtime);
 	}
 
+	/**
+	 * This abstract method can be used in subclasses to specify how an user object is stored into the database.
+	 *
+	 * @param employeeId the id of the user that has to be stored
+	 * @param lastName the last name of the user that has to be stored
+	 * @param firstName the first name of the user that has to be stored
+	 * @param weeklyWorkingTime the hours a user has to work per week
+	 * @param totalVacationTime the amount of days a user can take off per year
+	 * @param currentVacationTime the amount of days a user has left to take off this year
+	 * @param currentOvertime the overtime the user actual has
+	 * @methodtype command method
+	 */
 	protected abstract void runDBTransaction(String employeeId, String lastName, String firstName, int
 			weeklyWorkingTime, int totalVacationTime, int currentVacationTime, int currentOvertime);
 
-	private void getInputsFromWidgets()
+	/**
+	 * This method sets the attributes for the user object based on the information given in the input widgets.
+	 *
+	 * @methodtype set method
+	 */
+	private void extractInputsFromWidgets()
 	{
 		employeeId = getStringFromWidget(employeeIdWidget);
 		lastName = getStringFromWidget(lastNameWidget);
@@ -158,11 +222,24 @@ public abstract class AbstractUserProfileFragment extends Fragment
 		currentOvertime = getStringFromWidget(currentOvertimeWidget);
 	}
 
+	/**
+	 * This method is used to convert the information from an edit text into a string.
+	 *
+	 * @param editText the edit text that contains the required information
+	 * @return a string representation of the information from the edit text
+	 * @methodtype conversion method
+	 */
 	private String getStringFromWidget(EditText editText)
 	{
 		return editText.getText().toString();
 	}
 
+	/**
+	 * This method checks whether all mandatory input fields are filled from the user.
+	 *
+	 * @return true if every mandatory field is filled, false if not
+	 * @methodtype boolean query method
+	 */
 	private boolean allInputFieldsAreFilledOut()
 	{
 		boolean allFieldsFilledOut = true;
@@ -183,6 +260,14 @@ public abstract class AbstractUserProfileFragment extends Fragment
 		return allFieldsFilledOut;
 	}
 
+	/**
+	 * This method checks if a given string is not null and if its null it displays it in the given edit text field.
+	 *
+	 * @param s the string that should not be null
+	 * @param editText the edit text which has to display the warning
+	 * @return true if the given string is not null, false if it is null
+	 * @methodtype boolean query method
+	 */
 	private boolean checkIfStringIsNotNull(String s, EditText editText)
 	{
 		boolean stringIsNotNull = true;
@@ -194,6 +279,12 @@ public abstract class AbstractUserProfileFragment extends Fragment
 		return stringIsNotNull;
 	}
 
+	/**
+	 * This method checks whether the user input is validated or not.
+	 *
+	 * @return true if every mandatory field is valid, false if not
+	 * @methodtype boolean query method
+	 */
 	protected boolean UserInputIsValidated()
 	{
 		boolean isValid = true;
@@ -208,6 +299,12 @@ public abstract class AbstractUserProfileFragment extends Fragment
 		return isValid;
 	}
 
+	/**
+	 * This method checks whether the attribute employeeId is valid or not.
+	 *
+	 * @return true if it's valid, false if not
+	 * @methodtype boolean query method
+	 */
 	private boolean employeeIdIsValid()
 	{
 		boolean isValid = true;
@@ -220,6 +317,12 @@ public abstract class AbstractUserProfileFragment extends Fragment
 		return isValid;
 	}
 
+	/**
+	 * This method checks whether the attribute weeklyWorkingTime is valid or not.
+	 *
+	 * @return true if it's valid, false if not
+	 * @methodtype boolean query method
+	 */
 	private boolean weeklyWorkingTimeIsValid()
 	{
 		boolean isValid = true;
@@ -232,6 +335,12 @@ public abstract class AbstractUserProfileFragment extends Fragment
 		return isValid;
 	}
 
+	/**
+	 * This method checks whether the attribute totalVacationTime is valid or not.
+	 *
+	 * @return true if it's valid, false if not
+	 * @methodtype boolean query method
+	 */
 	private boolean totalVacationTimeIsValid()
 	{
 		boolean isValid = true;
@@ -244,6 +353,12 @@ public abstract class AbstractUserProfileFragment extends Fragment
 		return isValid;
 	}
 
+	/**
+	 * This method checks whether the attribute currentVacationTime is valid or not.
+	 *
+	 * @return true if it's valid, false if not
+	 * @methodtype boolean query method
+	 */
 	private boolean currentVacationTimeIsValid()
 	{
 		boolean isValid = true;

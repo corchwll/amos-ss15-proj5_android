@@ -35,7 +35,7 @@ public class EditUserProfileFragment extends AbstractUserProfileFragment
 	{
 		ScrollView scrollView = (ScrollView) inflater.inflate(R.layout.change_user_profile, container, false);
 		//TODO is it ok to call this methods here? same in RegisterUserProfileFragment
-		getWidgets(scrollView);
+		setWidgets(scrollView);
 		getUserFromDatabase();
 		return scrollView;
 	}
