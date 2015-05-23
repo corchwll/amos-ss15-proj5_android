@@ -29,7 +29,12 @@ import dess15proj5.fau.cs.osr_amos.mobiletimerecording.models.Project;
 
 public class ProjectArrayAdapter extends ArrayAdapter<Project>
 {
-
+	/**
+	 * This is the constructor for ProjectArrayAdapter.
+	 *
+	 * @param context the application context under which this object is created
+	 * methodtype constructor
+	 */
 	public ProjectArrayAdapter(Context context)
 	{
 		super(context, R.layout.project_row);
@@ -39,6 +44,15 @@ public class ProjectArrayAdapter extends ArrayAdapter<Project>
 		TextView projectTextView;
 	}
 
+	/**
+	 * This method returns the view on the requested position.
+	 *
+	 * @param position the position of the requested view
+	 * @param convertView the view which contains the requested view on the given position
+	 * @param parent the parent of the convertView
+	 * @return the requested view from the given position
+	 * methodtype get method
+	 */
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent)
 	{
