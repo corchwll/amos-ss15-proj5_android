@@ -50,6 +50,12 @@ public class SelectedProjectFragment extends Fragment
 	private ProjectTimer timer;
 	private Button startStopBtn;
 
+	/**
+	 * This method is called in the android lifecycle when the fragment is created.
+	 *
+	 * @param savedInstanceState this param contains several key value pairs in order to save the instance state
+	 * @methodtype initialization method
+	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
@@ -58,17 +64,27 @@ public class SelectedProjectFragment extends Fragment
 
 		if(getArguments() != null)
 		{
-			getArgumentsFromBundle();
+			setArgumentsFromBundle();
 			saveArgumentsIntoSharedPreferences();
 		}
 	}
 
-	private void getArgumentsFromBundle()
+	/**
+	 * This method extracts the arguments from the bundle and sets the attributes.
+	 *
+	 * methodtype command method
+	 */
+	private void setArgumentsFromBundle()
 	{
 		projectId = getArguments().getString("project_id");
 		projectName = getArguments().getString("project_name");
 	}
 
+	/**
+	 * This method saves the arguments into shared preferences.
+	 *
+	 * methodtype command method
+	 */
 	private void saveArgumentsIntoSharedPreferences()
 	{
 		SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
@@ -78,12 +94,25 @@ public class SelectedProjectFragment extends Fragment
 		editor.apply();
 	}
 
+	/**
+	 * This method is called in the android lifecycle when the view of the fragment is created.
+	 *
+	 * @param inflater this param contains the layout inflater which is used to generate the gui
+	 * @param container the container is used by the layout inflater
+	 * @param savedInstanceState this param contains several key value pairs in order to save the instance state
+	 * methodtype initialization method
+	 */
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
 		return inflater.inflate(R.layout.selected_project, container, false);
 	}
 
+	/**
+	 * This method is called in the android lifecycle when the application is resumed.
+	 *
+	 * methodtype command method
+	 */
 	@Override
 	public void onResume()
 	{
@@ -91,12 +120,18 @@ public class SelectedProjectFragment extends Fragment
 		addSessionsToAdapter();
 	}
 
+	/**
+	 * This method is called in the android lifecycle when the activity is created.
+	 *
+	 * @param savedInstanceState this param contains several key value pairs in order to save the instance state
+	 * methodtype initialization method
+	 */
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState)
 	{
 		super.onActivityCreated(savedInstanceState);
-		getArgumentsFromSharedPreferences();
-		getWidgets();
+		setArgumentsFromSharedPreferences();
+		setWidgets();
 		if(attributesAreNull())
 		{
 			setTextViewToNoProjectSelected();
@@ -162,6 +197,11 @@ public class SelectedProjectFragment extends Fragment
 		addSessionsToAdapter();
 	}
 
+	/**
+	 * This method is used to set an adapter to a session list view.
+	 *
+	 * methodtype set method
+	 */
 	private void setAdapterToSessionListView()
 	{
 		ListView sessionListView = (ListView) getActivity().findViewById(R.id.sessionList);
@@ -169,6 +209,11 @@ public class SelectedProjectFragment extends Fragment
 		sessionListView.setAdapter(adapter);
 	}
 
+	/**
+	 * This method is used to add sessions to the adapter attribute.
+	 *
+	 * methodtype command method
+	 */
 	private void addSessionsToAdapter()
 	{
 			adapter.clear();
@@ -176,6 +221,12 @@ public class SelectedProjectFragment extends Fragment
 			adapter.notifyDataSetChanged();
 	}
 
+	/**
+	 * This method is used to load sessions belonging to the selected project from database.
+	 *
+	 * @return a list containing all sessions belonging to the selected project
+	 * methodtype get method
+	 */
 	private List<Session> getSessionsFromDB()
 	{
 		List<Session> sessions = null;
@@ -190,20 +241,36 @@ public class SelectedProjectFragment extends Fragment
 		return sessions;
 	}
 
-	private void getArgumentsFromSharedPreferences()
+	/**
+	 * This method sets the attributes based on the arguments saved in shared preferences.
+	 *
+	 * methodtype set method
+	 */
+	private void setArgumentsFromSharedPreferences()
 	{
 		SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
 		projectId = sharedPref.getString("project_id", null);
 		projectName = sharedPref.getString("project_name", null);
 	}
 
-	private void getWidgets()
+	/**
+	 * This method initializes the widget attributes
+	 *
+	 * methodtype initialization method
+	 */
+	private void setWidgets()
 	{
 		textView = (TextView)getActivity().findViewById(R.id.name_of_selected_project);
 		timer = (ProjectTimer)getActivity().findViewById(R.id.timer);
 		startStopBtn = (Button)getActivity().findViewById(R.id.startStopBtn);
 	}
 
+	/**
+	 * This method checks whether the attributes are null or not.
+	 *
+	 * @return true if the attributes are null, false if not
+	 * methodtype boolean query method
+	 */
 	private boolean attributesAreNull()
 	{
 		boolean attributesAreNull = false;
@@ -212,11 +279,23 @@ public class SelectedProjectFragment extends Fragment
 		return attributesAreNull;
 	}
 
+	/**
+	 * This method displays in the text view that no project is selected if there was no project selected.
+	 *
+	 * methodtype set method
+	 */
 	private void setTextViewToNoProjectSelected()
 	{
 		textView.setText("No project selected. Please select one in the projects tab.");
 	}
 
+	/**
+	 * This method is called in the android lifecycle when a menu is created.
+	 *
+	 * @param menu the menu item which has to be created
+	 * @param inflater contains the information for the layout of the menu
+	 * methodtype initialization method
+	 */
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
 	{
@@ -225,6 +304,13 @@ public class SelectedProjectFragment extends Fragment
 					 .inflate(R.menu.menu_selected_project, menu);
 	}
 
+	/**
+	 * This method is called in the android lifecycle when a menu item is clicked on.
+	 *
+	 * @param item the item which was targeted
+	 * @return true if there was an item clicked
+	 * methodtype boolean query method
+	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
@@ -241,6 +327,12 @@ public class SelectedProjectFragment extends Fragment
 		}
 	}
 
+	/**
+	 * This method is used in the android lifecycle when the option menu is prepared.
+	 *
+	 * @param menu the menu that is prepared
+	 * methodtype initialization method
+	 */
 	@Override
 	public void onPrepareOptionsMenu(Menu menu)
 	{
@@ -252,6 +344,11 @@ public class SelectedProjectFragment extends Fragment
 		}
 	}
 
+	/**
+	 * This method is used to create the activity to add new sessions.
+	 *
+	 * methodtype initialization method
+	 */
 	private void createAddSessionActivity()
 	{
 		Intent intent = new Intent(getActivity(), AddSessionActivity.class);
@@ -259,6 +356,11 @@ public class SelectedProjectFragment extends Fragment
 		getActivity().startActivity(intent);
 	}
 
+	/**
+	 * This method is used to delete projects from database.
+	 *
+	 * methodtype command method
+	 */
 	private void deleteProject()
 	{
 		try
@@ -275,6 +377,11 @@ public class SelectedProjectFragment extends Fragment
 		showProjectsListFragment();
 	}
 
+	/**
+	 * This method is used to set the attributes to null in case of deletion of the selected project.
+	 *
+	 * methodtype command method
+	 */
 	private void setAttributesNull()
 	{
 		projectId = null;
@@ -282,11 +389,21 @@ public class SelectedProjectFragment extends Fragment
 		saveArgumentsIntoSharedPreferences();
 	}
 
+	/**
+	 * This method is used to disable the menu items in case of deletion of the selected project.
+	 *
+	 * methodtype command method
+	 */
 	private void disableMenuItems()
 	{
 		getActivity().invalidateOptionsMenu();
 	}
 
+	/**
+	 * This method is used to show the project list fragment.
+	 *
+	 * methodtype command method
+	 */
 	private void showProjectsListFragment()
 	{
 		getFragmentManager().beginTransaction()
