@@ -32,17 +32,33 @@ import java.util.Locale;
 
 public class SessionArrayAdapter extends ArrayAdapter<Session>
 {
+	/**
+	 * This is the constructor for SessionArrayAdapter.
+	 *
+	 * @param context the application context under which this object is created
+	 * methodtype constructor
+	 */
 	public SessionArrayAdapter(Context context)
 	{
 		super(context, R.layout.session_row);
 	}
 
-	static class ViewHolder {
+	static class ViewHolder
+	{
 		TextView date;
 		TextView startTime;
 		TextView stopTime;
 	}
 
+	/**
+	 * This method returns the view on the requested position.
+	 *
+	 * @param position the position of the requested view
+	 * @param convertView the view which contains the requested view on the given position
+	 * @param parent the parent of the convertView
+	 * @return the requested view from the given position
+	 * methodtype get method
+	 */
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent)
 	{

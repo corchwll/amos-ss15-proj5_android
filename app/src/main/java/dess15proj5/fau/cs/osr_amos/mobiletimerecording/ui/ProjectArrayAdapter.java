@@ -40,7 +40,8 @@ public class ProjectArrayAdapter extends ArrayAdapter<Project>
 		super(context, R.layout.project_row);
 	}
 
-	static class ViewHolder {
+	static class ViewHolder
+	{
 		TextView projectTextView;
 	}
 
