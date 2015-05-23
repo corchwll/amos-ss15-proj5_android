@@ -28,21 +28,47 @@ public class ProjectTimer extends Chronometer
 {
 	private boolean isRunning = false;
 
+	/**
+	 * This is the constructor for ProjectTimer.
+	 *
+	 * @param context the application context under which this object is created
+	 * methodtype constructor
+	 */
 	public ProjectTimer(Context context)
 	{
 		super(context);
 	}
 
+	/**
+	 * This is the constructor for ProjectTimer.
+	 *
+	 * @param context the application context under which this object is created
+	 * @param attrs the attribute set for the creation of this timer
+	 * methodtype constructor
+	 */
 	public ProjectTimer(Context context, AttributeSet attrs)
 	{
 		super(context, attrs);
 	}
 
+	/**
+	 * This is the constructor for ProjectTimer.
+	 *
+	 * @param context the application context under which this object is created
+	 * @param attrs the attribute set for the creation of this timer
+	 * @param defStyle the defStyle for this timer
+	 * methodtype constructor
+	 */
 	public ProjectTimer(Context context, AttributeSet attrs, int defStyle)
 	{
 		super(context, attrs, defStyle);
 	}
 
+	/**
+	 * This method is used to start the time recording.
+	 *
+	 * methodtype command method
+	 */
 	@Override
 	public void start()
 	{
@@ -52,6 +78,11 @@ public class ProjectTimer extends Chronometer
 		isRunning = true;
 	}
 
+	/**
+	 * This method is used to stop the time recording.
+	 *
+	 * methodtype command method
+	 */
 	@Override
 	public void stop()
 	{
@@ -59,6 +90,12 @@ public class ProjectTimer extends Chronometer
 		isRunning = false;
 	}
 
+	/**
+	 * This method is used to check whether time recording is running or not.
+	 *
+	 * @return true if time recording is running, false if not
+	 * methodtype boolean query method
+	 */
 	public boolean isRunning()
 	{
 		return isRunning;
