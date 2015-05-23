@@ -22,29 +22,58 @@
               android:layout_width="wrap_content"
               android:layout_height="wrap_content">
 
-<LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-    <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/name_of_selected_project"/>
-
-    <Button
+    <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/startStopBtn"
-            android:text="@string/start_button" />
+            android:orientation="horizontal"
+            android:layout_marginLeft="4dp"
+            android:layout_marginStart="4dp">
 
-    <view
-            class="dess15proj5.fau.cs.osr_amos.mobiletimerecording.utility.ProjectTimer"
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/name_of_selected_project"/>
+
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/startStopBtn"
+                android:text="@string/start_button"/>
+
+        <view
+                class="dess15proj5.fau.cs.osr_amos.mobiletimerecording.utility.ProjectTimer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/timer"/>
+    </LinearLayout>
+
+    <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/timer"/>
+            android:orientation="horizontal"
+            android:layout_marginLeft="4dp"
+            android:layout_marginStart="4dp">
 
-</LinearLayout>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sessionsDateTextView"
+                android:layout_marginRight="63dp"
+                android:layout_marginEnd="63dp"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sessionsStartTime"
+                android:layout_marginRight="13dp"
+                android:layout_marginEnd="13dp"/>
+
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sessionsStopTime"/>
+    </LinearLayout>
 
     <ListView
             android:layout_width="wrap_content"

@@ -68,7 +68,7 @@ public class ProjectsListFragment extends ListFragment implements AddProjectDial
 	{
 		projectList = (ListView) inflater.inflate(R.layout.projects_list_fragment, container, false);
 		setAdapterToProjectList();
-		loadProjectList();
+		addProjectsToAdapter();
 		return projectList;
 	}
 
@@ -78,12 +78,12 @@ public class ProjectsListFragment extends ListFragment implements AddProjectDial
 		projectList.setAdapter(adapter);
 	}
 
-	private void loadProjectList()
+	private void addProjectsToAdapter()
 	{
 		try
 		{
 			adapter.clear();
-			adapter.addAll(loadAllProjects());
+			adapter.addAll(getProjectsFromDB());
 			adapter.notifyDataSetChanged();
 		} catch(SQLException e)
 		{
@@ -91,11 +91,10 @@ public class ProjectsListFragment extends ListFragment implements AddProjectDial
 		}
 	}
 
-	private List<Project> loadAllProjects() throws SQLException
+	private List<Project> getProjectsFromDB() throws SQLException
 	{
 		ProjectsDAO projectsDAO = DataAccessObjectFactory.getInstance().createProjectsDAO(getActivity());
-		List<Project> projects = projectsDAO.listAll();
-		return projects;
+		return projectsDAO.listAll();
 	}
 
 	@Override
@@ -128,7 +127,7 @@ public class ProjectsListFragment extends ListFragment implements AddProjectDial
 	@Override
 	public void onDialogPositiveClick()
 	{
-		loadProjectList();
+		addProjectsToAdapter();
 	}
 
 	public static void onItemSelected(Project selectedProject)

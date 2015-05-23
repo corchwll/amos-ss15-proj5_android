@@ -77,4 +77,9 @@
     <!--change_user_profile.xml-->
     <string name="changeUserProfileText">Change details of your user profile</string>
     <string name="changeUserProfileBtn">Save</string>
+
+    <!--selected_project.xml-->
+    <string name="sessionsDateTextView">Date</string>
+    <string name="sessionsStartTime">Start time</string>
+    <string name="sessionsStopTime">Stop time</string>
 </resources>

@@ -25,6 +25,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.*;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.R;
@@ -36,12 +37,14 @@ import dess15proj5.fau.cs.osr_amos.mobiletimerecording.utility.ProjectTimer;
 
 import java.sql.SQLException;
 import java.util.Date;
+import java.util.List;
 
 public class SelectedProjectFragment extends Fragment
 {
 	private String projectId;
 	private String projectName;
 	private Session session;
+	private SessionArrayAdapter adapter;
 
 	private TextView textView;
 	private ProjectTimer timer;
@@ -79,6 +82,13 @@ public class SelectedProjectFragment extends Fragment
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
 		return inflater.inflate(R.layout.selected_project, container, false);
+	}
+
+	@Override
+	public void onResume()
+	{
+		super.onResume();
+		addSessionsToAdapter();
 	}
 
 	@Override
@@ -138,6 +148,8 @@ public class SelectedProjectFragment extends Fragment
 
 						timer.stop();
 						button.setText("Start");
+
+						addSessionsToAdapter();
 					} catch(SQLException e)
 					{
 						Toast.makeText(getActivity(), "Could not stop timer due to database errors!", Toast.LENGTH_LONG)
@@ -146,6 +158,36 @@ public class SelectedProjectFragment extends Fragment
 				}
 			});
 		}
+		setAdapterToSessionListView();
+		addSessionsToAdapter();
+	}
+
+	private void setAdapterToSessionListView()
+	{
+		ListView sessionListView = (ListView) getActivity().findViewById(R.id.sessionList);
+		adapter = new SessionArrayAdapter(getActivity());
+		sessionListView.setAdapter(adapter);
+	}
+
+	private void addSessionsToAdapter()
+	{
+			adapter.clear();
+			adapter.addAll(getSessionsFromDB());
+			adapter.notifyDataSetChanged();
+	}
+
+	private List<Session> getSessionsFromDB()
+	{
+		List<Session> sessions = null;
+		try
+		{
+			SessionsDAO sessionsDAO = DataAccessObjectFactory.getInstance().createSessionsDAO(getActivity());
+			sessions = sessionsDAO.listAll();
+		} catch(SQLException e)
+		{
+			Toast.makeText(getActivity(), "Could not load project list due to database errors!", Toast.LENGTH_LONG).show();
+		}
+		return sessions;
 	}
 
 	private void getArgumentsFromSharedPreferences()
@@ -251,4 +293,5 @@ public class SelectedProjectFragment extends Fragment
 							.replace(R.id.frameLayout, new ProjectsListFragment())
 							.commit();
 	}
+
 }

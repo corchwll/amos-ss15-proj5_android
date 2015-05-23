@@ -25,18 +25,22 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.R;
-import dess15proj5.fau.cs.osr_amos.mobiletimerecording.models.Project;
+import dess15proj5.fau.cs.osr_amos.mobiletimerecording.models.Session;
 
-public class ProjectArrayAdapter extends ArrayAdapter<Project>
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
+public class SessionArrayAdapter extends ArrayAdapter<Session>
 {
-
-	public ProjectArrayAdapter(Context context)
+	public SessionArrayAdapter(Context context)
 	{
-		super(context, R.layout.project_row);
+		super(context, R.layout.session_row);
 	}
 
 	static class ViewHolder {
-		TextView projectTextView;
+		TextView date;
+		TextView startTime;
+		TextView stopTime;
 	}
 
 	@Override
@@ -46,25 +50,27 @@ public class ProjectArrayAdapter extends ArrayAdapter<Project>
 		ViewHolder viewHolder;
 		if(convertView == null)
 		{
-			convertView = inflater.inflate(R.layout.project_row, parent, false);
+			convertView = inflater.inflate(R.layout.session_row, parent, false);
 			viewHolder = new ViewHolder();
-			viewHolder.projectTextView = (TextView) convertView.findViewById(R.id.projectName);
+			viewHolder.date = (TextView) convertView.findViewById(R.id.showDateSessionRow);
+			viewHolder.startTime = (TextView) convertView.findViewById(R.id.startTimeSessionRow);
+			viewHolder.stopTime = (TextView) convertView.findViewById(R.id.stopTimeSessionRow);
 			convertView.setTag(viewHolder);
 		}
 		else
 		{
 			viewHolder = (ViewHolder) convertView.getTag();
 		}
-		final Project project = getItem(position);
-		viewHolder.projectTextView.setText(project.getName());
-		viewHolder.projectTextView.setOnClickListener(new View.OnClickListener()
-		{
-			@Override
-			public void onClick(View v)
-			{
-				ProjectsListFragment.onItemSelected(project);
-			}
-		});
+		SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm:ss", Locale.GERMANY);
+		SimpleDateFormat sdfDate = new SimpleDateFormat("dd.MM.yyyy", Locale.GERMANY);
+
+		final Session session = getItem(position);
+		long startTimeAsLong = session.getStartTime().getTime();
+		long stopTimeAsLong = session.getStopTime().getTime();
+
+		viewHolder.date.setText(sdfDate.format(startTimeAsLong));
+		viewHolder.startTime.setText(sdfTime.format(startTimeAsLong));
+		viewHolder.stopTime.setText(sdfTime.format(stopTimeAsLong));
 		return convertView;
 	}
 }
