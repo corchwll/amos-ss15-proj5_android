@@ -37,6 +37,12 @@ public class MainActivity extends ActionBarActivity implements AbstractUserProfi
 {
 	private ActionBarDrawerToggle actionBarDrawerToggle;
 
+	/**
+	 * This method is called in the android lifecycle when the activity is created.
+	 *
+	 * @param savedInstanceState this param contains several key value pairs in order to save the instance state
+	 * methodtype initialization method
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -46,6 +52,11 @@ public class MainActivity extends ActionBarActivity implements AbstractUserProfi
 		showProjectsListFragment();
 	}
 
+	/**
+	 * This method initializes the navigation drawer.
+	 *
+	 * methodtype initialization method
+	 */
 	private void initNavigationDrawer()
 	{
 		String[] drawerListItems = getResources().getStringArray(R.array.drawer_list_items);
@@ -89,18 +100,35 @@ public class MainActivity extends ActionBarActivity implements AbstractUserProfi
 		getSupportActionBar().setHomeButtonEnabled(true);
 	}
 
+	/**
+	 * This method creates the ProjectListFragment and then displays it.
+	 *
+	 * methodtype command method
+	 */
 	private void showProjectsListFragment()
 	{
 		ProjectsListFragment projectsListFragment = new ProjectsListFragment();
 		showFragment(projectsListFragment, getResources().getString(R.string.project_list));
 	}
 
+	/**
+	 * This method creates the SelectedFragment and then displays it.
+	 *
+	 * methodtype command method
+	 */
 	private void showSelectedFragment()
 	{
 		SelectedProjectFragment selectedProjectFragment = new SelectedProjectFragment();
 		showFragment(selectedProjectFragment, getResources().getString(R.string.overview));
 	}
 
+	/**
+	 * This method is used to replace the current fragment with a new one so that the new one can be displayed.
+	 *
+	 * @param fragment the new fragment that should be shown
+	 * @param title the title for the action bar
+	 * methodtype command method
+	 */
 	private void showFragment(Fragment fragment, String title)
 	{
 		getSupportActionBar().setTitle(title);
@@ -109,6 +137,13 @@ public class MainActivity extends ActionBarActivity implements AbstractUserProfi
 							.commit();
 	}
 
+	/**
+	 * This method is called in the android lifecycle when a menu item is clicked on.
+	 *
+	 * @param item the item which was targeted
+	 * @return true if there was an item clicked
+	 * methodtype boolean query method
+	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
@@ -119,12 +154,24 @@ public class MainActivity extends ActionBarActivity implements AbstractUserProfi
 		return super.onOptionsItemSelected(item);
 	}
 
+	/**
+	 * This method should be called when an user profile is saved. It will then load the ProjectListFragment.
+	 *
+	 * methodtype command method
+	 */
 	@Override
 	public void onUserProfileSaved()
 	{
 		showProjectsListFragment();
 	}
 
+	/**
+	 * This method is called after a project from the project list was selected. The fragment will then show the time
+	 * recording button and information about the chosen project.
+	 *
+	 * @param selectedProject the selected project from the list
+	 * methodtype command method
+	 */
 	@Override
 	public void projectSelected(Project selectedProject)
 	{
