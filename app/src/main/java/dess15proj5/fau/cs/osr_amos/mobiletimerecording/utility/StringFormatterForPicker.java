@@ -20,6 +20,13 @@ package dess15proj5.fau.cs.osr_amos.mobiletimerecording.utility;
 
 public class StringFormatterForPicker
 {
+	/**
+	 * This method is used to convert an integer to a string in a given formatting.
+	 *
+	 * @param i the integer that should be converted
+	 * @return the string representation of the given integer
+	 * methodtype conversion method
+	 */
 	public static String formatInt(int i)
 	{
 		String returnString = Integer.toString(i);
