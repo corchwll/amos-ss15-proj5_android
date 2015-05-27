@@ -79,42 +79,42 @@ public class Holidays
 		List<Calendar> fixedHolidays = new ArrayList<>();
 
 		Calendar cal;
-		cal = new GregorianCalendar(year, 1, 1); //Neujahrstag
+		cal = new GregorianCalendar(year, Calendar.JANUARY, 1); //Neujahrstag
 		if(cal.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY && cal.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY)
 		{
 			fixedHolidays.add(cal);
 		}
-		cal = new GregorianCalendar(year, 1, 6); //Heilige Drei Koenige
+		cal = new GregorianCalendar(year, Calendar.JANUARY, 6); //Heilige Drei Koenige
 		if(cal.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY && cal.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY)
 		{
 			fixedHolidays.add(cal);
 		}
-		cal = new GregorianCalendar(year, 5, 1); //Tag der Arbeit
+		cal = new GregorianCalendar(year, Calendar.MAY, 1); //Tag der Arbeit
 		if(cal.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY && cal.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY)
 		{
 			fixedHolidays.add(cal);
 		}
-		cal = new GregorianCalendar(year, 8, 15); //Maria Himmelfahrt
+		cal = new GregorianCalendar(year, Calendar.AUGUST, 15); //Maria Himmelfahrt
 		if(cal.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY && cal.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY)
 		{
 			fixedHolidays.add(cal);
 		}
-		cal = new GregorianCalendar(year, 10, 3); //Tag der deutschen Einheit
+		cal = new GregorianCalendar(year, Calendar.OCTOBER, 3); //Tag der deutschen Einheit
 		if(cal.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY && cal.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY)
 		{
 			fixedHolidays.add(cal);
 		}
-		cal = new GregorianCalendar(year, 11, 1); //Allerheiligen
+		cal = new GregorianCalendar(year, Calendar.NOVEMBER, 1); //Allerheiligen
 		if(cal.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY && cal.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY)
 		{
 			fixedHolidays.add(cal);
 		}
-		cal = new GregorianCalendar(year, 12, 25); //1. Weihnachtstag
+		cal = new GregorianCalendar(year, Calendar.DECEMBER, 25); //1. Weihnachtstag
 		if(cal.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY && cal.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY)
 		{
 			fixedHolidays.add(cal);
 		}
-		cal = new GregorianCalendar(year, 12, 26); //2. Weihnachtstag
+		cal = new GregorianCalendar(year, Calendar.DECEMBER, 26); //2. Weihnachtstag
 		if(cal.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY && cal.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY)
 		{
 			fixedHolidays.add(cal);
@@ -138,7 +138,7 @@ public class Holidays
 		int e = (2*b + 4*c + 6*d + N) % 7;
 		int o = 22 + d + e;
 
-		int month = 3;
+		int month = Calendar.MARCH;
 		if(o > 31)
 		{
 			month++;
