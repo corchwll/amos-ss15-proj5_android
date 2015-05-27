@@ -29,7 +29,7 @@ import static org.junit.Assert.assertTrue;
 public class HolidaysTests
 {
 	@Test
-	public void testGetHolidaysInbetween_ValidTimeInterval_CorrectAmountReturned()
+	public void testGetHolidaysInbetween_IntervallWithin2015_CorrectAmountReturned()
 	{
 		Calendar cal = GregorianCalendar.getInstance();
 		cal.set(2015, Calendar.DECEMBER, 1);
@@ -39,6 +39,19 @@ public class HolidaysTests
 		int holidayCount = Holidays.getHolidaysInbetween(cal.getTime(), cal2.getTime());
 
 		assertTrue("amount of holidays should be 1, but was " + holidayCount, holidayCount == 1);
+	}
+
+	@Test
+	public void testGetHolidaysInbetween_IntervallFrom2015To2016_CorrectAmountReturned()
+	{
+		Calendar cal = GregorianCalendar.getInstance();
+		cal.set(2015, Calendar.DECEMBER, 1);
+		Calendar cal2 = GregorianCalendar.getInstance();
+		cal2.set(2016, Calendar.JANUARY, 10);
+
+		int holidayCount = Holidays.getHolidaysInbetween(cal.getTime(), cal2.getTime());
+
+		assertTrue("amount of holidays should be 3, but was " + holidayCount, holidayCount == 3);
 	}
 
 	@Test
@@ -115,5 +128,17 @@ public class HolidaysTests
 		int result = Holidays.amountOfHolidaysSince(holidays, cal);
 
 		assertTrue("There should be 1 holiday for 2015 in december, but there are " + result, result == 1);
+	}
+
+	@Test
+	public void testAmountOfHolidaysUntil_For2015EndingOnAugust_ReturnsEight()
+	{
+		List<Calendar> holidays = Holidays.getHolidaysForYear(2015);
+		Calendar cal = GregorianCalendar.getInstance();
+		cal.set(2015, Calendar.AUGUST, 1);
+
+		int result = Holidays.amountOfHolidaysUntil(holidays, cal);
+
+		assertTrue("There should be 8 holidays for 2015 until august, but there are " + result, result == 8);
 	}
 }
