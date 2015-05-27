@@ -53,6 +53,44 @@ public class HolidaysTests
 	}
 
 	@Test
+	public void testGetHolidaysForYear_ForYear2015_ContainsAllHolidaysOnWorkingDays()
+	{
+		//fixed holidays
+		Calendar cal = new GregorianCalendar(2015, Calendar.JANUARY, 1); //Neujahrstag
+		Calendar cal2 = new GregorianCalendar(2015, Calendar.JANUARY, 6); //Heilige Drei Koenige
+		Calendar cal3 = new GregorianCalendar(2015, Calendar.MAY, 1); //Tag der Arbeit
+		Calendar cal4 = new GregorianCalendar(2015, Calendar.DECEMBER, 25); //1. Weihnachtstag
+
+		//holidays depending from easter
+		Calendar cal5 = new GregorianCalendar(2015, Calendar.APRIL, 3); //Karfreitag
+		Calendar cal6 = new GregorianCalendar(2015, Calendar.APRIL, 6); //Ostermontag
+		Calendar cal7 = new GregorianCalendar(2015, Calendar.MAY, 14); //Christi Himmelfahrt
+		Calendar cal8 = new GregorianCalendar(2015, Calendar.MAY, 25); //Pfingstmontag
+		Calendar cal9 = new GregorianCalendar(2015, Calendar.JUNE, 4); //Fronleichnam
+
+		List<Calendar> holidays = Holidays.getHolidaysForYear(2015);
+
+		assertTrue("There should be exact 9 holidays, there were " + holidays.size(),
+				holidays.size() == 9 && holidays.contains(cal) && holidays.contains(cal2) && holidays.contains(cal3) &&
+				holidays.contains(cal4) && compareCalendars(cal5, holidays.get(4)) &&
+				compareCalendars(cal6, holidays.get(5)) && compareCalendars(cal7, holidays.get(6)) &&
+				compareCalendars(cal8, holidays.get(7))&& compareCalendars(cal9, holidays.get(8)));
+	}
+
+	private boolean compareCalendars(Calendar cal1, Calendar cal2)
+	{
+		boolean result = false;
+
+		if(cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) && cal1.get(Calendar.MONTH) == cal2.get(Calendar.MONTH) &&
+				cal1.get(Calendar.DATE) == cal2.get(Calendar.DATE))
+		{
+			result = true;
+		}
+
+		return result;
+	}
+
+	@Test
 	public void testGetFixedHolidays_ForYear2015_ContainsAllFourHolidays()
 	{
 		Calendar cal = new GregorianCalendar(2015, Calendar.JANUARY, 1); //Neujahrstag

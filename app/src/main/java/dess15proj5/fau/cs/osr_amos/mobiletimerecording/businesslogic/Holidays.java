@@ -50,26 +50,37 @@ public class Holidays
 	{
 		List<Calendar> holidays = getFixedHolidays(year);
 		Calendar easterSunday = getEaster(year);
+		Calendar tmp;
 
 		//Karfreitag
-		easterSunday.add(Calendar.DATE, -2);
-		holidays.add(new GregorianCalendar(easterSunday.YEAR, easterSunday.MONTH, easterSunday.DAY_OF_MONTH));
+		easterSunday.add(Calendar.DAY_OF_MONTH, -2);
+		tmp = GregorianCalendar.getInstance();
+		tmp.setTime(easterSunday.getTime());
+		holidays.add(tmp);
 
 		//Ostermontag
-		easterSunday.add(Calendar.DATE, 3);
-		holidays.add(new GregorianCalendar(easterSunday.YEAR, easterSunday.MONTH, easterSunday.DAY_OF_MONTH));
+		easterSunday.add(Calendar.DAY_OF_MONTH, 3);
+		tmp = GregorianCalendar.getInstance();
+		tmp.setTime(easterSunday.getTime());
+		holidays.add(tmp);
 
 		//Christi Himmelfahrt
-		easterSunday.add(Calendar.DATE, 38);
-		holidays.add(new GregorianCalendar(easterSunday.YEAR, easterSunday.MONTH, easterSunday.DAY_OF_MONTH));
+		easterSunday.add(Calendar.DAY_OF_MONTH, 38);
+		tmp = GregorianCalendar.getInstance();
+		tmp.setTime(easterSunday.getTime());
+		holidays.add(tmp);
 
 		//Pfingstmontag
-		easterSunday.add(Calendar.DATE, 11);
-		holidays.add(new GregorianCalendar(easterSunday.YEAR, easterSunday.MONTH, easterSunday.DAY_OF_MONTH));
+		easterSunday.add(Calendar.DAY_OF_MONTH, 11);
+		tmp = GregorianCalendar.getInstance();
+		tmp.setTime(easterSunday.getTime());
+		holidays.add(tmp);
 
 		//Fronleichnam
-		easterSunday.add(Calendar.DATE, 10);
-		holidays.add(new GregorianCalendar(easterSunday.YEAR, easterSunday.MONTH, easterSunday.DAY_OF_MONTH));
+		easterSunday.add(Calendar.DAY_OF_MONTH, 10);
+		tmp = GregorianCalendar.getInstance();
+		tmp.setTime(easterSunday.getTime());
+		holidays.add(tmp);
 
 		return holidays;
 	}
