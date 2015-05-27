@@ -153,11 +153,29 @@ public class Holidays
 
 	private static int amountOfHolidaysSince(List<Calendar> holidays, Calendar startCal)
 	{
-		return 0;
+		int result = 0;
+		for(Calendar cal : holidays)
+		{
+			if(cal.after(startCal))
+			{
+				result++;
+			}
+		}
+
+		return result;
 	}
 
-	private static int amountOfHolidaysUntil(List<Calendar> holidaysInStopYear, Calendar stopCal)
+	private static int amountOfHolidaysUntil(List<Calendar> holidays, Calendar stopCal)
 	{
-		return 0;
+		int result = 0;
+		for(Calendar cal : holidays)
+		{
+			if(cal.before(stopCal))
+			{
+				result++;
+			}
+		}
+
+		return result;
 	}
 }
