@@ -32,13 +32,13 @@ public class HolidaysTests
 	public void testGetHolidaysInbetween_ValidTimeInterval_CorrectAmountReturned()
 	{
 		Calendar cal = GregorianCalendar.getInstance();
-		cal.set(2015, 12, 1);
+		cal.set(2015, Calendar.DECEMBER, 1);
 		Calendar cal2 = GregorianCalendar.getInstance();
-		cal.set(2015, 12, 30);
+		cal2.set(2015, Calendar.DECEMBER, 30);
 
 		int holidayCount = Holidays.getHolidaysInbetween(cal.getTime(), cal2.getTime());
 
-		assertTrue("amount of holidays should be 2, but was " + holidayCount, holidayCount == 2);
+		assertTrue("amount of holidays should be 1, but was " + holidayCount, holidayCount == 1);
 	}
 
 	@Test
@@ -103,5 +103,17 @@ public class HolidaysTests
 		assertTrue("There should be exact 4 holidays, there were " + fixedHolidays.size(),
 				fixedHolidays.size() == 4 && fixedHolidays.contains(cal) && fixedHolidays.contains(cal2) &&
 						fixedHolidays.contains(cal3) && fixedHolidays.contains(cal4));
+	}
+
+	@Test
+	public void testAmountOfHolidaysSince_For2015StartingOnDecember_ReturnsOne()
+	{
+		List<Calendar> holidays = Holidays.getHolidaysForYear(2015);
+		Calendar cal = GregorianCalendar.getInstance();
+		cal.set(2015, Calendar.DECEMBER, 1);
+
+		int result = Holidays.amountOfHolidaysSince(holidays, cal);
+
+		assertTrue("There should be 1 holiday for 2015 in december, but there are " + result, result == 1);
 	}
 }

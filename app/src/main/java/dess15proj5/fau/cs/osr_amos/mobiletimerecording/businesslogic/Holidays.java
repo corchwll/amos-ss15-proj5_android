@@ -30,14 +30,14 @@ public class Holidays
 		stopCal.setTime(stop);
 
 		int amountOfHolidays = 0;
-		if(startCal.YEAR == stopCal.YEAR)
+		if(startCal.get(Calendar.YEAR) == stopCal.get(Calendar.YEAR))
 		{
-			List<Calendar> holidays = getHolidaysForYear(startCal.YEAR);
+			List<Calendar> holidays = getHolidaysForYear(startCal.get(Calendar.YEAR));
 			amountOfHolidays += amountOfHolidaysSince(holidays, startCal);
 		} else
 		{
-			List<Calendar> holidaysInStartYear = getHolidaysForYear(startCal.YEAR);
-			List<Calendar> holidaysInStopYear = getHolidaysForYear(stopCal.YEAR);
+			List<Calendar> holidaysInStartYear = getHolidaysForYear(startCal.get(Calendar.YEAR));
+			List<Calendar> holidaysInStopYear = getHolidaysForYear(stopCal.get(Calendar.YEAR));
 
 			amountOfHolidays += amountOfHolidaysSince(holidaysInStartYear, startCal);
 			amountOfHolidays += amountOfHolidaysUntil(holidaysInStopYear, stopCal);
@@ -167,7 +167,7 @@ public class Holidays
 		int result = 0;
 		for(Calendar cal : holidays)
 		{
-			if(cal.after(startCal))
+			if(startCal.before(cal))
 			{
 				result++;
 			}
