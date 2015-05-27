@@ -49,28 +49,83 @@ public class Holidays
 	private static List<Calendar> getHolidaysForYear(int year)
 	{
 		List<Calendar> holidays = getFixedHolidays(year);
+		Calendar easterSunday = getEaster(year);
 
-		return null;
+		//Karfreitag
+		easterSunday.add(Calendar.DATE, -2);
+		holidays.add(new GregorianCalendar(easterSunday.YEAR, easterSunday.MONTH, easterSunday.DAY_OF_MONTH));
+
+		//Ostermontag
+		easterSunday.add(Calendar.DATE, 3);
+		holidays.add(new GregorianCalendar(easterSunday.YEAR, easterSunday.MONTH, easterSunday.DAY_OF_MONTH));
+
+		//Christi Himmelfahrt
+		easterSunday.add(Calendar.DATE, 38);
+		holidays.add(new GregorianCalendar(easterSunday.YEAR, easterSunday.MONTH, easterSunday.DAY_OF_MONTH));
+
+		//Pfingstmontag
+		easterSunday.add(Calendar.DATE, 11);
+		holidays.add(new GregorianCalendar(easterSunday.YEAR, easterSunday.MONTH, easterSunday.DAY_OF_MONTH));
+
+		//Fronleichnam
+		easterSunday.add(Calendar.DATE, 10);
+		holidays.add(new GregorianCalendar(easterSunday.YEAR, easterSunday.MONTH, easterSunday.DAY_OF_MONTH));
+
+		return holidays;
 	}
 
 	private static List<Calendar> getFixedHolidays(int year)
 	{
 		List<Calendar> fixedHolidays = new ArrayList<>();
 
-		fixedHolidays.add(new GregorianCalendar(year, 1, 1)); //Neujahrstag
-		fixedHolidays.add(new GregorianCalendar(year, 1, 6)); //Heilige Drei Koenige
-		fixedHolidays.add(new GregorianCalendar(year, 5, 1)); //Tag der Arbeit
-		fixedHolidays.add(new GregorianCalendar(year, 8, 15)); //Maria Himmelfahrt
-		fixedHolidays.add(new GregorianCalendar(year, 10, 3)); //Tag der deutschen Einheit
-		fixedHolidays.add(new GregorianCalendar(year, 11, 1)); //Allerheiligen
-		fixedHolidays.add(new GregorianCalendar(year, 12, 25)); //1. Weihnachtstag
-		fixedHolidays.add(new GregorianCalendar(year, 12, 26)); //2. Weihnachtstag
+		Calendar cal;
+		cal = new GregorianCalendar(year, 1, 1); //Neujahrstag
+		if(cal.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY || cal.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY)
+		{
+			fixedHolidays.add(cal);
+		}
+		cal = new GregorianCalendar(year, 1, 6); //Heilige Drei Koenige
+		if(cal.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY || cal.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY)
+		{
+			fixedHolidays.add(cal);
+		}
+		cal = new GregorianCalendar(year, 5, 1); //Tag der Arbeit
+		if(cal.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY || cal.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY)
+		{
+			fixedHolidays.add(cal);
+		}
+		cal = new GregorianCalendar(year, 8, 15); //Maria Himmelfahrt
+		if(cal.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY || cal.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY)
+		{
+			fixedHolidays.add(cal);
+		}
+		cal = new GregorianCalendar(year, 10, 3); //Tag der deutschen Einheit
+		if(cal.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY || cal.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY)
+		{
+			fixedHolidays.add(cal);
+		}
+		cal = new GregorianCalendar(year, 11, 1); //Allerheiligen
+		if(cal.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY || cal.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY)
+		{
+			fixedHolidays.add(cal);
+		}
+		cal = new GregorianCalendar(year, 12, 25); //1. Weihnachtstag
+		if(cal.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY || cal.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY)
+		{
+			fixedHolidays.add(cal);
+		}
+		cal = new GregorianCalendar(year, 12, 26); //2. Weihnachtstag
+		if(cal.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY || cal.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY)
+		{
+			fixedHolidays.add(cal);
+		}
 
 		return fixedHolidays;
 	}
 
 	private static Calendar getEaster(int year)
 	{
+		//Osterformel
 		int a = year % 19;
 		int b = year % 4;
 		int c = year % 7;
