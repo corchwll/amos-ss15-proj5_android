@@ -46,7 +46,7 @@ public class Holidays
 		return amountOfHolidays;
 	}
 
-	private static List<Calendar> getHolidaysForYear(int year)
+	protected static List<Calendar> getHolidaysForYear(int year)
 	{
 		List<Calendar> holidays = getFixedHolidays(year);
 		Calendar easterSunday = getEaster(year);
@@ -74,48 +74,48 @@ public class Holidays
 		return holidays;
 	}
 
-	private static List<Calendar> getFixedHolidays(int year)
+	protected static List<Calendar> getFixedHolidays(int year)
 	{
 		List<Calendar> fixedHolidays = new ArrayList<>();
 
 		Calendar cal;
 		cal = new GregorianCalendar(year, 1, 1); //Neujahrstag
-		if(cal.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY || cal.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY)
+		if(cal.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY && cal.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY)
 		{
 			fixedHolidays.add(cal);
 		}
 		cal = new GregorianCalendar(year, 1, 6); //Heilige Drei Koenige
-		if(cal.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY || cal.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY)
+		if(cal.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY && cal.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY)
 		{
 			fixedHolidays.add(cal);
 		}
 		cal = new GregorianCalendar(year, 5, 1); //Tag der Arbeit
-		if(cal.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY || cal.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY)
+		if(cal.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY && cal.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY)
 		{
 			fixedHolidays.add(cal);
 		}
 		cal = new GregorianCalendar(year, 8, 15); //Maria Himmelfahrt
-		if(cal.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY || cal.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY)
+		if(cal.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY && cal.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY)
 		{
 			fixedHolidays.add(cal);
 		}
 		cal = new GregorianCalendar(year, 10, 3); //Tag der deutschen Einheit
-		if(cal.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY || cal.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY)
+		if(cal.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY && cal.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY)
 		{
 			fixedHolidays.add(cal);
 		}
 		cal = new GregorianCalendar(year, 11, 1); //Allerheiligen
-		if(cal.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY || cal.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY)
+		if(cal.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY && cal.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY)
 		{
 			fixedHolidays.add(cal);
 		}
 		cal = new GregorianCalendar(year, 12, 25); //1. Weihnachtstag
-		if(cal.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY || cal.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY)
+		if(cal.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY && cal.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY)
 		{
 			fixedHolidays.add(cal);
 		}
 		cal = new GregorianCalendar(year, 12, 26); //2. Weihnachtstag
-		if(cal.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY || cal.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY)
+		if(cal.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY && cal.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY)
 		{
 			fixedHolidays.add(cal);
 		}
@@ -123,7 +123,7 @@ public class Holidays
 		return fixedHolidays;
 	}
 
-	private static Calendar getEaster(int year)
+	protected static Calendar getEaster(int year)
 	{
 		//Osterformel
 		int a = year % 19;
@@ -151,7 +151,7 @@ public class Holidays
 		return cal;
 	}
 
-	private static int amountOfHolidaysSince(List<Calendar> holidays, Calendar startCal)
+	protected static int amountOfHolidaysSince(List<Calendar> holidays, Calendar startCal)
 	{
 		int result = 0;
 		for(Calendar cal : holidays)
@@ -165,7 +165,7 @@ public class Holidays
 		return result;
 	}
 
-	private static int amountOfHolidaysUntil(List<Calendar> holidays, Calendar stopCal)
+	protected static int amountOfHolidaysUntil(List<Calendar> holidays, Calendar stopCal)
 	{
 		int result = 0;
 		for(Calendar cal : holidays)
