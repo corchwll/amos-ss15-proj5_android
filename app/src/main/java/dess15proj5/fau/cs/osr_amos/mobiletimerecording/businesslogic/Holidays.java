@@ -22,6 +22,17 @@ import java.util.*;
 
 public class Holidays
 {
+	/**
+	 * This method is used to get the amound of holidays in a given time intervall. This method only counts the
+	 * holidays that are on a weekday.
+	 *
+	 * @param start the lower bound of the time intervall
+	 * @param stop the upper bound of the time intervall
+	 * @return the amount of holidays on weekdays in the given time intervall as int
+	 * methodtype get method
+	 * pre start before stop
+	 * post correct amount will be calculated
+	 */
 	public static int getHolidaysInbetween(Date start, Date stop)
 	{
 		Calendar startCal = GregorianCalendar.getInstance();
@@ -58,6 +69,13 @@ public class Holidays
 		return amountOfHolidays;
 	}
 
+	/**
+	 * This method is used to get all holidays on weekdays for a given year.
+	 *
+	 * @param year the year for which the holidays should be calculated
+	 * @return a List containing all holidays on weekdays for the requested year
+	 * methodtype get method
+	 */
 	protected static List<Calendar> getHolidaysForYear(int year)
 	{
 		List<Calendar> holidays = getFixedHolidays(year);
@@ -97,6 +115,13 @@ public class Holidays
 		return holidays;
 	}
 
+	/**
+	 * This method returns all holidays that are not depending on easter and are on a weekday for the requested year.
+	 *
+	 * @param year the year for which the fixed holidays should be calculated
+	 * @return a list containing all fixed holidays on weekdays for this year
+	 * methodtype get method
+	 */
 	protected static List<Calendar> getFixedHolidays(int year)
 	{
 		List<Calendar> fixedHolidays = new ArrayList<>();
@@ -146,6 +171,15 @@ public class Holidays
 		return fixedHolidays;
 	}
 
+	/**
+	 * This method calculates the date for easter sunday based on the gaussian easterformula.
+	 *
+	 * @param year the year for which easter sunday should be calculated
+	 * @return the date of easter sunday
+	 * methodtype get method
+	 * pre year > 1970 due to the easter formula
+	 * post date of easter sunday will be calculated correctly
+	 */
 	protected static Calendar getEaster(int year)
 	{
 		//Osterformel
@@ -174,6 +208,16 @@ public class Holidays
 		return cal;
 	}
 
+	/**
+	 * This method checks how many of the holidays will be after the given date.
+	 *
+	 * @param holidays the holidays that should be checked
+	 * @param startCal the date after which the holidays have to be
+	 * @return the amount of holidays after the given date
+	 * methodtype helper method
+	 * pre startCal != null
+	 * post correct amount will be returned
+	 */
 	protected static int amountOfHolidaysSince(List<Calendar> holidays, Calendar startCal)
 	{
 		int result = 0;
@@ -188,6 +232,16 @@ public class Holidays
 		return result;
 	}
 
+	/**
+	 * This method checks how many of the holidays will be before the given date.
+	 *
+	 * @param holidays the holidays that should be checked
+	 * @param stopCal the date before which the holidays have to be
+	 * @return the amount of holidays before the given date
+	 * methodtype helper method
+	 * pre stopCal != null
+	 * post correct amount will be returned
+	 */
 	protected static int amountOfHolidaysUntil(List<Calendar> holidays, Calendar stopCal)
 	{
 		int result = 0;
