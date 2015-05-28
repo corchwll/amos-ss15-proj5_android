@@ -35,15 +35,28 @@ public class DashboardInformation
 	private Context context;
 
 	public DashboardInformation()
-	{
-	}
+	{}
 
+	/**
+	 * Constructs a concrete DashboardInformation object.
+	 *
+	 * @param context the application context under which the object is constructed
+	 * methodtype constructor
+	 */
 	public DashboardInformation(User currentUser, Context context)
 	{
 		this.currentUser = currentUser;
 		this.context = context;
 	}
 
+	/**
+	 * This method is used to get the overtime of the user according to his recorded sessions and his weekly working
+	 * time.
+	 *
+	 * @return the overtime in hours
+	 * @throws SQLException
+	 * methodtype get method
+	 */
 	public int getOvertime() throws SQLException
 	{
 		List<Session> sessions = DataAccessObjectFactory.getInstance().createSessionsDAO(context).listAll();
@@ -63,6 +76,16 @@ public class DashboardInformation
 		return currentUser.getCurrentOvertime() + overTimeInHours;
 	}
 
+	/**
+	 * This method calculates the amount of workdays that exist inbetween the given interval.
+	 *
+	 * @param start the start date of the interval
+	 * @param stop the stop date of the interval
+	 * @return the amount of workdays
+	 * methodtype helper method
+	 * pre start != null && stop != null
+	 * post correct amount of workdays calculated
+	 */
 	protected long calculateWorkdays(Date start, Date stop)
 	{
 		Calendar startCal = Calendar.getInstance();
@@ -96,6 +119,13 @@ public class DashboardInformation
 		return workDays - startWeekday + stopWeekday + 1;
 	}
 
+	/**
+	 * This method sums up the recorded time of the sessions in the list and returns the time in millis.
+	 *
+	 * @param sessions the list of sessions that should be summed up
+	 * @return the recorded time from the sessions in millis
+	 * methodtype helper method
+	 */
 	protected long sumUpSessions(List<Session> sessions)
 	{
 		long recordedTimeInMillis = 0L;
@@ -111,6 +141,14 @@ public class DashboardInformation
 		return recordedTimeInMillis;
 	}
 
+	/**
+	 * This method calculates the amount of vacation days left for the user based on the recorded sessions for the
+	 * default project vacation in the database.
+	 *
+	 * @return the amount of left vacation days
+	 * @throws SQLException
+	 * methodtype get method
+	 */
 	public int getLeftVacationDays() throws SQLException
 	{
 		List<Session> vacationSessions = DataAccessObjectFactory.getInstance().createSessionsDAO(context)
