@@ -30,6 +30,10 @@ import java.util.List;
 public class PersistenceHelper extends SQLiteOpenHelper
 {
 	public static List<String> defaultProjects = new ArrayList<>();
+	public static final String VACATION_ID = "10000";
+	public static final String TRAINING_ID = "10001";
+	public static final String ILLNESS_ID = "10002";
+	public static final String OFFICE_ID = "10003";
 
 	/*
 	 * Constants for the database table projects
@@ -133,7 +137,7 @@ public class PersistenceHelper extends SQLiteOpenHelper
 	{
 		//insertion of default project Vacation
 		ContentValues values = new ContentValues();
-		values.put(PROJECTS_ID, "10000");
+		values.put(PROJECTS_ID, VACATION_ID);
 		values.put(PROJECTS_NAME, "Vacation");
 		values.put(PROJECTS_FINAL_DATE, 0);
 		values.put(PROJECTS_IS_DISPLAYED, 1);
@@ -143,7 +147,7 @@ public class PersistenceHelper extends SQLiteOpenHelper
 
 		//insertion of default project Training
 		values = new ContentValues();
-		values.put(PROJECTS_ID, "10001");
+		values.put(PROJECTS_ID, TRAINING_ID);
 		values.put(PROJECTS_NAME, "Training");
 		values.put(PROJECTS_FINAL_DATE, 0);
 		values.put(PROJECTS_IS_DISPLAYED, 1);
@@ -153,7 +157,7 @@ public class PersistenceHelper extends SQLiteOpenHelper
 
 		//insertion of default project Illness
 		values = new ContentValues();
-		values.put(PROJECTS_ID, "10002");
+		values.put(PROJECTS_ID, ILLNESS_ID);
 		values.put(PROJECTS_NAME, "Illness");
 		values.put(PROJECTS_FINAL_DATE, 0);
 		values.put(PROJECTS_IS_DISPLAYED, 1);
@@ -163,7 +167,7 @@ public class PersistenceHelper extends SQLiteOpenHelper
 
 		//insertion of default project Office
 		values = new ContentValues();
-		values.put(PROJECTS_ID, "10003");
+		values.put(PROJECTS_ID, OFFICE_ID);
 		values.put(PROJECTS_NAME, "Office");
 		values.put(PROJECTS_FINAL_DATE, 0);
 		values.put(PROJECTS_IS_DISPLAYED, 1);
@@ -172,10 +176,10 @@ public class PersistenceHelper extends SQLiteOpenHelper
 		db.insert(TABLE_PROJECTS, null, values);
 
 		//keeping track of the default project ids
-		defaultProjects.add("10000");
-		defaultProjects.add("10001");
-		defaultProjects.add("10002");
-		defaultProjects.add("10003");
+		defaultProjects.add(VACATION_ID);
+		defaultProjects.add(TRAINING_ID);
+		defaultProjects.add(ILLNESS_ID);
+		defaultProjects.add(OFFICE_ID);
 	}
 
 	/**
