@@ -34,13 +34,25 @@ public class Holidays
 		{
 			List<Calendar> holidays = getHolidaysForYear(startCal.get(Calendar.YEAR));
 			amountOfHolidays += amountOfHolidaysSince(holidays, startCal);
-		} else
+		} else if(stopCal.get(Calendar.YEAR) - startCal.get(Calendar.YEAR) == 1)
 		{
 			List<Calendar> holidaysInStartYear = getHolidaysForYear(startCal.get(Calendar.YEAR));
 			List<Calendar> holidaysInStopYear = getHolidaysForYear(stopCal.get(Calendar.YEAR));
 
 			amountOfHolidays += amountOfHolidaysSince(holidaysInStartYear, startCal);
 			amountOfHolidays += amountOfHolidaysUntil(holidaysInStopYear, stopCal);
+		} else if(stopCal.get(Calendar.YEAR) - startCal.get(Calendar.YEAR) > 1)
+		{
+			List<Calendar> holidaysInStartYear = getHolidaysForYear(startCal.get(Calendar.YEAR));
+			List<Calendar> holidaysInStopYear = getHolidaysForYear(stopCal.get(Calendar.YEAR));
+
+			amountOfHolidays += amountOfHolidaysSince(holidaysInStartYear, startCal);
+			amountOfHolidays += amountOfHolidaysUntil(holidaysInStopYear, stopCal);
+
+			for(int i = startCal.get(Calendar.YEAR) + 1; i < stopCal.get(Calendar.YEAR); i++)
+			{
+				amountOfHolidays += getHolidaysForYear(i).size();
+			}
 		}
 
 		return amountOfHolidays;

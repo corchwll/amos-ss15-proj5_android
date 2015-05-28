@@ -55,6 +55,19 @@ public class HolidaysTests
 	}
 
 	@Test
+	public void testGetHolidaysInbetween_IntervallFrom2015To2017_CorrectAmountReturned()
+	{
+		Calendar cal = GregorianCalendar.getInstance();
+		cal.set(2015, Calendar.DECEMBER, 1);
+		Calendar cal2 = GregorianCalendar.getInstance();
+		cal2.set(2017, Calendar.AUGUST, 1);
+
+		int holidayCount = Holidays.getHolidaysInbetween(cal.getTime(), cal2.getTime());
+
+		assertTrue("amount of holidays should be 19, but was " + holidayCount, holidayCount == 19);
+	}
+
+	@Test
 	public void testGetEaster_ForYear2015_20150405()
 	{
 		Calendar cal = Holidays.getEaster(2015);
