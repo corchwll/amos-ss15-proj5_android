@@ -19,8 +19,6 @@
 <resources>
     <string name="app_name">Mobile Time Recording</string>
 
-    <string name="delete_project">Delete project</string>
-
     <!--menu_user_profile_registration-->
     <string name="save_user_profile">Save User Profile</string>
 
@@ -82,4 +80,11 @@
     <string name="sessionsDateTextView">Date</string>
     <string name="sessionsStartTime">Start time</string>
     <string name="sessionsStopTime">Stop time</string>
+    <string name="delete_project">Delete project</string>
+    <string name="delete_icon_session">Delete Session</string>
+    
+    <!--DeleteSessionDialogFragment-->
+    <string name="delete_session_answer">Are you sure you want to delete the session?</string>
+    <string name="delete_session_ok">Delete</string>
+    <string name="delete_session_cancel">Cancel</string>
 </resources>
