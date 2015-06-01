@@ -128,19 +128,17 @@ public class AddSessionActivity extends AppCompatActivity
 			saveSessionInDatabase(startDate, stopDate);
 		} else
 		{
-			AlertDialog.Builder builder = new AlertDialog.Builder(this).setTitle("Error")
-																	   .setMessage("Negative times are not allowed.")
-																	   .setPositiveButton("OK",
-																			   new DialogInterface.OnClickListener()
-																			   {
-																				   @Override
-																				   public void onClick(
-																						   DialogInterface dialog,
-																						   int which)
-																				   {
-																					   dialog.dismiss();
-																				   }
-																			   });
+			AlertDialog.Builder builder = new AlertDialog.Builder(this)
+					.setTitle("Error")
+					.setMessage(getResources().getString(R.string.errorMessageAddSession))
+					.setPositiveButton("OK", new DialogInterface.OnClickListener()
+							{
+								@Override
+								public void onClick(DialogInterface dialog, int which)
+								{
+									dialog.dismiss();
+								}
+							});
 			AlertDialog dialog = builder.create();
 			dialog.show();
 		}

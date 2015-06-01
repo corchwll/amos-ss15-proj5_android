@@ -74,6 +74,7 @@
     <string name="dateText">Specify the date on which you want to add extra hours:</string>
     <string name="hoursText">Specify the start and end time</string>
     <string name="confirm_project_change_button">OK</string>
+    <string name="errorMessageAddSession">Negative times are not allowed."</string>
     
     <!--change_user_profile.xml-->
     <string name="changeUserProfileText">Change details of your user profile</string>
