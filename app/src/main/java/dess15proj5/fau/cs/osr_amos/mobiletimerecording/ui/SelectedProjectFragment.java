@@ -430,7 +430,8 @@ public class SelectedProjectFragment extends Fragment
 			projectsDAO.delete(projectId);
 		} catch(SQLException e)
 		{
-			e.printStackTrace();
+			Toast.makeText(getActivity(), "Could not get ProjectsDAO due to database errors!", Toast.LENGTH_SHORT)
+				 .show();
 		}
 		setAttributesNull();
 		disableMenuItems();

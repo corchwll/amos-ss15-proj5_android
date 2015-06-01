@@ -26,6 +26,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.R;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.persistence.DataAccessObjectFactory;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.persistence.UsersDAO;
@@ -111,7 +112,8 @@ public abstract class AbstractUserProfileFragment extends Fragment
 											 .createUsersDAO(getActivity());
 		} catch(SQLException e)
 		{
-			e.printStackTrace();
+			Toast.makeText(getActivity(), "Could not getUserDAO due to database errors!",
+					Toast.LENGTH_SHORT).show();
 		}
 	}
 

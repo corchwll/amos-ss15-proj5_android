@@ -32,6 +32,7 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
+import android.widget.Toast;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.R;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.persistence.DataAccessObjectFactory;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.persistence.SessionsDAO;
@@ -161,7 +162,8 @@ public class AddSessionActivity extends AppCompatActivity
 			sessionDAO.create(projectId, startDate, stopDate);
 		} catch(SQLException e)
 		{
-			e.printStackTrace();
+			Toast.makeText(this, "Could not get SessionsDAO due to database errors!",
+					Toast.LENGTH_SHORT).show();
 		}
 		finish();
 	}

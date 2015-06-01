@@ -23,6 +23,7 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.R;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.models.User;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.persistence.DataAccessObjectFactory;
@@ -52,7 +53,7 @@ public class RegistrationActivity extends AppCompatActivity implements AbstractU
 			checkIfUserExistsInDatabase();
 		} catch(SQLException e)
 		{
-			e.printStackTrace();
+			Toast.makeText(this, "Could not get UserDAO due to database errors!", Toast.LENGTH_SHORT).show();
 		}
 	}
 

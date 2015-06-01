@@ -149,8 +149,7 @@ public class AddProjectDialogFragment extends DialogFragment
 					  } catch(SQLException e)
 					  {
 						  Toast.makeText(getActivity(), "Could not create new project " + "due to database errors!",
-								  Toast.LENGTH_LONG)
-							   .show();
+								  Toast.LENGTH_SHORT).show();
 					  }
 				  }
 
