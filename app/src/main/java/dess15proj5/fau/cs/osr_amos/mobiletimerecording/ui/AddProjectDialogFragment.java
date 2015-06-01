@@ -189,7 +189,7 @@ public class AddProjectDialogFragment extends DialogFragment
 			@Override
 			public void onClick(View v)
 			{
-				if(datePickerViewVisible == false)
+				if(!datePickerViewVisible)
 				{
 					datePickerView.setVisibility(View.VISIBLE);
 					datePickerViewVisible = !datePickerViewVisible;
@@ -270,7 +270,7 @@ public class AddProjectDialogFragment extends DialogFragment
 														 .createProjectsDAO(getActivity());
 		Date date = new Date(0L);
 
-		if(datePickerViewVisible == true)
+		if(datePickerViewVisible)
 		{
 			date = cal.getTime();
 		}

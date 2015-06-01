@@ -21,6 +21,7 @@ package dess15proj5.fau.cs.osr_amos.mobiletimerecording.ui;
 import android.app.Activity;
 import android.app.ListFragment;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.SearchView;
 import android.view.*;
 import android.widget.AdapterView;
@@ -93,7 +94,7 @@ public class ProjectsListFragment extends ListFragment implements AddProjectDial
 	 * methodtype initialization method
 	 */
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+	public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
 		projectListView = (ListView) inflater.inflate(R.layout.projects_list_fragment, container, false);
 		return projectListView;

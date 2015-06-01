@@ -24,7 +24,6 @@ import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -36,8 +35,6 @@ import dess15proj5.fau.cs.osr_amos.mobiletimerecording.models.Project;
 public class MainActivity extends AppCompatActivity implements AbstractUserProfileFragment.UserProfileFragmentListener,
 		ProjectsListFragment.ProjectsListFragmentListener, DeleteSessionDialogFragment.DeleteSessionDialogFragmentListener
 {
-	private Toolbar toolbar;
-
 	private ActionBarDrawerToggle actionBarDrawerToggle;
 
 	/**
@@ -101,8 +98,11 @@ public class MainActivity extends AppCompatActivity implements AbstractUserProfi
 		actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.drawer_open, R.string.drawer_close);
 		actionBarDrawerToggle.syncState();
 		drawerLayout.setDrawerListener(actionBarDrawerToggle);
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		getSupportActionBar().setHomeButtonEnabled(true);
+		if(getSupportActionBar() != null)
+		{
+			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+			getSupportActionBar().setHomeButtonEnabled(true);
+		}
 	}
 
 	/**
@@ -136,10 +136,23 @@ public class MainActivity extends AppCompatActivity implements AbstractUserProfi
 	 */
 	private void showFragment(Fragment fragment, String title)
 	{
-		getSupportActionBar().setTitle(title);
+		setTitleOfActionBar(title);
 		getFragmentManager().beginTransaction()
 							.replace(R.id.frameLayout, fragment)
 							.commit();
+	}
+
+	/**
+	 * Sets the title of the actionbar
+	 *
+	 * methodtype set method
+	 */
+	private void setTitleOfActionBar(String title)
+	{
+		if(getSupportActionBar() != null)
+		{
+			getSupportActionBar().setTitle(title);
+		}
 	}
 
 	/**
@@ -152,11 +165,13 @@ public class MainActivity extends AppCompatActivity implements AbstractUserProfi
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
-		if(actionBarDrawerToggle.onOptionsItemSelected(item))
+		switch(item.getItemId())
 		{
-			return true;
+			case android.R.id.home:
+				return actionBarDrawerToggle.onOptionsItemSelected(item);
+			default:
+				return super.onOptionsItemSelected(item);
 		}
-		return super.onOptionsItemSelected(item);
 	}
 
 	/**
@@ -185,7 +200,7 @@ public class MainActivity extends AppCompatActivity implements AbstractUserProfi
 		args.putString("project_id", selectedProject.getId());
 		args.putString("project_name", selectedProject.getName());
 		selectedProjectFragment.setArguments(args);
-		getSupportActionBar().setTitle(getResources().getString(R.string.overview));
+		setTitleOfActionBar(getResources().getString(R.string.overview));
 		getFragmentManager().beginTransaction()
 							.replace(R.id.frameLayout, selectedProjectFragment)
 							.commit();
