@@ -127,7 +127,6 @@ public class AddSessionActivity extends AppCompatActivity
 			saveSessionInDatabase(startDate, stopDate);
 		} else
 		{
-			//TODO change to DialogFragment
 			AlertDialog.Builder builder = new AlertDialog.Builder(this).setTitle("Error")
 																	   .setMessage("Negative times are not allowed.")
 																	   .setPositiveButton("OK",

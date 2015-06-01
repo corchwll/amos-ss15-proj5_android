@@ -23,7 +23,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.*;
 import android.widget.*;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.R;
@@ -55,7 +54,7 @@ public class SelectedProjectFragment extends Fragment
 	 * This method is called in the android lifecycle when the fragment is created.
 	 *
 	 * @param savedInstanceState this param contains several key value pairs in order to save the instance state
-	 * @methodtype initialization method
+	 * methodtype initialization method
 	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState)

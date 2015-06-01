@@ -151,7 +151,6 @@ public abstract class AbstractUserProfileFragment extends Fragment
 				}
 				return true;
 			case R.id.cancel:
-				//TODO RegistrationActivity can skip registration
 				listener.onUserProfileSaved();
 				return true;
 			default:

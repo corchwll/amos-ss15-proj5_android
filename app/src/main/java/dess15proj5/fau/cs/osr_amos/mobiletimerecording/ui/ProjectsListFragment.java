@@ -145,7 +145,7 @@ public class ProjectsListFragment extends ListFragment implements AddProjectDial
 	 *
 	 * @param menu the menu item which has to be created
 	 * @param inflater contains the information for the layout of the menu
-	 * @methodtype initialization method
+	 * methodtype initialization method
 	 */
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
@@ -159,7 +159,7 @@ public class ProjectsListFragment extends ListFragment implements AddProjectDial
 	 *
 	 * @param item the item which was targeted
 	 * @return true if there was an item clicked
-	 * @methodtype boolean query method
+	 * methodtype boolean query method
 	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item)
