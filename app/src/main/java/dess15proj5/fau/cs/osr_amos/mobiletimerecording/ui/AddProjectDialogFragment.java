@@ -53,6 +53,7 @@ public class AddProjectDialogFragment extends DialogFragment
 	private View view;
 	private EditText projectIdWidget;
 	private EditText projectNameWidget;
+	private TextView addFinalDateQuestion;
 	private CheckBox checkBox;
 	private LinearLayout datePickerView;
 	private boolean datePickerViewVisible = false;
@@ -84,6 +85,7 @@ public class AddProjectDialogFragment extends DialogFragment
 		view = inflater.inflate(R.layout.add_project, null);
 
 		setWidgets();
+		setOnClickListenerToTextView();
 		initCheckBox();
 		setActualDateToAttributes();
 		initDatePickerEditText();
@@ -170,12 +172,33 @@ public class AddProjectDialogFragment extends DialogFragment
 	 */
 	private void setWidgets()
 	{
-		projectIdWidget = (EditText)view.findViewById(R.id.newProjectId);
-		projectNameWidget = (EditText)view.findViewById(R.id.newProjectName);
-		checkBox = (CheckBox)view.findViewById(R.id.checkbox);
-		datePickerView = (LinearLayout)view.findViewById(R.id.datePickerView);
-		datePickerEditText = (EditText)view.findViewById(R.id.datePickerAddProject);
+		projectIdWidget = (EditText) view.findViewById(R.id.newProjectId);
+		projectNameWidget = (EditText) view.findViewById(R.id.newProjectName);
+		addFinalDateQuestion = (TextView) view.findViewById(R.id.addFinalDateQuestion);
+		checkBox = (CheckBox) view.findViewById(R.id.checkboxFinalDate);
+		datePickerView = (LinearLayout) view.findViewById(R.id.datePickerView);
+		datePickerEditText = (EditText) view.findViewById(R.id.datePickerShowDate);
 	}
+
+	/**
+	 * This method sets an onClickListener to the addFinalDateQuestion
+	 *
+	 * methodtype initialization method
+	 */
+	private void setOnClickListenerToTextView()
+	{
+		addFinalDateQuestion.setOnClickListener(new View.OnClickListener()
+		{
+			@Override
+			public void onClick(View view)
+			{
+				performClick();
+				boolean checkboxStatus = checkBox.isChecked();
+				checkBox.setChecked(!checkboxStatus);
+			}
+		});
+	}
+
 
 	/**
 	 * This method initializes the checkbox and sets an onclickListener.
@@ -189,17 +212,27 @@ public class AddProjectDialogFragment extends DialogFragment
 			@Override
 			public void onClick(View v)
 			{
-				if(!datePickerViewVisible)
-				{
-					datePickerView.setVisibility(View.VISIBLE);
-					datePickerViewVisible = !datePickerViewVisible;
-				} else
-				{
-					datePickerView.setVisibility(View.GONE);
-					datePickerViewVisible = !datePickerViewVisible;
-				}
+				performClick();
 			}
 		});
+	}
+
+	/**
+	 * This method is fired if a user clicks the view
+	 *
+	 * methodtype helper method
+	 */
+	private void performClick()
+	{
+		if(!datePickerViewVisible)
+		{
+			datePickerView.setVisibility(View.VISIBLE);
+			datePickerViewVisible = !datePickerViewVisible;
+		} else
+		{
+			datePickerView.setVisibility(View.GONE);
+			datePickerViewVisible = !datePickerViewVisible;
+		}
 	}
 
 	/**

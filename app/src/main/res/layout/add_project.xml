@@ -26,7 +26,7 @@
         android:inputType="number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/inputProjectId"
+        android:hint="@string/newProjectId"
         />
 
     <EditText
@@ -40,17 +40,20 @@
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="2dp">
+            android:layout_marginLeft="2dp"
+            android:layout_marginStart="2dp"
+            android:orientation="horizontal">
 
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/addFinalDateQuestion"
                 android:text="@string/finalProjectString" />
 
         <CheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/checkbox"/>
+                android:id="@+id/checkboxFinalDate"/>
 
     </LinearLayout>
 
@@ -60,6 +63,7 @@
             android:orientation="horizontal"
             android:id="@+id/datePickerView"
             android:layout_marginLeft="2dp"
+            android:layout_marginStart="2dp"
             android:visibility="gone">
 
         <TextView
@@ -68,11 +72,11 @@
                 android:text="@string/finalProjectDate" />
 
         <EditText
-                android:id="@+id/datePickerAddProject"
+                android:id="@+id/datePickerShowDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:focusable="false"
-                android:layout_marginLeft="2dp" />
+                android:layout_marginLeft="2dp"
+                android:layout_marginStart="2dp"/>
     </LinearLayout>
-
 </LinearLayout>

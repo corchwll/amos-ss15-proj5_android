@@ -65,7 +65,7 @@
     <string name="start_button">Start</string>
     
     <!--add_project.xml-->
-    <string name="inputProjectId">Project Id</string>
+    <string name="newProjectId">Project Id</string>
     <string name="inputProjectName">Project Name</string>
     <string name="finalProjectString">Want to add final project date to project?</string>
     <string name="finalProjectDate">Final project date: </string>
