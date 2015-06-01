@@ -23,11 +23,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.*;
-import android.widget.Button;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.*;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.R;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.models.Session;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.persistence.DataAccessObjectFactory;
@@ -45,10 +43,13 @@ public class SelectedProjectFragment extends Fragment
 	private String projectName;
 	private Session session;
 	private SessionArrayAdapter adapter;
+	private ListView sessionListView;
 
-	private TextView textView;
+	private TextView projectNameTextView;
 	private ProjectTimer timer;
 	private Button startStopBtn;
+
+	private int selectedPosition = -1;
 
 	/**
 	 * This method is called in the android lifecycle when the fragment is created.
@@ -138,7 +139,7 @@ public class SelectedProjectFragment extends Fragment
 		}
 		else
 		{
-			textView.setText(projectName);
+			projectNameTextView.setText(projectName);
 			startStopBtn.setOnClickListener(new View.OnClickListener()
 			{
 				@Override
@@ -194,6 +195,7 @@ public class SelectedProjectFragment extends Fragment
 			});
 		}
 		setAdapterToSessionListView();
+		setClickListenerToListView();
 		addSessionsToAdapter();
 	}
 
@@ -204,9 +206,69 @@ public class SelectedProjectFragment extends Fragment
 	 */
 	private void setAdapterToSessionListView()
 	{
-		ListView sessionListView = (ListView) getActivity().findViewById(R.id.sessionList);
-		adapter = new SessionArrayAdapter(getActivity());
+		sessionListView = (ListView) getActivity().findViewById(R.id.sessionList);
+		adapter = new SessionArrayAdapter(getActivity(), getFragmentManager());
 		sessionListView.setAdapter(adapter);
+	}
+
+	/**
+	 * This method is used to set a click listener to the list view.
+	 *
+	 * methodtype set method
+	 */
+	private void setClickListenerToListView() {
+		sessionListView.setOnItemClickListener(new AdapterView.OnItemClickListener()
+		{
+			@Override
+			public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
+			{
+				setPreviousBtnInvisible();
+				ImageView sessionDeleteBtn =
+						(ImageView)getViewByPosition(i, sessionListView).findViewById(R.id.delete_session_btn);
+				sessionDeleteBtn.setVisibility(View.VISIBLE);
+				Log.e("test", "test " + i);
+				selectedPosition = i;
+			}
+
+		});
+	}
+
+	/**
+	 * This method is used to get a view of the selected Item
+	 *
+	 * @param pos specify the position of the session_row which is to be returned
+	 * @param listView consist several sessions_rows
+	 * @return the session_row on the given position
+	 * methodtype get method
+	 */
+	public View getViewByPosition(int pos, ListView listView)
+	{
+		final int firstListItemPosition = listView.getFirstVisiblePosition();
+		final int lastListItemPosition = firstListItemPosition + listView.getChildCount() - 1;
+
+		if (pos < firstListItemPosition || pos > lastListItemPosition )
+		{
+			return listView.getAdapter().getView(pos, null, listView);
+		} else
+		{
+			final int childIndex = pos - firstListItemPosition;
+			return listView.getChildAt(childIndex);
+		}
+	}
+
+	/**
+	 * This method is used to set the sessionDeleteBtn invisible
+	 *
+	 * methodtype set method
+	 */
+	private void setPreviousBtnInvisible()
+	{
+		if (selectedPosition != -1)
+		{
+			ImageView sessionDeleteBtn = (ImageView) getViewByPosition(selectedPosition, sessionListView)
+					.findViewById(R.id.delete_session_btn);
+			sessionDeleteBtn.setVisibility(View.INVISIBLE);
+		}
 	}
 
 	/**
@@ -260,7 +322,7 @@ public class SelectedProjectFragment extends Fragment
 	 */
 	private void setWidgets()
 	{
-		textView = (TextView)getActivity().findViewById(R.id.name_of_selected_project);
+		projectNameTextView = (TextView)getActivity().findViewById(R.id.name_of_selected_project);
 		timer = (ProjectTimer)getActivity().findViewById(R.id.timer);
 		startStopBtn = (Button)getActivity().findViewById(R.id.startStopBtn);
 	}
@@ -286,7 +348,7 @@ public class SelectedProjectFragment extends Fragment
 	 */
 	private void setTextViewToNoProjectSelected()
 	{
-		textView.setText("No project selected. Please select one in the projects tab.");
+		projectNameTextView.setText("No project selected. Please select one in the projects tab.");
 	}
 
 	/**
@@ -410,5 +472,4 @@ public class SelectedProjectFragment extends Fragment
 							.replace(R.id.frameLayout, new ProjectsListFragment())
 							.commit();
 	}
-
 }

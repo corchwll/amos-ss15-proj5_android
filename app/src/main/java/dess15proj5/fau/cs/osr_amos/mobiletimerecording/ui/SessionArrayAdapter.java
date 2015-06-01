@@ -18,11 +18,14 @@
 
 package dess15proj5.fau.cs.osr_amos.mobiletimerecording.ui;
 
+import android.app.FragmentManager;
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.R;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.models.Session;
@@ -32,15 +35,18 @@ import java.util.Locale;
 
 public class SessionArrayAdapter extends ArrayAdapter<Session>
 {
+	private FragmentManager fm;
+
 	/**
 	 * This is the constructor for SessionArrayAdapter.
 	 *
 	 * @param context the application context under which this object is created
 	 * methodtype constructor
 	 */
-	public SessionArrayAdapter(Context context)
+	public SessionArrayAdapter(Context context, FragmentManager fm)
 	{
 		super(context, R.layout.session_row);
+		this.fm = fm;
 	}
 
 	static class ViewHolder
@@ -48,6 +54,7 @@ public class SessionArrayAdapter extends ArrayAdapter<Session>
 		TextView date;
 		TextView startTime;
 		TextView stopTime;
+		ImageView deleteSessionBtn;
 	}
 
 	/**
@@ -63,7 +70,7 @@ public class SessionArrayAdapter extends ArrayAdapter<Session>
 	public View getView(int position, View convertView, ViewGroup parent)
 	{
 		LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		ViewHolder viewHolder;
+		final ViewHolder viewHolder;
 		if(convertView == null)
 		{
 			convertView = inflater.inflate(R.layout.session_row, parent, false);
@@ -71,6 +78,7 @@ public class SessionArrayAdapter extends ArrayAdapter<Session>
 			viewHolder.date = (TextView) convertView.findViewById(R.id.showDateSessionRow);
 			viewHolder.startTime = (TextView) convertView.findViewById(R.id.startTimeSessionRow);
 			viewHolder.stopTime = (TextView) convertView.findViewById(R.id.stopTimeSessionRow);
+			viewHolder.deleteSessionBtn = (ImageView) convertView.findViewById(R.id.delete_session_btn);
 			convertView.setTag(viewHolder);
 		}
 		else
@@ -87,6 +95,18 @@ public class SessionArrayAdapter extends ArrayAdapter<Session>
 		viewHolder.date.setText(sdfDate.format(startTimeAsLong));
 		viewHolder.startTime.setText(sdfTime.format(startTimeAsLong));
 		viewHolder.stopTime.setText(sdfTime.format(stopTimeAsLong));
+		viewHolder.deleteSessionBtn.setOnClickListener(new View.OnClickListener()
+		{
+			@Override
+			public void onClick(View view)
+			{
+				DeleteSessionDialogFragment fragment = new DeleteSessionDialogFragment();
+				Bundle args = new Bundle();
+				args.putLong("session_id", session.getId());
+				fragment.setArguments(args);
+				fragment.show(fm, "dialog");
+			}
+		});
 		return convertView;
 	}
 }

@@ -33,7 +33,7 @@ import dess15proj5.fau.cs.osr_amos.mobiletimerecording.R;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.models.Project;
 
 public class MainActivity extends ActionBarActivity implements AbstractUserProfileFragment.UserProfileFragmentListener,
-		ProjectsListFragment.ProjectsListFragmentListener
+		ProjectsListFragment.ProjectsListFragmentListener, DeleteSessionDialogFragment.DeleteSessionDialogFragmentListener
 {
 	private ActionBarDrawerToggle actionBarDrawerToggle;
 
@@ -184,5 +184,16 @@ public class MainActivity extends ActionBarActivity implements AbstractUserProfi
 		getFragmentManager().beginTransaction()
 							.replace(R.id.frameLayout, selectedProjectFragment)
 							.commit();
+	}
+
+	/**
+	 * This method is called by a callback if the ok button of the delete session dialog is clicked.
+	 *
+	 * methodtype command method
+	 */
+	@Override
+	public void onSessionDeleted()
+	{
+		showSelectedFragment();
 	}
 }
