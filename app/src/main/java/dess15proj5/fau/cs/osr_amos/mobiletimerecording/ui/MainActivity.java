@@ -62,8 +62,6 @@ public class MainActivity extends AppCompatActivity implements AbstractUserProfi
 	 */
 	private void initNavigationDrawer()
 	{
-		toolbar = (Toolbar) findViewById(R.id.toolbar);
-		setSupportActionBar(toolbar);
 		String[] drawerListItems = getResources().getStringArray(R.array.drawer_list_items);
 		final DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.navigation_drawer);
 		final ListView leftDrawer = (ListView) findViewById(R.id.left_drawer);

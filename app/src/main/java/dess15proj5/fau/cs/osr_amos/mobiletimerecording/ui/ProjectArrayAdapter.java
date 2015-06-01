@@ -23,12 +23,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Filter;
 import android.widget.TextView;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.R;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.models.Project;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ProjectArrayAdapter extends ArrayAdapter<Project>
 {
+	private ArrayList<Project> originalList;
+	private ArrayList<Project> projectList;
+	private ProjectFilter filter;
+
 	/**
 	 * This is the constructor for ProjectArrayAdapter.
 	 *
@@ -77,4 +85,86 @@ public class ProjectArrayAdapter extends ArrayAdapter<Project>
 		viewHolder.projectTextView.setText(project.getName());
 		return convertView;
 	}
+
+	/**
+	 * This method sets the two local arrayLists
+	 * @param projectList a List with projects
+	 *
+	 * methodtype set method
+	 */
+	public void setProjectList(List<Project> projectList)
+	{
+		this.projectList = new ArrayList<>();
+		this.projectList.addAll(projectList);
+		this.originalList = new ArrayList<>();
+		this.originalList.addAll(projectList);
+	}
+
+	/**
+	 * returns a project filter
+	 *
+	 * methodtype get method
+	 */
+	@Override
+	public Filter getFilter() {
+		if (filter == null){
+			filter  = new ProjectFilter();
+		}
+		return filter;
+	}
+
+	private class ProjectFilter extends Filter
+	{
+		/**
+		 * filter the data according to the constraint
+		 *
+		 * methodtype helper method
+		 */
+		@Override
+		protected FilterResults performFiltering(CharSequence constraint)
+		{
+			constraint = constraint.toString().toLowerCase();
+			FilterResults result = new FilterResults();
+			if(constraint.toString().length() > 0)
+			{
+				ArrayList<Project> filteredItems = new ArrayList<>();
+
+				for(int i = 0; i < originalList.size(); i++)
+				{
+					Project project = originalList.get(i);
+					if(project.toString().toLowerCase().contains(constraint))
+						filteredItems.add(project);
+				}
+				result.count = filteredItems.size();
+				result.values = filteredItems;
+			}
+			else
+			{
+				synchronized(this)
+				{
+					result.values = originalList;
+					result.count = originalList.size();
+				}
+			}
+			return result;
+		}
+
+		/**
+		 * publish the filtering results in the user interface
+		 *
+		 * methodtype helper method
+		 */
+		@SuppressWarnings("unchecked")
+		@Override
+		protected void publishResults(CharSequence constraint, FilterResults results)
+		{
+			projectList = (ArrayList<Project>) results.values;
+			notifyDataSetChanged();
+			clear();
+			for(int i = 0; i < projectList.size(); i++)
+				add(projectList.get(i));
+			notifyDataSetInvalidated();
+		}
+	}
+
 }

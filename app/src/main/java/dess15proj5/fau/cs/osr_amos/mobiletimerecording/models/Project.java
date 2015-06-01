@@ -157,4 +157,15 @@ public class Project
 	{
 		this.isArchived = isArchived;
 	}
+
+	/**
+	 * concat the id and name, returns it as a string
+	 *
+	 * methodtype convertion method
+	 */
+	@Override
+	public String toString()
+	{
+		return id + " " + name;
+	}
 }

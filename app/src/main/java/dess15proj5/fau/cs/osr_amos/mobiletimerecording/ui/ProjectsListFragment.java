@@ -21,6 +21,7 @@ package dess15proj5.fau.cs.osr_amos.mobiletimerecording.ui;
 import android.app.Activity;
 import android.app.ListFragment;
 import android.os.Bundle;
+import android.support.v7.widget.SearchView;
 import android.view.*;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -38,6 +39,7 @@ public class ProjectsListFragment extends ListFragment implements AddProjectDial
 	private ListView projectListView;
 	private ProjectArrayAdapter adapter;
 	private static ProjectsListFragmentListener listener;
+	private SearchView searchView;
 
 	public interface ProjectsListFragmentListener
 	{
@@ -101,8 +103,9 @@ public class ProjectsListFragment extends ListFragment implements AddProjectDial
 	public void onActivityCreated(Bundle savedInstanceState)
 	{
 		super.onActivityCreated(savedInstanceState);
+		projectListView.setTextFilterEnabled(true);
 		setAdapterToProjectList();
-		addOnItemClickListenerToListView();
+		setOnItemClickListenerToListView();
 		addProjectsToAdapter();
 	}
 
@@ -118,11 +121,11 @@ public class ProjectsListFragment extends ListFragment implements AddProjectDial
 	}
 
 	/**
-	 * This method adds an onItemClickListener to the projectListView
+	 * This method sets an onItemClickListener to the projectListView
 	 *
 	 * methodtype initialization method
 	 */
-	private void addOnItemClickListenerToListView()
+	private void setOnItemClickListenerToListView()
 	{
 		projectListView.setOnItemClickListener(new AdapterView.OnItemClickListener()
 		{
@@ -145,7 +148,9 @@ public class ProjectsListFragment extends ListFragment implements AddProjectDial
 		try
 		{
 			adapter.clear();
-			adapter.addAll(getProjectsFromDB());
+			List<Project> projectList = getProjectsFromDB();
+			adapter.addAll(projectList);
+			adapter.setProjectList(projectList);
 			adapter.notifyDataSetChanged();
 		} catch(SQLException e)
 		{
@@ -178,6 +183,32 @@ public class ProjectsListFragment extends ListFragment implements AddProjectDial
 	{
 		super.onCreateOptionsMenu(menu, inflater);
 		getActivity().getMenuInflater().inflate(R.menu.menu_project_list, menu);
+		searchView = (SearchView) menu.getItem(0).getActionView();
+		addTextChangeListenerToSearchView();
+	}
+
+	/**
+	 * This method adds a TextChangeListener to the searchView
+	 *
+	 * methodtype initialization method
+	 */
+	private void addTextChangeListenerToSearchView()
+	{
+		searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener()
+		{
+			@Override
+			public boolean onQueryTextSubmit(String query)
+			{
+				return false;
+			}
+
+			@Override
+			public boolean onQueryTextChange(String newText)
+			{
+				adapter.getFilter().filter(newText);
+				return true;
+			}
+		});
 	}
 
 	/**
