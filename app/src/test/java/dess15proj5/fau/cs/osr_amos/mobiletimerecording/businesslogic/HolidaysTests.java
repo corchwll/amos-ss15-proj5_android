@@ -21,6 +21,7 @@ package dess15proj5.fau.cs.osr_amos.mobiletimerecording.businesslogic;
 import org.junit.Test;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -28,6 +29,16 @@ import static org.junit.Assert.assertTrue;
 
 public class HolidaysTests
 {
+	@Test
+	public void testGetHolidaysInbetween_SameDay_ZeroHolidaysReturned()
+	{
+		Date date = new Date();
+
+		int holidayCount = Holidays.getHolidaysInbetween(date, date);
+
+		assertTrue("amount of holidays should be 0, but was " + holidayCount, holidayCount == 0);
+	}
+
 	@Test
 	public void testGetHolidaysInbetween_IntervallWithin2015_CorrectAmountReturned()
 	{

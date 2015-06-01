@@ -21,6 +21,8 @@ package dess15proj5.fau.cs.osr_amos.mobiletimerecording.persistence;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.util.Log;
+import android.widget.Toast;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.models.Project;
 
 import java.util.ArrayList;
@@ -35,6 +37,8 @@ public class ProjectsDAOImpl extends AbstractDAO implements ProjectsDAO
 					PersistenceHelper.PROJECTS_IS_DISPLAYED, PersistenceHelper.PROJECTS_IS_USED,
 					PersistenceHelper.PROJECTS_IS_ARCHIVED};
 
+	private String allDefaultIDs;
+
 	/**
 	 * Constructs a concrete ProjectsDAO object.
 	 *
@@ -44,6 +48,21 @@ public class ProjectsDAOImpl extends AbstractDAO implements ProjectsDAO
 	public ProjectsDAOImpl(Context context)
 	{
 		persistenceHelper = new PersistenceHelper(context);
+		allDefaultIDs = "(";
+
+		List<String> defaultProjects = PersistenceHelper.getDefaultProjectsAsList();
+		for(int i = 0; i < defaultProjects.size(); i++)
+		{
+			if(i == 0)
+			{
+				allDefaultIDs += "'" + defaultProjects.get(i) + "'";
+			} else
+			{
+				allDefaultIDs += ",'" + defaultProjects.get(i) + "'";
+			}
+		}
+
+		allDefaultIDs += ")";
 	}
 
 	/**
@@ -148,7 +167,8 @@ public class ProjectsDAOImpl extends AbstractDAO implements ProjectsDAO
 	{
 		boolean result = true;
 
-		for(String s : PersistenceHelper.defaultProjects)
+		List<String> defaultProjects = PersistenceHelper.getDefaultProjectsAsList();
+		for(String s : defaultProjects)
 		{
 			if(s.equals(projectId))
 			{
@@ -171,9 +191,10 @@ public class ProjectsDAOImpl extends AbstractDAO implements ProjectsDAO
 	{
 		List<Project> projects = new ArrayList<>();
 
+		//Select all default projects only
 		Cursor cursor = database.query(PersistenceHelper.TABLE_PROJECTS, allColumns,
-				PersistenceHelper.PROJECTS_IS_ARCHIVED + " <> 1", null, null,
-				null, PersistenceHelper.PROJECTS_NAME);
+				PersistenceHelper.PROJECTS_IS_ARCHIVED + " <> 1 AND " + PersistenceHelper.PROJECTS_ID + " IN " +
+						allDefaultIDs, null, null, null, PersistenceHelper.PROJECTS_NAME);
 
 		cursor.moveToFirst();
 		while(!cursor.isAfterLast())
@@ -182,8 +203,22 @@ public class ProjectsDAOImpl extends AbstractDAO implements ProjectsDAO
 			projects.add(project);
 			cursor.moveToNext();
 		}
-
 		cursor.close();
+
+		//Select all other projects
+		cursor = database.query(PersistenceHelper.TABLE_PROJECTS, allColumns,
+				PersistenceHelper.PROJECTS_IS_ARCHIVED + " <> 1 AND " + PersistenceHelper.PROJECTS_ID + " NOT IN " +
+				allDefaultIDs, null, null, null, PersistenceHelper.PROJECTS_NAME);
+
+		cursor.moveToFirst();
+		while(!cursor.isAfterLast())
+		{
+			Project project = cursorToProject(cursor);
+			projects.add(project);
+			cursor.moveToNext();
+		}
+		cursor.close();
+
 		return projects;
 	}
 

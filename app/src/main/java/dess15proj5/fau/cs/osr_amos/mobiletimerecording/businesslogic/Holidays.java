@@ -44,7 +44,7 @@ public class Holidays
 		if(startCal.get(Calendar.YEAR) == stopCal.get(Calendar.YEAR))
 		{
 			List<Calendar> holidays = getHolidaysForYear(startCal.get(Calendar.YEAR));
-			amountOfHolidays += amountOfHolidaysSince(holidays, startCal);
+			amountOfHolidays += amountOfHolidaysBetween(holidays, startCal, stopCal);
 		} else if(stopCal.get(Calendar.YEAR) - startCal.get(Calendar.YEAR) == 1)
 		{
 			List<Calendar> holidaysInStartYear = getHolidaysForYear(startCal.get(Calendar.YEAR));
@@ -206,6 +206,31 @@ public class Holidays
 		Calendar cal = GregorianCalendar.getInstance();
 		cal.set(year, month, day);
 		return cal;
+	}
+
+	/**
+	 * This method checks how many of the holidays will be after the start date and before the stop date.
+	 *
+	 * @param holidays the holidays that should be checked
+	 * @param startCal the date after which the holidays have to be
+	 * @param stopCal the date before which the holidays have to be
+	 * @return the amount of holidays inbetween the given dates
+	 * methodtype helper method
+	 * pre startCal != null && stopCal != null
+	 * post correct amount will be returned
+	 */
+	protected static int amountOfHolidaysBetween(List<Calendar> holidays, Calendar startCal, Calendar stopCal)
+	{
+		int result = 0;
+		for(Calendar cal : holidays)
+		{
+			if(startCal.before(cal) && stopCal.after(cal))
+			{
+				result++;
+			}
+		}
+
+		return result;
 	}
 
 	/**
