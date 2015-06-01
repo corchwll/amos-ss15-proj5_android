@@ -20,7 +20,6 @@ package dess15proj5.fau.cs.osr_amos.mobiletimerecording.ui;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ScrollView;
@@ -44,19 +43,6 @@ public class RegisterUserProfileFragment extends AbstractUserProfileFragment
 		ScrollView scrollView = (ScrollView) inflater.inflate(R.layout.user_profile_registration, container, false);
 		setWidgets(scrollView);
 		return scrollView;
-	}
-
-	/**
-	 * This method is used in the android lifecycle when the option menu is prepared.
-	 *
-	 * @param menu the menu that is prepared
-	 * methodtype initialization method
-	 */
-	@Override
-	public void onPrepareOptionsMenu(Menu menu)
-	{
-		super.onPrepareOptionsMenu(menu);
-		menu.getItem(0).setVisible(false);
 	}
 
 	/**

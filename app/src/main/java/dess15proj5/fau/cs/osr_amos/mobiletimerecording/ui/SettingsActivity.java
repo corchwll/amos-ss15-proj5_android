@@ -23,7 +23,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.R;
 
-public class SettingsActivity extends AppCompatActivity implements AbstractUserProfileFragment.UserProfileFragmentListener
+public class SettingsActivity extends AppCompatActivity implements AbstractUserProfileFragment
+		.UserProfileFragmentListener, SettingsFragment.SettingsFragmentListener
 {
 	/**
 	 * This method is called in the android lifecycle when the fragment is created.
@@ -36,9 +37,25 @@ public class SettingsActivity extends AppCompatActivity implements AbstractUserP
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.settings_activity);
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		getSupportActionBar().setHomeButtonEnabled(true);
+		if(getSupportActionBar() != null)
+		{
+			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+			getSupportActionBar().setHomeButtonEnabled(true);
+		}
 		showSettingsFragment();
+	}
+
+	/**
+	 * This method is used to display the settings fragment.
+	 *
+	 * methodtype command method
+	 */
+	private void showSettingsFragment()
+	{
+		getFragmentManager().beginTransaction()
+							.replace(R.id.settingsFrameLayout, new SettingsFragment())
+							.addToBackStack(null)
+							.commit();
 	}
 
 	/**
@@ -54,23 +71,23 @@ public class SettingsActivity extends AppCompatActivity implements AbstractUserP
 		switch(item.getItemId())
 		{
 			case android.R.id.home:
-				finish();
-				return true;
+				onBackPressed();
 			default:
 				return super.onOptionsItemSelected(item);
 		}
 	}
 
-	/**
-	 * This method is used to display the settings fragment.
-	 *
-	 * methodtype command method
-	 */
-	private void showSettingsFragment()
+	@Override
+	public void onBackPressed()
 	{
-		getFragmentManager().beginTransaction()
-							.replace(R.id.settingsFrameLayout, new SettingsFragment())
-							.commit();
+		if(getFragmentManager().getBackStackEntryCount() == 1)
+		{
+			finish();
+		}
+		else
+		{
+			getFragmentManager().popBackStack();
+		}
 	}
 
 	/**
@@ -82,5 +99,19 @@ public class SettingsActivity extends AppCompatActivity implements AbstractUserP
 	public void onUserProfileSaved()
 	{
 		showSettingsFragment();
+	}
+
+	/**
+	 * This method is called from a callback when the user presses the changeUserProfile Button
+	 *
+	 * methodtype command method
+	 */
+	@Override
+	public void onChangeUserProfilePressed()
+	{
+		getFragmentManager().beginTransaction()
+							.replace(R.id.settingsFrameLayout, new EditUserProfileFragment())
+							.addToBackStack(null)
+							.commit();
 	}
 }
