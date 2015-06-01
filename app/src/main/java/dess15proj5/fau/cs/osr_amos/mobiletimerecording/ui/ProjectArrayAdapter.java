@@ -42,6 +42,7 @@ public class ProjectArrayAdapter extends ArrayAdapter<Project>
 
 	static class ViewHolder
 	{
+		TextView projectId;
 		TextView projectTextView;
 	}
 
@@ -63,6 +64,7 @@ public class ProjectArrayAdapter extends ArrayAdapter<Project>
 		{
 			convertView = inflater.inflate(R.layout.project_row, parent, false);
 			viewHolder = new ViewHolder();
+			viewHolder.projectId = (TextView) convertView.findViewById(R.id.projectId);
 			viewHolder.projectTextView = (TextView) convertView.findViewById(R.id.projectName);
 			convertView.setTag(viewHolder);
 		}
@@ -71,6 +73,7 @@ public class ProjectArrayAdapter extends ArrayAdapter<Project>
 			viewHolder = (ViewHolder) convertView.getTag();
 		}
 		final Project project = getItem(position);
+		viewHolder.projectId.setText(project.getId());
 		viewHolder.projectTextView.setText(project.getName());
 		return convertView;
 	}
