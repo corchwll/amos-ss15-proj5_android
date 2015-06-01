@@ -173,7 +173,7 @@ public class ProjectsDAOImpl extends AbstractDAO implements ProjectsDAO
 
 		Cursor cursor = database.query(PersistenceHelper.TABLE_PROJECTS, allColumns,
 				PersistenceHelper.PROJECTS_IS_ARCHIVED + " <> 1", null, null,
-				PersistenceHelper.PROJECTS_NAME, null);
+				null, PersistenceHelper.PROJECTS_NAME);
 
 		cursor.moveToFirst();
 		while(!cursor.isAfterLast())
