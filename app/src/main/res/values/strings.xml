@@ -85,6 +85,7 @@
     <string name="sessionsStopTime">Stop time</string>
     <string name="delete_project">Delete project</string>
     <string name="delete_icon_session">Delete Session</string>
+    <string name="confirmDeletionDialog">Are you sure you want to delete project</string>
     
     <!--DeleteSessionDialogFragment-->
     <string name="delete_session_answer">Are you sure you want to delete the session?</string>

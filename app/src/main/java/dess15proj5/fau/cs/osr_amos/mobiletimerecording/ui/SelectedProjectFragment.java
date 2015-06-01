@@ -18,8 +18,10 @@
 
 package dess15proj5.fau.cs.osr_amos.mobiletimerecording.ui;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -387,7 +389,7 @@ public class SelectedProjectFragment extends Fragment
 				createAddSessionActivity();
 				return true;
 			case R.id.deleteProject:
-				deleteProject();
+				initConfirmationDialog();
 				return true;
 			default:
 				return super.onOptionsItemSelected(item);
@@ -421,6 +423,35 @@ public class SelectedProjectFragment extends Fragment
 		Intent intent = new Intent(getActivity(), AddSessionActivity.class);
 		intent.putExtra("project_id", projectId);
 		getActivity().startActivity(intent);
+	}
+
+	/**
+	 * This method initializes a dialog to confirm the deletion of the selected project
+	 *
+	 * methodtype initialization method
+	 */
+	private void initConfirmationDialog()
+	{
+		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity())
+				.setMessage(getResources().getString(R.string.confirmDeletionDialog))
+				.setPositiveButton("Delete", new DialogInterface.OnClickListener()
+						{
+							@Override
+							public void onClick(DialogInterface dialog, int which)
+							{
+								deleteProject();
+							}
+						})
+				.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
+				{
+					@Override
+					public void onClick(DialogInterface dialog, int which)
+					{
+						dialog.dismiss();
+					}
+				});
+		AlertDialog dialog = builder.create();
+		dialog.show();
 	}
 
 	/**
