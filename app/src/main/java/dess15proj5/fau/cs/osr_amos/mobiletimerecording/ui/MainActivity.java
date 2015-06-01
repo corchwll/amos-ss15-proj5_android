@@ -24,6 +24,7 @@ import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -35,6 +36,8 @@ import dess15proj5.fau.cs.osr_amos.mobiletimerecording.models.Project;
 public class MainActivity extends AppCompatActivity implements AbstractUserProfileFragment.UserProfileFragmentListener,
 		ProjectsListFragment.ProjectsListFragmentListener, DeleteSessionDialogFragment.DeleteSessionDialogFragmentListener
 {
+	private Toolbar toolbar;
+
 	private ActionBarDrawerToggle actionBarDrawerToggle;
 
 	/**
@@ -59,6 +62,7 @@ public class MainActivity extends AppCompatActivity implements AbstractUserProfi
 	 */
 	private void initNavigationDrawer()
 	{
+		toolbar = (Toolbar) findViewById(R.id.toolbar);
 		String[] drawerListItems = getResources().getStringArray(R.array.drawer_list_items);
 		final DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.navigation_drawer);
 		final ListView leftDrawer = (ListView) findViewById(R.id.left_drawer);
@@ -96,6 +100,7 @@ public class MainActivity extends AppCompatActivity implements AbstractUserProfi
 		actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.drawer_open, R.string.drawer_close);
 		actionBarDrawerToggle.syncState();
 		drawerLayout.setDrawerListener(actionBarDrawerToggle);
+		setSupportActionBar(toolbar);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		getSupportActionBar().setHomeButtonEnabled(true);
 	}

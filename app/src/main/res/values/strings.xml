@@ -19,6 +19,9 @@
 <resources>
     <string name="app_name">Mobile Time Recording</string>
 
+    <!--menu_project_list-->
+    <string name="search_title">Search</string>
+
     <!--menu_user_profile_registration-->
     <string name="save_user_profile">Save User Profile</string>
 

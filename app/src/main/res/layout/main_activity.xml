@@ -16,31 +16,43 @@
   ~     along with this program.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
-<android.support.v4.widget.DrawerLayout
+<LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/navigation_drawer">
+        android:layout_width="match_parent"
+        android:orientation="vertical">
 
-    <FrameLayout
+    <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:minHeight="?attr/actionBarSize"
+            android:background="?attr/colorPrimary" />
+
+    <android.support.v4.widget.DrawerLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingBottom="16dp"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:paddingTop="16dp"
-            android:id="@+id/frameLayout">
-    </FrameLayout>
+            android:id="@+id/navigation_drawer">
 
-    <ListView
-            android:id="@+id/left_drawer"
-            android:layout_width="200dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:choiceMode="singleChoice"
-            android:divider="@android:color/transparent"
-            android:dividerHeight="0dp"
-            android:background="?colorPrimary">
-    </ListView>
+        <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingBottom="16dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingTop="16dp"
+                android:id="@+id/frameLayout">
+        </FrameLayout>
 
-</android.support.v4.widget.DrawerLayout>
+        <ListView
+                android:id="@+id/left_drawer"
+                android:layout_width="200dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="start"
+                android:choiceMode="singleChoice"
+                android:divider="@android:color/transparent"
+                android:dividerHeight="0dp"
+                android:background="?colorPrimary">
+        </ListView>
+    </android.support.v4.widget.DrawerLayout>
+</LinearLayout>
