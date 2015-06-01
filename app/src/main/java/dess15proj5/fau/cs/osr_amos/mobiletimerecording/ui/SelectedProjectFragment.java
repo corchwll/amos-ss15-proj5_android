@@ -276,9 +276,16 @@ public class SelectedProjectFragment extends Fragment
 	 */
 	private void addSessionsToAdapter()
 	{
+		if(!attributesAreNull())
+		{
 			adapter.clear();
 			adapter.addAll(getSessionsFromDB());
 			adapter.notifyDataSetChanged();
+		}
+		else
+		{
+			setTextViewToNoProjectSelected();
+		}
 	}
 
 	/**
