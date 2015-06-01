@@ -285,7 +285,7 @@ public class AddSessionActivity extends AppCompatActivity
 			{
 				setDatePickerEditText(year, monthOfYear, dayOfMonth);
 				selectedYear = year;
-				selectedMonth = monthOfYear + 1;
+				selectedMonth = monthOfYear;
 				selectedDay = dayOfMonth;
 			}
 		};
