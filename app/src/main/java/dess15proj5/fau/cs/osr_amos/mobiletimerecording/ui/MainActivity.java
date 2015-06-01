@@ -90,7 +90,6 @@ public class MainActivity extends AppCompatActivity implements AbstractUserProfi
 					case 3:
 						Intent intent = new Intent(getBaseContext(), SettingsActivity.class);
 						startActivity(intent);
-						drawerLayout.closeDrawers();
 						break;
 				}
 			}

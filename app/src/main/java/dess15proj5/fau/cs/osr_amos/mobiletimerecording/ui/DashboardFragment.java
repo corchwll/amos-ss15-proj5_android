@@ -25,6 +25,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.R;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.businesslogic.DashboardInformation;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.models.User;
@@ -35,6 +36,17 @@ import java.sql.SQLException;
 
 public class DashboardFragment extends Fragment
 {
+	private User user;
+	private DashboardInformation dashboardInformation;
+	private TextView overtime;
+	private TextView vacation;
+
+	/**
+	 * This method is called in the android lifecycle when the fragment is created.
+	 *
+	 * @param savedInstanceState this param contains several key value pairs in order to save the instance state
+	 * methodtype initialization method
+	 */
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -42,38 +54,89 @@ public class DashboardFragment extends Fragment
 		return inflater.inflate(R.layout.dashboard_fragment, container, false);
 	}
 
+	/**
+	 * This method is called in the android lifecycle when the fragment is started.
+	 *
+	 * methodtype initialization method
+	 */
 	@Override
 	public void onStart()
 	{
 		super.onStart();
-		TextView overtime = (TextView) getActivity().findViewById(R.id.overtime_dashboard);
-		TextView holidays = (TextView) getActivity().findViewById(R.id.holidays_dashboard);
+		overtime = (TextView) getActivity().findViewById(R.id.overtime_dashboard);
+		vacation = (TextView) getActivity().findViewById(R.id.vacation_dashboard);
 
-		UsersDAO userDAO = null;
+		loadUserFromDB();
+		createDashboardInstance();
+		initOvertimeToTextView();
+		initVacationToTextView();
+	}
+
+	/**
+	 * This method load the user from db and stores it in the local attribute user
+	 *
+	 * methodtype command method
+	 */
+	private void loadUserFromDB()
+	{
+		UsersDAO usersDAO = null;
 		try
 		{
-			userDAO = DataAccessObjectFactory.getInstance().createUsersDAO(getActivity().getBaseContext());
+			usersDAO = DataAccessObjectFactory.getInstance().createUsersDAO(getActivity().getBaseContext());
 		} catch(SQLException e)
 		{
-			e.printStackTrace();
+			Toast.makeText(getActivity(), "Could not get UsersDAO due to database errors!",
+					Toast.LENGTH_SHORT).show();
 		}
-		User user = userDAO.load();
+		if(usersDAO != null)
+		{
+			user = usersDAO.load();
+		}
+	}
 
-		DashboardInformation dashboardInformation = new DashboardInformation(user ,getActivity()
+	/**
+	 * This method creates a dashboardInformation instance
+	 *
+	 * methodtype helper method
+	 */
+	private void createDashboardInstance()
+	{
+		dashboardInformation = new DashboardInformation(user ,getActivity()
 				.getBaseContext());
+	}
+
+	/**
+	 * This method initializes the overtime TextView
+	 *
+	 * methodtype initialization method
+	 */
+	private void initOvertimeToTextView()
+	{
 		try
 		{
 			overtime.setText(dashboardInformation.getOvertime() + " ");
 		} catch(SQLException e)
 		{
-			e.printStackTrace();
-		}
-		try
-		{
-			holidays.setText(dashboardInformation.getLeftVacationDays() + " / " + user.getTotalVacationTime());
-		} catch(SQLException e)
-		{
-			e.printStackTrace();
+			Toast.makeText(getActivity(), "Could not get overtime due to database errors!",
+					Toast.LENGTH_SHORT).show();
 		}
 	}
+
+	/**
+	 * This method initializes the vacation TextView
+	 *
+	 * methodtype initialization method
+	 */
+	private void initVacationToTextView()
+	{
+		try
+		{
+			vacation.setText(dashboardInformation.getLeftVacationDays() + " / " + user.getTotalVacationTime());
+		} catch(SQLException e)
+		{
+			Toast.makeText(getActivity(), "Could not get vacation due to database errors!",
+					Toast.LENGTH_SHORT).show();
+		}
+	}
+
 }

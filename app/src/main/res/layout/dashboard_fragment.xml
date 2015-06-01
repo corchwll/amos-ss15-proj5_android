@@ -20,15 +20,45 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
-  <TextView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:id="@+id/overtime_dashboard"/>
+              android:layout_height="match_parent"
+              android:layout_margin="5dp">
 
-    <TextView
-            android:layout_width="wrap_content"
+    <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/holidays_dashboard"/>
+            android:orientation="horizontal"
+            android:layout_marginBottom="10dp">
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/overtime_dashboard_textView"
+                android:text="@string/overtime_dashboard_textView"
+                android:layout_marginRight="10dp"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/overtime_dashboard"/>
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/vacation_dashboard_textView"
+                android:text="@string/vacation_dashboard_textView"
+                android:layout_marginRight="10dp"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/vacation_dashboard"/>
+    </LinearLayout>
+
 
 </LinearLayout>

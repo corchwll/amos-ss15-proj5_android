@@ -90,4 +90,8 @@
     <string name="delete_session_answer">Are you sure you want to delete the session?</string>
     <string name="delete_session_ok">Delete</string>
     <string name="delete_session_cancel">Cancel</string>
+
+    <!--dashboard_fragment.xml-->
+    <string name="overtime_dashboard_textView">Overtime:</string>
+    <string name="vacation_dashboard_textView">Left Vacation / Total Vacation:</string>
 </resources>
