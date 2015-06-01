@@ -151,7 +151,8 @@ public class SessionsDAOImpl extends AbstractDAO implements SessionsDAO
 
 		String query = "SELECT * FROM " + PersistenceHelper.TABLE_SESSIONS + " s INNER JOIN " +
 				PersistenceHelper.TABLE_PROJECTS + " p ON s." + PersistenceHelper.SESSIONS_PROJECT_ID + " = p." +
-				PersistenceHelper.PROJECTS_ID + " WHERE p." + PersistenceHelper.PROJECTS_ID + " = ?;";
+				PersistenceHelper.PROJECTS_ID + " WHERE p." + PersistenceHelper.PROJECTS_ID + " = ? ORDER BY "
+				+ PersistenceHelper.SESSIONS_TIMESTAMP_START + " DESC;";
 
 		Cursor cursor = database.rawQuery(query, new String[]{projectId});
 
