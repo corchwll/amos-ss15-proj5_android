@@ -22,6 +22,7 @@ import android.app.Activity;
 import android.app.ListFragment;
 import android.os.Bundle;
 import android.view.*;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.R;
@@ -34,7 +35,7 @@ import java.util.List;
 
 public class ProjectsListFragment extends ListFragment implements AddProjectDialogFragment.AddProjectDialogListener
 {
-	private ListView projectList;
+	private ListView projectListView;
 	private ProjectArrayAdapter adapter;
 	private static ProjectsListFragmentListener listener;
 
@@ -92,10 +93,17 @@ public class ProjectsListFragment extends ListFragment implements AddProjectDial
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
-		projectList = (ListView) inflater.inflate(R.layout.projects_list_fragment, container, false);
+		projectListView = (ListView) inflater.inflate(R.layout.projects_list_fragment, container, false);
+		return projectListView;
+	}
+
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState)
+	{
+		super.onActivityCreated(savedInstanceState);
 		setAdapterToProjectList();
+		addOnItemClickListenerToListView();
 		addProjectsToAdapter();
-		return projectList;
 	}
 
 	/**
@@ -106,7 +114,25 @@ public class ProjectsListFragment extends ListFragment implements AddProjectDial
 	private void setAdapterToProjectList()
 	{
 		adapter = new ProjectArrayAdapter(getActivity());
-		projectList.setAdapter(adapter);
+		projectListView.setAdapter(adapter);
+	}
+
+	/**
+	 * This method adds an onItemClickListener to the projectListView
+	 *
+	 * methodtype initialization method
+	 */
+	private void addOnItemClickListenerToListView()
+	{
+		projectListView.setOnItemClickListener(new AdapterView.OnItemClickListener()
+		{
+			@Override
+			public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
+			{
+				Project project = adapter.getItem(i);
+				listener.projectSelected(project);
+			}
+		});
 	}
 
 	/**
@@ -195,16 +221,5 @@ public class ProjectsListFragment extends ListFragment implements AddProjectDial
 	public void onDialogPositiveClick()
 	{
 		addProjectsToAdapter();
-	}
-
-	/**
-	 * This method is called when an project in the project list was selected.
-	 *
-	 * @param selectedProject the selected project from the list
-	 * methodtype command method
-	 */
-	public static void onItemSelected(Project selectedProject)
-	{
-		listener.projectSelected(selectedProject);
 	}
 }

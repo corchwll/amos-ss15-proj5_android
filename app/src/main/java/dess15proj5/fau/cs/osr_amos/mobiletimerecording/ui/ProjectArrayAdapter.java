@@ -72,14 +72,6 @@ public class ProjectArrayAdapter extends ArrayAdapter<Project>
 		}
 		final Project project = getItem(position);
 		viewHolder.projectTextView.setText(project.getName());
-		viewHolder.projectTextView.setOnClickListener(new View.OnClickListener()
-		{
-			@Override
-			public void onClick(View v)
-			{
-				ProjectsListFragment.onItemSelected(project);
-			}
-		});
 		return convertView;
 	}
 }

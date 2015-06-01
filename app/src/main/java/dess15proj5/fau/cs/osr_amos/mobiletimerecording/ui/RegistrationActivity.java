@@ -23,6 +23,7 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.R;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.models.User;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.persistence.DataAccessObjectFactory;
@@ -46,6 +47,9 @@ public class RegistrationActivity extends AppCompatActivity implements AbstractU
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main_activity);
+		//TODO toolbar
+		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+		setSupportActionBar(toolbar);
 		try
 		{
 			userDAO = DataAccessObjectFactory.getInstance().createUsersDAO(this);
