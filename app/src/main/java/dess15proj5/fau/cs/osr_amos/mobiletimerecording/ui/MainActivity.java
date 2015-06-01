@@ -85,6 +85,8 @@ public class MainActivity extends AppCompatActivity implements AbstractUserProfi
 						break;
 					//					Dashboard
 					case 2:
+						DashboardFragment dashboardFragment = new DashboardFragment();
+						showFragment(dashboardFragment, getResources().getString(R.string.dashboard));
 						drawerLayout.closeDrawers();
 						break;
 					//					Settings
