@@ -60,18 +60,28 @@ public class DashboardInformation
 	public int getOvertime() throws SQLException
 	{
 		List<Session> sessions = DataAccessObjectFactory.getInstance().createSessionsDAO(context).listAll();
-		Date startTime = sessions.get(0).getStartTime();
-		Date stopTime = sessions.get(sessions.size() - 1).getStopTime();
+		int overTimeInHours;
 
-		int amountOfHolidays = Holidays.getHolidaysInbetween(startTime, stopTime);
-		long amountOfWorkdays = calculateWorkdays(startTime, stopTime);
-		long recordedTimeInMillis = sumUpSessions(sessions);
+		if(sessions.size() != 0)
+		{
+			Date startTime = sessions.get(0)
+									 .getStartTime();
+			Date stopTime = sessions.get(sessions.size() - 1)
+									.getStopTime();
 
-		double hoursPerDay = currentUser.getWeeklyWorkingTime() / 5.0;
-		long debtInMillis = (long)((amountOfWorkdays - amountOfHolidays)*hoursPerDay*60*60*1000);
+			int amountOfHolidays = Holidays.getHolidaysInbetween(startTime, stopTime);
+			long amountOfWorkdays = calculateWorkdays(startTime, stopTime);
+			long recordedTimeInMillis = sumUpSessions(sessions);
 
-		long overTimeInMillis = recordedTimeInMillis - debtInMillis;
-		int overTimeInHours = (int)(overTimeInMillis/(1000*60*60));
+			double hoursPerDay = currentUser.getWeeklyWorkingTime()/5.0;
+			long debtInMillis = (long)((amountOfWorkdays - amountOfHolidays)*hoursPerDay*60*60*1000);
+
+			long overTimeInMillis = recordedTimeInMillis - debtInMillis;
+			overTimeInHours = (int)(overTimeInMillis/(1000*60*60));
+		} else
+		{
+			overTimeInHours = 0;
+		}
 
 		return currentUser.getCurrentOvertime() + overTimeInHours;
 	}
