@@ -29,11 +29,27 @@ import java.util.List;
 
 public class PersistenceHelper extends SQLiteOpenHelper
 {
-	public static List<String> defaultProjects = new ArrayList<>();
-	public static final String VACATION_ID = "10000";
-	public static final String TRAINING_ID = "10001";
-	public static final String ILLNESS_ID = "10002";
-	public static final String OFFICE_ID = "10003";
+	public static final String VACATION_ID = "00003";
+	public static final String TRAINING_ID = "00002";
+	public static final String ILLNESS_ID = "00000";
+	public static final String OFFICE_ID = "00001";
+
+	/**
+	 * This method returns the string IDs of all default project in a list.
+	 *
+	 * @return the list containing all default project IDs
+	 * methodtype get method
+	 */
+	public static List<String> getDefaultProjectsAsList()
+	{
+		List<String> defaultProjects = new ArrayList<>();
+		defaultProjects.add(VACATION_ID);
+		defaultProjects.add(TRAINING_ID);
+		defaultProjects.add(ILLNESS_ID);
+		defaultProjects.add(OFFICE_ID);
+
+		return defaultProjects;
+	}
 
 	/*
 	 * Constants for the database table projects
@@ -174,12 +190,6 @@ public class PersistenceHelper extends SQLiteOpenHelper
 		values.put(PROJECTS_IS_USED, 1);
 		values.put(PROJECTS_IS_ARCHIVED, 0);
 		db.insert(TABLE_PROJECTS, null, values);
-
-		//keeping track of the default project ids
-		defaultProjects.add(VACATION_ID);
-		defaultProjects.add(TRAINING_ID);
-		defaultProjects.add(ILLNESS_ID);
-		defaultProjects.add(OFFICE_ID);
 	}
 
 	/**
