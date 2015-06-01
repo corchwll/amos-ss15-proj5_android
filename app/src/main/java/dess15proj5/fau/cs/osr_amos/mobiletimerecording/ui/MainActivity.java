@@ -22,8 +22,8 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -32,7 +32,7 @@ import android.widget.ListView;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.R;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.models.Project;
 
-public class MainActivity extends ActionBarActivity implements AbstractUserProfileFragment.UserProfileFragmentListener,
+public class MainActivity extends AppCompatActivity implements AbstractUserProfileFragment.UserProfileFragmentListener,
 		ProjectsListFragment.ProjectsListFragmentListener, DeleteSessionDialogFragment.DeleteSessionDialogFragmentListener
 {
 	private ActionBarDrawerToggle actionBarDrawerToggle;
@@ -62,7 +62,7 @@ public class MainActivity extends ActionBarActivity implements AbstractUserProfi
 		String[] drawerListItems = getResources().getStringArray(R.array.drawer_list_items);
 		final DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.navigation_drawer);
 		final ListView leftDrawer = (ListView) findViewById(R.id.left_drawer);
-		leftDrawer.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_list_item, drawerListItems));
+		leftDrawer.setAdapter(new ArrayAdapter<>(this, R.layout.drawer_list_item, drawerListItems));
 		leftDrawer.setOnItemClickListener(new AdapterView.OnItemClickListener()
 		{
 			@Override

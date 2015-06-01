@@ -22,7 +22,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.R;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.models.User;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.persistence.DataAccessObjectFactory;
@@ -31,7 +31,7 @@ import dess15proj5.fau.cs.osr_amos.mobiletimerecording.persistence.UsersDAO;
 import java.sql.SQLException;
 import java.util.List;
 
-public class RegistrationActivity extends ActionBarActivity implements AbstractUserProfileFragment.UserProfileFragmentListener
+public class RegistrationActivity extends AppCompatActivity implements AbstractUserProfileFragment.UserProfileFragmentListener
 {
 	UsersDAO userDAO;
 

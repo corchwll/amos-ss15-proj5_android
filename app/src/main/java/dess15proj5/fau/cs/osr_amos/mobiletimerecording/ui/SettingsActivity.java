@@ -19,11 +19,11 @@
 package dess15proj5.fau.cs.osr_amos.mobiletimerecording.ui;
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.R;
 
-public class SettingsActivity extends ActionBarActivity implements AbstractUserProfileFragment.UserProfileFragmentListener
+public class SettingsActivity extends AppCompatActivity implements AbstractUserProfileFragment.UserProfileFragmentListener
 {
 	/**
 	 * This method is called in the android lifecycle when the fragment is created.

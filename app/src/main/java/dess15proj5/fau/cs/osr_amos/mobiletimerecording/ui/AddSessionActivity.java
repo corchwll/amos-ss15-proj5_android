@@ -24,7 +24,7 @@ import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -41,7 +41,7 @@ import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Date;
 
-public class AddSessionActivity extends ActionBarActivity
+public class AddSessionActivity extends AppCompatActivity
 {
 	private String projectId;
 	private int startHour = 8;

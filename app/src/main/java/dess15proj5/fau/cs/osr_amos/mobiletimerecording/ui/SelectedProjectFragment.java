@@ -226,7 +226,6 @@ public class SelectedProjectFragment extends Fragment
 				ImageView sessionDeleteBtn =
 						(ImageView)getViewByPosition(i, sessionListView).findViewById(R.id.delete_session_btn);
 				sessionDeleteBtn.setVisibility(View.VISIBLE);
-				Log.e("test", "test " + i);
 				selectedPosition = i;
 			}
 
