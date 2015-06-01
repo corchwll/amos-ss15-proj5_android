@@ -84,6 +84,7 @@ public class SessionArrayAdapter extends ArrayAdapter<Session>
 		else
 		{
 			viewHolder = (ViewHolder) convertView.getTag();
+			viewHolder.deleteSessionBtn.setVisibility(View.INVISIBLE);
 		}
 		SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm:ss", Locale.GERMANY);
 		SimpleDateFormat sdfDate = new SimpleDateFormat("dd.MM.yyyy", Locale.GERMANY);
