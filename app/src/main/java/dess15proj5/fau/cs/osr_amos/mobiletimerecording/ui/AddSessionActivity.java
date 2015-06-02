@@ -68,6 +68,11 @@ public class AddSessionActivity extends AppCompatActivity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.add_session_to_project);
+		if(getSupportActionBar() != null)
+		{
+			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+			getSupportActionBar().setHomeButtonEnabled(true);
+		}
 		setDataFromIntent();
 		setWidgets();
 		initEditTextFields();
@@ -102,7 +107,7 @@ public class AddSessionActivity extends AppCompatActivity
 	{
 		switch(item.getItemId())
 		{
-			case R.id.cancel:
+			case android.R.id.home:
 				finish();
 				return true;
 			case R.id.saveNewSession:
@@ -132,13 +137,13 @@ public class AddSessionActivity extends AppCompatActivity
 					.setTitle("Error")
 					.setMessage(getResources().getString(R.string.errorMessageAddSession))
 					.setPositiveButton("OK", new DialogInterface.OnClickListener()
-							{
-								@Override
-								public void onClick(DialogInterface dialog, int which)
-								{
-									dialog.dismiss();
-								}
-							});
+					{
+						@Override
+						public void onClick(DialogInterface dialog, int which)
+						{
+							dialog.dismiss();
+						}
+					});
 			AlertDialog dialog = builder.create();
 			dialog.show();
 		}

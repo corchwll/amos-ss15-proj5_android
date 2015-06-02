@@ -433,7 +433,7 @@ public class SelectedProjectFragment extends Fragment
 	private void initConfirmationDialog()
 	{
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity())
-				.setMessage(getResources().getString(R.string.confirmDeletionDialog))
+				.setMessage(getResources().getString(R.string.confirmDeletionDialog) + " " + projectName + "?")
 				.setPositiveButton("Delete", new DialogInterface.OnClickListener()
 						{
 							@Override
