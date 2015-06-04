@@ -32,6 +32,7 @@ import dess15proj5.fau.cs.osr_amos.mobiletimerecording.models.Session;
 
 import java.text.SimpleDateFormat;
 import java.util.Locale;
+import java.util.TimeZone;
 
 public class SessionArrayAdapter extends ArrayAdapter<Session>
 {
@@ -54,6 +55,7 @@ public class SessionArrayAdapter extends ArrayAdapter<Session>
 		TextView date;
 		TextView startTime;
 		TextView stopTime;
+		TextView duration;
 		ImageView deleteSessionBtn;
 	}
 
@@ -78,6 +80,7 @@ public class SessionArrayAdapter extends ArrayAdapter<Session>
 			viewHolder.date = (TextView) convertView.findViewById(R.id.showDateSessionRow);
 			viewHolder.startTime = (TextView) convertView.findViewById(R.id.startTimeSessionRow);
 			viewHolder.stopTime = (TextView) convertView.findViewById(R.id.stopTimeSessionRow);
+			viewHolder.duration = (TextView) convertView.findViewById(R.id.durationSessionRow);
 			viewHolder.deleteSessionBtn = (ImageView) convertView.findViewById(R.id.delete_session_btn);
 			convertView.setTag(viewHolder);
 		}
@@ -86,7 +89,7 @@ public class SessionArrayAdapter extends ArrayAdapter<Session>
 			viewHolder = (ViewHolder) convertView.getTag();
 			viewHolder.deleteSessionBtn.setVisibility(View.INVISIBLE);
 		}
-		SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm:ss", Locale.GERMANY);
+		SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm", Locale.GERMANY);
 		SimpleDateFormat sdfDate = new SimpleDateFormat("dd.MM.yyyy", Locale.GERMANY);
 
 		final Session session = getItem(position);
@@ -96,6 +99,8 @@ public class SessionArrayAdapter extends ArrayAdapter<Session>
 		viewHolder.date.setText(sdfDate.format(startTimeAsLong));
 		viewHolder.startTime.setText(sdfTime.format(startTimeAsLong));
 		viewHolder.stopTime.setText(sdfTime.format(stopTimeAsLong));
+		sdfTime.setTimeZone(TimeZone.getTimeZone("GMT"));
+		viewHolder.duration.setText(sdfTime.format(stopTimeAsLong - startTimeAsLong));
 		viewHolder.deleteSessionBtn.setOnClickListener(new View.OnClickListener()
 		{
 			@Override

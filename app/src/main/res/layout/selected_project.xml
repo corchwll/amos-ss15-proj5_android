@@ -65,14 +65,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/sessionsStartTime"
-                android:layout_marginRight="13dp"
-                android:layout_marginEnd="13dp"/>
+                android:layout_marginRight="25dp"
+                android:layout_marginEnd="25dp"/>
 
 
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/sessionsStopTime"/>
+                android:text="@string/sessionsStopTime"
+                android:layout_marginRight="25dp"
+                android:layout_marginEnd="25dp"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sessionDuration"/>
     </LinearLayout>
 
     <ListView

@@ -82,8 +82,9 @@
 
     <!--selected_project.xml-->
     <string name="sessionsDateTextView">Date</string>
-    <string name="sessionsStartTime">Start time</string>
-    <string name="sessionsStopTime">Stop time</string>
+    <string name="sessionsStartTime">Start</string>
+    <string name="sessionsStopTime">Stop</string>
+    <string name="sessionDuration">Duration</string>
     <string name="delete_project">Delete project</string>
     <string name="delete_icon_session">Delete Session</string>
     <string name="confirmDeletionDialog">Are you sure you want to delete project</string>

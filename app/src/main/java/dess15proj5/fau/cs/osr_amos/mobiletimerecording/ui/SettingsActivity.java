@@ -99,8 +99,6 @@ public class SettingsActivity extends AppCompatActivity implements AbstractUserP
 	public void onUserProfileSaved()
 	{
 		getFragmentManager().popBackStack();
-		showSettingsFragment();
-		getFragmentManager().popBackStack();
 	}
 
 	/**
