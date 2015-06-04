@@ -33,9 +33,19 @@ import java.util.List;
 
 public class ProjectArrayAdapter extends ArrayAdapter<Project>
 {
+	public static final int ITEM_VIEW_TYPE_PROJECT = 0;
+	public static final int ITEM_VIEW_TYPE_SEPARATOR = 1;
+	public static final int ITEM_VIEW_TYPE_COUNT = 2;
+
 	private ArrayList<Project> originalList;
 	private ArrayList<Project> projectList;
 	private ProjectFilter filter;
+
+	static class ViewHolder
+	{
+		TextView projectId;
+		TextView projectTextView;
+	}
 
 	/**
 	 * This is the constructor for ProjectArrayAdapter.
@@ -48,10 +58,55 @@ public class ProjectArrayAdapter extends ArrayAdapter<Project>
 		super(context, R.layout.project_row);
 	}
 
-	static class ViewHolder
+	/**
+	 * Returns the number of types of Views that will be created by getView(int, View, ViewGroup)
+	 *
+	 * methodtype get method
+	 */
+	@Override
+	public int getViewTypeCount()
 	{
-		TextView projectId;
-		TextView projectTextView;
+		return ITEM_VIEW_TYPE_COUNT;
+	}
+
+	/**
+	 * Get the type of View that will be created by getView(int, View, ViewGroup) for the specified item.
+	 *
+	 * @param position The position of the item within the adapter's data set whose view type we want.
+	 * methodtype get method
+	 */
+	@Override
+	public int getItemViewType(int position)
+	{
+		if(isSeparator(getItem(position)))
+		{
+			return ITEM_VIEW_TYPE_SEPARATOR;
+		}
+		else
+		{
+			return ITEM_VIEW_TYPE_PROJECT;
+		}
+	}
+
+	/**
+	 * Returns true if the item at the specified position is not a separator.
+	 *
+	 * methodtype boolean query method
+	 */
+	@Override
+	public boolean isEnabled(int position)
+	{
+		return !isSeparator(getItem(position));
+	}
+
+	/**
+	 * Returns true if the item at the specified position is a separator.
+	 *
+	 * methodtype boolean query method
+	 */
+	private boolean isSeparator(Project project)
+	{
+		return (project.getId().equals(ProjectsListFragment.SEPARATOR_ID));
 	}
 
 	/**
@@ -67,23 +122,33 @@ public class ProjectArrayAdapter extends ArrayAdapter<Project>
 	public View getView(int position, View convertView, ViewGroup parent)
 	{
 		LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		ViewHolder viewHolder;
-		if(convertView == null)
+		final Project project = getItem(position);
+
+		if(isSeparator(project))
 		{
-			convertView = inflater.inflate(R.layout.project_row, parent, false);
-			viewHolder = new ViewHolder();
-			viewHolder.projectId = (TextView) convertView.findViewById(R.id.projectId);
-			viewHolder.projectTextView = (TextView) convertView.findViewById(R.id.projectName);
-			convertView.setTag(viewHolder);
+			convertView = inflater.inflate(R.layout.project_list_separator, parent, false);
+			TextView projectListSeparator = (TextView) convertView.findViewById(R.id.projectListSeparator);
+			projectListSeparator.setText(project.getName());
+			return convertView;
 		}
 		else
 		{
-			viewHolder = (ViewHolder) convertView.getTag();
+			ViewHolder viewHolder;
+			if(convertView == null)
+			{
+				convertView = inflater.inflate(R.layout.project_row, parent, false);
+				viewHolder = new ViewHolder();
+				viewHolder.projectId = (TextView)convertView.findViewById(R.id.projectId);
+				viewHolder.projectTextView = (TextView)convertView.findViewById(R.id.projectName);
+				convertView.setTag(viewHolder);
+			} else
+			{
+				viewHolder = (ViewHolder)convertView.getTag();
+			}
+			viewHolder.projectId.setText(project.getId());
+			viewHolder.projectTextView.setText(project.getName());
+			return convertView;
 		}
-		final Project project = getItem(position);
-		viewHolder.projectId.setText(project.getId());
-		viewHolder.projectTextView.setText(project.getName());
-		return convertView;
 	}
 
 	/**
@@ -132,7 +197,8 @@ public class ProjectArrayAdapter extends ArrayAdapter<Project>
 				for(int i = 0; i < originalList.size(); i++)
 				{
 					Project project = originalList.get(i);
-					if(project.toString().toLowerCase().contains(constraint))
+					if(project.toString().toLowerCase().contains(constraint) &&
+							!project.getId().contains(ProjectsListFragment.SEPARATOR_ID))
 						filteredItems.add(project);
 				}
 				result.count = filteredItems.size();

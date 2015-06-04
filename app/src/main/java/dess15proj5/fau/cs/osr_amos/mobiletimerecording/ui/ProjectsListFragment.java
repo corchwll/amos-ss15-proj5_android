@@ -30,6 +30,7 @@ import android.widget.Toast;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.R;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.models.Project;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.persistence.DataAccessObjectFactory;
+import dess15proj5.fau.cs.osr_amos.mobiletimerecording.persistence.PersistenceHelper;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.persistence.ProjectsDAO;
 
 import java.sql.SQLException;
@@ -37,6 +38,9 @@ import java.util.List;
 
 public class ProjectsListFragment extends ListFragment implements AddProjectDialogFragment.AddProjectDialogListener
 {
+	public static final int POSITION_OF_SPECIAL_PROJECTS_SEPARATOR = 0;
+	public static final String SEPARATOR_ID = "-1";
+
 	private ListView projectListView;
 	private ProjectArrayAdapter adapter;
 	private static ProjectsListFragmentListener listener;
@@ -100,6 +104,12 @@ public class ProjectsListFragment extends ListFragment implements AddProjectDial
 		return projectListView;
 	}
 
+	/**
+	 * This method is called in the android lifecycle when the activity is created.
+	 *
+	 * @param savedInstanceState this param contains several key value pairs in order to save the instance state
+	 * methodtype initialization method
+	 */
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState)
 	{
@@ -150,13 +160,51 @@ public class ProjectsListFragment extends ListFragment implements AddProjectDial
 		{
 			adapter.clear();
 			List<Project> projectList = getProjectsFromDB();
-			adapter.addAll(projectList);
+			addSeparatorsToProjectList(projectList);
 			adapter.setProjectList(projectList);
+			adapter.addAll(projectList);
 			adapter.notifyDataSetChanged();
 		} catch(SQLException e)
 		{
 			Toast.makeText(getActivity(), "Could not load project list due to database errors!", Toast.LENGTH_LONG).show();
 		}
+	}
+
+	/**
+	 * This method adds separators to the given projectsList
+	 *
+	 * methodtype command method
+	 */
+	private void addSeparatorsToProjectList(List<Project> projectList)
+	{
+		projectList.add(POSITION_OF_SPECIAL_PROJECTS_SEPARATOR, getSeparatorProject(getResources()
+				.getString(R.string.separator_special_projects)));
+		projectList.add(getPositionOfSeparatorAfterSpecialProjects(), getSeparatorProject(getResources()
+				.getString(R.string.separator_added_projects)));
+	}
+
+	/**
+	 * Returns a project, that is used to display a separator
+	 *
+	 * @param caption sets the text, which is shown in the separator
+	 * methodtype get method
+	 */
+	private Project getSeparatorProject(String caption)
+	{
+		Project separator = new Project();
+		separator.setName(caption);
+		separator.setId(SEPARATOR_ID);
+		return separator;
+	}
+
+	/**
+	 * Returns the position of the second separator, which is shown after the special projects
+	 *
+	 * methodtype get method
+	 */
+	private int getPositionOfSeparatorAfterSpecialProjects()
+	{
+		return PersistenceHelper.getDefaultProjectsAsList().size() + 1;
 	}
 
 	/**
