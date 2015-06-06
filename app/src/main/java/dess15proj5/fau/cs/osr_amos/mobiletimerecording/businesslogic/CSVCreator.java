@@ -20,16 +20,22 @@ package dess15proj5.fau.cs.osr_amos.mobiletimerecording.businesslogic;
 
 import android.content.Context;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.models.Project;
+import dess15proj5.fau.cs.osr_amos.mobiletimerecording.models.Session;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.models.User;
+import dess15proj5.fau.cs.osr_amos.mobiletimerecording.persistence.DataAccessObjectFactory;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.List;
+import java.sql.SQLException;
+import java.util.*;
 
 public class CSVCreator
 {
 	private User user;
 	private Context context;
+
+	protected CSVCreator()
+	{}
 
 	public CSVCreator(User user, Context context)
 	{
@@ -37,9 +43,14 @@ public class CSVCreator
 		this.context = context;
 	}
 
-	public void createCSV()
+	public void createCSV(int month, int year) throws IOException, SQLException
 	{
+		List<Project> projects = DataAccessObjectFactory.getInstance().createProjectsDAO(context).listAll();
 
+		FileWriter fileWriter = new FileWriter("recordings_" + year + "_" + month);
+		writeFileHeader(fileWriter, month, year);
+		writeDataHeader(fileWriter, projects);
+		writeData(fileWriter, projects, month, year);
 	}
 
 	/**
@@ -83,5 +94,76 @@ public class CSVCreator
 		}
 		fileWriter.write("\n");
 		fileWriter.flush();
+	}
+
+	protected void writeData(FileWriter fileWriter, List<Project> projects, int month, int year)
+			throws IOException, SQLException
+	{
+		Calendar cal = Calendar.getInstance();
+		cal.set(year, month, 1, 0, 0);
+		Date start = cal.getTime();
+
+		Calendar cal2 = Calendar.getInstance();
+		cal2.setTime(start);
+		cal2.add(Calendar.MONTH, 1);
+		cal2.add(Calendar.DATE, -1);
+		Date stop = cal2.getTime();
+
+		Map<String,List<Session>> projectMap = getDataForProjectsSinceDate(projects, start);
+
+		while(cal.getTime().before(stop))
+		{
+			fileWriter.write(cal.getTime().toString());
+
+			for(Project p : projects)
+			{
+				int minutes = getTimeInMinutesForDate(projectMap.get(p.getId()), cal.getTime());
+				fileWriter.write(minutes + ",");
+			}
+
+			fileWriter.write("\n");
+			cal.add(Calendar.DATE, 1);
+		}
+
+		fileWriter.flush();
+	}
+
+	protected Map<String,List<Session>> getDataForProjectsSinceDate(List<Project> projects, Date date)
+			throws IOException, SQLException
+	{
+		Map<String,List<Session>> projectMap = new HashMap<>();
+
+		for(Project p : projects)
+		{
+			List<Session> sessions = DataAccessObjectFactory.getInstance()
+															.createSessionsDAO(context)
+															.listAllForProjectSinceDate(p.getId(), date);
+			projectMap.put(p.getId(), sessions);
+		}
+
+		return projectMap;
+	}
+
+	protected int getTimeInMinutesForDate(List<Session> sessions, Date date)
+	{
+		int result = 0;
+
+		Calendar calStop = Calendar.getInstance();
+		calStop.setTime(date);
+		calStop.add(Calendar.DATE, 1);
+
+		for(int i = 0; i < sessions.size(); i++)
+		{
+			Session s = sessions.get(i);
+			if(s.getStartTime().after(date) && s.getStopTime().before(calStop.getTime()))
+			{
+				result += (s.getStopTime().getTime() - s.getStartTime().getTime())/(1000*60);
+			} else if(s.getStartTime().after(calStop.getTime()))
+			{
+				i = sessions.size(); //skip sessions after given date because they are ordered
+			}
+		}
+
+		return result;
 	}
 }
