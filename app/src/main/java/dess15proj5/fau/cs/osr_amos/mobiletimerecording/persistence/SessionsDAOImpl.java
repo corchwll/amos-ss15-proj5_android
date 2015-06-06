@@ -140,12 +140,12 @@ public class SessionsDAOImpl extends AbstractDAO implements SessionsDAO
 	/**
 	 * This method loads all sessions from the database that are belonging to the given projectId.
 	 *
-	 * @param projectId the id the sessions have to belong to
+	 * @param projectID the id the sessions have to belong to
 	 * @return a list containing all sessions for the given projectId
 	 * methodtype query method
 	 */
 	@Override
-	public List<Session> listAllForProject(String projectId)
+	public List<Session> listAllForProject(String projectID)
 	{
 		List<Session> sessions = new ArrayList<>();
 
@@ -154,7 +154,41 @@ public class SessionsDAOImpl extends AbstractDAO implements SessionsDAO
 				PersistenceHelper.PROJECTS_ID + " WHERE p." + PersistenceHelper.PROJECTS_ID + " = ? ORDER BY "
 				+ PersistenceHelper.SESSIONS_TIMESTAMP_START + " DESC;";
 
-		Cursor cursor = database.rawQuery(query, new String[]{projectId});
+		Cursor cursor = database.rawQuery(query, new String[]{projectID});
+
+		cursor.moveToFirst();
+		while(!cursor.isAfterLast())
+		{
+			Session session = cursorToSession(cursor);
+			sessions.add(session);
+			cursor.moveToNext();
+		}
+
+		cursor.close();
+		return sessions;
+	}
+
+	/**
+	 * This method loads all sessions from the database that are belonging to the given projectID and happened since the
+	 * given date.
+	 *
+	 * @param projectID the id the sessions have to belong to
+	 * @param date the date since which the sessions have to be recoreded
+	 * @return a list containing all sessions for the given projectID
+	 * methodtype query method
+	 */
+	@Override
+	public List<Session> listAllForProjectSinceDate(String projectID, Date date)
+	{
+		List<Session> sessions = new ArrayList<>();
+
+		String query = "SELECT * FROM " + PersistenceHelper.TABLE_SESSIONS + " s INNER JOIN " +
+				PersistenceHelper.TABLE_PROJECTS + " p ON s." + PersistenceHelper.SESSIONS_PROJECT_ID + " = p." +
+				PersistenceHelper.PROJECTS_ID + " WHERE p." + PersistenceHelper.PROJECTS_ID + " = ? AND " +
+				PersistenceHelper.SESSIONS_TIMESTAMP_START + " >= " + date.getTime() + " ORDER BY "
+				+ PersistenceHelper.SESSIONS_TIMESTAMP_START + " DESC;";
+
+		Cursor cursor = database.rawQuery(query, new String[]{projectID});
 
 		cursor.moveToFirst();
 		while(!cursor.isAfterLast())

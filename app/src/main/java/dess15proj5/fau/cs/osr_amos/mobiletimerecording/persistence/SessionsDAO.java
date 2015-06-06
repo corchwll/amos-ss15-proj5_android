@@ -72,13 +72,24 @@ public interface SessionsDAO extends DAO
 	void delete(long sessionId);
 
 	/**
-	 * This method loads all sessions from the database that are belonging to the given projectId.
+	 * This method loads all sessions from the database that are belonging to the given projectID.
 	 *
-	 * @param projectId the id the sessions have to belong to
-	 * @return a list containing all sessions for the given projectId
+	 * @param projectID the id the sessions have to belong to
+	 * @return a list containing all sessions for the given projectID
 	 * methodtype query method
 	 */
-	List<Session> listAllForProject(String projectId);
+	List<Session> listAllForProject(String projectID);
+
+	/**
+	 * This method loads all sessions from the database that are belonging to the given projectID and happened since the
+	 * given date.
+	 *
+	 * @param projectID the id the sessions have to belong to
+	 * @param date the date since which the sessions have to be recoreded
+	 * @return a list containing all sessions for the given projectID
+	 * methodtype query method
+	 */
+	List<Session> listAllForProjectSinceDate(String projectID, Date date);
 
 	/**
 	 * This method loads all sessions from the database.
