@@ -170,7 +170,7 @@ public class SessionsDAOImpl extends AbstractDAO implements SessionsDAO
 
 	/**
 	 * This method loads all sessions from the database that are belonging to the given projectID and happened since the
-	 * given date.
+	 * given date ordered by startTime.
 	 *
 	 * @param projectID the id the sessions have to belong to
 	 * @param date the date since which the sessions have to be recoreded
@@ -186,7 +186,7 @@ public class SessionsDAOImpl extends AbstractDAO implements SessionsDAO
 				PersistenceHelper.TABLE_PROJECTS + " p ON s." + PersistenceHelper.SESSIONS_PROJECT_ID + " = p." +
 				PersistenceHelper.PROJECTS_ID + " WHERE p." + PersistenceHelper.PROJECTS_ID + " = ? AND " +
 				PersistenceHelper.SESSIONS_TIMESTAMP_START + " >= " + date.getTime() + " ORDER BY "
-				+ PersistenceHelper.SESSIONS_TIMESTAMP_START + " DESC;";
+				+ PersistenceHelper.SESSIONS_TIMESTAMP_START + ";";
 
 		Cursor cursor = database.rawQuery(query, new String[]{projectID});
 

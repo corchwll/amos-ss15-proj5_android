@@ -82,7 +82,7 @@ public interface SessionsDAO extends DAO
 
 	/**
 	 * This method loads all sessions from the database that are belonging to the given projectID and happened since the
-	 * given date.
+	 * given date ordered by startTime.
 	 *
 	 * @param projectID the id the sessions have to belong to
 	 * @param date the date since which the sessions have to be recoreded
