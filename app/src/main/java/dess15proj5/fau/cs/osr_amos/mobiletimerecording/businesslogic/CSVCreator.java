@@ -34,15 +34,36 @@ public class CSVCreator
 	private User user;
 	private Context context;
 
+	/**
+	 * This constructor is only used for unit testing.
+	 *
+	 * methodtype constructor
+	 */
 	protected CSVCreator()
 	{}
 
+	/**
+	 * This is the constructor for the creation of CSVCreator objects.
+	 *
+	 * @param user the user for which the data was recorded
+	 * @param context the application context under which this object is created
+	 * methodtype constructor
+	 */
 	public CSVCreator(User user, Context context)
 	{
 		this.user = user;
 		this.context = context;
 	}
 
+	/**
+	 * This method can be used to create a csv file for a given month and year.
+	 *
+	 * @param month the month for which the csv file should be created
+	 * @param year the year for which the csv file should be created
+	 * @throws IOException in case of error during file writing
+	 * @throws SQLException in case of database error
+	 * methodtype helper method
+	 */
 	public void createCSV(int month, int year) throws IOException, SQLException
 	{
 		List<Project> projects = DataAccessObjectFactory.getInstance().createProjectsDAO(context).listAll();
@@ -96,6 +117,18 @@ public class CSVCreator
 		fileWriter.flush();
 	}
 
+	/**
+	 * This method is used to write the recorded data into the csv file. There will be one column for every projectID
+	 * and each line contains the minutes worked for each date.
+	 *
+	 * @param fileWriter the stream for the csv file
+	 * @param projects the projects for which data was recorded for this csv file
+	 * @param month the month for which the csv file should be created
+	 * @param year the year for which the csv file should be created
+	 * @throws IOException in case of error during writing
+	 * @throws SQLException in case of error during database queries
+	 * methodtype command method
+	 */
 	protected void writeData(FileWriter fileWriter, List<Project> projects, int month, int year)
 			throws IOException, SQLException
 	{
@@ -128,8 +161,17 @@ public class CSVCreator
 		fileWriter.flush();
 	}
 
+	/**
+	 * This method is used to get the data which was recorded for the requested projects since the given date.
+	 *
+	 * @param projects the projects for which the recorded sessions should be loaded
+	 * @param date the date since when the data has to be collected
+	 * @return a map containing the projectID and the sessions belonging to this ID
+	 * @throws SQLException in case of error during database query
+	 * methodtype get method
+	 */
 	protected Map<String,List<Session>> getDataForProjectsSinceDate(List<Project> projects, Date date)
-			throws IOException, SQLException
+			throws SQLException
 	{
 		Map<String,List<Session>> projectMap = new HashMap<>();
 
@@ -144,6 +186,14 @@ public class CSVCreator
 		return projectMap;
 	}
 
+	/**
+	 * This method is used to sum up the minutes of all sessions recorded on the given date.
+	 *
+	 * @param sessions the sessions which should be checked if any time was recorded for the given date
+	 * @param date the date for which the minutes should be summed up
+	 * @return the minutes worked on this date
+	 * methodtype helper method
+	 */
 	protected int getTimeInMinutesForDate(List<Session> sessions, Date date)
 	{
 		int result = 0;
