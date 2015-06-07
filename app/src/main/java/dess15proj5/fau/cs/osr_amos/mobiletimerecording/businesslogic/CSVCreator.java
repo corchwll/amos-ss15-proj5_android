@@ -30,6 +30,21 @@ import java.util.*;
 
 public class CSVCreator
 {
+	public static final String filePrefix = "recordings_";
+
+	/**
+	 * This method generates the file name for a given year and month.
+	 *
+	 * @param month the month for which the csv file should exist
+	 * @param year the year for which the csv file should exist
+	 * @return the file name based on the given year and month
+	 * methodtype conversion method
+	 */
+	public static String getFileNameFor(int month, int year)
+	{
+		return filePrefix + year + "_" + month;
+	}
+
 	private User user;
 	private Context context;
 
@@ -68,7 +83,7 @@ public class CSVCreator
 		List<Project> projects = DataAccessObjectFactory.getInstance().createProjectsDAO(context).listAll();
 
 		FileOutputStream outputStream =
-				context.openFileOutput("recordings_" + year + "_" + month, Context.MODE_PRIVATE);
+				context.openFileOutput(getFileNameFor(month, year), Context.MODE_PRIVATE);
 		DataOutputStream out = new DataOutputStream(outputStream);
 
 		writeFileHeader(out, month, year);
@@ -148,7 +163,8 @@ public class CSVCreator
 
 		while(cal.getTime().before(stop))
 		{
-			out.writeChars(cal.getTime().toString());
+			out.writeChars(cal.getTime()
+							  .toString());
 
 			for(Project p : projects)
 			{
