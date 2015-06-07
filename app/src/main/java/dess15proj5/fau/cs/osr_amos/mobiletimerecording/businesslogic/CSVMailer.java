@@ -29,6 +29,7 @@ public class CSVMailer
 	private Uri attachment;
 
 	private Context context;
+	private Intent intent;
 
 	public CSVMailer(String[] recipients, String subject, Uri attachment, Context context)
 	{
@@ -36,11 +37,11 @@ public class CSVMailer
 		this.subject = subject;
 		this.attachment = attachment;
 		this.context = context;
+		this.intent = new Intent(Intent.ACTION_SEND);
 	}
 
 	public void send()
 	{
-		Intent intent = new Intent(Intent.ACTION_SEND);
 		intent.setType("*/*");
 		intent.putExtra(Intent.EXTRA_EMAIL, recipients);
 		intent.putExtra(Intent.EXTRA_SUBJECT, subject);
@@ -50,5 +51,10 @@ public class CSVMailer
 		{
 			context.startActivity(intent);
 		}
+	}
+
+	protected void setIntent(Intent intent)
+	{
+		this.intent = intent;
 	}
 }
