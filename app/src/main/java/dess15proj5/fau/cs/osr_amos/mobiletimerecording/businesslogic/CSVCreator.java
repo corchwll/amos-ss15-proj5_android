@@ -24,8 +24,7 @@ import dess15proj5.fau.cs.osr_amos.mobiletimerecording.models.Session;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.models.User;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.persistence.DataAccessObjectFactory;
 
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.sql.SQLException;
 import java.util.*;
 
@@ -68,60 +67,63 @@ public class CSVCreator
 	{
 		List<Project> projects = DataAccessObjectFactory.getInstance().createProjectsDAO(context).listAll();
 
-		FileWriter fileWriter = new FileWriter("recordings_" + year + "_" + month);
-		writeFileHeader(fileWriter, month, year);
-		writeDataHeader(fileWriter, projects);
-		writeData(fileWriter, projects, month, year);
+		FileOutputStream outputStream =
+				context.openFileOutput("recordings_" + year + "_" + month, Context.MODE_PRIVATE);
+		DataOutputStream out = new DataOutputStream(outputStream);
+
+		writeFileHeader(out, month, year);
+		writeDataHeader(out, projects);
+		writeData(out, projects, month, year);
 	}
 
 	/**
 	 * This method writes the file header into the given FileWriter object for the given month and year. Month starts
 	 * counting at zero like java.util.Calendar does it.
 	 *
-	 * @param fileWriter the stream for the csv file
+	 * @param out the stream for the csv file
 	 * @param month the month for which the data is printed as csv file
 	 * @param year the year for which the data is printed as csv file
 	 * @throws IOException in case of error during writing
 	 * methodtype command method
 	 */
-	protected void writeFileHeader(FileWriter fileWriter, int month, int year) throws IOException
+	protected void writeFileHeader(DataOutputStream out, int month, int year) throws IOException
 	{
-		fileWriter.write(user.getFirstName());
-		fileWriter.write(",");
-		fileWriter.write(user.getLastName());
-		fileWriter.write(",");
-		fileWriter.write(month + 1);
-		fileWriter.write(",");
-		fileWriter.write(year);
-		fileWriter.write("\n");
-		fileWriter.flush();
+		out.writeChars(user.getFirstName());
+		out.writeChars(",");
+		out.writeChars(user.getLastName());
+		out.writeChars(",");
+		out.writeInt(month + 1);
+		out.writeChars(",");
+		out.writeInt(year);
+		out.writeChars("\n");
+		out.flush();
 	}
 
 	/**
 	 * This method writes the data header into the given FileWriter object using the given projects in the list.
 	 *
-	 * @param fileWriter the stream for the csv file
+	 * @param out the stream for the csv file
 	 * @param projects the projects for which data was recorded for this csv file
 	 * @throws IOException in case of error during writing
 	 * methodtype command method
 	 */
-	protected void writeDataHeader(FileWriter fileWriter, List<Project> projects) throws IOException
+	protected void writeDataHeader(DataOutputStream out, List<Project> projects) throws IOException
 	{
-		fileWriter.write("Date,");
+		out.writeChars("Date,");
 		for(Project p : projects)
 		{
-			fileWriter.write(p.getId());
-			fileWriter.write(",");
+			out.writeChars(p.getId());
+			out.writeChars(",");
 		}
-		fileWriter.write("\n");
-		fileWriter.flush();
+		out.writeChars("\n");
+		out.flush();
 	}
 
 	/**
 	 * This method is used to write the recorded data into the csv file. There will be one column for every projectID
 	 * and each line contains the minutes worked for each date.
 	 *
-	 * @param fileWriter the stream for the csv file
+	 * @param out the stream for the csv file
 	 * @param projects the projects for which data was recorded for this csv file
 	 * @param month the month for which the csv file should be created
 	 * @param year the year for which the csv file should be created
@@ -129,7 +131,7 @@ public class CSVCreator
 	 * @throws SQLException in case of error during database queries
 	 * methodtype command method
 	 */
-	protected void writeData(FileWriter fileWriter, List<Project> projects, int month, int year)
+	protected void writeData(DataOutputStream out, List<Project> projects, int month, int year)
 			throws IOException, SQLException
 	{
 		Calendar cal = Calendar.getInstance();
@@ -146,19 +148,19 @@ public class CSVCreator
 
 		while(cal.getTime().before(stop))
 		{
-			fileWriter.write(cal.getTime().toString());
+			out.writeChars(cal.getTime().toString());
 
 			for(Project p : projects)
 			{
 				int minutes = getTimeInMinutesForDate(projectMap.get(p.getId()), cal.getTime());
-				fileWriter.write(minutes + ",");
+				out.writeChars(minutes + ",");
 			}
 
-			fileWriter.write("\n");
+			out.writeChars("\n");
 			cal.add(Calendar.DATE, 1);
 		}
 
-		fileWriter.flush();
+		out.flush();
 	}
 
 	/**
