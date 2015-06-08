@@ -111,6 +111,7 @@ public class SettingsActivity extends AppCompatActivity implements AbstractUserP
 	 * This method is called from a callback when the user presses a Settings Button
 	 *
 	 * methodtype command method
+	 * @param fragment Contains the next fragment to be shown
 	 */
 	@Override
 	public void onSettingsButtonPressed(Fragment fragment)
