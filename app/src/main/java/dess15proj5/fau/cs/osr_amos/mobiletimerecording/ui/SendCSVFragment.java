@@ -86,7 +86,7 @@ public class SendCSVFragment extends Fragment
 				{
 					Toast.makeText(getActivity(), "Database error!", Toast.LENGTH_SHORT).show();
 				}
-				Uri uri = Uri.fromFile(new File(getActivity().getFilesDir() + "/" + CSVCreator.getFileNameFor(5,
+				Uri uri = Uri.fromFile(new File(getActivity().getExternalFilesDir(null), CSVCreator.getFileNameFor(5,
 						2015)));
 				CSVMailer csvMailer = new CSVMailer(new String[]{"amosteam5@gmail.com"},"CSV", uri,
 						getActivity());
