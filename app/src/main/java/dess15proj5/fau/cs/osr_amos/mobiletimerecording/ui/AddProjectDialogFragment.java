@@ -285,7 +285,7 @@ public class AddProjectDialogFragment extends DialogFragment
 	private void setDatePickerEditText(int year, int month, int day)
 	{
 		datePickerEditText.setText(
-				StringFormatterForPicker.formatInt(day) + "." + StringFormatterForPicker.formatInt(month + 1) + "." +
+				StringFormatterForPicker.formatMonth(day) + "." + StringFormatterForPicker.formatMonth(month + 1) + "." +
 						year);
 	}
 

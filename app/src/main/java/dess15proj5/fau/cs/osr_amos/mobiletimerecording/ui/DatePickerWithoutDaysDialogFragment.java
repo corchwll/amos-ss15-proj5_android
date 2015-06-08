@@ -56,7 +56,7 @@ public class DatePickerWithoutDaysDialogFragment extends DialogFragment
 	public Dialog onCreateDialog(Bundle savedInstanceState)
 	{
 		loadUserFromDB();
-		
+
 		LayoutInflater inflater = getActivity().getLayoutInflater();
 		View dialogLayout = inflater.inflate(R.layout.date_picker_without_days, null);
 		final DatePicker datePicker = (DatePicker) dialogLayout.findViewById(R.id.datePickerWithoutDays);
@@ -107,7 +107,7 @@ public class DatePickerWithoutDaysDialogFragment extends DialogFragment
 					   Uri uri = Uri.fromFile(new File(getActivity().getExternalFilesDir(null),
 							   CSVCreator.getFileNameFor(month, year)));
 					   CSVMailer csvMailer = new CSVMailer(recipients, "CSV for " + StringFormatterForPicker
-							   .formatInt(month) + "." + year, uri, getActivity ());
+							   .formatMonth(month) + "." + year, uri, getActivity ());
 					   csvMailer.send();
 				   }
 			   })

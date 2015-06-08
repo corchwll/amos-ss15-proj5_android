@@ -23,16 +23,16 @@ public class StringFormatterForPicker
 	/**
 	 * This method is used to convert an integer to a string in a given formatting.
 	 *
-	 * @param i the integer that should be converted
+	 * @param month the integer that should be converted
 	 * @return the string representation of the given integer
 	 * methodtype conversion method
 	 */
-	public static String formatInt(int i)
+	public static String formatMonth(int month)
 	{
-		String returnString = Integer.toString(i);
-		if (i < 10)
+		String returnString = Integer.toString(month);
+		if (month < 10)
 		{
-			returnString = "0" + i;
+			returnString = "0" + month;
 		}
 		return returnString;
 	}

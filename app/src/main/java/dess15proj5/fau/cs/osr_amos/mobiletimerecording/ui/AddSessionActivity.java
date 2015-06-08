@@ -245,7 +245,7 @@ public class AddSessionActivity extends AppCompatActivity
 	private void setDatePickerEditText(int year, int month, int day)
 	{
 		datePickerEditText.setText(
-				StringFormatterForPicker.formatInt(day) + "." + StringFormatterForPicker.formatInt(month + 1) + "." +
+				StringFormatterForPicker.formatMonth(day) + "." + StringFormatterForPicker.formatMonth(month + 1) + "." +
 						year);
 	}
 
@@ -259,7 +259,7 @@ public class AddSessionActivity extends AppCompatActivity
 	private void setStartTimePickerEditText(int hour, int minute)
 	{
 		startTimePickerEditText.setText(
-				StringFormatterForPicker.formatInt(hour) + ":" + StringFormatterForPicker.formatInt(minute));
+				StringFormatterForPicker.formatMonth(hour) + ":" + StringFormatterForPicker.formatMonth(minute));
 	}
 
 	/**
@@ -272,7 +272,7 @@ public class AddSessionActivity extends AppCompatActivity
 	private void setStopTimePickerEditText(int hour, int minute)
 	{
 		stopTimePickerEditText.setText(
-				StringFormatterForPicker.formatInt(hour) + ":" + StringFormatterForPicker.formatInt(minute));
+				StringFormatterForPicker.formatMonth(hour) + ":" + StringFormatterForPicker.formatMonth(minute));
 	}
 
 	/**
