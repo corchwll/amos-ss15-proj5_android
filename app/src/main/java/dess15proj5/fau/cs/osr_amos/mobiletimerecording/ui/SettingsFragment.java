@@ -81,17 +81,6 @@ public class SettingsFragment extends PreferenceFragment
 				return false;
 			}
 		});
-
-		PreferenceScreen sendCSVScreen = (PreferenceScreen) findPreference("sendCSV");
-		sendCSVScreen.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()
-		{
-			@Override
-			public boolean onPreferenceClick(Preference preference)
-			{
-				listener.onSettingsButtonPressed(new SendCSVFragment());
-				return false;
-			}
-		});
 	}
 
 }

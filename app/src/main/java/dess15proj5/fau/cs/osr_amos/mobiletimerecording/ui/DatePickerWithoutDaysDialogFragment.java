@@ -18,14 +18,16 @@
 
 package dess15proj5.fau.cs.osr_amos.mobiletimerecording.ui;
 
-import android.app.Fragment;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
+import android.content.DialogInterface;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.Toast;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.R;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.businesslogic.CSVCreator;
@@ -38,61 +40,62 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 
-public class SendCSVFragment extends Fragment
+public class DatePickerWithoutDaysDialogFragment extends DialogFragment
 {
 	private User user;
 
 	/**
-	 * This method is called in the android lifecycle when the view of the fragment is created.
-	 *
-	 * @param inflater this param contains the layout inflater which is used to generate the gui
-	 * @param container the container is used by the layout inflater
-	 * @param savedInstanceState this param contains several key value pairs in order to save the instance state
-	 * methodtype initialization method
-	 */
-	@Nullable
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-	{
-		return inflater.inflate(R.layout.send_csv, container, false);
-	}
-
-
-	/**
-	 * This method is called in the android lifecycle when the activity is created.
+	 * This method is called in the android lifecycle when the fragment is created.
 	 *
 	 * @param savedInstanceState this param contains several key value pairs in order to save the instance state
 	 * methodtype initialization method
 	 */
 	@Override
-	public void onActivityCreated(Bundle savedInstanceState)
+	public Dialog onCreateDialog(Bundle savedInstanceState)
 	{
-		super.onActivityCreated(savedInstanceState);
 		loadUserFromDB();
-		Button sendCSVBtn = (Button) getActivity().findViewById(R.id.sendCSVBtn);
-		sendCSVBtn.setOnClickListener(new View.OnClickListener()
-		{
-			@Override
-			public void onClick(View view)
-			{
-				CSVCreator csvCreator = new CSVCreator(user, getActivity());
-				try
-				{
-					csvCreator.createCSV(5, 2015);
-				} catch(IOException e)
-				{
-					Toast.makeText(getActivity(), "Could not write file to internal storage!", Toast.LENGTH_SHORT).show();
-				} catch(SQLException e)
-				{
-					Toast.makeText(getActivity(), "Database error!", Toast.LENGTH_SHORT).show();
-				}
-				Uri uri = Uri.fromFile(new File(getActivity().getExternalFilesDir(null), CSVCreator.getFileNameFor(5,
-						2015)));
-				CSVMailer csvMailer = new CSVMailer(new String[]{"amosteam5@gmail.com"},"CSV", uri,
-						getActivity());
-				csvMailer.send();
-			}
-		});
+		LayoutInflater inflater = getActivity().getLayoutInflater();
+		View dialogLayout = inflater.inflate(R.layout.date_picker_without_days, null);
+		final DatePicker datePicker = (DatePicker) dialogLayout.findViewById(R.id.datePickerWithoutDays);
+		datePicker.findViewById(Resources.getSystem()
+										 .getIdentifier("day", "id", "android"))
+				  .setVisibility(View.GONE);
+
+		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+		builder.setMessage(getResources().getString(R.string.datePickerDialogFragmentMessage))
+			   .setView(dialogLayout)
+			   .setPositiveButton(getResources().getString(R.string.sendCSV), new DialogInterface.OnClickListener()
+			   {
+				   @Override
+				   public void onClick(DialogInterface dialogInterface, int i)
+				   {
+					   CSVCreator csvCreator = new CSVCreator(user, getActivity());
+					   try
+					   {
+						   csvCreator.createCSV(datePicker.getMonth(), datePicker.getYear());
+					   } catch(IOException e)
+					   {
+						   Toast.makeText(getActivity(), "Could not write file to internal storage!", Toast.LENGTH_SHORT).show();
+					   } catch(SQLException e)
+					   {
+						   Toast.makeText(getActivity(), "Database error!", Toast.LENGTH_SHORT).show();
+					   }
+					   Uri uri = Uri.fromFile(new File(getActivity().getExternalFilesDir(null), CSVCreator
+							   .getFileNameFor(datePicker.getMonth(), datePicker.getYear())));
+					   CSVMailer csvMailer = new CSVMailer(new String[]{"amosteam5@gmail.com"},"CSV", uri,
+							   getActivity());
+					   csvMailer.send();
+				   }
+			   })
+			   .setNegativeButton("Cancel", new DialogInterface.OnClickListener()
+			   {
+				   @Override
+				   public void onClick(DialogInterface dialogInterface, int i)
+				   {
+					   dismiss();
+				   }
+			   });
+		return builder.create();
 	}
 
 	/**

@@ -17,14 +17,12 @@
   ~     along with this program.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+<DatePicker xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:calendarViewShown="false"
+            android:datePickerMode="spinner"
+            android:id="@+id/datePickerWithoutDays">
 
-  <Button
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="@string/sendCSV"
-          android:id="@+id/sendCSVBtn"/>
-</LinearLayout>
+  </DatePicker>
+

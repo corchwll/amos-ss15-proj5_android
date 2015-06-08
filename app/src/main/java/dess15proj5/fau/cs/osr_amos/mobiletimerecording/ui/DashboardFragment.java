@@ -21,9 +21,7 @@ package dess15proj5.fau.cs.osr_amos.mobiletimerecording.ui;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
 import android.widget.TextView;
 import android.widget.Toast;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.R;
@@ -47,6 +45,19 @@ public class DashboardFragment extends Fragment
 	 * @param savedInstanceState this param contains several key value pairs in order to save the instance state
 	 * methodtype initialization method
 	 */
+	@Override
+	public void onCreate(Bundle savedInstanceState)
+	{
+		super.onCreate(savedInstanceState);
+		setHasOptionsMenu(true);
+	}
+
+	/**
+	 * This method is called in the android lifecycle when the fragment is created.
+	 *
+	 * @param savedInstanceState this param contains several key value pairs in order to save the instance state
+	 * methodtype initialization method
+	 */
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -55,10 +66,52 @@ public class DashboardFragment extends Fragment
 	}
 
 	/**
+	 * This method is called in the android lifecycle when a menu is created.
+	 *
+	 * @param menu the menu item which has to be created
+	 * @param inflater contains the information for the layout of the menu
+	 * methodtype initialization method
+	 */
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
+	{
+		super.onCreateOptionsMenu(menu, inflater);
+		getActivity().getMenuInflater().inflate(R.menu.menu_dashboard, menu);
+	}
+
+	/**
+	 * This method is called in the android lifecycle when a menu item is clicked on.
+	 *
+	 * @param item the item which was targeted
+	 * @return true if there was an item clicked
+	 * methodtype boolean query method
+	 */
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		switch(item.getItemId())
+		{
+			case(R.id.action_send_csv):
+				showDatePickerDialogFragment();
+				return true;
+			default:
+				return super.onOptionsItemSelected(item);
+		}
+	}
+
+	private void showDatePickerDialogFragment()
+	{
+		DatePickerWithoutDaysDialogFragment datePickerDialogFragment = new DatePickerWithoutDaysDialogFragment();
+		datePickerDialogFragment.show(getFragmentManager(), "dialog");
+	}
+
+	/**
 	 * This method is called in the android lifecycle when the fragment is started.
 	 *
 	 * methodtype initialization method
 	 */
+
+
 	@Override
 	public void onStart()
 	{
