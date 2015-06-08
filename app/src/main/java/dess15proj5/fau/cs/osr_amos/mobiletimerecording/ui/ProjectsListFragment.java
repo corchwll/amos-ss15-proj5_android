@@ -20,10 +20,12 @@ package dess15proj5.fau.cs.osr_amos.mobiletimerecording.ui;
 
 import android.app.Activity;
 import android.app.ListFragment;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.SearchView;
 import android.view.*;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -248,7 +250,19 @@ public class ProjectsListFragment extends ListFragment implements AddProjectDial
 			@Override
 			public boolean onQueryTextSubmit(String query)
 			{
+				hideSoftwareKeyboard();
 				return false;
+			}
+
+			/**
+			 * Hides the software keyboard after the user clicked the search button
+			 *
+			 * methodtype command method
+			 */
+			private void hideSoftwareKeyboard()
+			{
+				InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+				imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
 			}
 
 			@Override
