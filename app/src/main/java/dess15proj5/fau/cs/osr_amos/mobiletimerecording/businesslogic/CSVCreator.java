@@ -42,7 +42,7 @@ public class CSVCreator
 	 */
 	public static String getFileNameFor(int month, int year)
 	{
-		return filePrefix + year + "_" + month;
+		return filePrefix + year + "_" + month + ".csv";
 	}
 
 	private User user;
@@ -82,8 +82,8 @@ public class CSVCreator
 	{
 		List<Project> projects = DataAccessObjectFactory.getInstance().createProjectsDAO(context).listAll();
 
-		FileOutputStream outputStream =
-				context.openFileOutput(getFileNameFor(month, year), Context.MODE_PRIVATE);
+		File file = new File(context.getExternalFilesDir(null), getFileNameFor(month, year));
+		FileOutputStream outputStream = new FileOutputStream(file);
 		DataOutputStream out = new DataOutputStream(outputStream);
 
 		writeFileHeader(out, month, year);
@@ -131,7 +131,8 @@ public class CSVCreator
 			{
 				out.writeBytes(",");
 			}
-			out.writeBytes(projects.get(i).getId());
+			out.writeBytes(projects.get(i)
+								   .getId());
 		}
 		out.writeBytes("\n");
 		out.flush();
@@ -159,7 +160,7 @@ public class CSVCreator
 		Calendar cal2 = Calendar.getInstance();
 		cal2.setTime(start);
 		cal2.add(Calendar.MONTH, 1);
-		cal2.add(Calendar.DATE, -1);
+		cal2.add(Calendar.MINUTE, -1);
 		Date stop = cal2.getTime();
 
 		Map<String,List<Session>> projectMap = getDataForProjectsSinceDate(projects, start);
@@ -167,12 +168,16 @@ public class CSVCreator
 		while(cal.getTime().before(stop))
 		{
 			out.writeChars(cal.getTime()
-							  .toString());
+							  .toString() + ",");
 
-			for(Project p : projects)
+			for(int i = 0; i < projects.size(); i++)
 			{
-				int minutes = getTimeInMinutesForDate(projectMap.get(p.getId()), cal.getTime());
-				out.writeChars(minutes + ",");
+				if(i > 0)
+				{
+					out.writeChars(",");
+				}
+				int minutes = getTimeInMinutesForDate(projectMap.get(projects.get(i).getId()), cal.getTime());
+				out.writeChars(minutes + "");
 			}
 
 			out.writeChars("\n");
