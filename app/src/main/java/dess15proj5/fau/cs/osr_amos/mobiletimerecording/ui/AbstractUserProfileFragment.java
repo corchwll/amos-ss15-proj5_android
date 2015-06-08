@@ -20,11 +20,13 @@ package dess15proj5.fau.cs.osr_amos.mobiletimerecording.ui;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.R;
@@ -149,6 +151,7 @@ public abstract class AbstractUserProfileFragment extends Fragment
 				if(allInputFieldsAreFilledOut() && UserInputIsValidated())
 				{
 					writeIntoDatabase();
+					hideSoftwareKeyboard();
 					listener.onUserProfileSaved();
 				}
 				return true;
@@ -170,6 +173,17 @@ public abstract class AbstractUserProfileFragment extends Fragment
 		int currentOvertimeAsInt = Integer.parseInt(currentOvertime);
 		runDBTransaction(employeeId, lastName, firstName, weeklyWorkingTimeAsInt, totalVacationTimeAsInt,
 				currentVacationTimeAsInt, currentOvertimeAsInt);
+	}
+
+	/**
+	 * Hides the software keyboard after the user clicked the search button
+	 *
+	 * methodtype command method
+	 */
+	private void hideSoftwareKeyboard()
+	{
+		InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+		imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
 	}
 
 	/**
