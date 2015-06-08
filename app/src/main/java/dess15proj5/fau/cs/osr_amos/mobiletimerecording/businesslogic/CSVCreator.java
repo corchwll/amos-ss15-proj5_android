@@ -107,9 +107,9 @@ public class CSVCreator
 		out.writeChars(",");
 		out.writeChars(user.getLastName());
 		out.writeChars(",");
-		out.writeInt(month + 1);
+		out.writeChars(month + 1 + "");
 		out.writeChars(",");
-		out.writeInt(year);
+		out.writeChars(year + "");
 		out.writeChars("\n");
 		out.flush();
 	}
