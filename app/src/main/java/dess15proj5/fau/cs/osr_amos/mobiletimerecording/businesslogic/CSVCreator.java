@@ -124,13 +124,16 @@ public class CSVCreator
 	 */
 	protected void writeDataHeader(DataOutputStream out, List<Project> projects) throws IOException
 	{
-		out.writeChars("Date,");
-		for(Project p : projects)
+		out.writeBytes("Date,");
+		for(int i = 0; i < projects.size(); i++)
 		{
-			out.writeChars(p.getId());
-			out.writeChars(",");
+			if(i > 0)
+			{
+				out.writeBytes(",");
+			}
+			out.writeBytes(projects.get(i).getId());
 		}
-		out.writeChars("\n");
+		out.writeBytes("\n");
 		out.flush();
 	}
 

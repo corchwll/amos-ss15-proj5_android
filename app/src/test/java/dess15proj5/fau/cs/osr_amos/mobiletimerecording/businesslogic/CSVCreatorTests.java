@@ -18,9 +18,14 @@
 
 package dess15proj5.fau.cs.osr_amos.mobiletimerecording.businesslogic;
 
+import dess15proj5.fau.cs.osr_amos.mobiletimerecording.models.Project;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.models.Session;
 import org.junit.Test;
 
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -53,5 +58,44 @@ public class CSVCreatorTests
 		int minutes = creator.getTimeInMinutesForDate(sessions, requestedDate);
 
 		assertTrue("There should be 480 minutes returned, but were " + minutes + " minutes!", minutes == 480);
+	}
+
+	@Test
+	public void testWriteDataHeader_5Projects_6Columns() throws UnsupportedEncodingException
+	{
+		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+		DataOutputStream out = new DataOutputStream(byteArrayOutputStream);
+
+		List<Project> projects = new ArrayList<>();
+		Project p1 = new Project();
+		p1.setId("p1234");
+		Project p2 = new Project();
+		p2.setId("p2345");
+		Project p3 = new Project();
+		p3.setId("p3456");
+		Project p4 = new Project();
+		p4.setId("p4567");
+		Project p5 = new Project();
+		p5.setId("p5678");
+		projects.add(p1);
+		projects.add(p2);
+		projects.add(p3);
+		projects.add(p4);
+		projects.add(p5);
+
+		CSVCreator creator = new CSVCreator();
+
+		try
+		{
+			creator.writeDataHeader(out, projects);
+		} catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+
+		String compare = new String("Date,p1234,p2345,p3456,p4567,p5678\n");
+		String result = byteArrayOutputStream.toString();
+
+		assertTrue("result should be '" + compare + "', but was '" + result + "'", compare.equals(result));
 	}
 }
