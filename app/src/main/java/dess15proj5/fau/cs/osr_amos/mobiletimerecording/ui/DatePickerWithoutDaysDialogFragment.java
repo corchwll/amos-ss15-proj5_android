@@ -35,6 +35,7 @@ import dess15proj5.fau.cs.osr_amos.mobiletimerecording.businesslogic.CSVMailer;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.models.User;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.persistence.DataAccessObjectFactory;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.persistence.UsersDAO;
+import dess15proj5.fau.cs.osr_amos.mobiletimerecording.utility.StringFormatterForPicker;
 
 import java.io.File;
 import java.io.IOException;
@@ -43,6 +44,7 @@ import java.sql.SQLException;
 public class DatePickerWithoutDaysDialogFragment extends DialogFragment
 {
 	private User user;
+	private static final String[] recipients = new String[]{"amosteam5@gmail.com"};
 
 	/**
 	 * This method is called in the android lifecycle when the fragment is created.
@@ -54,12 +56,11 @@ public class DatePickerWithoutDaysDialogFragment extends DialogFragment
 	public Dialog onCreateDialog(Bundle savedInstanceState)
 	{
 		loadUserFromDB();
+		
 		LayoutInflater inflater = getActivity().getLayoutInflater();
 		View dialogLayout = inflater.inflate(R.layout.date_picker_without_days, null);
 		final DatePicker datePicker = (DatePicker) dialogLayout.findViewById(R.id.datePickerWithoutDays);
-		datePicker.findViewById(Resources.getSystem()
-										 .getIdentifier("day", "id", "android"))
-				  .setVisibility(View.GONE);
+		datePicker.findViewById(Resources.getSystem().getIdentifier("day", "id", "android")).setVisibility(View.GONE);
 
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 		builder.setMessage(getResources().getString(R.string.datePickerDialogFragmentMessage))
@@ -68,6 +69,17 @@ public class DatePickerWithoutDaysDialogFragment extends DialogFragment
 			   {
 				   @Override
 				   public void onClick(DialogInterface dialogInterface, int i)
+				   {
+					   createCSV();
+					   sendCSV();
+				   }
+
+				   /**
+					* Creates a CSV file with the selected month and year of the datePicker
+					*
+					* methodtype command method
+					*/
+				   private void createCSV()
 				   {
 					   CSVCreator csvCreator = new CSVCreator(user, getActivity());
 					   try
@@ -80,10 +92,22 @@ public class DatePickerWithoutDaysDialogFragment extends DialogFragment
 					   {
 						   Toast.makeText(getActivity(), "Database error!", Toast.LENGTH_SHORT).show();
 					   }
-					   Uri uri = Uri.fromFile(new File(getActivity().getExternalFilesDir(null), CSVCreator
-							   .getFileNameFor(datePicker.getMonth(), datePicker.getYear())));
-					   CSVMailer csvMailer = new CSVMailer(new String[]{"amosteam5@gmail.com"},"CSV", uri,
-							   getActivity());
+				   }
+
+				   /**
+					* send the created CSV file to the recipients.
+					*
+					* methodtype command method
+					*/
+				   private void sendCSV()
+				   {
+					   int month = datePicker.getMonth();
+					   int year = datePicker.getYear();
+
+					   Uri uri = Uri.fromFile(new File(getActivity().getExternalFilesDir(null),
+							   CSVCreator.getFileNameFor(month, year)));
+					   CSVMailer csvMailer = new CSVMailer(recipients, "CSV for " + StringFormatterForPicker
+							   .formatInt(month) + "." + year, uri, getActivity ());
 					   csvMailer.send();
 				   }
 			   })

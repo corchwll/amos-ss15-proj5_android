@@ -99,6 +99,11 @@ public class DashboardFragment extends Fragment
 		}
 	}
 
+	/**
+	 * creates DialogFragment which shows a DatePicker
+	 *
+	 * methodtype command method
+	 */
 	private void showDatePickerDialogFragment()
 	{
 		DatePickerWithoutDaysDialogFragment datePickerDialogFragment = new DatePickerWithoutDaysDialogFragment();
@@ -110,8 +115,6 @@ public class DashboardFragment extends Fragment
 	 *
 	 * methodtype initialization method
 	 */
-
-
 	@Override
 	public void onStart()
 	{
