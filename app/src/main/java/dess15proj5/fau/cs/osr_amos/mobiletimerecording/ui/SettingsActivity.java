@@ -78,7 +78,11 @@ public class SettingsActivity extends AppCompatActivity implements AbstractUserP
 		}
 	}
 
-	//TODO comment
+	/**
+	 *  Called when the activity has detected the user's press of the back key.
+	 *
+	 * methodtype command method
+	 */
 	@Override
 	public void onBackPressed()
 	{
