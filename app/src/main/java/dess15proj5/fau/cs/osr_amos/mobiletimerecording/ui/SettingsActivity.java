@@ -18,6 +18,7 @@
 
 package dess15proj5.fau.cs.osr_amos.mobiletimerecording.ui;
 
+import android.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
@@ -77,6 +78,7 @@ public class SettingsActivity extends AppCompatActivity implements AbstractUserP
 		}
 	}
 
+	//TODO comment
 	@Override
 	public void onBackPressed()
 	{
@@ -102,15 +104,15 @@ public class SettingsActivity extends AppCompatActivity implements AbstractUserP
 	}
 
 	/**
-	 * This method is called from a callback when the user presses the changeUserProfile Button
+	 * This method is called from a callback when the user presses a Settings Button
 	 *
 	 * methodtype command method
 	 */
 	@Override
-	public void onChangeUserProfilePressed()
+	public void onSettingsButtonPressed(Fragment fragment)
 	{
 		getFragmentManager().beginTransaction()
-							.replace(R.id.settingsFrameLayout, new EditUserProfileFragment())
+							.replace(R.id.settingsFrameLayout, fragment)
 							.addToBackStack(null)
 							.commit();
 	}

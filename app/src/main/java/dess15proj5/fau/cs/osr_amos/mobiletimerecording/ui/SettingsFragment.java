@@ -19,6 +19,7 @@
 package dess15proj5.fau.cs.osr_amos.mobiletimerecording.ui;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
@@ -34,7 +35,7 @@ public class SettingsFragment extends PreferenceFragment
 		 *
 		 * methodtype callback method
 		 */
-		void onChangeUserProfilePressed();
+		void onSettingsButtonPressed(Fragment fragment);
 	}
 
 	SettingsFragmentListener listener;
@@ -70,13 +71,24 @@ public class SettingsFragment extends PreferenceFragment
 		super.onCreate(savedInstanceState);
 		setHasOptionsMenu(true);
 		addPreferencesFromResource(R.xml.settings_fragment);
-		PreferenceScreen preferenceScreen = (PreferenceScreen) findPreference("changeUserProfile");
-		preferenceScreen.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()
+		PreferenceScreen changeUserProfileScreen = (PreferenceScreen) findPreference("changeUserProfile");
+		changeUserProfileScreen.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()
 		{
 			@Override
 			public boolean onPreferenceClick(Preference preference)
 			{
-				listener.onChangeUserProfilePressed();
+				listener.onSettingsButtonPressed(new EditUserProfileFragment());
+				return false;
+			}
+		});
+
+		PreferenceScreen sendCSVScreen = (PreferenceScreen) findPreference("sendCSV");
+		sendCSVScreen.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()
+		{
+			@Override
+			public boolean onPreferenceClick(Preference preference)
+			{
+				listener.onSettingsButtonPressed(new SendCSVFragment());
 				return false;
 			}
 		});

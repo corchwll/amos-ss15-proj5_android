@@ -99,4 +99,6 @@
     <!--dashboard_fragment.xml-->
     <string name="overtime_dashboard_textView">Overtime:</string>
     <string name="vacation_dashboard_textView">Left Vacation / Total Vacation:</string>
+
+    <string name="sendCSV">Send CSV</string>
 </resources>
