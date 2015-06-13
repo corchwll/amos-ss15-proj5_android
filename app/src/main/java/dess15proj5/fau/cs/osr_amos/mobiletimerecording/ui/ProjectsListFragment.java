@@ -26,9 +26,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.SearchView;
 import android.view.*;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.*;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.R;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.models.Project;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.persistence.DataAccessObjectFactory;
@@ -44,6 +42,7 @@ public class ProjectsListFragment extends ListFragment implements AddProjectDial
 	public static final String SEPARATOR_ID = "-1";
 
 	private ListView projectListView;
+	private ImageButton addProjectFAB;
 	private ProjectArrayAdapter adapter;
 	private static ProjectsListFragmentListener listener;
 	private SearchView searchView;
@@ -102,8 +101,11 @@ public class ProjectsListFragment extends ListFragment implements AddProjectDial
 	@Override
 	public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
-		projectListView = (ListView) inflater.inflate(R.layout.projects_list_fragment, container, false);
-		return projectListView;
+		RelativeLayout view = (RelativeLayout) inflater.inflate(R.layout.projects_list_fragment,
+				container, false);
+		projectListView = (ListView) view.findViewById(android.R.id.list);
+		addProjectFAB = (ImageButton) view.findViewById(R.id.addProjectFAB);
+		return view;
 	}
 
 	/**
@@ -120,6 +122,7 @@ public class ProjectsListFragment extends ListFragment implements AddProjectDial
 		setAdapterToProjectList();
 		setOnItemClickListenerToListView();
 		addProjectsToAdapter();
+		addOnClickListenerToFAB();
 	}
 
 	/**
@@ -223,6 +226,23 @@ public class ProjectsListFragment extends ListFragment implements AddProjectDial
 	}
 
 	/**
+	 * This method sets an onClickListener to the Floating Action Button to create a new project
+	 *
+	 * methodtype initialization method
+	 */
+	private void addOnClickListenerToFAB()
+	{
+		addProjectFAB.setOnClickListener(new View.OnClickListener()
+		{
+			@Override
+			public void onClick(View view)
+			{
+				addNewProject();
+			}
+		});
+	}
+
+	/**
 	 * This method is called in the android lifecycle when a menu is created.
 	 *
 	 * @param menu the menu item which has to be created
@@ -272,26 +292,6 @@ public class ProjectsListFragment extends ListFragment implements AddProjectDial
 				return true;
 			}
 		});
-	}
-
-	/**
-	 * This method is called in the android lifecycle when a menu item is clicked on.
-	 *
-	 * @param item the item which was targeted
-	 * @return true if there was an item clicked
-	 * methodtype boolean query method
-	 */
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item)
-	{
-		switch(item.getItemId())
-		{
-			case R.id.action_add_project:
-				addNewProject();
-				return true;
-			default:
-				return super.onOptionsItemSelected(item);
-		}
 	}
 
 	/**
