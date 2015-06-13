@@ -25,6 +25,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -68,6 +69,7 @@ public class AddSessionActivity extends AppCompatActivity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.add_session_to_project);
+		initToolbar();
 		if(getSupportActionBar() != null)
 		{
 			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -79,6 +81,17 @@ public class AddSessionActivity extends AppCompatActivity
 		initDatePicker();
 		initStartTimePicker();
 		initStopTimePicker();
+	}
+
+	/**
+	 * This method initializes the toolbar.
+	 *
+	 * methodtype initialization method
+	 */
+	private void initToolbar()
+	{
+		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+		setSupportActionBar(toolbar);
 	}
 
 	/**

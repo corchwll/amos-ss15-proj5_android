@@ -21,6 +21,7 @@ package dess15proj5.fau.cs.osr_amos.mobiletimerecording.ui;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.R;
 
@@ -38,12 +39,24 @@ public class SettingsActivity extends AppCompatActivity implements AbstractUserP
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.settings_activity);
+		initToolbar();
 		if(getSupportActionBar() != null)
 		{
 			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 			getSupportActionBar().setHomeButtonEnabled(true);
 		}
 		showSettingsFragment();
+	}
+
+	/**
+	 * This method initializes the toolbar.
+	 *
+	 * methodtype initialization method
+	 */
+	private void initToolbar()
+	{
+		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+		setSupportActionBar(toolbar);
 	}
 
 	/**

@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!--
   ~     Mobile Time Accounting
   ~     Copyright (C) 2015
@@ -17,10 +18,14 @@
   -->
 
 <resources>
+  <style name="toolbar_style">
+    <item name="android:textColorPrimary">@android:color/white</item>
+    <item name="android:textColorSecondary">@android:color/white</item>
+    <item name="actionMenuTextColor">@android:color/white</item>
+    <item name="android:background">@color/bluePrimaryColor</item>
+  </style>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">@color/bluePrimaryColor</item>
-    </style>
-
+  <style name="ActionBarPopupThemeOverlay" parent="ThemeOverlay.AppCompat.Light">
+    <item name="android:background">@android:color/white</item>
+  </style>
 </resources>

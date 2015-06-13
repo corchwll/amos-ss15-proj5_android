@@ -24,6 +24,7 @@ import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -48,8 +49,20 @@ public class MainActivity extends AppCompatActivity implements AbstractUserProfi
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main_activity);
+		initToolbar();
 		initNavigationDrawer();
 		showProjectsListFragment();
+	}
+
+	/**
+	 * This method initializes the toolbar.
+	 *
+	 * methodtype initialization method
+	 */
+	private void initToolbar()
+	{
+		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+		setSupportActionBar(toolbar);
 	}
 
 	/**
@@ -94,7 +107,8 @@ public class MainActivity extends AppCompatActivity implements AbstractUserProfi
 				}
 			}
 		});
-		actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.drawer_open, R.string.drawer_close);
+		actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.drawer_open,
+				R.string.drawer_close);
 		actionBarDrawerToggle.syncState();
 		drawerLayout.setDrawerListener(actionBarDrawerToggle);
 		if(getSupportActionBar() != null)

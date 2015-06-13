@@ -23,6 +23,7 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.widget.Toast;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.R;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.models.User;
@@ -47,6 +48,7 @@ public class RegistrationActivity extends AppCompatActivity implements AbstractU
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main_activity);
+		initToolbar();
 		try
 		{
 			userDAO = DataAccessObjectFactory.getInstance().createUsersDAO(this);
@@ -55,6 +57,17 @@ public class RegistrationActivity extends AppCompatActivity implements AbstractU
 		{
 			Toast.makeText(this, "Could not get UserDAO due to database errors!", Toast.LENGTH_SHORT).show();
 		}
+	}
+
+	/**
+	 * This method initializes the toolbar.
+	 *
+	 * methodtype initialization method
+	 */
+	private void initToolbar()
+	{
+		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+		setSupportActionBar(toolbar);
 	}
 
 	/**
