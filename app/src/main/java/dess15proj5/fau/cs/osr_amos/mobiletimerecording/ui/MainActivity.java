@@ -28,7 +28,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.R;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.models.Project;
@@ -36,6 +35,8 @@ import dess15proj5.fau.cs.osr_amos.mobiletimerecording.models.Project;
 public class MainActivity extends AppCompatActivity implements AbstractUserProfileFragment.UserProfileFragmentListener,
 		ProjectsListFragment.ProjectsListFragmentListener, DeleteSessionDialogFragment.DeleteSessionDialogFragmentListener
 {
+	private DrawerLayout drawerLayout;
+	private ListView leftDrawerListView;
 	private ActionBarDrawerToggle actionBarDrawerToggle;
 
 	/**
@@ -72,34 +73,35 @@ public class MainActivity extends AppCompatActivity implements AbstractUserProfi
 	 */
 	private void initNavigationDrawer()
 	{
-		String[] drawerListItems = getResources().getStringArray(R.array.drawer_list_items);
-		final DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.navigation_drawer);
-		final ListView leftDrawer = (ListView) findViewById(R.id.left_drawer);
-		leftDrawer.setAdapter(new ArrayAdapter<>(this, R.layout.drawer_list_item, drawerListItems));
-		leftDrawer.setOnItemClickListener(new AdapterView.OnItemClickListener()
+		drawerLayout = (DrawerLayout) findViewById(R.id.navigation_drawer);
+		leftDrawerListView = (ListView) findViewById(R.id.left_drawer);
+
+		setAdapterToProjectList();
+		initDrawerToggle();
+		leftDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener()
 		{
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id)
 			{
 				switch(position)
 				{
-					//					Time Recording
+					//Time Recording
 					case 0:
 						showSelectedFragment();
 						drawerLayout.closeDrawers();
 						break;
-					//					Projects
+					//Projects
 					case 1:
 						showProjectsListFragment();
 						drawerLayout.closeDrawers();
 						break;
-					//					Dashboard
+					//Dashboard
 					case 2:
 						DashboardFragment dashboardFragment = new DashboardFragment();
 						showFragment(dashboardFragment, getResources().getString(R.string.dashboard));
 						drawerLayout.closeDrawers();
 						break;
-					//					Settings
+					//Settings
 					case 3:
 						Intent intent = new Intent(getBaseContext(), SettingsActivity.class);
 						startActivity(intent);
@@ -107,6 +109,15 @@ public class MainActivity extends AppCompatActivity implements AbstractUserProfi
 				}
 			}
 		});
+	}
+
+	/**
+	 * This method creates a new ActionBarDrawerToggle and sets it to the drawerLayout.
+	 *
+	 * methodtype initialization method
+	 */
+	private void initDrawerToggle()
+	{
 		actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.drawer_open,
 				R.string.drawer_close);
 		actionBarDrawerToggle.syncState();
@@ -116,6 +127,19 @@ public class MainActivity extends AppCompatActivity implements AbstractUserProfi
 			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 			getSupportActionBar().setHomeButtonEnabled(true);
 		}
+	}
+
+	/**
+	 * This method creates a new DrawerArrayAdapter and sets it to the leftDrawer.
+	 *
+	 * methodtype initialization method
+	 */
+	private void setAdapterToProjectList()
+	{
+		DrawerArrayAdapter adapter = new DrawerArrayAdapter(this);
+		leftDrawerListView.setAdapter(adapter);
+		String[] drawerListItems = getResources().getStringArray(R.array.drawer_list_items);
+		adapter.addAll(drawerListItems);
 	}
 
 	/**
