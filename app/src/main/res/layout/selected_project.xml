@@ -17,75 +17,91 @@
   ~     along with this program.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content">
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content">
 
-    <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginLeft="4dp"
-            android:layout_marginStart="4dp">
+    <ImageButton style="@style/AppTheme"
+                 android:layout_width="70dp"
+                 android:layout_height="70dp"
+                 android:text="@string/add_new_session"
+                 android:id="@+id/addSessionFAB"
+                 android:src="@drawable/ic_add_white_24dp"
+                 android:background="@drawable/fab"
+                 android:layout_alignParentBottom="true"
+                 android:layout_alignParentRight="true"
+                 android:layout_alignParentEnd="true"/>
 
-        <TextView
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:orientation="vertical"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content">
+
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="4dp"
+                android:layout_marginStart="4dp">
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/name_of_selected_project"/>
+
+            <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/startStopBtn"
+                    android:text="@string/start_button"/>
+
+            <view
+                    class="dess15proj5.fau.cs.osr_amos.mobiletimerecording.utility.ProjectTimer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/timer"/>
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="4dp"
+                android:layout_marginStart="4dp">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sessionsDateTextView"
+                    android:layout_marginRight="63dp"
+                    android:layout_marginEnd="63dp"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sessionsStartTime"
+                    android:layout_marginRight="25dp"
+                    android:layout_marginEnd="25dp"/>
+
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sessionsStopTime"
+                    android:layout_marginRight="25dp"
+                    android:layout_marginEnd="25dp"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sessionDuration"/>
+        </LinearLayout>
+
+        <ListView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/name_of_selected_project"/>
-
-        <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/startStopBtn"
-                android:text="@string/start_button"/>
-
-        <view
-                class="dess15proj5.fau.cs.osr_amos.mobiletimerecording.utility.ProjectTimer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/timer"/>
+                android:id="@+id/sessionList">
+        </ListView>
     </LinearLayout>
-
-    <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginLeft="4dp"
-            android:layout_marginStart="4dp">
-
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/sessionsDateTextView"
-                android:layout_marginRight="63dp"
-                android:layout_marginEnd="63dp"/>
-
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/sessionsStartTime"
-                android:layout_marginRight="25dp"
-                android:layout_marginEnd="25dp"/>
-
-
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/sessionsStopTime"
-                android:layout_marginRight="25dp"
-                android:layout_marginEnd="25dp"/>
-
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/sessionDuration"/>
-    </LinearLayout>
-
-    <ListView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/sessionList">
-    </ListView>
-
-</LinearLayout>
+</RelativeLayout>

@@ -198,6 +198,7 @@ public class SelectedProjectFragment extends Fragment
 		setAdapterToSessionListView();
 		setClickListenerToListView();
 		addSessionsToAdapter();
+		setClickListenerToFAB();
 	}
 
 	/**
@@ -365,6 +366,26 @@ public class SelectedProjectFragment extends Fragment
 	 * @param inflater contains the information for the layout of the menu
 	 * methodtype initialization method
 	 */
+
+
+	/**
+	 * This method sets an onClickListener to the Floating Action Button to create a new session
+	 *
+	 * methodtype initialization method
+	 */
+	private void setClickListenerToFAB()
+	{
+		ImageButton addSessionFAB = (ImageButton) getActivity().findViewById(R.id.addSessionFAB);
+		addSessionFAB.setOnClickListener(new View.OnClickListener()
+		{
+			@Override
+			public void onClick(View view)
+			{
+				createAddSessionActivity();
+			}
+		});
+	}
+
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
 	{
@@ -385,9 +406,6 @@ public class SelectedProjectFragment extends Fragment
 	{
 		switch(item.getItemId())
 		{
-			case R.id.addSession:
-				createAddSessionActivity();
-				return true;
 			case R.id.deleteProject:
 				initConfirmationDialog();
 				return true;

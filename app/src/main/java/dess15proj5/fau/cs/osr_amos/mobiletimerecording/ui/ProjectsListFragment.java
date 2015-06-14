@@ -122,7 +122,7 @@ public class ProjectsListFragment extends ListFragment implements AddProjectDial
 		setAdapterToProjectList();
 		setOnItemClickListenerToListView();
 		addProjectsToAdapter();
-		addOnClickListenerToFAB();
+		setClickListenerToFAB();
 	}
 
 	/**
@@ -182,10 +182,10 @@ public class ProjectsListFragment extends ListFragment implements AddProjectDial
 	 */
 	private void addSeparatorsToProjectList(List<Project> projectList)
 	{
-		projectList.add(POSITION_OF_SPECIAL_PROJECTS_SEPARATOR, getSeparatorProject(getResources()
-				.getString(R.string.separator_special_projects)));
-		projectList.add(getPositionOfSeparatorAfterSpecialProjects(), getSeparatorProject(getResources()
-				.getString(R.string.separator_added_projects)));
+		projectList.add(POSITION_OF_SPECIAL_PROJECTS_SEPARATOR,
+				getSeparatorProject(getResources().getString(R.string.separator_special_projects)));
+		projectList.add(getPositionOfSeparatorAfterSpecialProjects(),
+				getSeparatorProject(getResources().getString(R.string.separator_added_projects)));
 	}
 
 	/**
@@ -230,7 +230,7 @@ public class ProjectsListFragment extends ListFragment implements AddProjectDial
 	 *
 	 * methodtype initialization method
 	 */
-	private void addOnClickListenerToFAB()
+	private void setClickListenerToFAB()
 	{
 		addProjectFAB.setOnClickListener(new View.OnClickListener()
 		{
