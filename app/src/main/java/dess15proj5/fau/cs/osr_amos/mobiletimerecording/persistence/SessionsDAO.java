@@ -20,6 +20,7 @@ package dess15proj5.fau.cs.osr_amos.mobiletimerecording.persistence;
 
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.models.Session;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -98,4 +99,13 @@ public interface SessionsDAO extends DAO
 	 * methodtype query method
 	 */
 	List<Session> listAll();
+
+	/**
+	 * This method loads all recorded sessions for the given date from the database
+	 *
+	 * @param cal the given date as calendar object
+	 * @return the list containing all requested sessions
+	 * methodtype query method
+	 */
+	List<Session> listAllForDate(Calendar cal);
 }
