@@ -35,6 +35,8 @@ import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.R;
+import dess15proj5.fau.cs.osr_amos.mobiletimerecording.businesslogic.SessionValidator;
+import dess15proj5.fau.cs.osr_amos.mobiletimerecording.models.Session;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.persistence.DataAccessObjectFactory;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.persistence.SessionsDAO;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.utility.StringFormatterForPicker;
@@ -165,7 +167,24 @@ public class AddSessionActivity extends AppCompatActivity
 		Date stopDate = createDate(selectedYear, selectedMonth, selectedDay, stopHour, stopMinute);
 		if(startDate.compareTo(stopDate) < 0)
 		{
-			saveSessionInDatabase(startDate, stopDate);
+			SessionValidator sessionValidator  = SessionValidator.getInstance(this);
+			//TODO change constructor of session
+			Session newSession = new Session(0L, null, startDate, stopDate);
+			try
+			{
+				if(!sessionValidator.isOverlapping(newSession))
+				{
+					saveSessionInDatabase(startDate, stopDate);
+				}
+				else
+				{
+					Toast.makeText(this, getResources().getString(R.string.warningAlreadyRecordedSession),
+							Toast.LENGTH_SHORT).show();
+				}
+			} catch(SQLException e)
+			{
+				Toast.makeText(this, "Could not validate session due to database errors!", Toast.LENGTH_SHORT).show();
+			}
 		} else
 		{
 			AlertDialog.Builder builder = new AlertDialog.Builder(this)
