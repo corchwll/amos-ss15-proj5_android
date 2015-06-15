@@ -28,6 +28,31 @@ public class Session
 	private Date stopTime;
 
 	/**
+	 * This method is used to construct an empty session object that will be filled by the DAOs.
+	 *
+	 * methodtype constructor
+	 */
+	public Session()
+	{}
+
+	/**
+	 * This method is used to construct a Session object.
+	 *
+	 * @param id the id of the session
+	 * @param projectId the projectID for which the session was recorded
+	 * @param startTime the date when the session started
+	 * @param stopTime the date when the session stopped
+	 * methodtype constructor
+	 */
+	public Session(long id, String projectId, Date startTime, Date stopTime)
+	{
+		this.id = id;
+		this.projectId = projectId;
+		this.startTime = startTime;
+		this.stopTime = stopTime;
+	}
+
+	/**
 	 * Returns the session id.
 	 *
 	 * methodtype get method

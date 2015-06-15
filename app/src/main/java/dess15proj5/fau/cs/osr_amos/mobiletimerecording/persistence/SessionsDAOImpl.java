@@ -24,6 +24,7 @@ import android.database.Cursor;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.models.Session;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -215,6 +216,40 @@ public class SessionsDAOImpl extends AbstractDAO implements SessionsDAO
 
 		Cursor cursor = database.query(PersistenceHelper.TABLE_SESSIONS, allColumns, null, null, null,
 				null, PersistenceHelper.SESSIONS_TIMESTAMP_START);
+
+		cursor.moveToFirst();
+		while(!cursor.isAfterLast())
+		{
+			Session session = cursorToSession(cursor);
+			sessions.add(session);
+			cursor.moveToNext();
+		}
+
+		cursor.close();
+		return sessions;
+	}
+
+	/**
+	 * This method loads all recorded sessions for the given date from the database
+	 *
+	 * @param cal the given date as calendar object
+	 * @return the list containing all requested sessions
+	 * methodtype query method
+	 */
+	@Override
+	public List<Session> listAllForDate(Calendar cal)
+	{
+		long start = cal.getTimeInMillis();
+		cal.add(Calendar.DATE, 1);
+		cal.add(Calendar.SECOND, -1);
+		long stop = cal.getTimeInMillis();
+
+		List<Session> sessions = new ArrayList<>();
+
+		Cursor cursor = database.query(PersistenceHelper.TABLE_SESSIONS, allColumns,
+				PersistenceHelper.SESSIONS_TIMESTAMP_START + " >= " + start + " AND " +
+						PersistenceHelper.SESSIONS_TIMESTAMP_START + " <= " + stop, null, null, null,
+				PersistenceHelper.SESSIONS_TIMESTAMP_START);
 
 		cursor.moveToFirst();
 		while(!cursor.isAfterLast())
