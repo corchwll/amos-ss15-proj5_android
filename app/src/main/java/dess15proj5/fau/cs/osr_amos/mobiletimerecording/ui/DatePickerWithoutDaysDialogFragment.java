@@ -60,7 +60,8 @@ public class DatePickerWithoutDaysDialogFragment extends DialogFragment
 		LayoutInflater inflater = getActivity().getLayoutInflater();
 		View dialogLayout = inflater.inflate(R.layout.date_picker_without_days, null);
 		final DatePicker datePicker = (DatePicker) dialogLayout.findViewById(R.id.datePickerWithoutDays);
-		datePicker.findViewById(Resources.getSystem().getIdentifier("day", "id", "android")).setVisibility(View.GONE);
+		datePicker.findViewById(Resources.getSystem()
+										 .getIdentifier("day", "id", "android")).setVisibility(View.GONE);
 
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 		builder.setMessage(getResources().getString(R.string.datePickerDialogFragmentMessage))
@@ -119,7 +120,16 @@ public class DatePickerWithoutDaysDialogFragment extends DialogFragment
 					   dismiss();
 				   }
 			   });
-		return builder.create();
+		final AlertDialog dialog = builder.create();
+		dialog.setOnShowListener(new DialogInterface.OnShowListener()
+		{
+			@Override
+			public void onShow(DialogInterface arg0) {
+				dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.bluePrimaryColor));
+				dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.bluePrimaryColor));
+			}
+		});
+		return dialog;
 	}
 
 	/**

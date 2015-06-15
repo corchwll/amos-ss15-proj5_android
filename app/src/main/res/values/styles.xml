@@ -21,6 +21,9 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/bluePrimaryColor</item>
+
+        <item name="colorControlActivated">@color/bluePrimaryColor</item>
+        <item name="colorControlHighlight">@color/bluePrimaryColor</item>
     </style>
 
 </resources>

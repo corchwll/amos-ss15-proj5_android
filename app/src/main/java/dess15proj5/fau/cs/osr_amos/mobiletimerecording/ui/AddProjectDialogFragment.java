@@ -91,7 +91,7 @@ public class AddProjectDialogFragment extends DialogFragment
 		initDatePickerEditText();
 
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-		builder.setView(view)
+		final AlertDialog dialog = builder.setView(view)
 			   .setTitle("Please add new project")
 			   .setPositiveButton("OK", new DialogInterface.OnClickListener()
 			   {
@@ -106,11 +106,21 @@ public class AddProjectDialogFragment extends DialogFragment
 				   public void onClick(DialogInterface dialog, int which)
 				   {
 				   }
-			   });
+			   }).create();
 
-		final AlertDialog dialog = builder.create();
+		dialog.setOnShowListener(new DialogInterface.OnShowListener()
+		{
+			@Override
+			public void onShow(DialogInterface dialogInterface)
+			{
+				dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+					  .setTextColor(getResources().getColor(R.color.bluePrimaryColor));
+				dialog.getButton(AlertDialog.BUTTON_NEGATIVE)
+					  .setTextColor(getResources().getColor(R.color.bluePrimaryColor));
+			}
+		});
+
 		dialog.show();
-
 		// Overwrite onClick method to set error message if there is a SQLiteConstraintException (projectId
 		// already in database)
 		dialog.getButton(AlertDialog.BUTTON_POSITIVE)
@@ -151,7 +161,8 @@ public class AddProjectDialogFragment extends DialogFragment
 					  } catch(SQLException e)
 					  {
 						  Toast.makeText(getActivity(), "Could not create new project " + "due to database errors!",
-								  Toast.LENGTH_SHORT).show();
+								  Toast.LENGTH_SHORT)
+							   .show();
 					  }
 				  }
 
@@ -161,7 +172,6 @@ public class AddProjectDialogFragment extends DialogFragment
 					  projectIdWidget.requestFocus();
 				  }
 			  });
-
 		return dialog;
 	}
 

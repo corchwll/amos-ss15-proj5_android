@@ -30,6 +30,7 @@ import android.widget.*;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.R;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.models.Session;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.persistence.DataAccessObjectFactory;
+import dess15proj5.fau.cs.osr_amos.mobiletimerecording.persistence.PersistenceHelper;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.persistence.ProjectsDAO;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.persistence.SessionsDAO;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.utility.ProjectTimer;
@@ -451,10 +452,29 @@ public class SelectedProjectFragment extends Fragment
 	public void onPrepareOptionsMenu(Menu menu)
 	{
 		super.onPrepareOptionsMenu(menu);
-		if(projectId == null && projectName == null)
+		if(projectId == null && projectName == null || isSpecialProject())
 		{
 			menu.getItem(0).setEnabled(false);
 		}
+	}
+
+	/**
+	 * This method checks if the selected project is a special project
+	 *
+	 * methodtype boolean query method
+	 */
+	private boolean isSpecialProject()
+	{
+		boolean isSpecialProject = false;
+		List<String> specialProjects = PersistenceHelper.getDefaultProjectsAsList();
+		for(String specialProjectId: specialProjects)
+		{
+			if(specialProjectId.equals(projectId))
+			{
+				isSpecialProject = true;
+			}
+		}
+		return isSpecialProject;
 	}
 
 	/**
@@ -480,13 +500,13 @@ public class SelectedProjectFragment extends Fragment
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity())
 				.setMessage(getResources().getString(R.string.confirmDeletionDialog) + " " + projectName + "?")
 				.setPositiveButton("Delete", new DialogInterface.OnClickListener()
-						{
-							@Override
-							public void onClick(DialogInterface dialog, int which)
-							{
-								deleteProject();
-							}
-						})
+				{
+					@Override
+					public void onClick(DialogInterface dialog, int which)
+					{
+						deleteProject();
+					}
+				})
 				.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
 				{
 					@Override
@@ -495,7 +515,18 @@ public class SelectedProjectFragment extends Fragment
 						dialog.dismiss();
 					}
 				});
-		AlertDialog dialog = builder.create();
+		final AlertDialog dialog = builder.create();
+		dialog.setOnShowListener(new DialogInterface.OnShowListener()
+		{
+			@Override
+			public void onShow(DialogInterface arg0)
+			{
+				dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getResources()
+						.getColor(R.color.bluePrimaryColor));
+				dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(getResources()
+						.getColor(R.color.bluePrimaryColor));
+			}
+		});
 		dialog.show();
 	}
 
@@ -517,7 +548,6 @@ public class SelectedProjectFragment extends Fragment
 				 .show();
 		}
 		setAttributesNull();
-		disableMenuItems();
 		showProjectsListFragment();
 	}
 
@@ -531,16 +561,6 @@ public class SelectedProjectFragment extends Fragment
 		projectId = null;
 		projectName = null;
 		saveArgumentsIntoSharedPreferences();
-	}
-
-	/**
-	 * This method is used to disable the menu items in case of deletion of the selected project.
-	 *
-	 * methodtype command method
-	 */
-	private void disableMenuItems()
-	{
-		getActivity().invalidateOptionsMenu();
 	}
 
 	/**
