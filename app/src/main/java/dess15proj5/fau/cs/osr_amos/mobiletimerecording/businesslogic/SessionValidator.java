@@ -22,7 +22,6 @@ import android.content.Context;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.models.Session;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.persistence.DataAccessObjectFactory;
 
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Date;
@@ -32,6 +31,14 @@ public class SessionValidator
 {
 	private static SessionValidator instance;
 
+	/**
+	 * This method returns an instance of SessionValidator to fulfill the singleton pattern. If there wasn't
+	 * initialized an instance yet, it will be constructed.
+	 *
+	 * @param context the context under which the instance should be
+	 * @return the singleton instance of the DataAccessObjectFactory
+	 * methodtype get method
+	 */
 	public static SessionValidator getInstance(Context context)
 	{
 		if(instance == null)
@@ -47,11 +54,25 @@ public class SessionValidator
 
 	private Context context;
 
+	/**
+	 * This constructor is only used by the singleton implementation.
+	 *
+	 * @param context the application context under which this object is created
+	 * methodtype constructor
+	 */
 	protected SessionValidator(Context context)
 	{
 		this.context = context;
 	}
 
+	/**
+	 * This method is used to check whether a session overlaps with sessions recorded previously.
+	 *
+	 * @param session the new session that is not allowed to overlap
+	 * @return true if is overlapping, false if not
+	 * @throws SQLException in case of database error
+	 * methodtype boolean query method
+	 */
 	public boolean isOverlapping(Session session) throws SQLException
 	{
 		Calendar cal = Calendar.getInstance();
@@ -60,20 +81,21 @@ public class SessionValidator
 		cal.set(Calendar.MINUTE, 0);
 		cal.set(Calendar.SECOND, 0);
 
-		List<Session> sessions = loadSessionsForDate(cal);
+		List<Session> sessions = DataAccessObjectFactory.getInstance()
+														.createSessionsDAO(context)
+														.listAllForDate(cal);
 
 		return checkOverlapping(session, sessions);
 	}
 
-	protected List<Session> loadSessionsForDate(Calendar cal) throws SQLException
-	{
-		List<Session> sessions = DataAccessObjectFactory.getInstance()
-							   							.createSessionsDAO(context)
-														.listAllForDate(cal);
-
-		return sessions;
-	}
-
+	/**
+	 * This method is used to check whether there is a session in the list that overlaps with the current one.
+	 *
+	 * @param session the session that should not overlap
+	 * @param sessions the sessions that have to be checked
+	 * @return true if is overlapping, false if not
+	 * methodtype boolean query method
+	 */
 	protected boolean checkOverlapping(Session session, List<Session> sessions)
 	{
 		boolean result = false;
@@ -96,6 +118,12 @@ public class SessionValidator
 		return result;
 	}
 
+	/**
+	 * Sets the context under which this object should be.
+	 *
+	 * @param context the context under which this object should be
+	 * methodtype set method
+	 */
 	public void setContext(Context context)
 	{
 		this.context = context;
