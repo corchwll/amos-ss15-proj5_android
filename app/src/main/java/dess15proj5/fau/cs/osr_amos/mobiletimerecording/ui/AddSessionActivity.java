@@ -84,6 +84,28 @@ public class AddSessionActivity extends AppCompatActivity
 	}
 
 	/**
+	 *  Called when the activity has detected the user's press of the back key.
+	 *
+	 * methodtype command method
+	 */
+	@Override
+	public void onBackPressed()
+	{
+		finishActivityAndShowAnimation();
+	}
+
+	/**
+	 *  Finish the activity and shows an animation
+	 *
+	 * methodtype command method
+	 */
+	private void finishActivityAndShowAnimation()
+	{
+		super.finish();
+		overridePendingTransition(R.animator.empty_animator, R.animator.fade_out_right);
+	}
+
+	/**
 	 * This method initializes the toolbar.
 	 *
 	 * methodtype initialization method
@@ -121,7 +143,7 @@ public class AddSessionActivity extends AppCompatActivity
 		switch(item.getItemId())
 		{
 			case android.R.id.home:
-				finish();
+				finishActivityAndShowAnimation();
 				return true;
 			case R.id.saveNewSession:
 				validateStartAndStopTime();
@@ -181,7 +203,7 @@ public class AddSessionActivity extends AppCompatActivity
 			Toast.makeText(this, "Could not get SessionsDAO due to database errors!",
 					Toast.LENGTH_SHORT).show();
 		}
-		finish();
+		finishActivityAndShowAnimation();
 	}
 
 	/**
@@ -225,7 +247,7 @@ public class AddSessionActivity extends AppCompatActivity
 	 */
 	private void setWidgets()
 	{
-		datePickerEditText = (EditText)findViewById(R.id.datePickerEditText);
+		datePickerEditText = (EditText)findViewById(R.id.datepickerEditText);
 		startTimePickerEditText = (EditText)findViewById(R.id.startTimePickerEditText);
 		stopTimePickerEditText = (EditText)findViewById(R.id.stopTimePickerEditText);
 	}

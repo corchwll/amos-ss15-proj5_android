@@ -17,12 +17,12 @@
   -->
 
 <resources>
-    <string name="app_name">Mobile Time Recording</string>
+    <string name="app_name">Mobile Time Accounting</string>
 
     <!--menu_project_list-->
     <string name="search_title">Search</string>
-    <string name="separator_special_projects">Special Projects</string>
-    <string name="separator_added_projects">Added Projects</string>
+    <string name="separator_special_projects">SPECIAL PROJECTS</string>
+    <string name="separator_added_projects">ADDED PROJECTS</string>
 
     <!--menu_user_profile_registration-->
     <string name="save_user_profile">Save User Profile</string>
@@ -67,14 +67,15 @@
     <string name="start_button">Start</string>
     
     <!--add_project.xml-->
-    <string name="newProjectId">Project Id</string>
+    <string name="newProjectId">Project ID</string>
     <string name="inputProjectName">Project Name</string>
     <string name="finalProjectString">Want to add final project date to project?</string>
     <string name="finalProjectDate">Final project date: </string>
     
     <!--add_session_to_project.xml-->
-    <string name="dateText">Specify the date on which you want to add extra hours:</string>
-    <string name="hoursText">Specify the start and end time</string>
+    <string name="dateText">DATE:</string>
+    <string name="hoursFrom">FROM:</string>
+    <string name="hoursTo">TO:</string>
     <string name="confirm_project_change_button">OK</string>
     <string name="errorMessageAddSession">Negative times are not allowed."</string>
     
@@ -83,10 +84,10 @@
     <string name="changeUserProfileBtn">Save</string>
 
     <!--selected_project.xml-->
-    <string name="sessionsDateTextView">Date</string>
-    <string name="sessionsStartTime">Start</string>
-    <string name="sessionsStopTime">Stop</string>
-    <string name="sessionDuration">Duration</string>
+    <string name="sessionsDateTextView">DATE</string>
+    <string name="sessionsStartTime">START</string>
+    <string name="sessionsStopTime">STOP</string>
+    <string name="sessionDuration">DURATION</string>
     <string name="delete_project">Delete project</string>
     <string name="delete_icon_session">Delete Session</string>
     <string name="confirmDeletionDialog">Are you sure you want to delete project</string>

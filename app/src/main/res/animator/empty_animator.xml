@@ -17,19 +17,9 @@
   ~     along with this program.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
 
-      <TextView
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:id="@+id/projectListSeparator"
-              android:textColor="@color/grey_text_view"
-              android:textSize="13sp"
-              android:textStyle="bold"
-              android:padding="3dp"
-              android:layout_marginTop="2dp"
-              />
-
-</LinearLayout>
+<set xmlns:android="http://schemas.android.com/apk/res/android">
+  <alpha android:fromAlpha="1.0"
+         android:toAlpha="1.0"
+         android:duration="150"/>
+</set>

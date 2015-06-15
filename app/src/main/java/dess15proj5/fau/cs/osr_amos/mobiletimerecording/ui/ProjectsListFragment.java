@@ -101,8 +101,7 @@ public class ProjectsListFragment extends ListFragment implements AddProjectDial
 	@Override
 	public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
-		RelativeLayout view = (RelativeLayout) inflater.inflate(R.layout.projects_list_fragment,
-				container, false);
+		View view = inflater.inflate(R.layout.projects_list_fragment, container, false);
 		projectListView = (ListView) view.findViewById(android.R.id.list);
 		addProjectFAB = (ImageButton) view.findViewById(R.id.addProjectFAB);
 		return view;
@@ -114,6 +113,7 @@ public class ProjectsListFragment extends ListFragment implements AddProjectDial
 	 * @param savedInstanceState this param contains several key value pairs in order to save the instance state
 	 * methodtype initialization method
 	 */
+
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState)
 	{

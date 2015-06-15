@@ -183,7 +183,10 @@ public abstract class AbstractUserProfileFragment extends Fragment
 	private void hideSoftwareKeyboard()
 	{
 		InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-		imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+		if(imm.isAcceptingText())
+		{
+			imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+		}
 	}
 
 	/**

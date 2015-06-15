@@ -17,46 +17,58 @@
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="horizontal">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="horizontal"
+              android:paddingTop="5dp"
+              android:paddingBottom="5dp">
 
     <TextView
-        android:id="@+id/showDateSessionRow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginStart="4dp" />
+            android:id="@+id/showDateSessionRow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:textSize="20sp"
+            android:focusable="false"
+            android:focusableInTouchMode="false"/>
 
     <TextView
-        android:id="@+id/startTimeSessionRow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:layout_marginRight="20dp" />
+            android:id="@+id/startTimeSessionRow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:textSize="20sp"
+            android:focusable="false"
+            android:focusableInTouchMode="false"/>
 
     <TextView
-        android:id="@+id/stopTimeSessionRow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:layout_marginRight="20dp" />
+            android:id="@+id/stopTimeSessionRow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:textSize="20sp"
+            android:focusable="false"
+            android:focusableInTouchMode="false"/>
 
     <TextView
             android:id="@+id/durationSessionRow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
-            android:layout_marginRight="20dp"/>
+            android:layout_marginRight="20dp"
+            android:textSize="20sp"
+            android:focusable="false"
+            android:focusableInTouchMode="false"/>
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/delete_session_btn"
-        android:contentDescription="@string/delete_icon_session"
-        android:src="@drawable/ic_cancel_black_24dp"
-        android:visibility="invisible"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/delete_session_btn"
+            android:contentDescription="@string/delete_icon_session"
+            android:src="@drawable/ic_cancel_black_24dp"
+            android:visibility="invisible"/>
 
 </LinearLayout>

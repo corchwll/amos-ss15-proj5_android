@@ -199,6 +199,7 @@ public class SelectedProjectFragment extends Fragment
 		setClickListenerToListView();
 		addSessionsToAdapter();
 		setClickListenerToFAB();
+		setDeleteBtnOfFirstSessionVisible();
 	}
 
 	/**
@@ -231,6 +232,25 @@ public class SelectedProjectFragment extends Fragment
 				selectedPosition = i;
 			}
 
+		});
+
+		//Todo
+		sessionListView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+		{
+			@Override
+			public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l)
+			{
+				setPreviousBtnInvisible();
+				ImageView sessionDeleteBtn =
+						(ImageView)getViewByPosition(i, sessionListView).findViewById(R.id.delete_session_btn);
+				sessionDeleteBtn.setVisibility(View.VISIBLE);
+				selectedPosition = i;
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> adapterView)
+			{
+			}
 		});
 	}
 
@@ -359,14 +379,14 @@ public class SelectedProjectFragment extends Fragment
 		projectNameTextView.setText("No project selected. Please select one in the projects tab.");
 	}
 
-	/**
-	 * This method is called in the android lifecycle when a menu is created.
-	 *
-	 * @param menu the menu item which has to be created
-	 * @param inflater contains the information for the layout of the menu
-	 * methodtype initialization method
-	 */
-
+	//TODO
+	private void setDeleteBtnOfFirstSessionVisible()
+	{
+		if(adapter.getCount() > 0)
+		{
+			sessionListView.setSelection(0);
+		}
+	}
 
 	/**
 	 * This method sets an onClickListener to the Floating Action Button to create a new session
@@ -386,6 +406,13 @@ public class SelectedProjectFragment extends Fragment
 		});
 	}
 
+	/**
+	 * This method is called in the android lifecycle when a menu is created.
+	 *
+	 * @param menu the menu item which has to be created
+	 * @param inflater contains the information for the layout of the menu
+	 * methodtype initialization method
+	 */
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
 	{
@@ -427,7 +454,6 @@ public class SelectedProjectFragment extends Fragment
 		if(projectId == null && projectName == null)
 		{
 			menu.getItem(0).setEnabled(false);
-			menu.getItem(1).setEnabled(false);
 		}
 	}
 
@@ -441,6 +467,7 @@ public class SelectedProjectFragment extends Fragment
 		Intent intent = new Intent(getActivity(), AddSessionActivity.class);
 		intent.putExtra("project_id", projectId);
 		getActivity().startActivity(intent);
+		getActivity().overridePendingTransition(R.animator.fade_in_right, R.animator.empty_animator);
 	}
 
 	/**

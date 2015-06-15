@@ -18,38 +18,114 @@
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
     <include layout="@layout/toolbar"/>
 
-    <TextView
+    <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/dateText" />
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginTop="20dp">
 
-    <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/datePickerEditText"
-            android:focusable="false"/>
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1.0"
+                android:gravity="center_vertical">
 
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/hoursText" />
+            <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dateText"
+                    android:textColor="@color/grey_text_view"
+                    android:textStyle="bold"
+                    android:layout_weight="0.4"
+                    android:gravity="right"
+                    android:paddingRight="20dp"
+                    />
 
-    <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/startTimePickerEditText"
-            android:focusable="false" />
+            <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.6">
 
-    <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/stopTimePickerEditText"
-            android:focusable="false" />
+                <EditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/datepickerEditText"
+                        android:focusable="false"
+                        android:layout_gravity="left|center_vertical"/>
+            </FrameLayout>
+        </LinearLayout>
 
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1.0"
+                android:gravity="center_vertical">
+
+            <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/hoursFrom"
+                    android:textColor="@color/grey_text_view"
+                    android:textStyle="bold"
+                    android:gravity="right"
+                    android:layout_weight="0.4"
+                    android:paddingRight="20dp"
+                    />
+
+            <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.6">
+
+                <EditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/startTimePickerEditText"
+                        android:focusable="false"
+                        android:inputType="none"
+                        android:layout_gravity="left|center_vertical"/>
+            </FrameLayout>
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1.0"
+                android:gravity="center_vertical">
+
+            <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/hoursTo"
+                    android:textColor="@color/grey_text_view"
+                    android:textStyle="bold"
+                    android:layout_weight="0.4"
+                    android:gravity="right"
+                    android:paddingRight="20dp"
+                    />
+
+            <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.6">
+
+                <EditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/stopTimePickerEditText"
+                        android:focusable="false"
+                        android:inputType="none"
+                        android:layout_gravity="left|center_vertical" />
+            </FrameLayout>
+        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>

@@ -105,6 +105,7 @@ public class MainActivity extends AppCompatActivity implements AbstractUserProfi
 					case 3:
 						Intent intent = new Intent(getBaseContext(), SettingsActivity.class);
 						startActivity(intent);
+						overridePendingTransition(R.animator.fade_in_right, R.animator.empty_animator);
 						break;
 				}
 			}

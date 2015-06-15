@@ -34,6 +34,8 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/overtime_dashboard_textView"
                 android:text="@string/overtime_dashboard_textView"
+                android:textColor="@color/grey_text_view"
+                android:textStyle="bold"
                 android:layout_marginRight="10dp"/>
 
         <TextView
@@ -52,6 +54,8 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/vacation_dashboard_textView"
                 android:text="@string/vacation_dashboard_textView"
+                android:textColor="@color/grey_text_view"
+                android:textStyle="bold"
                 android:layout_marginRight="10dp"/>
 
         <TextView

@@ -22,17 +22,6 @@
         android:layout_height="wrap_content"
         android:layout_width="wrap_content">
 
-    <ImageButton style="@style/AppTheme"
-                 android:layout_width="70dp"
-                 android:layout_height="70dp"
-                 android:text="@string/add_new_session"
-                 android:id="@+id/addSessionFAB"
-                 android:src="@drawable/ic_add_white_24dp"
-                 android:background="@drawable/fab"
-                 android:layout_alignParentBottom="true"
-                 android:layout_alignParentRight="true"
-                 android:layout_alignParentEnd="true"/>
-
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                   android:orientation="vertical"
                   android:layout_width="match_parent"
@@ -41,9 +30,7 @@
         <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginLeft="4dp"
-                android:layout_marginStart="4dp">
+                android:orientation="horizontal">
 
             <TextView
                     android:layout_width="match_parent"
@@ -67,35 +54,44 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginLeft="4dp"
-                android:layout_marginStart="4dp">
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="7dp">
 
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/sessionsDateTextView"
-                    android:layout_marginRight="63dp"
-                    android:layout_marginEnd="63dp"/>
+                    android:textColor="@color/grey_text_view"
+                    android:textStyle="bold"
+                    android:layout_marginRight="88dp"
+                    android:layout_marginEnd="88dp"/>
 
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/sessionsStartTime"
-                    android:layout_marginRight="25dp"
-                    android:layout_marginEnd="25dp"/>
+                    android:textColor="@color/grey_text_view"
+                    android:textStyle="bold"
+                    android:layout_marginRight="26dp"
+                    android:layout_marginEnd="26dp"/>
 
 
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/sessionsStopTime"
-                    android:layout_marginRight="25dp"
-                    android:layout_marginEnd="25dp"/>
+                    android:textColor="@color/grey_text_view"
+                    android:textStyle="bold"
+                    android:layout_marginRight="32dp"
+                    android:layout_marginEnd="32dp"/>
 
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/sessionDuration"/>
+                    android:text="@string/sessionDuration"
+                    android:textColor="@color/grey_text_view"
+                    android:textStyle="bold"
+                    />
         </LinearLayout>
 
         <ListView
@@ -104,4 +100,16 @@
                 android:id="@+id/sessionList">
         </ListView>
     </LinearLayout>
+
+    <ImageButton style="@style/AppTheme"
+                 android:layout_width="70dp"
+                 android:layout_height="70dp"
+                 android:text="@string/add_new_session"
+                 android:contentDescription="@string/add_new_session"
+                 android:id="@+id/addSessionFAB"
+                 android:src="@drawable/ic_add_white_24dp"
+                 android:background="@drawable/fab"
+                 android:layout_alignParentBottom="true"
+                 android:layout_alignParentRight="true"
+                 android:layout_alignParentEnd="true"/>
 </RelativeLayout>

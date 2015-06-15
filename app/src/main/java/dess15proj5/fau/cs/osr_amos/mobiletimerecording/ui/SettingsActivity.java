@@ -101,12 +101,23 @@ public class SettingsActivity extends AppCompatActivity implements AbstractUserP
 	{
 		if(getFragmentManager().getBackStackEntryCount() == 1)
 		{
-			finish();
+			finishActivityAndShowAnimation();
 		}
 		else
 		{
 			getFragmentManager().popBackStack();
 		}
+	}
+
+	/**
+	 *  Finish the activity and shows an animation
+	 *
+	 * methodtype command method
+	 */
+	private void finishActivityAndShowAnimation()
+	{
+		super.finish();
+		overridePendingTransition(R.animator.empty_animator, R.animator.fade_out_right);
 	}
 
 	/**

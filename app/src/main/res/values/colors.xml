@@ -19,5 +19,5 @@
 
 <resources>
   <color name="bluePrimaryColor">#00375b</color>
-  <color name="drawerColor">#e3e3e3</color>
+  <color name="grey_text_view">#9e9e9e</color>
 </resources>
