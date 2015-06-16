@@ -18,15 +18,13 @@
 
 package dess15proj5.fau.cs.osr_amos.mobiletimerecording.ui;
 
-import android.app.Fragment;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.R;
 
-public class SettingsActivity extends AppCompatActivity implements SettingsFragment.SettingsFragmentListener
+public class SettingsChangeUserProfileActivity extends AppCompatActivity implements AbstractUserProfileFragment.UserProfileFragmentListener
 {
 	/**
 	 * This method is called in the android lifecycle when the fragment is created.
@@ -35,7 +33,7 @@ public class SettingsActivity extends AppCompatActivity implements SettingsFragm
 	 * methodtype initialization method
 	 */
 	@Override
-	protected void onCreate(Bundle savedInstanceState)
+	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.settings_activity);
@@ -45,7 +43,19 @@ public class SettingsActivity extends AppCompatActivity implements SettingsFragm
 			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 			getSupportActionBar().setHomeButtonEnabled(true);
 		}
-		showSettingsFragment();
+		showEditUserProfileFragment();
+	}
+
+	/**
+	 * This method is used to display the EditUserProfileFragment fragment.
+	 *
+	 * methodtype command method
+	 */
+	private void showEditUserProfileFragment()
+	{
+		getFragmentManager().beginTransaction()
+							.replace(R.id.settingsFrameLayout, new EditUserProfileFragment())
+							.commit();
 	}
 
 	/**
@@ -57,19 +67,6 @@ public class SettingsActivity extends AppCompatActivity implements SettingsFragm
 	{
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
-	}
-
-	/**
-	 * This method is used to display the settings fragment.
-	 *
-	 * methodtype command method
-	 */
-	private void showSettingsFragment()
-	{
-		getFragmentManager().beginTransaction()
-							.replace(R.id.settingsFrameLayout, new SettingsFragment())
-							.addToBackStack(null)
-							.commit();
 	}
 
 	/**
@@ -99,14 +96,13 @@ public class SettingsActivity extends AppCompatActivity implements SettingsFragm
 	@Override
 	public void onBackPressed()
 	{
-		if(getFragmentManager().getBackStackEntryCount() == 1)
-		{
-			finishActivityAndShowAnimation();
-		}
-		else
-		{
-			getFragmentManager().popBackStack();
-		}
+		finishActivityAndShowAnimation();
+	}
+
+	@Override
+	public void onUserProfileSaved()
+	{
+		finishActivityAndShowAnimation();
 	}
 
 	/**
@@ -118,19 +114,5 @@ public class SettingsActivity extends AppCompatActivity implements SettingsFragm
 	{
 		super.finish();
 		overridePendingTransition(R.animator.empty_animator, R.animator.fade_out_right);
-	}
-
-	/**
-	 * This method is called from a callback when the user presses a Settings Button
-	 *
-	 * methodtype command method
-	 * @param fragment Contains the next fragment to be shown
-	 */
-	@Override
-	public void onSettingsButtonPressed(Fragment fragment)
-	{
-		Intent intent = new Intent(getBaseContext(), SettingsChangeUserProfileActivity.class);
-		startActivity(intent);
-		overridePendingTransition(R.animator.fade_in_right, R.animator.empty_animator);
 	}
 }

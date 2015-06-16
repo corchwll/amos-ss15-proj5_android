@@ -45,6 +45,9 @@
         <activity android:name=".ui.SettingsActivity"
                   android:label="@string/settings">
         </activity>
+        <activity android:name=".ui.SettingsChangeUserProfileActivity"
+                  android:label="@string/changeUserProfile">
+        </activity>
     </application>
 
 </manifest>
