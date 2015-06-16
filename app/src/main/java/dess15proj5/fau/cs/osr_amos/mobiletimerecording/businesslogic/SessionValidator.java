@@ -118,6 +118,14 @@ public class SessionValidator
 		return result;
 	}
 
+	/**
+	 * This method is used to cut the working time if - and only if - the user has worked more than ten hours this day.
+	 *
+	 * @param session the new session that was recorded
+	 * @return the session that was cutted if ten tours were exceeded
+	 * @throws SQLException in case of database error
+	 * methodtype command method
+	 */
 	public Session cutWorkingTime(Session session) throws SQLException
 	{
 		Calendar cal = Calendar.getInstance();
@@ -140,6 +148,13 @@ public class SessionValidator
 		return session;
 	}
 
+	/**
+	 * This method is used to calculate the time left for this day.
+	 *
+	 * @param sessions the list of sessions the user has recorded or added for this day
+	 * @return the left time for this day or zero if the user has worked ten or more than ten hours
+	 * methodtype command method
+	 */
 	protected long calculateLeftTime(List<Session> sessions)
 	{
 		long tenHours = 1000L*60L*60L*10L;
