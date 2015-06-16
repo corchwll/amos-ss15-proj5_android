@@ -20,6 +20,7 @@ package dess15proj5.fau.cs.osr_amos.mobiletimerecording.businesslogic;
 
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.models.Session;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.testUtility.TestContext;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -54,6 +55,12 @@ public class SessionValidatorTests
 		sessions.add(new Session(2L, "test", date4, date5));
 
 		validator = new SessionValidator(new TestContext());
+	}
+
+	@After
+	public void tearDown()
+	{
+		sessions.clear();
 	}
 
 	@Test
