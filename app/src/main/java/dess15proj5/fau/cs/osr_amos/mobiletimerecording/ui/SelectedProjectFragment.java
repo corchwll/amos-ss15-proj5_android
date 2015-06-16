@@ -51,7 +51,9 @@ public class SelectedProjectFragment extends Fragment
 	private ProjectTimer timer;
 	private Button startStopBtn;
 
-	private int selectedPosition = -1;
+	private boolean firstTimeStartup = true;
+	private View selectedView;
+	private int selectedPosition;
 
 	/**
 	 * This method is called in the android lifecycle when the fragment is created.
@@ -200,7 +202,6 @@ public class SelectedProjectFragment extends Fragment
 		setClickListenerToListView();
 		addSessionsToAdapter();
 		setClickListenerToFAB();
-		setDeleteBtnOfFirstSessionVisible();
 	}
 
 	/**
@@ -220,39 +221,43 @@ public class SelectedProjectFragment extends Fragment
 	 *
 	 * methodtype set method
 	 */
-	private void setClickListenerToListView() {
+	private void setClickListenerToListView()
+	{
 		sessionListView.setOnItemClickListener(new AdapterView.OnItemClickListener()
 		{
 			@Override
 			public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
 			{
+				if(firstTimeStartup)
+				{
+					selectedView = view;
+					firstTimeStartup = false;
+				}
+				adapter.setSelectedItemPosition(i);
 				setPreviousBtnInvisible();
-				ImageView sessionDeleteBtn =
-						(ImageView)getViewByPosition(i, sessionListView).findViewById(R.id.delete_session_btn);
-				sessionDeleteBtn.setVisibility(View.VISIBLE);
+				SessionArrayAdapter.ViewHolder viewHolder = (SessionArrayAdapter.ViewHolder) view.getTag();
+				viewHolder.deleteSessionBtn.setVisibility(View.VISIBLE);
+				selectedView = view;
 				selectedPosition = i;
 			}
-
 		});
+	}
 
-		//Todo
-		sessionListView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+	/**
+	 * This method is used to set the sessionDeleteBtn invisible
+	 *
+	 * methodtype set method
+	 */
+	private void setPreviousBtnInvisible()
+	{
+		if(selectedView != null)
 		{
-			@Override
-			public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l)
+			View view = getViewByPosition(selectedPosition, sessionListView);
+			if(view != null)
 			{
-				setPreviousBtnInvisible();
-				ImageView sessionDeleteBtn =
-						(ImageView)getViewByPosition(i, sessionListView).findViewById(R.id.delete_session_btn);
-				sessionDeleteBtn.setVisibility(View.VISIBLE);
-				selectedPosition = i;
+				(((LinearLayout)view).getChildAt(4)).setVisibility(View.GONE);
 			}
-
-			@Override
-			public void onNothingSelected(AdapterView<?> adapterView)
-			{
-			}
-		});
+		}
 	}
 
 	/**
@@ -270,26 +275,11 @@ public class SelectedProjectFragment extends Fragment
 
 		if (pos < firstListItemPosition || pos > lastListItemPosition )
 		{
-			return listView.getAdapter().getView(pos, null, listView);
+			return null;
 		} else
 		{
 			final int childIndex = pos - firstListItemPosition;
 			return listView.getChildAt(childIndex);
-		}
-	}
-
-	/**
-	 * This method is used to set the sessionDeleteBtn invisible
-	 *
-	 * methodtype set method
-	 */
-	private void setPreviousBtnInvisible()
-	{
-		if (selectedPosition != -1)
-		{
-			ImageView sessionDeleteBtn = (ImageView) getViewByPosition(selectedPosition, sessionListView)
-					.findViewById(R.id.delete_session_btn);
-			sessionDeleteBtn.setVisibility(View.INVISIBLE);
 		}
 	}
 
@@ -378,15 +368,6 @@ public class SelectedProjectFragment extends Fragment
 	private void setTextViewToNoProjectSelected()
 	{
 		projectNameTextView.setText("No project selected. Please select one in the projects tab.");
-	}
-
-	//TODO
-	private void setDeleteBtnOfFirstSessionVisible()
-	{
-		if(adapter.getCount() > 0)
-		{
-			sessionListView.setSelection(0);
-		}
 	}
 
 	/**
