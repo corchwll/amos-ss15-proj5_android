@@ -30,7 +30,14 @@ import static org.junit.Assert.assertTrue;
 public class ProjectTests
 {
 	private static Project project;
+	private static String projectID = "test2";
+	private static String projectName = "testProject";
 	private static Date finalDate;
+	private static boolean isDisplayed = true;
+	private static boolean isUsed = true;
+	private static boolean isArchived = false;
+	private static String projectAsString = projectID + " " + projectName;
+
 
 	@Before
 	public void setUp() throws Exception
@@ -38,12 +45,12 @@ public class ProjectTests
 		finalDate = new Date();
 
 		project = new Project();
-		project.setId("test2");
-		project.setName("testProject");
+		project.setId(projectID);
+		project.setName(projectName);
 		project.setFinalDate(finalDate);
-		project.setIsDisplayed(true);
-		project.setIsUsed(true);
-		project.setIsArchived(false);
+		project.setIsDisplayed(isDisplayed);
+		project.setIsUsed(isUsed);
+		project.setIsArchived(isArchived);
 	}
 
 	@After
@@ -54,14 +61,14 @@ public class ProjectTests
 	}
 
 	@Test
-	public void testGetId_MethodCalled_testProjectReturned() throws Exception
+	public void testGetId_MethodCalled_test2Returned() throws Exception
 	{
 		String iD = project.getId();
-		assertTrue("ID should be test2, but was " + iD, iD.equals("test2"));
+		assertTrue("ID should be " + projectID + ", but was " + iD, iD.equals(projectID));
 	}
 
 	@Test
-	public void testSetId() throws Exception
+	public void testSetId_MethodCalled_CorrectSet() throws Exception
 	{
 		project.setId("newID");
 		String iD = project.getId();
@@ -69,14 +76,44 @@ public class ProjectTests
 	}
 
 	@Test
-	public void testGetName() throws Exception
+	public void testSetId_IdLessThan5Digits_AssertionThrown() throws Exception
 	{
-		String name = project.getName();
-		assertTrue("Name should be testProject, but was " + name, name.equals("testProject"));
+		boolean wasThrown = false;
+		try
+		{
+			project.setId("test");
+		} catch(AssertionError e)
+		{
+			wasThrown = true;
+		}
+
+		assertTrue("exception should be thrown, but was not", wasThrown);
 	}
 
 	@Test
-	public void testSetName() throws Exception
+	public void testSetId_IdGreaterThan5Digits_AssertionThrown() throws Exception
+	{
+		boolean wasThrown = false;
+		try
+		{
+			project.setId("testtest");
+		} catch(AssertionError e)
+		{
+			wasThrown = true;
+		}
+
+		assertTrue("exception should be thrown, but was not", wasThrown);
+	}
+
+	@Test
+	public void testGetName_MethodCalled_testProjectReturned() throws Exception
+	{
+		String name = project.getName();
+		assertTrue("Name should be " + projectName + ", but was " + name, name.equals(projectName));
+	}
+
+	@Test
+	public void testSetName_MethodCalled_CorrectSet() throws Exception
 	{
 		project.setName("newName");
 		String name = project.getName();
@@ -84,14 +121,29 @@ public class ProjectTests
 	}
 
 	@Test
-	public void testGetFinalDate() throws Exception
+	public void testSetName_NameIsNull_AssertionThrown() throws Exception
+	{
+		boolean wasThrown = false;
+		try
+		{
+			project.setName(null);
+		} catch(AssertionError e)
+		{
+			wasThrown = true;
+		}
+
+		assertTrue("exception should be thrown, but was not", wasThrown);
+	}
+
+	@Test
+	public void testGetFinalDate_MethodCalled_FinalDateReturned() throws Exception
 	{
 		Date date = project.getFinalDate();
 		assertTrue("date should be " + finalDate + ", but was " + date, date.equals(finalDate));
 	}
 
 	@Test
-	public void testSetFinalDate() throws Exception
+	public void testSetFinalDate_MethodCalled_CorrectSet() throws Exception
 	{
 		Date newDate = new Date();
 		project.setFinalDate(newDate);
@@ -100,14 +152,29 @@ public class ProjectTests
 	}
 
 	@Test
-	public void testIsDisplayed() throws Exception
+	public void testSetFinalDate_DateIsNull_AssertionThrown() throws Exception
 	{
-		boolean isDisplayed = project.isDisplayed();
-		assertTrue("isDisplayed should be true, but was " + isDisplayed, isDisplayed);
+		boolean wasThrown = false;
+		try
+		{
+			project.setFinalDate(null);
+		} catch(AssertionError e)
+		{
+			wasThrown = true;
+		}
+
+		assertTrue("exception should be thrown, but was not", wasThrown);
 	}
 
 	@Test
-	public void testSetIsDisplayed() throws Exception
+	public void testIsDisplayed_MethodCalled_TrueReturned() throws Exception
+	{
+		boolean isDisplayed = project.isDisplayed();
+		assertTrue("isDisplayed should be " + ProjectTests.isDisplayed + ", but was " + isDisplayed, isDisplayed);
+	}
+
+	@Test
+	public void testSetIsDisplayed_MethodCalled_CorrectSet() throws Exception
 	{
 		project.setIsDisplayed(false);
 		boolean isDisplayed = project.isDisplayed();
@@ -115,14 +182,14 @@ public class ProjectTests
 	}
 
 	@Test
-	public void testIsUsed() throws Exception
+	public void testIsUsed_MethodCalled_TrueReturned() throws Exception
 	{
 		boolean isUsed = project.isUsed();
-		assertTrue("isUsed should be true, but was " + isUsed, isUsed);
+		assertTrue("isUsed should be " + ProjectTests.isUsed + ", but was " + isUsed, isUsed);
 	}
 
 	@Test
-	public void testSetIsUsed() throws Exception
+	public void testSetIsUsed_MethodCalled_CorrectSet() throws Exception
 	{
 		project.setIsUsed(false);
 		boolean isUsed = project.isUsed();
@@ -130,14 +197,14 @@ public class ProjectTests
 	}
 
 	@Test
-	public void testIsArchived() throws Exception
+	public void testIsArchived_MethodCalled_FalseReturned() throws Exception
 	{
 		boolean isArchived = project.isArchived();
-		assertFalse("isArchived should be false, but was " + isArchived, isArchived);
+		assertFalse("isArchived should be " + ProjectTests.isArchived + ", but was " + isArchived, isArchived);
 	}
 
 	@Test
-	public void testSetIsArchived() throws Exception
+	public void testSetIsArchived_MethodCalled_CorrectSet() throws Exception
 	{
 		project.setIsArchived(true);
 		boolean isArchived = project.isArchived();
@@ -145,10 +212,9 @@ public class ProjectTests
 	}
 
 	@Test
-	public void testToString() throws Exception
+	public void testToString_MethodCalled_CorrectRepresentationReturned() throws Exception
 	{
 		String result = project.toString();
-		assertTrue("result should be 'test2 testProject', but was " + result,
-				result.equals("test2 testProject"));
+		assertTrue("result should be '" + projectAsString + "', but was " + result, result.equals(projectAsString));
 	}
 }
