@@ -174,7 +174,9 @@ public class AddSessionActivity extends AppCompatActivity
 			{
 				if(!sessionValidator.isOverlapping(newSession))
 				{
-					saveSessionInDatabase(startDate, stopDate);
+					Session cutOffSession = sessionValidator.cutWorkingTime(newSession);
+					showToastIfSessionWasCutOff(stopDate, cutOffSession);
+					saveSessionInDatabase(cutOffSession.getStartTime(), cutOffSession.getStopTime());
 				}
 				else
 				{
@@ -183,33 +185,57 @@ public class AddSessionActivity extends AppCompatActivity
 				}
 			} catch(SQLException e)
 			{
-				Toast.makeText(this, "Could not validate session due to database errors!", Toast.LENGTH_SHORT).show();
+				Toast.makeText(this, "Could not validate or cut session due to database errors!", Toast.LENGTH_SHORT)
+					 .show();
 			}
 		} else
 		{
-			AlertDialog.Builder builder = new AlertDialog.Builder(this)
-					.setTitle("Error")
-					.setMessage(getResources().getString(R.string.errorMessageAddSession))
-					.setPositiveButton("OK", new DialogInterface.OnClickListener()
-					{
-						@Override
-						public void onClick(DialogInterface dialog, int which)
-						{
-							dialog.dismiss();
-						}
-					});
-			final AlertDialog dialog = builder.create();
-			dialog.setOnShowListener(new DialogInterface.OnShowListener()
-			{
-				@Override
-				public void onShow(DialogInterface arg0)
-				{
-					dialog.getButton(AlertDialog.BUTTON_POSITIVE)
-						  .setTextColor(getResources().getColor(R.color.bluePrimaryColor));
-				}
-			});
-			dialog.show();
+			showErrorDialog();
 		}
+	}
+
+	/**
+	 * This method shows a toast if the session was cut off.
+	 *
+	 * methodtype helper method
+	 */
+	private void showToastIfSessionWasCutOff(Date stopDate, Session cutOffSession)
+	{
+		if(!stopDate.equals(cutOffSession.getStopTime()))
+		{
+			Toast.makeText(this, getResources().getString(R.string.warningSessionWasCutOff),Toast.LENGTH_LONG).show();
+		}
+	}
+
+	/**
+	 * This method shows a error dialog.
+	 *
+	 * methodtype helper method
+	 */
+	private void showErrorDialog()
+	{
+		AlertDialog.Builder builder = new AlertDialog.Builder(this)
+				.setTitle("Error")
+				.setMessage(getResources().getString(R.string.errorMessageAddSession))
+				.setPositiveButton("OK", new DialogInterface.OnClickListener()
+				{
+					@Override
+					public void onClick(DialogInterface dialog, int which)
+					{
+						dialog.dismiss();
+					}
+				});
+		final AlertDialog dialog = builder.create();
+		dialog.setOnShowListener(new DialogInterface.OnShowListener()
+		{
+			@Override
+			public void onShow(DialogInterface arg0)
+			{
+				dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+					  .setTextColor(getResources().getColor(R.color.bluePrimaryColor));
+			}
+		});
+		dialog.show();
 	}
 
 	/**
