@@ -118,6 +118,18 @@ public class SessionValidator
 		return result;
 	}
 
+	public Session cutWorkingTime(Session session)
+	{
+
+		return session;
+	}
+
+	protected long calculateLeftTime(List<Session> sessions)
+	{
+
+		return 0L;
+	}
+
 	/**
 	 * Sets the context under which this object should be.
 	 *
