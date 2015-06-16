@@ -31,6 +31,7 @@ import java.util.*;
 public class CSVCreator
 {
 	public static final String filePrefix = "recordings_";
+	private static final String separator = ";";
 
 	/**
 	 * This method generates the file name for a given year and month.
@@ -103,14 +104,14 @@ public class CSVCreator
 	 */
 	protected void writeFileHeader(DataOutputStream out, int month, int year) throws IOException
 	{
-		out.writeChars(user.getFirstName());
-		out.writeChars(",");
-		out.writeChars(user.getLastName());
-		out.writeChars(",");
-		out.writeChars(month + 1 + "");
-		out.writeChars(",");
-		out.writeChars(year + "");
-		out.writeChars("\n");
+		out.writeBytes(user.getFirstName());
+		out.writeBytes(separator);
+		out.writeBytes(user.getLastName());
+		out.writeBytes(separator);
+		out.writeBytes(month + 1 + "");
+		out.writeBytes(separator);
+		out.writeBytes(year + "");
+		out.writeBytes("\n");
 		out.flush();
 	}
 
@@ -124,12 +125,12 @@ public class CSVCreator
 	 */
 	protected void writeDataHeader(DataOutputStream out, List<Project> projects) throws IOException
 	{
-		out.writeBytes("Date,");
+		out.writeBytes("Date" + separator);
 		for(int i = 0; i < projects.size(); i++)
 		{
 			if(i > 0)
 			{
-				out.writeBytes(",");
+				out.writeBytes(separator);
 			}
 			out.writeBytes(projects.get(i)
 								   .getId());
@@ -167,20 +168,20 @@ public class CSVCreator
 
 		while(cal.getTime().before(stop))
 		{
-			out.writeChars(cal.getTime()
-							  .toString() + ",");
+			out.writeBytes(cal.getTime()
+							  .toString() + separator);
 
 			for(int i = 0; i < projects.size(); i++)
 			{
 				if(i > 0)
 				{
-					out.writeChars(",");
+					out.writeBytes(separator);
 				}
 				int minutes = getTimeInMinutesForDate(projectMap.get(projects.get(i).getId()), cal.getTime());
-				out.writeChars(minutes + "");
+				out.writeBytes(minutes + "");
 			}
 
-			out.writeChars("\n");
+			out.writeBytes("\n");
 			cal.add(Calendar.DATE, 1);
 		}
 
