@@ -118,16 +118,48 @@ public class SessionValidator
 		return result;
 	}
 
-	public Session cutWorkingTime(Session session)
+	public Session cutWorkingTime(Session session) throws SQLException
 	{
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(session.getStartTime());
+		cal.set(Calendar.HOUR_OF_DAY, 0);
+		cal.set(Calendar.MINUTE, 0);
+		cal.set(Calendar.SECOND, 0);
+
+		List<Session> sessions = DataAccessObjectFactory.getInstance()
+														.createSessionsDAO(context)
+														.listAllForDate(cal);
+
+		long leftTime = calculateLeftTime(sessions);
+
+		if(leftTime < (session.getStopTime().getTime() - session.getStartTime().getTime()))
+		{
+			session.setStopTime(new Date(session.getStartTime().getTime() + leftTime));
+		}
 
 		return session;
 	}
 
 	protected long calculateLeftTime(List<Session> sessions)
 	{
+		long tenHours = 1000L*60L*60L*10L;
 
-		return 0L;
+		long currentTime = 0;
+		for(Session s : sessions)
+		{
+			currentTime += s.getStopTime().getTime() - s.getStartTime().getTime();
+		}
+
+		long result;
+		if(currentTime >= tenHours)
+		{
+			result = 0L;
+		} else
+		{
+			result = tenHours - currentTime;
+		}
+
+		return result;
 	}
 
 	/**
