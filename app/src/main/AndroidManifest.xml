@@ -20,12 +20,25 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="dess15proj5.fau.cs.osr_amos.mobiletimerecording" >
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/app_icon"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+
+        <meta-data
+                android:name="com.google.android.gms.version"
+                android:value="@integer/google_play_services_version" />
+
+        <meta-data
+                android:name="com.google.android.geo.API_KEY"
+                android:value="AIzaSyAdzBXQ3OEtqNZitQvKBjslfbPXSUhT9MM"/>
+
         <activity
             android:name=".ui.RegistrationActivity"
             android:label="@string/app_name"
@@ -39,6 +52,7 @@
             android:name=".ui.MainActivity"
                 android:label="@string/app_name" >
         </activity>
+        <activity android:name=".ui.AddProjectActivity"/>
         <activity android:name=".ui.AddSessionActivity"
                   android:label="@string/add_new_session" >
         </activity>
