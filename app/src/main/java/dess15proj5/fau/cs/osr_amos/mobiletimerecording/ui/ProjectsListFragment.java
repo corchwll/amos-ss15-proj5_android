@@ -21,6 +21,7 @@ package dess15proj5.fau.cs.osr_amos.mobiletimerecording.ui;
 import android.app.Activity;
 import android.app.ListFragment;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.SearchView;
@@ -36,7 +37,7 @@ import dess15proj5.fau.cs.osr_amos.mobiletimerecording.persistence.ProjectsDAO;
 import java.sql.SQLException;
 import java.util.List;
 
-public class ProjectsListFragment extends ListFragment implements AddProjectDialogFragment.AddProjectDialogListener
+public class ProjectsListFragment extends ListFragment
 {
 	public static final int POSITION_OF_SPECIAL_PROJECTS_SEPARATOR = 0;
 	public static final String SEPARATOR_ID = "-1";
@@ -105,6 +106,18 @@ public class ProjectsListFragment extends ListFragment implements AddProjectDial
 		projectListView = (ListView) view.findViewById(android.R.id.list);
 		addProjectFAB = (ImageButton) view.findViewById(R.id.addProjectFAB);
 		return view;
+	}
+
+	/**
+	 * This method is called in the android lifecycle when the application is resumed.
+	 *
+	 * methodtype command method
+	 */
+	@Override
+	public void onResume()
+	{
+		super.onResume();
+		addProjectsToAdapter();
 	}
 
 	/**
@@ -281,14 +294,16 @@ public class ProjectsListFragment extends ListFragment implements AddProjectDial
 			 */
 			private void hideSoftwareKeyboard()
 			{
-				InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+				InputMethodManager imm =
+						(InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
 				imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
 			}
 
 			@Override
 			public boolean onQueryTextChange(String newText)
 			{
-				adapter.getFilter().filter(newText);
+				adapter.getFilter()
+					   .filter(newText);
 				return true;
 			}
 		});
@@ -301,19 +316,8 @@ public class ProjectsListFragment extends ListFragment implements AddProjectDial
 	 */
 	private void addNewProject()
 	{
-		AddProjectDialogFragment newFragment = new AddProjectDialogFragment();
-		newFragment.setAddProjectDialogListener(this);
-		newFragment.show(getFragmentManager(), "dialog");
-	}
-
-	/**
-	 * This method is called by a callback if the ok button of the add projects dialog is clicked.
-	 *
-	 * methodtype command method
-	 */
-	@Override
-	public void onDialogPositiveClick()
-	{
-		addProjectsToAdapter();
+		Intent intent = new Intent(getActivity(), AddProjectActivity.class);
+		getActivity().startActivity(intent);
+		getActivity().overridePendingTransition(R.animator.fade_in_right, R.animator.empty_animator);
 	}
 }

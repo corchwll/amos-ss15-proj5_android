@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <!--
   ~     Mobile Time Accounting
   ~     Copyright (C) 2015
@@ -19,12 +18,22 @@
 
 <resources>
 
-  <!-- Base application theme. -->
-  <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-    <item name="colorPrimary">@color/bluePrimaryColor</item>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/bluePrimaryColor</item>
 
-    <item name="colorControlActivated">@color/bluePrimaryColor</item>
-    <item name="colorControlHighlight">@color/bluePrimaryColor</item>
-  </style>
+        <item name="colorControlActivated">@color/bluePrimaryColor</item>
+        <item name="colorControlHighlight">@color/bluePrimaryColor</item>
+
+        <item name="android:datePickerDialogTheme">@style/myDatePickerDialogTheme</item>
+    </style>
+
+    <style name="myDatePickerDialogTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:datePickerStyle">@style/myDatePickerStyle</item>
+    </style>
+
+    <style name="myDatePickerStyle" parent="@android:style/Widget.Material.Light.DatePicker">
+        <item name="android:headerBackground">@color/bluePrimaryColor</item>
+    </style>
 
 </resources>

@@ -36,6 +36,6 @@ public class AddSessionActivityTest extends ActivityInstrumentationTestCase2<Reg
 		solo.clickInList(1, 0);
 		assertTrue("dess15proj5.fau.cs.osr_amos.mobiletimerecording.ui.AddSessionActivity is not found!",
 				solo.waitForActivity(dess15proj5.fau.cs.osr_amos.mobiletimerecording.ui.AddSessionActivity.class));
-		solo.clickOnView(solo.getView(dess15proj5.fau.cs.osr_amos.mobiletimerecording.R.id.saveNewSession));
+		solo.clickOnView(solo.getView(dess15proj5.fau.cs.osr_amos.mobiletimerecording.R.id.action_save_new_item));
 	}
 }

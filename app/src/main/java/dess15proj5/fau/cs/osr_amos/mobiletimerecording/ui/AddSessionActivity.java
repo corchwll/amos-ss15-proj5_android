@@ -128,7 +128,7 @@ public class AddSessionActivity extends AppCompatActivity
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
 		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.menu_add_session, menu);
+		inflater.inflate(R.menu.menu_add, menu);
 		return true;
 	}
 
@@ -147,7 +147,7 @@ public class AddSessionActivity extends AppCompatActivity
 			case android.R.id.home:
 				finishActivityAndShowAnimation();
 				return true;
-			case R.id.saveNewSession:
+			case R.id.action_save_new_item:
 				validateStartAndStopTime();
 				return true;
 			default:

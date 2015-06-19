@@ -18,24 +18,27 @@
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <include layout="@layout/toolbar"/>
 
     <EditText
-        android:id="@+id/newProjectId"
-        android:inputType="number"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/newProjectId"
-        />
+            android:id="@+id/newProjectId"
+            android:inputType="number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/newProjectId"
+            />
 
     <EditText
-        android:id="@+id/newProjectName"
-        android:inputType="text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/inputProjectName"
-        />
+            android:id="@+id/newProjectName"
+            android:inputType="text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/inputProjectName"
+            />
 
     <LinearLayout
             android:layout_width="match_parent"
@@ -57,26 +60,10 @@
 
     </LinearLayout>
 
-    <LinearLayout
-            android:layout_width="match_parent"
+    <DatePicker
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:id="@+id/datePickerView"
-            android:layout_marginLeft="2dp"
-            android:layout_marginStart="2dp"
-            android:visibility="gone">
-
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/finalProjectDate" />
-
-        <EditText
-                android:id="@+id/datePickerShowDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:focusable="false"
-                android:layout_marginLeft="2dp"
-                android:layout_marginStart="2dp"/>
-    </LinearLayout>
+            android:id="@+id/datePickerAddProject"
+            android:layout_gravity="center"
+            android:visibility="gone"/>
 </LinearLayout>

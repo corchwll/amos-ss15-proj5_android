@@ -57,7 +57,6 @@ public abstract class AbstractUserProfileFragment extends Fragment
 	protected EditText totalVacationTimeWidget;
 	protected EditText currentVacationTimeWidget;
 	protected EditText currentOvertimeWidget;
-	protected MenuItem saveUserProfileBtn;
 
 	protected String employeeId;
 	protected String lastName;
@@ -131,8 +130,7 @@ public abstract class AbstractUserProfileFragment extends Fragment
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
 	{
 		super.onCreateOptionsMenu(menu, inflater);
-		getActivity().getMenuInflater().inflate(R.menu.menu_user_profile_registration, menu);
-		saveUserProfileBtn = menu.findItem(R.id.action_save_user_profile);
+		getActivity().getMenuInflater().inflate(R.menu.menu_add, menu);
 	}
 
 	/**
@@ -147,7 +145,7 @@ public abstract class AbstractUserProfileFragment extends Fragment
 	{
 		switch(item.getItemId())
 		{
-			case R.id.action_save_user_profile:
+			case R.id.action_save_new_item:
 				extractInputsFromWidgets();
 				if(allInputFieldsAreFilledOut() && UserInputIsValidated())
 				{
