@@ -79,6 +79,8 @@
     <string name="confirm_project_change_button">OK</string>
     <string name="errorMessageAddSession">Negative times are not allowed."</string>
     <string name="warningAlreadyRecordedSession">You have already recorded for this time.</string>
+    <string name="warningSessionWasCutOff">The total working hours can not exceed ten hours per day. Session
+        was cut off.</string>
     
     <!--change_user_profile.xml-->
     <string name="changeUserProfileText">Change details of your user profile</string>

@@ -37,6 +37,7 @@ import java.util.TimeZone;
 public class SessionArrayAdapter extends ArrayAdapter<Session>
 {
 	private FragmentManager fm;
+	private int selectedItemPosition = 0;
 
 	/**
 	 * This is the constructor for SessionArrayAdapter.
@@ -86,8 +87,15 @@ public class SessionArrayAdapter extends ArrayAdapter<Session>
 		}
 		else
 		{
-			viewHolder = (ViewHolder) convertView.getTag();
-			viewHolder.deleteSessionBtn.setVisibility(View.INVISIBLE);
+			viewHolder = (ViewHolder)convertView.getTag();
+			if(selectedItemPosition == position)
+			{
+				viewHolder.deleteSessionBtn.setVisibility(View.VISIBLE);
+			}
+			else
+			{
+				viewHolder.deleteSessionBtn.setVisibility(View.GONE);
+			}
 		}
 		SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm", Locale.GERMANY);
 		SimpleDateFormat sdfDate = new SimpleDateFormat("dd.MM.yyyy", Locale.GERMANY);
@@ -114,5 +122,10 @@ public class SessionArrayAdapter extends ArrayAdapter<Session>
 			}
 		});
 		return convertView;
+	}
+
+	public void setSelectedItemPosition(int selectedItemPosition)
+	{
+		this.selectedItemPosition = selectedItemPosition;
 	}
 }

@@ -20,6 +20,7 @@ package dess15proj5.fau.cs.osr_amos.mobiletimerecording.businesslogic;
 
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.models.Session;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.testUtility.TestContext;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -33,8 +34,10 @@ import static org.junit.Assert.assertTrue;
 
 public class SessionValidatorTests
 {
-	private static List<Session> sessions = new ArrayList<>();
 	private static final long ONE_HOUR = 3600000L;
+
+	private static List<Session> sessions = new ArrayList<>();
+	private static SessionValidator validator;
 
 	@Before
 	public void setUp()
@@ -50,6 +53,14 @@ public class SessionValidatorTests
 		sessions.add(new Session(0L, "test", date1, date2));
 		sessions.add(new Session(1L, "test", date2, date3));
 		sessions.add(new Session(2L, "test", date4, date5));
+
+		validator = new SessionValidator(new TestContext());
+	}
+
+	@After
+	public void tearDown()
+	{
+		sessions.clear();
 	}
 
 	@Test
@@ -60,7 +71,6 @@ public class SessionValidatorTests
 
 		Session session = new Session(4L, "test", cal.getTime(), new Date(cal.getTime().getTime() + ONE_HOUR));
 
-		SessionValidator validator = new SessionValidator(new TestContext());
 		boolean result = validator.checkOverlapping(session, sessions);
 
 		assertFalse("result has to be false, but was " + result, result);
@@ -74,7 +84,6 @@ public class SessionValidatorTests
 
 		Session session = new Session(4L, "test", cal.getTime(), new Date(cal.getTime().getTime() + ONE_HOUR));
 
-		SessionValidator validator = new SessionValidator(new TestContext());
 		boolean result = validator.checkOverlapping(session, sessions);
 
 		assertTrue("result has to be true, but was " + result, result);
@@ -88,9 +97,28 @@ public class SessionValidatorTests
 
 		Session session = new Session(4L, "test", cal.getTime(), new Date(cal.getTime().getTime() + 3*ONE_HOUR));
 
-		SessionValidator validator = new SessionValidator(new TestContext());
 		boolean result = validator.checkOverlapping(session, sessions);
 
 		assertTrue("result has to be true, but was " + result, result);
+	}
+
+	@Test
+	public void testCalculateLeftTime_5HoursWorked_5HoursInMillisReturned()
+	{
+		long leftTime = validator.calculateLeftTime(sessions);
+
+		assertTrue("result has to be 5 hours in millis, but was " + leftTime, leftTime == (1000L*60L*60L*5L));
+	}
+
+	@Test
+	public void testCalculateLeftTime_10HoursWorked_0HoursInMillisReturned()
+	{
+		Calendar cal = Calendar.getInstance();
+		cal.set(2015, 5, 15, 17, 0, 0);
+		sessions.add(new Session(4L, "test", cal.getTime(), new Date(cal.getTime().getTime() + 5*ONE_HOUR)));
+
+		long leftTime = validator.calculateLeftTime(sessions);
+
+		assertTrue("result has to be 0 hours in millis, but was " + leftTime, leftTime == 0L);
 	}
 }
