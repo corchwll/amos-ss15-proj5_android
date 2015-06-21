@@ -26,48 +26,13 @@
 
     <include layout="@layout/toolbar"/>
 
-    <EditText
-            android:id="@+id/newProjectId"
-            android:inputType="number"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/newProjectId"
-            />
-
-    <EditText
-            android:id="@+id/newProjectName"
-            android:inputType="text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/inputProjectName"
-            />
-
-    <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="2dp"
-            android:layout_marginStart="2dp"
-            android:orientation="horizontal">
-
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/addFinalDateQuestion"
-                android:text="@string/finalProjectString" />
-
-        <CheckBox
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/checkboxFinalDate"/>
-
-    </LinearLayout>
-
-    <DatePicker
+    <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/datePickerAddProject"
-            android:layout_gravity="center"
-            android:visibility="gone"/>
+            android:text="@string/mapDescription"
+            android:textColor="@color/grey_text_view"
+            android:textStyle="bold"
+            android:layout_gravity="center"/>
 
     <fragment
             tools:ignore="MissingPrefix"
@@ -79,7 +44,5 @@
             map:cameraZoom="14"
             map:uiCompass="false"
             map:uiZoomControls="true"
-
-            />
-
+            map:uiMapToolbar="false"/>
 </LinearLayout>

@@ -48,6 +48,7 @@
     <!--actionBar-->
     <string name="add_project">Add Project</string>
     <string name="action_settings">Settings</string>
+    <string name="next">Next</string>
 
     <!--user_profile_registration.xml-->
     <string name="registrationText">Create new User Profile</string>
@@ -67,7 +68,9 @@
     <!--add_project.xml-->
     <string name="newProjectId">Project ID</string>
     <string name="inputProjectName">Project Name</string>
-    <string name="finalProjectString">Want to add final project date to project?</string>
+    <string name="finalProjectTextView">Select final date of the project:</string>
+    <string name="mapDescription">Select a location for the new project.\nTab on the map to set a new marker or click
+        the location button to determine your current position via GPS.</string>
     <string name="noGPSWarning">GPS not enabled. If you want to use GPS to determine your position you have to enable it
         in the settings.</string>
 

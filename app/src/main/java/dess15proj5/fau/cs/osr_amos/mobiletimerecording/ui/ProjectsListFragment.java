@@ -316,7 +316,7 @@ public class ProjectsListFragment extends ListFragment
 	 */
 	private void addNewProject()
 	{
-		Intent intent = new Intent(getActivity(), AddProjectActivity.class);
+		Intent intent = new Intent(getActivity(), AddProjectIdAndName.class);
 		getActivity().startActivity(intent);
 		getActivity().overridePendingTransition(R.animator.fade_in_right, R.animator.empty_animator);
 	}
