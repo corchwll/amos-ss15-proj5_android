@@ -18,6 +18,7 @@
 
 <resources>
     <string name="app_name">Mobile Time Accounting</string>
+    <string name="marker">develop group</string>
 
     <string name="add_new_session">Add new session</string>
 
@@ -67,6 +68,8 @@
     <string name="newProjectId">Project ID</string>
     <string name="inputProjectName">Project Name</string>
     <string name="finalProjectString">Want to add final project date to project?</string>
+    <string name="noGPSWarning">GPS not enabled. If you want to use GPS to determine your position you have to enable it
+        in the settings.</string>
 
     <!--add_session_to_project.xml-->
     <string name="dateText">DATE:</string>

@@ -26,12 +26,19 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.*;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.R;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.persistence.DataAccessObjectFactory;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.persistence.ProjectsDAO;
@@ -47,12 +54,14 @@ public class AddProjectActivity extends AppCompatActivity
 	private TextView addFinalDateQuestion;
 	private CheckBox checkBox;
 	private DatePicker datePicker;
+	private MapFragment mapFragment;
 	private boolean datePickerViewVisible = false;
 	private Calendar cal = Calendar.getInstance();
 	private LocationManager locationManager;
 	private LocationListener locationListener;
+	private Marker marker;
 
-	private static final long minTime = 0L;
+	private static final long minTime = 10000L;
 	private static final float minDistance = 500.0f;
 
 	/**
@@ -75,7 +84,7 @@ public class AddProjectActivity extends AppCompatActivity
 		setWidgets();
 		setOnClickListenerToTextView();
 		initCheckBox();
-		initLocation();
+		initMapFragment();
 	}
 
 	/**
@@ -192,6 +201,7 @@ public class AddProjectActivity extends AppCompatActivity
 		addFinalDateQuestion = (TextView) findViewById(R.id.addFinalDateQuestion);
 		checkBox = (CheckBox) findViewById(R.id.checkboxFinalDate);
 		datePicker = (DatePicker) findViewById(R.id.datePickerAddProject);
+		mapFragment = (MapFragment)getFragmentManager().findFragmentById(R.id.map);
 	}
 
 	/**
@@ -256,26 +266,23 @@ public class AddProjectActivity extends AppCompatActivity
 			@Override
 			public void onLocationChanged(Location location)
 			{
-				Log.e("onLocationChanged", String.valueOf(location.getLatitude()) + " " + String.valueOf(location
-						.getLongitude()));
+				replaceMarker(new LatLng(location.getLatitude(), location.getLongitude()));
 			}
 
 			@Override
 			public void onStatusChanged(String s, int i, Bundle bundle)
 			{
-				Log.e("onStatusChanged", s);
 			}
 
 			@Override
 			public void onProviderEnabled(String s)
 			{
-				Log.e("onProviederEnabled", s);
 			}
 
 			@Override
 			public void onProviderDisabled(String s)
 			{
-				Log.e("onProviderdisabled", s);
+				showNoGPSEnabledToast();
 			}
 		};
 
@@ -291,17 +298,86 @@ public class AddProjectActivity extends AppCompatActivity
 		}
 	}
 
-//	/**
-//	 * Called as part of the activity lifecycle when the activity is going into the background, but has not been killed.
-//	 *
-//	 * methodtype initialization method
-//	 */
-//	@Override
-//	protected void onPause()
-//	{
-//		locationManager.removeUpdates(locationListener);
-//		super.onPause();
-//	}
+	private void showNoGPSEnabledToast()
+	{
+		Toast.makeText(this, getResources().getString(R.string.noGPSWarning), Toast.LENGTH_SHORT).show();
+	}
+
+	/**
+	 * Called as part of the activity lifecycle when the activity is going into the background, but has not been killed.
+	 *
+	 * methodtype initialization method
+	 */
+	@Override
+	protected void onPause()
+	{
+		removeLocationListener();
+		super.onPause();
+	}
+
+	public void removeLocationListener()
+	{
+		if(locationManager != null)
+		{
+			locationManager.removeUpdates(locationListener);
+			mapFragment.getMap().setMyLocationEnabled(false);
+		}
+	}
+
+	private void initMapFragment()
+	{
+		mapFragment.getMapAsync(new OnMapReadyCallback()
+		{
+			@Override
+			public void onMapReady(final GoogleMap googleMap)
+			{
+				googleMap.setMyLocationEnabled(true);
+				googleMap.setOnMyLocationButtonClickListener(new GoogleMap.OnMyLocationButtonClickListener()
+				{
+					@Override
+					public boolean onMyLocationButtonClick()
+					{
+						initLocation();
+						return false;
+					}
+				});
+				googleMap.getUiSettings().setMapToolbarEnabled(false);
+
+				TypedValue latValue = new TypedValue();
+				getResources().getValue(R.dimen.lat, latValue, true);
+				float lat = latValue.getFloat();
+
+				TypedValue lngValue = new TypedValue();
+				getResources().getValue(R.dimen.lng, lngValue, true);
+				float lng = lngValue.getFloat();
+
+				marker = googleMap.addMarker(new MarkerOptions().position(new LatLng(lat, lng))
+																.title(getResources().getString(R.string.marker)));
+				mapFragment.getMap().animateCamera(CameraUpdateFactory.newLatLng(new LatLng(lat, lng)));
+
+				googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener()
+				{
+					@Override
+					public void onMapClick(LatLng latLng)
+					{
+						replaceMarker(latLng);
+					}
+				});
+			}
+
+		});
+	}
+
+	private void replaceMarker(LatLng latLng)
+	{
+		marker.remove();
+		GoogleMap map = mapFragment.getMap();
+		if(map != null)
+		{
+			marker = mapFragment.getMap().addMarker(new MarkerOptions().position(latLng));
+			mapFragment.getMap().animateCamera(CameraUpdateFactory.newLatLng(latLng));
+		}
+	}
 
 	/**
 	 * This method creates a new project and stores it to the database.
