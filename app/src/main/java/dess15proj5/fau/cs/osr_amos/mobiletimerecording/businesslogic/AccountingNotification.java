@@ -18,7 +18,6 @@
 
 package dess15proj5.fau.cs.osr_amos.mobiletimerecording.businesslogic;
 
-import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -29,6 +28,8 @@ import dess15proj5.fau.cs.osr_amos.mobiletimerecording.ui.MainActivity;
 
 public class AccountingNotification
 {
+	public static final int ALARM_ID = 21;
+
 	private Context context;
 
 	public AccountingNotification(Context context)
@@ -42,7 +43,7 @@ public class AccountingNotification
 				new Notification.Builder(context)
 						.setSmallIcon(R.mipmap.ic_launcher)
 						.setContentTitle("Mobile Time Accounting")
-						.setContentText("Sie haben für heute noch keine Zeiten aufgenommen!");
+						.setContentText("You haven't recorded your time today");
 		// Prepare intent which is triggered if the
 		// notification is selected
 		Intent intent = new Intent(context, MainActivity.class);
