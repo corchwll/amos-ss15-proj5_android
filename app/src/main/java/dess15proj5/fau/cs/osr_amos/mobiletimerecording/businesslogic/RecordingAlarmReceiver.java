@@ -34,6 +34,13 @@ public class RecordingAlarmReceiver extends BroadcastReceiver
 {
 	private Context context;
 
+	/**
+	 * This method is used by android system if there is a broadcast via alarm manager.
+	 *
+	 * @param context the current context under which the intent should be recorded
+	 * @param intent the intent for which the broadcast was made
+	 * methodtype command method
+	 */
 	@Override
 	public void onReceive(Context context, Intent intent)
 	{
@@ -51,6 +58,13 @@ public class RecordingAlarmReceiver extends BroadcastReceiver
 		}
 	}
 
+	/**
+	 * This method checks whether a notification is required for today.
+	 *
+	 * @return true if required, false if not
+	 * @throws SQLException in case of database error
+	 * methodtype boolean query method
+	 */
 	protected boolean isNotificationRequired() throws SQLException
 	{
 		boolean result;
@@ -67,6 +81,13 @@ public class RecordingAlarmReceiver extends BroadcastReceiver
 		return result;
 	}
 
+	/**
+	 * This method checks whether there exists a record for today in the database.
+	 *
+	 * @return true if there is a record for today, false if not
+	 * @throws SQLException in case of database error
+	 * methodtype boolean query method
+	 */
 	protected boolean existsRecordForToday() throws SQLException
 	{
 		Calendar cal = Calendar.getInstance();
@@ -82,6 +103,12 @@ public class RecordingAlarmReceiver extends BroadcastReceiver
 		return sessions.size() > 0;
 	}
 
+	/**
+	 * This method checks whether today is a weekday.
+	 *
+	 * @return true if today is a weekday, false if not
+	 * methodtype boolean query method
+	 */
 	protected boolean isTodayAWeekday()
 	{
 		Calendar cal = Calendar.getInstance();
@@ -97,6 +124,13 @@ public class RecordingAlarmReceiver extends BroadcastReceiver
 		return isWeekday && !isHoliday;
 	}
 
+	/**
+	 * This method checks whether today is an holiday.
+	 *
+	 * @param cal the current date in calendar representation
+	 * @return true if today is an holiday, false if not
+	 * methodtype boolean query method
+	 */
 	protected boolean isTodayAnHoliday(Calendar cal)
 	{
 		boolean result = false;

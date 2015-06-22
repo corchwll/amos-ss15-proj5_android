@@ -32,11 +32,22 @@ public class AccountingNotification
 
 	private Context context;
 
+	/**
+	 * This is used to create an AccountingNotification object.
+	 *
+	 * @param context the context under which the object should be created.
+	 * methodtype constructor
+	 */
 	public AccountingNotification(Context context)
 	{
 		this.context = context;
 	}
 
+	/**
+	 * This method creates a notification to remind the user that he has not recorded work for today.
+	 *
+	 * methodtype command method
+	 */
 	public void createNotification()
 	{
 		Notification.Builder mBuilder =
@@ -44,18 +55,13 @@ public class AccountingNotification
 						.setSmallIcon(R.mipmap.ic_launcher)
 						.setContentTitle("Mobile Time Accounting")
 						.setContentText("You haven't recorded your time today");
-		// Prepare intent which is triggered if the
-		// notification is selected
+
 		Intent intent = new Intent(context, MainActivity.class);
 		PendingIntent pIntent = PendingIntent.getActivity(context, 0, intent, 0);
-
-		// Build notification
-		// Actions are just fake
 
 		mBuilder.setContentIntent(pIntent);
 		NotificationManager mNotificationManager =
 				(NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-		// mId allows you to update the notification later on.
 		mNotificationManager.notify(50, mBuilder.build());
 	}
 }
