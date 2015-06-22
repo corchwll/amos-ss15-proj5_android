@@ -18,7 +18,9 @@
 
 package dess15proj5.fau.cs.osr_amos.mobiletimerecording.ui;
 
+import android.app.AlarmManager;
 import android.app.Fragment;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
@@ -30,6 +32,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.R;
+import dess15proj5.fau.cs.osr_amos.mobiletimerecording.businesslogic.AccountingNotification;
+import dess15proj5.fau.cs.osr_amos.mobiletimerecording.businesslogic.RecordingAlarmReceiver;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.models.Project;
 
 public class MainActivity extends AppCompatActivity implements AbstractUserProfileFragment.UserProfileFragmentListener,
@@ -53,6 +57,13 @@ public class MainActivity extends AppCompatActivity implements AbstractUserProfi
 		initToolbar();
 		initNavigationDrawer();
 		showProjectsListFragment();
+
+		Intent intent = new Intent(this, RecordingAlarmReceiver.class);
+
+		PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 50 , intent, 0);
+
+		AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+		alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 1000, pendingIntent);
 	}
 
 	/**
