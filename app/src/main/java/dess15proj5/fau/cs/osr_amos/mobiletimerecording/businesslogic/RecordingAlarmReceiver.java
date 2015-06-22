@@ -67,14 +67,20 @@ public class RecordingAlarmReceiver extends BroadcastReceiver
 	 */
 	protected boolean isNotificationRequired() throws SQLException
 	{
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(new Date());
+		cal.set(Calendar.HOUR_OF_DAY, 0);
+		cal.set(Calendar.MINUTE, 0);
+		cal.set(Calendar.SECOND, 0);
+
 		boolean result;
 
-		boolean existsRecord = existsRecordForToday();
+		boolean existsRecord = existsRecordForToday(cal);
 		boolean isWeekday = true;
 
 		if(!existsRecord)
 		{
-			isWeekday = isTodayAWeekday();
+			isWeekday = isTodayAWeekday(cal);
 		}
 
 		result = !existsRecord && isWeekday;
@@ -88,14 +94,8 @@ public class RecordingAlarmReceiver extends BroadcastReceiver
 	 * @throws SQLException in case of database error
 	 * methodtype boolean query method
 	 */
-	protected boolean existsRecordForToday() throws SQLException
+	protected boolean existsRecordForToday(Calendar cal) throws SQLException
 	{
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(new Date());
-		cal.set(Calendar.HOUR_OF_DAY, 0);
-		cal.set(Calendar.MINUTE, 0);
-		cal.set(Calendar.SECOND, 0);
-
 		List<Session> sessions = DataAccessObjectFactory.getInstance()
 														.createSessionsDAO(context)
 														.listAllForDate(cal);
@@ -109,14 +109,8 @@ public class RecordingAlarmReceiver extends BroadcastReceiver
 	 * @return true if today is a weekday, false if not
 	 * methodtype boolean query method
 	 */
-	protected boolean isTodayAWeekday()
+	protected boolean isTodayAWeekday(Calendar cal)
 	{
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(new Date());
-		cal.set(Calendar.HOUR_OF_DAY, 0);
-		cal.set(Calendar.MINUTE, 0);
-		cal.set(Calendar.SECOND, 0);
-
 		int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
 		boolean isWeekday = (dayOfWeek != Calendar.SATURDAY) && (dayOfWeek != Calendar.SUNDAY);
 		boolean isHoliday = isTodayAnHoliday(cal);
