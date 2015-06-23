@@ -26,6 +26,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Filter;
 import android.widget.TextView;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.R;
+import dess15proj5.fau.cs.osr_amos.mobiletimerecording.businesslogic.ProjectManager;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.models.Project;
 
 import java.util.ArrayList;
@@ -106,7 +107,7 @@ public class ProjectArrayAdapter extends ArrayAdapter<Project>
 	 */
 	private boolean isSeparator(Project project)
 	{
-		return (project.getId().equals(ProjectsListFragment.SEPARATOR_ID));
+		return (project.getId().equals(ProjectManager.SEPARATOR_ID));
 	}
 
 	/**
@@ -198,7 +199,7 @@ public class ProjectArrayAdapter extends ArrayAdapter<Project>
 				{
 					Project project = originalList.get(i);
 					if(project.toString().toLowerCase().contains(constraint) &&
-							!project.getId().contains(ProjectsListFragment.SEPARATOR_ID))
+							!project.getId().contains(ProjectManager.SEPARATOR_ID))
 						filteredItems.add(project);
 				}
 				result.count = filteredItems.size();

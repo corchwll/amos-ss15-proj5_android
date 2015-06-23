@@ -29,19 +29,11 @@ import android.view.*;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.R;
+import dess15proj5.fau.cs.osr_amos.mobiletimerecording.businesslogic.ProjectManager;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.models.Project;
-import dess15proj5.fau.cs.osr_amos.mobiletimerecording.persistence.DataAccessObjectFactory;
-import dess15proj5.fau.cs.osr_amos.mobiletimerecording.persistence.PersistenceHelper;
-import dess15proj5.fau.cs.osr_amos.mobiletimerecording.persistence.ProjectsDAO;
-
-import java.sql.SQLException;
-import java.util.List;
 
 public class ProjectsListFragment extends ListFragment
 {
-	public static final int POSITION_OF_SPECIAL_PROJECTS_SEPARATOR = 0;
-	public static final String SEPARATOR_ID = "-1";
-
 	private ListView projectListView;
 	private ImageButton addProjectFAB;
 	private ProjectArrayAdapter adapter;
@@ -117,7 +109,8 @@ public class ProjectsListFragment extends ListFragment
 	public void onResume()
 	{
 		super.onResume();
-		addProjectsToAdapter();
+		ProjectManager manager = new ProjectManager(adapter, getActivity());
+		manager.loadProjects();
 	}
 
 	/**
@@ -126,7 +119,6 @@ public class ProjectsListFragment extends ListFragment
 	 * @param savedInstanceState this param contains several key value pairs in order to save the instance state
 	 * methodtype initialization method
 	 */
-
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState)
 	{
@@ -134,7 +126,8 @@ public class ProjectsListFragment extends ListFragment
 		projectListView.setTextFilterEnabled(true);
 		setAdapterToProjectList();
 		setOnItemClickListenerToListView();
-		addProjectsToAdapter();
+		ProjectManager manager = new ProjectManager(adapter, getActivity());
+		manager.loadProjects();
 		setClickListenerToFAB();
 	}
 
@@ -167,76 +160,7 @@ public class ProjectsListFragment extends ListFragment
 		});
 	}
 
-	/**
-	 * This method adds the projects from the database to the adapter.
-	 *
-	 * methodtype initialization method
-	 */
-	private void addProjectsToAdapter()
-	{
-		try
-		{
-			adapter.clear();
-			List<Project> projectList = getProjectsFromDB();
-			addSeparatorsToProjectList(projectList);
-			adapter.setProjectList(projectList);
-			adapter.addAll(projectList);
-			adapter.notifyDataSetChanged();
-		} catch(SQLException e)
-		{
-			Toast.makeText(getActivity(), "Could not load project list due to database errors!", Toast.LENGTH_LONG).show();
-		}
-	}
 
-	/**
-	 * This method adds separators to the given projectsList
-	 *
-	 * methodtype command method
-	 */
-	private void addSeparatorsToProjectList(List<Project> projectList)
-	{
-		projectList.add(POSITION_OF_SPECIAL_PROJECTS_SEPARATOR,
-				getSeparatorProject(getResources().getString(R.string.separator_special_projects)));
-		projectList.add(getPositionOfSeparatorAfterSpecialProjects(),
-				getSeparatorProject(getResources().getString(R.string.separator_added_projects)));
-	}
-
-	/**
-	 * Returns a project, that is used to display a separator
-	 *
-	 * @param caption sets the text, which is shown in the separator
-	 * methodtype get method
-	 */
-	private Project getSeparatorProject(String caption)
-	{
-		Project separator = new Project();
-		separator.setName(caption);
-		separator.setId(SEPARATOR_ID);
-		return separator;
-	}
-
-	/**
-	 * Returns the position of the second separator, which is shown after the special projects
-	 *
-	 * methodtype get method
-	 */
-	private int getPositionOfSeparatorAfterSpecialProjects()
-	{
-		return PersistenceHelper.getDefaultProjectsAsList().size() + 1;
-	}
-
-	/**
-	 * This method loads all projects from the database.
-	 *
-	 * @return the list of projects from the database
-	 * @throws SQLException
-	 * methodtype get method
-	 */
-	private List<Project> getProjectsFromDB() throws SQLException
-	{
-		ProjectsDAO projectsDAO = DataAccessObjectFactory.getInstance().createProjectsDAO(getActivity());
-		return projectsDAO.listAll();
-	}
 
 	/**
 	 * This method sets an onClickListener to the Floating Action Button to create a new project
