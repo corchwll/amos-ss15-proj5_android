@@ -65,14 +65,13 @@ public class ProjectManager
 		try
 		{
 			List<Project> projectList = getProjectsFromDB();
-			List<Project> projects =
-					projectList.subList(getPositionOfSeparatorAfterSpecialProjects() - 1, projectList.size());
-			specialProjects = projectList.subList(0, getPositionOfSeparatorAfterSpecialProjects() - 1);
-
+			List<Project> projects = new ArrayList<>(
+					projectList.subList(getPositionOfSeparatorAfterSpecialProjects() - 1, projectList.size()));
+			specialProjects = new ArrayList<>(projectList.subList(0, getPositionOfSeparatorAfterSpecialProjects() - 1));
 			addProjectsToAdapter(projectList);
 
 			SharedPreferences sharedPref = context.getSharedPreferences("gpsSettings", Context.MODE_PRIVATE);
-//			if(sharedPref.getBoolean("useGPS", false))
+			if(sharedPref.getBoolean("useGPS", false))
 			{
 				orderProjectListViaDistance(projects);
 			}
