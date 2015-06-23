@@ -20,7 +20,12 @@ package dess15proj5.fau.cs.osr_amos.mobiletimerecording.businesslogic;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.os.Bundle;
 import android.widget.Toast;
+import com.google.android.gms.maps.model.LatLng;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.R;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.models.Project;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.persistence.DataAccessObjectFactory;
@@ -29,12 +34,16 @@ import dess15proj5.fau.cs.osr_amos.mobiletimerecording.persistence.ProjectsDAO;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.ui.ProjectArrayAdapter;
 
 import java.sql.SQLException;
+import java.util.Collections;
 import java.util.List;
 
 public class ProjectManager
 {
 	public static final int POSITION_OF_SPECIAL_PROJECTS_SEPARATOR = 0;
 	public static final String SEPARATOR_ID = "-1";
+
+	private static final long minTime = 10000L;
+	private static final float minDistance = 500.0f;
 
 	private ProjectArrayAdapter adapter;
 	private Context context;
@@ -58,7 +67,7 @@ public class ProjectManager
 			addProjectsToAdapter(projectList);
 
 			SharedPreferences sharedPref = context.getSharedPreferences("gpsSettings", Context.MODE_PRIVATE);
-			if(sharedPref.getBoolean("useGPS", false))
+//			if(sharedPref.getBoolean("useGPS", false))
 			{
 				orderProjectListViaDistance(projectList);
 			}
@@ -81,9 +90,44 @@ public class ProjectManager
 		return projectsDAO.listAll();
 	}
 
-	private void orderProjectListViaDistance(List<Project> projects)
+	private void orderProjectListViaDistance(final List<Project> projects)
 	{
+		LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+		LocationListener locationListener = new LocationListener()
+		{
+			@Override
+			public void onLocationChanged(Location location)
+			{
+				Collections.sort(projects, new DistanceComparator(location));
+				addProjectsToAdapter(projects);
+			}
 
+			@Override
+			public void onStatusChanged(String s, int i, Bundle bundle)
+			{
+			}
+
+			@Override
+			public void onProviderEnabled(String s)
+			{
+			}
+
+			@Override
+			public void onProviderDisabled(String s)
+			{
+
+			}
+		};
+
+		if (locationManager.getAllProviders().contains(LocationManager.NETWORK_PROVIDER))
+		{
+			locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, minTime, minDistance,
+					locationListener);
+		}
+		if (locationManager.getAllProviders().contains(LocationManager.GPS_PROVIDER))
+		{
+			locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, minTime, minDistance, locationListener);
+		}
 	}
 
 	/**
