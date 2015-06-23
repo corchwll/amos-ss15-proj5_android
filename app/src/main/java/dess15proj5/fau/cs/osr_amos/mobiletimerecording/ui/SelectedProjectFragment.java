@@ -429,7 +429,7 @@ public class SelectedProjectFragment extends Fragment
 		switch(item.getItemId())
 		{
 			case R.id.action_edit_project:
-				startAddProjectIdAndNameActivity();
+				startEditProjectActivity();
 				return true;
 			case R.id.action_delete_project:
 				initConfirmationDialog();
@@ -474,12 +474,10 @@ public class SelectedProjectFragment extends Fragment
 		return isSpecialProject;
 	}
 
-	//Todo callback an die activity?
-	private void startAddProjectIdAndNameActivity()
+	private void startEditProjectActivity()
 	{
-		Intent intent = new Intent(getActivity(), AddProject.class);
+		Intent intent = new Intent(getActivity(), EditProjectActivity.class);
 		intent.putExtra("project_id", projectId);
-		intent.putExtra("project_name", projectName);
 		startActivity(intent);
 		getActivity().overridePendingTransition(R.animator.fade_in_right, R.animator.empty_animator);
 	}
@@ -533,8 +531,7 @@ public class SelectedProjectFragment extends Fragment
 	{
 		try
 		{
-			ProjectsDAO projectsDAO = DataAccessObjectFactory.getInstance()
-															 .createProjectsDAO(getActivity());
+			ProjectsDAO projectsDAO = DataAccessObjectFactory.getInstance().createProjectsDAO(getActivity());
 			projectsDAO.delete(projectId);
 		} catch(SQLException e)
 		{

@@ -41,18 +41,18 @@ import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Date;
 
-public class AddProject extends AppCompatActivity
+public class AddProjectActivity extends AppCompatActivity
 {
 	private final static int LOCATION_INTENT_IDENTIFIER = 1;
-	private EditText projectIdWidget;
-	private EditText projectNameWidget;
-	private EditText datePickerEditText;
-	private EditText locationEditText;
-	private double lat;
-	private double lng;
-	private int selectedYear;
-	private int selectedMonth;
-	private int selectedDay;
+	protected EditText projectIdWidget;
+	protected EditText projectNameWidget;
+	protected EditText datePickerEditText;
+	protected EditText locationEditText;
+	protected double lat;
+	protected double lng;
+	protected int selectedYear;
+	protected int selectedMonth;
+	protected int selectedDay;
 
 	/**
 	 * This method is called in the android lifecycle when the activity is created.
@@ -72,7 +72,6 @@ public class AddProject extends AppCompatActivity
 			getSupportActionBar().setHomeButtonEnabled(true);
 		}
 		setWidgets();
-		setDataFromIntent();
 		initDatePicker();
 		initLocationEditText();
 	}
@@ -102,26 +101,6 @@ public class AddProject extends AppCompatActivity
 	}
 
 	/**
-	 * This method sets the value of the attribute projectId based on the intent of this activity.
-	 *
-	 * methodtype command method
-	 */
-	public void setDataFromIntent()
-	{
-		Intent intent = getIntent();
-		boolean edit = intent.getBooleanExtra("edit", false);
-		if(edit)
-		{
-			String projectIdIntent = intent.getStringExtra("project_id");
-			String projectNameIntent = intent.getStringExtra("project_name");
-			projectIdWidget.setText(projectIdIntent);
-			projectIdWidget.setFocusable(false);
-			projectIdWidget.setClickable(false);
-			projectNameWidget.setText(projectNameIntent);
-		}
-	}
-
-	/**
 	 * This method initializes the date picker and sets an onclickListener to the datePickerEditText.
 	 *
 	 * methodtype initialization method
@@ -145,7 +124,7 @@ public class AddProject extends AppCompatActivity
 			public void onClick(View v)
 			{
 				Calendar cal = Calendar.getInstance();
-				new DatePickerDialog(AddProject.this, datePickerDialog, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH),
+				new DatePickerDialog(AddProjectActivity.this, datePickerDialog, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH),
 						cal.get(Calendar.DAY_OF_MONTH)).show();
 			}
 		});
@@ -159,7 +138,7 @@ public class AddProject extends AppCompatActivity
 	 * @param day the day the date picker should display
 	 * methodtype set method
 	 */
-	private void setDatePickerEditText(int year, int month, int day)
+	protected void setDatePickerEditText(int year, int month, int day)
 	{
 		datePickerEditText.setText(
 				StringFormatterForPicker.formatMonth(day) + "." + StringFormatterForPicker.formatMonth(month + 1) +
@@ -303,7 +282,7 @@ public class AddProject extends AppCompatActivity
 	 * @throws SQLException
 	 * methodtype command method
 	 */
-	private void writeProjectInDb() throws SQLException
+	protected void writeProjectInDb() throws SQLException
 	{
 		String projectId = projectIdWidget.getText().toString();
 		String projectName = projectNameWidget.getText().toString();
@@ -319,7 +298,7 @@ public class AddProject extends AppCompatActivity
 	 *
 	 * methodtype get method
 	 */
-	public Date getDate()
+	protected Date getDate()
 	{
 		Calendar cal = Calendar.getInstance();
 		cal.set(Calendar.YEAR, selectedYear);
@@ -336,7 +315,7 @@ public class AddProject extends AppCompatActivity
 	 *
 	 * methodtype helper method
 	 */
-	private void setErrorMessageToWidget(EditText projectIdWidget, String message)
+	protected void setErrorMessageToWidget(EditText projectIdWidget, String message)
 	{
 		projectIdWidget.setError(message);
 		projectIdWidget.requestFocus();
