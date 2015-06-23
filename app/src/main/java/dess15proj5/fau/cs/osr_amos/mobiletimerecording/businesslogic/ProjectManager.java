@@ -94,6 +94,12 @@ public class ProjectManager
 		return projectsDAO.listAll();
 	}
 
+	/**
+	 * This method is used to order the project list based on the distance between the project and the current location.
+	 *
+	 * @param projects the list containing the projects that have to be ordered
+	 * methodtype command method
+	 */
 	private void orderProjectListViaDistance(final List<Project> projects)
 	{
 		LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
