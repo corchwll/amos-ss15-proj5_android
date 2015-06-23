@@ -28,6 +28,7 @@ public class Project
 	private boolean isDisplayed;
 	private boolean isUsed;
 	private boolean isArchived;
+	private GPSPoint point;
 
 	/**
 	 * Returns the project id.
@@ -156,6 +157,28 @@ public class Project
 	public void setIsArchived(boolean isArchived)
 	{
 		this.isArchived = isArchived;
+	}
+
+	/**
+	 * This method returns the value of the gpspoint attribute.
+	 *
+	 * @return the GPSPoint object
+	 * methodtype get method
+	 */
+	public GPSPoint getPoint()
+	{
+		return point;
+	}
+
+	/**
+	 * This method sets the value of the gpspoint attribute.
+	 *
+	 * @param point the value that the gpspoint attribute should represent.
+	 * methodtype set method
+	 */
+	public void setPoint(GPSPoint point)
+	{
+		this.point = point;
 	}
 
 	/**

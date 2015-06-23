@@ -93,7 +93,7 @@ public class CSVCreatorTests
 			e.printStackTrace();
 		}
 
-		String compare = new String("Date,p1234,p2345,p3456,p4567,p5678\n");
+		String compare = new String("Date;p1234;p2345;p3456;p4567;p5678\n");
 		String result = byteArrayOutputStream.toString();
 
 		assertTrue("result should be '" + compare + "', but was '" + result + "'", compare.equals(result));
