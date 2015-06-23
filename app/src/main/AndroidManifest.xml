@@ -52,8 +52,6 @@
             android:name=".ui.MainActivity"
                 android:label="@string/app_name" >
         </activity>
-        <activity android:name=".ui.AddProjectFinalDate"
-                  android:label="@string/add_project"/>
         <activity android:name=".ui.AddProjectIdAndName"
                   android:label="@string/add_project"/>
         <activity android:name=".ui.AddProjectMapActivity"

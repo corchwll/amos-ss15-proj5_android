@@ -18,6 +18,7 @@
 
 package dess15proj5.fau.cs.osr_amos.mobiletimerecording.ui;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
@@ -39,12 +40,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.R;
-import dess15proj5.fau.cs.osr_amos.mobiletimerecording.persistence.DataAccessObjectFactory;
-import dess15proj5.fau.cs.osr_amos.mobiletimerecording.persistence.ProjectsDAO;
-
-import java.sql.SQLException;
-import java.util.Calendar;
-import java.util.Date;
 
 public class AddProjectMapActivity extends AppCompatActivity
 {
@@ -261,58 +256,21 @@ public class AddProjectMapActivity extends AppCompatActivity
 				finishActivityAndShowAnimation();
 				return true;
 			case R.id.action_save_new_item:
-				try
-				{
-					writeProjectInDb();
-					startNextActivity();
-				} catch(SQLException e)
-				{
-					Toast.makeText(this, "Could not save project due to database errors!", Toast.LENGTH_LONG).show();
-				}
+					finishActivity();
+//				{
+//					Toast.makeText(this, "Could not save project due to database errors!", Toast.LENGTH_LONG).show();
+//				}
 			default:
 				return super.onOptionsItemSelected(item);
 		}
 	}
 
-	/**
-	 * This method creates a new project and stores it to the database.
-	 *
-	 * @throws SQLException
-	 * methodtype command method
-	 */
-	private void writeProjectInDb() throws SQLException
+	private void finishActivity()
 	{
-		Intent intent = getIntent();
-		String projectId = intent.getStringExtra("project_id");
-		String projectName = intent.getStringExtra("project_name");
-
-		Date date = getDateFromIntent();
-
-		//todo save location in db
-
-		ProjectsDAO projectsDAO = DataAccessObjectFactory.getInstance().createProjectsDAO(getBaseContext());
-		projectsDAO.create(projectId, projectName, date, true, false, true);
-	}
-
-	private void startNextActivity()
-	{
-		Intent intent = new Intent(getBaseContext(), MainActivity.class);
-		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		startActivity(intent);
-	}
-
-	public Date getDateFromIntent()
-	{
-		Intent intent = getIntent();
-
-		int year = intent.getIntExtra("year", 0);
-		int month = intent.getIntExtra("month", 0);
-		int day = intent.getIntExtra("day", 0);
-
-		Calendar cal = Calendar.getInstance();
-		cal.set(Calendar.YEAR, year);
-		cal.set(Calendar.MONTH, month);
-		cal.set(Calendar.DAY_OF_MONTH, day);
-		return cal.getTime();
+		Intent resultIntent = new Intent();
+		resultIntent.putExtra("lat", marker.getPosition().latitude);
+		resultIntent.putExtra("lng", marker.getPosition().longitude);
+		setResult(Activity.RESULT_OK, resultIntent);
+		finish();
 	}
 }

@@ -18,19 +18,16 @@
 
 <resources>
     <string name="app_name">Mobile Time Accounting</string>
-    <string name="marker">develop group</string>
-
-    <string name="add_new_session">Add new session</string>
 
     <string name="save">Save</string>
 
-    <!--menu_project_list-->
+    <!--projectFragment-->
     <string name="search_title">Search</string>
     <string name="separator_special_projects">SPECIAL PROJECTS</string>
     <string name="separator_added_projects">ADDED PROJECTS</string>
+    <string name="editProject">Edit Project</string>
 
     <!--navigationDrawer-->
-    <string name="change_user_profile">Change User Profile</string>
     <string name="drawer_open">open</string>
     <string name="drawer_close">close</string>
     <string-array name="drawer_list_items">
@@ -45,11 +42,6 @@
     <string name="changeUserProfile">Change User Profile</string>
     <string name="settings">Settings</string>
 
-    <!--actionBar-->
-    <string name="add_project">Add Project</string>
-    <string name="action_settings">Settings</string>
-    <string name="next">Next</string>
-
     <!--user_profile_registration.xml-->
     <string name="registrationText">Create new User Profile</string>
     <string name="employeeId">Employee ID (five-digit number)</string>
@@ -59,22 +51,24 @@
     <string name="current_overtime">Current Overtime (in hours)</string>
     <string name="total_vacation_time">Total Vacation Time (in days)</string>
     <string name="current_vacation_time">Current Vacation Time (in days)</string>
-    <string name="createUser">OK</string>
-    
-    <!--main_activity.xml-->
-    <string name="edit_project_button">Add Time</string>
-    <string name="start_button">Start</string>
-    
+
     <!--add_project.xml-->
+    <string name="add_project">Add Project</string>
     <string name="newProjectId">Project ID</string>
     <string name="inputProjectName">Project Name</string>
-    <string name="finalProjectTextView">Select final date of the project:</string>
+    <string name="project_id">Project ID:</string>
+    <string name="project_name">Project name:</string>
+    <string name="finalProjectTextView">Final project date(optional):</string>
+    <string name="locationTextView">Location (optional):</string>
+    <string name="marker">develop group</string>
     <string name="mapDescription">Select a location for the new project.\nTab on the map to set a new marker or click
         the location button to determine your current position via GPS.</string>
     <string name="noGPSWarning">GPS not enabled. If you want to use GPS to determine your position you have to enable it
         in the settings.</string>
+    <string name="next">Next</string>
 
     <!--add_session_to_project.xml-->
+    <string name="add_new_session">Add new session</string>
     <string name="dateText">DATE:</string>
     <string name="hoursFrom">FROM:</string>
     <string name="hoursTo">TO:</string>
@@ -89,10 +83,12 @@
     <string name="changeUserProfileBtn">Save</string>
 
     <!--selected_project.xml-->
+    <string name="start_button">Start</string>
     <string name="sessionsDateTextView">DATE</string>
     <string name="sessionsStartTime">START</string>
     <string name="sessionsStopTime">STOP</string>
     <string name="sessionDuration">DURATION</string>
+    <string name="edit_project">Edit Project</string>
     <string name="delete_project">Delete project</string>
     <string name="delete_icon_session">Delete Session</string>
     <string name="confirmDeletionDialog">Are you sure you want to delete project</string>

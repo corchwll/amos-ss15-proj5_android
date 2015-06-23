@@ -235,7 +235,7 @@ public class SelectedProjectFragment extends Fragment
 				}
 				adapter.setSelectedItemPosition(i);
 				setPreviousBtnInvisible();
-				SessionArrayAdapter.ViewHolder viewHolder = (SessionArrayAdapter.ViewHolder) view.getTag();
+				SessionArrayAdapter.ViewHolder viewHolder = (SessionArrayAdapter.ViewHolder)view.getTag();
 				viewHolder.deleteSessionBtn.setVisibility(View.VISIBLE);
 				selectedView = view;
 				selectedPosition = i;
@@ -389,6 +389,19 @@ public class SelectedProjectFragment extends Fragment
 	}
 
 	/**
+	 * This method is used to create the activity to add new sessions.
+	 *
+	 * methodtype initialization method
+	 */
+	private void createAddSessionActivity()
+	{
+		Intent intent = new Intent(getActivity(), AddSessionActivity.class);
+		intent.putExtra("project_id", projectId);
+		getActivity().startActivity(intent);
+		getActivity().overridePendingTransition(R.animator.fade_in_right, R.animator.empty_animator);
+	}
+
+	/**
 	 * This method is called in the android lifecycle when a menu is created.
 	 *
 	 * @param menu the menu item which has to be created
@@ -415,7 +428,10 @@ public class SelectedProjectFragment extends Fragment
 	{
 		switch(item.getItemId())
 		{
-			case R.id.deleteProject:
+			case R.id.action_edit_project:
+				startAddProjectIdAndNameActivity();
+				return true;
+			case R.id.action_delete_project:
 				initConfirmationDialog();
 				return true;
 			default:
@@ -458,16 +474,13 @@ public class SelectedProjectFragment extends Fragment
 		return isSpecialProject;
 	}
 
-	/**
-	 * This method is used to create the activity to add new sessions.
-	 *
-	 * methodtype initialization method
-	 */
-	private void createAddSessionActivity()
+	//Todo callback an die activity?
+	private void startAddProjectIdAndNameActivity()
 	{
-		Intent intent = new Intent(getActivity(), AddSessionActivity.class);
+		Intent intent = new Intent(getActivity(), AddProjectIdAndName.class);
 		intent.putExtra("project_id", projectId);
-		getActivity().startActivity(intent);
+		intent.putExtra("project_name", projectName);
+		startActivity(intent);
 		getActivity().overridePendingTransition(R.animator.fade_in_right, R.animator.empty_animator);
 	}
 
