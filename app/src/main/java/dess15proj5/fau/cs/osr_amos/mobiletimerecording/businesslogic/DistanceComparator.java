@@ -27,19 +27,34 @@ public class DistanceComparator implements Comparator<Project>
 {
 	private Location currentLocation;
 
+	/**
+	 * This creates an object of DistanceComparator using the currentLocation.
+	 *
+	 * @param currentLocation the location that is used for distance comparing
+	 * methodtype constructor
+	 */
 	public DistanceComparator(Location currentLocation)
 	{
 		this.currentLocation = currentLocation;
 	}
 
+	/**
+	 * This method is used to compare two projects. The project with the shortest distance to the currentLocation
+	 * attribute will be the first.
+	 *
+	 * @param project one of the two projects which have to be compared
+	 * @param t1 the other one of the two projects which have to be compared
+	 * @return the int value representing the ordering of the two projects
+	 * methodtype helper method
+	 */
 	@Override
 	public int compare(Project project, Project t1)
 	{
-		float[] resultsForProject = null;
+		float[] resultsForProject = new float[1];
 		Location.distanceBetween(currentLocation.getLatitude(), currentLocation.getLongitude(),
 								project.getPoint().getLatitude(), project.getPoint().getLongitude(), resultsForProject);
 
-		float[] resultsForT1 = null;
+		float[] resultsForT1 = new float[1];
 		Location.distanceBetween(currentLocation.getLatitude(), currentLocation.getLongitude(),
 				t1.getPoint().getLatitude(), t1.getPoint().getLongitude(), resultsForT1);
 

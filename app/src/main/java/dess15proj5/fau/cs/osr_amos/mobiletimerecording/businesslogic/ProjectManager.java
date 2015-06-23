@@ -65,14 +65,13 @@ public class ProjectManager
 		try
 		{
 			List<Project> projectList = getProjectsFromDB();
-			List<Project> projects =
-					projectList.subList(getPositionOfSeparatorAfterSpecialProjects() - 1, projectList.size());
-			specialProjects = projectList.subList(0, getPositionOfSeparatorAfterSpecialProjects() - 1);
-
+			List<Project> projects = new ArrayList<>(
+					projectList.subList(getPositionOfSeparatorAfterSpecialProjects() - 1, projectList.size()));
+			specialProjects = new ArrayList<>(projectList.subList(0, getPositionOfSeparatorAfterSpecialProjects() - 1));
 			addProjectsToAdapter(projectList);
 
 			SharedPreferences sharedPref = context.getSharedPreferences("gpsSettings", Context.MODE_PRIVATE);
-//			if(sharedPref.getBoolean("useGPS", false))
+			if(sharedPref.getBoolean("useGPS", false))
 			{
 				orderProjectListViaDistance(projects);
 			}
@@ -95,6 +94,12 @@ public class ProjectManager
 		return projectsDAO.listAll();
 	}
 
+	/**
+	 * This method is used to order the project list based on the distance between the project and the current location.
+	 *
+	 * @param projects the list containing the projects that have to be ordered
+	 * methodtype command method
+	 */
 	private void orderProjectListViaDistance(final List<Project> projects)
 	{
 		LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
