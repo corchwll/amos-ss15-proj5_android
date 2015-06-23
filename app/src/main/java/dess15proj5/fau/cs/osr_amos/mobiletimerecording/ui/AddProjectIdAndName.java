@@ -282,7 +282,7 @@ public class AddProjectIdAndName extends AppCompatActivity
 	private void writeProjectInDb() throws SQLException
 	{
 		String projectId = projectIdWidget.getText().toString();
-		String projectName = projectIdWidget.getText().toString();
+		String projectName = projectNameWidget.getText().toString();
 
 		Date date = getDate();
 
