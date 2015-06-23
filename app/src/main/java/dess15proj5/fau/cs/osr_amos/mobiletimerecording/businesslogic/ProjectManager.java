@@ -25,7 +25,6 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.widget.Toast;
-import com.google.android.gms.maps.model.LatLng;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.R;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.models.Project;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.persistence.DataAccessObjectFactory;
@@ -34,6 +33,7 @@ import dess15proj5.fau.cs.osr_amos.mobiletimerecording.persistence.ProjectsDAO;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.ui.ProjectArrayAdapter;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -47,6 +47,7 @@ public class ProjectManager
 
 	private ProjectArrayAdapter adapter;
 	private Context context;
+	private List<Project> specialProjects;
 
 	public ProjectManager(ProjectArrayAdapter adapter, Context context)
 	{
@@ -64,12 +65,16 @@ public class ProjectManager
 		try
 		{
 			List<Project> projectList = getProjectsFromDB();
+			List<Project> projects =
+					projectList.subList(getPositionOfSeparatorAfterSpecialProjects() - 1, projectList.size());
+			specialProjects = projectList.subList(0, getPositionOfSeparatorAfterSpecialProjects() - 1);
+
 			addProjectsToAdapter(projectList);
 
 			SharedPreferences sharedPref = context.getSharedPreferences("gpsSettings", Context.MODE_PRIVATE);
 //			if(sharedPref.getBoolean("useGPS", false))
 			{
-				orderProjectListViaDistance(projectList);
+				orderProjectListViaDistance(projects);
 			}
 		} catch(SQLException e)
 		{
@@ -98,8 +103,11 @@ public class ProjectManager
 			@Override
 			public void onLocationChanged(Location location)
 			{
-				Collections.sort(projects, new DistanceComparator(location));
-				addProjectsToAdapter(projects);
+				List<Project> orderedProjects = new ArrayList<>(projects);
+				Collections.sort(orderedProjects, new DistanceComparator(location));
+
+				orderedProjects.addAll(0, specialProjects);
+				addProjectsToAdapter(orderedProjects);
 			}
 
 			@Override
