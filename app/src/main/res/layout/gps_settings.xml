@@ -23,12 +23,15 @@
               android:layout_height="match_parent">
 
     <include layout="@layout/toolbar"/>
+
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@android:style/TextAppearance.DeviceDefault.Large"
             android:text="@string/gps_settings_menu" />
-    <CheckBox android:layout_width="wrap_content" android:layout_height="wrap_content"
+
+    <CheckBox android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
               android:id="@+id/useGPS"/>
     <TextView
             android:layout_width="wrap_content"

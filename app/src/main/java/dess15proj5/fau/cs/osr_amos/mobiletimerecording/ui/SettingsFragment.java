@@ -19,7 +19,6 @@
 package dess15proj5.fau.cs.osr_amos.mobiletimerecording.ui;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
@@ -89,7 +88,7 @@ public class SettingsFragment extends PreferenceFragment
 			@Override
 			public boolean onPreferenceClick(Preference preference)
 			{
-				listener.onSettingsButtonPressed(EditGPSSettingsFragment.class);
+				listener.onSettingsButtonPressed(SettingsEditGPSActivity.class);
 				return false;
 			}
 		});

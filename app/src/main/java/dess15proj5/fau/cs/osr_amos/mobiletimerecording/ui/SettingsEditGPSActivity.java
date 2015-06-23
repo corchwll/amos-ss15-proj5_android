@@ -29,7 +29,7 @@ import android.view.MenuItem;
 import android.widget.CheckBox;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.R;
 
-public class EditGPSSettingsFragment extends AppCompatActivity
+public class SettingsEditGPSActivity extends AppCompatActivity
 {
 	protected CheckBox checkboxWidget;
 
@@ -55,6 +55,7 @@ public class EditGPSSettingsFragment extends AppCompatActivity
 		SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
 		checkboxWidget.setChecked(sharedPref.getBoolean("useGPS", false));
 	}
+
 
 	/**
 	 * This method is called in the android lifecycle when a menu item is clicked on.
