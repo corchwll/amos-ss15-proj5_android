@@ -18,9 +18,12 @@
 
 package dess15proj5.fau.cs.osr_amos.mobiletimerecording.ui;
 
+import android.app.AlarmManager;
 import android.app.Fragment;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -30,7 +33,12 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.R;
+import dess15proj5.fau.cs.osr_amos.mobiletimerecording.businesslogic.AccountingNotification;
+import dess15proj5.fau.cs.osr_amos.mobiletimerecording.businesslogic.RecordingAlarmReceiver;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.models.Project;
+
+import java.util.Calendar;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity implements AbstractUserProfileFragment.UserProfileFragmentListener,
 		ProjectsListFragment.ProjectsListFragmentListener, DeleteSessionDialogFragment.DeleteSessionDialogFragmentListener
@@ -53,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements AbstractUserProfi
 		initToolbar();
 		initNavigationDrawer();
 		showProjectsListFragment();
+		setUpAlarmForNotifications();
 	}
 
 	/**
@@ -128,6 +137,29 @@ public class MainActivity extends AppCompatActivity implements AbstractUserProfi
 			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 			getSupportActionBar().setHomeButtonEnabled(true);
 		}
+	}
+
+	/**
+	 * This method is used to initialize an alarm manager for this app. If the alarm is triggered, the app will check
+	 * whether it has to send a notifcation to the user reminding him to record for today.
+	 *
+	 * methodtype initialization method
+	 */
+	private void setUpAlarmForNotifications()
+	{
+		Intent intent = new Intent(this, RecordingAlarmReceiver.class);
+
+		PendingIntent pendingIntent = PendingIntent.getBroadcast(this, AccountingNotification.ALARM_ID, intent, 0);
+
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(new Date());
+		cal.set(Calendar.HOUR_OF_DAY, 20);
+		cal.set(Calendar.MINUTE, 0);
+		cal.set(Calendar.SECOND, 0);
+
+		AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+		alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), AlarmManager.INTERVAL_DAY,
+				pendingIntent);
 	}
 
 	/**

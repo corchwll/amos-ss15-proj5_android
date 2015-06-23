@@ -41,6 +41,23 @@ public interface ProjectsDAO extends DAO
 						  boolean isDisplayed);
 
 	/**
+	 * This method inserts the given information into the projects table and creates an object of type project.
+	 *
+	 * @param projectId the project id of the required project
+	 * @param projectName the project name of the required project
+	 * @param finalDate the optional final date for the required project
+	 * @param isUsed a boolean whether the required project is used or not
+	 * @param isArchived a boolean whether the required project is archived or not
+	 * @param isDisplayed a boolean whether the required project is displayed or not
+	 * @param latitude a double containing the latitude value of the projects location
+	 * @param longitude  a double containing the longitude value of the projects location
+	 * @return the required project object is returned
+	 * methodtype conversion method (since the given information is converted into an object of type project)
+	 */
+	Project create(String projectId, String projectName, Date finalDate, boolean isUsed, boolean isArchived,
+				   boolean isDisplayed, double latitude, double longitude);
+
+	/**
 	 * This method is used to update a given project in the database.
 	 *
 	 * @param project the project which has to be updated.

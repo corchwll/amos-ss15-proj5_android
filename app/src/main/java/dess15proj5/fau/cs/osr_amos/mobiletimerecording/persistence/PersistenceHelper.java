@@ -61,6 +61,8 @@ public class PersistenceHelper extends SQLiteOpenHelper
 	public static final String PROJECTS_IS_DISPLAYED = "is_displayed";
 	public static final String PROJECTS_IS_USED = "is_used";
 	public static final String PROJECTS_IS_ARCHIVED = "is_archived";
+	public static final String PROJECTS_LATITUDE = "latitude";
+	public static final String PROJECTS_LONGITUDE = "longitude";
 
 	/*
 	 * Create Table statement for the table projects
@@ -68,7 +70,8 @@ public class PersistenceHelper extends SQLiteOpenHelper
 	private static final String CREATE_PROJECTS =
 			"create table " + TABLE_PROJECTS + "(" + PROJECTS_ID + " text primary key not null, " +
 					PROJECTS_NAME + " text, " + PROJECTS_FINAL_DATE + " integer, " + PROJECTS_IS_DISPLAYED +
-					" integer, " + PROJECTS_IS_USED + " integer, " + PROJECTS_IS_ARCHIVED + " integer);";
+					" integer, " + PROJECTS_IS_USED + " integer, " + PROJECTS_IS_ARCHIVED + " integer, " +
+					PROJECTS_LATITUDE + " real, " + PROJECTS_LONGITUDE + " real);";
 
 	/*
 	 * Constants for the database table sessions
@@ -115,7 +118,7 @@ public class PersistenceHelper extends SQLiteOpenHelper
 	 * Constants for database name and version
 	 */
 	private static final String DATABASE_NAME = "mobile_time_recording";
-	private static final int DATABASE_VERSION = 7;
+	private static final int DATABASE_VERSION = 8;
 
 	/**
 	 * Constructor for the PersistenceHelper.
@@ -159,6 +162,8 @@ public class PersistenceHelper extends SQLiteOpenHelper
 		values.put(PROJECTS_IS_DISPLAYED, 1);
 		values.put(PROJECTS_IS_USED, 1);
 		values.put(PROJECTS_IS_ARCHIVED, 0);
+		values.put(PROJECTS_LATITUDE, 1000.0);
+		values.put(PROJECTS_LONGITUDE, 1000.0);
 		db.insert(TABLE_PROJECTS, null, values);
 
 		//insertion of default project Training
@@ -169,6 +174,8 @@ public class PersistenceHelper extends SQLiteOpenHelper
 		values.put(PROJECTS_IS_DISPLAYED, 1);
 		values.put(PROJECTS_IS_USED, 1);
 		values.put(PROJECTS_IS_ARCHIVED, 0);
+		values.put(PROJECTS_LATITUDE, 1000.0);
+		values.put(PROJECTS_LONGITUDE, 1000.0);
 		db.insert(TABLE_PROJECTS, null, values);
 
 		//insertion of default project Illness
@@ -179,6 +186,8 @@ public class PersistenceHelper extends SQLiteOpenHelper
 		values.put(PROJECTS_IS_DISPLAYED, 1);
 		values.put(PROJECTS_IS_USED, 1);
 		values.put(PROJECTS_IS_ARCHIVED, 0);
+		values.put(PROJECTS_LATITUDE, 1000.0);
+		values.put(PROJECTS_LONGITUDE, 1000.0);
 		db.insert(TABLE_PROJECTS, null, values);
 
 		//insertion of default project Office
@@ -189,6 +198,8 @@ public class PersistenceHelper extends SQLiteOpenHelper
 		values.put(PROJECTS_IS_DISPLAYED, 1);
 		values.put(PROJECTS_IS_USED, 1);
 		values.put(PROJECTS_IS_ARCHIVED, 0);
+		values.put(PROJECTS_LATITUDE, 1000.0);
+		values.put(PROJECTS_LONGITUDE, 1000.0);
 		db.insert(TABLE_PROJECTS, null, values);
 	}
 

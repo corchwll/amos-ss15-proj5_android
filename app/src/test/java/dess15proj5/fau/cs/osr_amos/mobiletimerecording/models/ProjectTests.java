@@ -212,6 +212,32 @@ public class ProjectTests
 	}
 
 	@Test
+	public void testGetGPSPoint_MethodCalled_CorrectReturned() throws Exception
+	{
+		double lat = 30.445;
+		double lon = 13.34;
+		GPSPoint point = new GPSPoint(lat, lon);
+		project.setPoint(point);
+		GPSPoint result = project.getPoint();
+
+		assertTrue("GPSPoint should be at " + lat + " - " + lon + ", but was at " + result.getLatitude() + " - " +
+				result.getLongitude(), lat == result.getLatitude() && lon == result.getLongitude());
+	}
+
+	@Test
+	public void testSetGPSPoint_MethodCalled_CorrectSet() throws Exception
+	{
+		double lat = 30.445;
+		double lon = 13.34;
+		GPSPoint point = new GPSPoint(lat, lon);
+		project.setPoint(point);
+		GPSPoint result = project.getPoint();
+
+		assertTrue("GPSPoint should be at " + lat + " - " + lon + ", but was at " + result.getLatitude() + " - " +
+				result.getLongitude(), lat == result.getLatitude() && lon == result.getLongitude());
+	}
+
+	@Test
 	public void testToString_MethodCalled_CorrectRepresentationReturned() throws Exception
 	{
 		String result = project.toString();

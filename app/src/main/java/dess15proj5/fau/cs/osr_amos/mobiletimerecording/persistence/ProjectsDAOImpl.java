@@ -23,6 +23,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 import android.widget.Toast;
+import dess15proj5.fau.cs.osr_amos.mobiletimerecording.models.GPSPoint;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.models.Project;
 
 import java.util.ArrayList;
@@ -35,7 +36,8 @@ public class ProjectsDAOImpl extends AbstractDAO implements ProjectsDAO
 	private String[] allColumns =
 			{PersistenceHelper.PROJECTS_ID, PersistenceHelper.PROJECTS_NAME, PersistenceHelper.PROJECTS_FINAL_DATE,
 					PersistenceHelper.PROJECTS_IS_DISPLAYED, PersistenceHelper.PROJECTS_IS_USED,
-					PersistenceHelper.PROJECTS_IS_ARCHIVED};
+					PersistenceHelper.PROJECTS_IS_ARCHIVED, PersistenceHelper.PROJECTS_LATITUDE,
+					PersistenceHelper.PROJECTS_LONGITUDE};
 
 	private String allDefaultIDs;
 
@@ -81,14 +83,37 @@ public class ProjectsDAOImpl extends AbstractDAO implements ProjectsDAO
 	public Project create(String projectId, String projectName, Date finalDate, boolean isUsed, boolean isArchived,
 						  boolean isDisplayed)
 	{
+		return create(projectId, projectName, finalDate, isUsed, isArchived, isDisplayed, 1000.0, 1000.0);
+	}
+
+	/**
+	 * This method inserts the given information into the projects table and creates an object of type project.
+	 *
+	 * @param projectId the project id of the required project
+	 * @param projectName the project name of the required project
+	 * @param finalDate the optional final date for the required project
+	 * @param isUsed a boolean whether the required project is used or not
+	 * @param isArchived a boolean whether the required project is archived or not
+	 * @param isDisplayed a boolean whether the required project is displayed or not
+	 * @param latitude a double containing the latitude value of the projects location
+	 * @param longitude  a double containing the longitude value of the projects location
+	 * @return the required project object is returned
+	 * methodtype conversion method (since the given information is converted into an object of type project)
+	 */
+	@Override
+	public Project create(String projectId, String projectName, Date finalDate, boolean isUsed, boolean isArchived,
+						  boolean isDisplayed, double latitude, double longitude)
+	{
 		//preparation and insert of the new project
 		ContentValues values = new ContentValues();
-        values.put(PersistenceHelper.PROJECTS_ID, projectId);
+		values.put(PersistenceHelper.PROJECTS_ID, projectId);
 		values.put(PersistenceHelper.PROJECTS_NAME, projectName);
 		values.put(PersistenceHelper.PROJECTS_FINAL_DATE, finalDate.getTime());
 		values.put(PersistenceHelper.PROJECTS_IS_DISPLAYED, isDisplayed);
 		values.put(PersistenceHelper.PROJECTS_IS_USED, isUsed);
 		values.put(PersistenceHelper.PROJECTS_IS_ARCHIVED, isArchived);
+		values.put(PersistenceHelper.PROJECTS_LATITUDE, latitude);
+		values.put(PersistenceHelper.PROJECTS_LONGITUDE, longitude);
 		database.insertOrThrow(PersistenceHelper.TABLE_PROJECTS, null, values);
 
 		//retrieving the new project from database and constructing the object
@@ -117,6 +142,10 @@ public class ProjectsDAOImpl extends AbstractDAO implements ProjectsDAO
 		values.put(PersistenceHelper.PROJECTS_IS_DISPLAYED, project.isDisplayed());
 		values.put(PersistenceHelper.PROJECTS_IS_USED, project.isUsed());
 		values.put(PersistenceHelper.PROJECTS_IS_ARCHIVED, project.isArchived());
+		values.put(PersistenceHelper.PROJECTS_LATITUDE, project.getPoint()
+															   .getLatitude());
+		values.put(PersistenceHelper.PROJECTS_LONGITUDE, project.getPoint()
+																.getLongitude());
 
 		database.update(PersistenceHelper.TABLE_PROJECTS, values,
 				PersistenceHelper.PROJECTS_ID + " = " + project.getId(), null);
@@ -239,6 +268,11 @@ public class ProjectsDAOImpl extends AbstractDAO implements ProjectsDAO
 		project.setIsDisplayed(cursor.getInt(3) == 1);
 		project.setIsUsed(cursor.getInt(4) == 1);
 		project.setIsArchived(cursor.getInt(5) == 1);
+
+		double latitude = cursor.getDouble(6);
+		double longitude = cursor.getDouble(7);
+		project.setPoint(new GPSPoint(latitude, longitude));
+
 		return project;
 	}
 }
