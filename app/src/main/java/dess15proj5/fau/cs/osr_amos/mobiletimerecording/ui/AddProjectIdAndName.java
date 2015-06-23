@@ -46,9 +46,12 @@ public class AddProjectIdAndName extends AppCompatActivity
 	private EditText projectNameWidget;
 	private EditText datePickerEditText;
 	private EditText locationEditText;
+	private double lat;
+	private double lng;
 	private int selectedYear;
 	private int selectedMonth;
 	private int selectedDay;
+	private Date date;
 
 	/**
 	 * This method is called in the android lifecycle when the activity is created.
@@ -180,9 +183,9 @@ public class AddProjectIdAndName extends AppCompatActivity
 			case LOCATION_INTENT_IDENTIFIER:
 				if(resultCode == Activity.RESULT_OK)
 				{
-					double lat = data.getDoubleExtra("lat", 0.0);
-					double lng = data.getDoubleExtra("lng", 0.0);
-					locationEditText.setText(String.valueOf(lat) + " " + String.valueOf(lng));
+					lat = data.getDoubleExtra("lat", 0.0);
+					lng = data.getDoubleExtra("lng", 0.0);
+					locationEditText.setText(String.valueOf(lat) + "\n" + String.valueOf(lng));
 				}
 				break;
 		}
@@ -281,13 +284,19 @@ public class AddProjectIdAndName extends AppCompatActivity
 		String projectId = projectIdWidget.getText().toString();
 		String projectName = projectIdWidget.getText().toString();
 
-		//todo get date from DatePickereditText
-		Date date = new Date();
-
-		//todo save location in db
+		Date date = getDate();
 
 		ProjectsDAO projectsDAO = DataAccessObjectFactory.getInstance().createProjectsDAO(getBaseContext());
-		projectsDAO.create(projectId, projectName, date, true, false, true);
+		projectsDAO.create(projectId, projectName, date, true, false, true, lat, lng);
+	}
+
+	public Date getDate()
+	{
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.YEAR, selectedYear);
+		cal.set(Calendar.MONTH, selectedMonth);
+		cal.set(Calendar.DAY_OF_MONTH, selectedDay);
+		return cal.getTime();
 	}
 
 	private void startNextActivity()
