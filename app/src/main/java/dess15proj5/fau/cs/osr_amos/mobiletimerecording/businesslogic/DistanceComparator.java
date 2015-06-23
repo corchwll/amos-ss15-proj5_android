@@ -50,11 +50,11 @@ public class DistanceComparator implements Comparator<Project>
 	@Override
 	public int compare(Project project, Project t1)
 	{
-		float[] resultsForProject = null;
+		float[] resultsForProject = new float[1];
 		Location.distanceBetween(currentLocation.getLatitude(), currentLocation.getLongitude(),
 								project.getPoint().getLatitude(), project.getPoint().getLongitude(), resultsForProject);
 
-		float[] resultsForT1 = null;
+		float[] resultsForT1 = new float[1];
 		Location.distanceBetween(currentLocation.getLatitude(), currentLocation.getLongitude(),
 				t1.getPoint().getLatitude(), t1.getPoint().getLongitude(), resultsForT1);
 
