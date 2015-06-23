@@ -39,7 +39,7 @@ import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Date;
 
-public class AddProjectIdAndName extends AppCompatActivity
+public class AddProject extends AppCompatActivity
 {
 	private final static int LOCATION_INTENT_IDENTIFIER = 1;
 	private EditText projectIdWidget;
@@ -139,7 +139,7 @@ public class AddProjectIdAndName extends AppCompatActivity
 			public void onClick(View v)
 			{
 				Calendar cal = Calendar.getInstance();
-				new DatePickerDialog(AddProjectIdAndName.this, datePickerDialog, cal.get(Calendar.YEAR), cal.get
+				new DatePickerDialog(AddProject.this, datePickerDialog, cal.get(Calendar.YEAR), cal.get
 						(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)).show();
 			}
 		});
