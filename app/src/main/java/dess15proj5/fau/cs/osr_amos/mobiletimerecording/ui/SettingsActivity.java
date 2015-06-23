@@ -18,7 +18,6 @@
 
 package dess15proj5.fau.cs.osr_amos.mobiletimerecording.ui;
 
-import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -124,12 +123,12 @@ public class SettingsActivity extends AppCompatActivity implements SettingsFragm
 	 * This method is called from a callback when the user presses a Settings Button
 	 *
 	 * methodtype command method
-	 * @param fragment Contains the next fragment to be shown
+	 * @param activityClass Contains the next fragment to be shown
 	 */
 	@Override
-	public void onSettingsButtonPressed(Fragment fragment)
+	public void onSettingsButtonPressed(Class<?> activityClass)
 	{
-		Intent intent = new Intent(getBaseContext(), SettingsChangeUserProfileActivity.class);
+		Intent intent = new Intent(getBaseContext(), activityClass);
 		startActivity(intent);
 		overridePendingTransition(R.animator.fade_in_right, R.animator.empty_animator);
 	}
