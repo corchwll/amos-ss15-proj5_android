@@ -18,58 +18,44 @@
 
 package dess15proj5.fau.cs.osr_amos.mobiletimerecording.ui;
 
-import android.content.Intent;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.CheckBox;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.R;
 
-public class SettingsActivity extends AppCompatActivity implements SettingsFragment.SettingsFragmentListener
+public class SettingsEditGPSActivity extends AppCompatActivity
 {
-	/**
-	 * This method is called in the android lifecycle when the fragment is created.
-	 *
-	 * @param savedInstanceState this param contains several key value pairs in order to save the instance state
-	 * methodtype initialization method
-	 */
+	protected CheckBox checkboxWidget;
+
 	@Override
-	protected void onCreate(Bundle savedInstanceState)
+	protected void onCreate(@Nullable Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.settings_activity);
-		initToolbar();
+		setContentView(R.layout.gps_settings);
+		checkboxWidget = (CheckBox)findViewById(R.id.useGPS);
+		loadPreferences();
+
+		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+		setSupportActionBar(toolbar);
 		if(getSupportActionBar() != null)
 		{
 			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 			getSupportActionBar().setHomeButtonEnabled(true);
 		}
-		showSettingsFragment();
 	}
 
-	/**
-	 * This method initializes the toolbar.
-	 *
-	 * methodtype initialization method
-	 */
-	private void initToolbar()
+	public void loadPreferences()
 	{
-		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-		setSupportActionBar(toolbar);
+		SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+		checkboxWidget.setChecked(sharedPref.getBoolean("useGPS", false));
 	}
 
-	/**
-	 * This method is used to display the settings fragment.
-	 *
-	 * methodtype command method
-	 */
-	private void showSettingsFragment()
-	{
-		getFragmentManager().beginTransaction()
-							.replace(R.id.settingsFrameLayout, new SettingsFragment())
-							.addToBackStack(null)
-							.commit();
-	}
 
 	/**
 	 * This method is called in the android lifecycle when a menu item is clicked on.
@@ -85,9 +71,26 @@ public class SettingsActivity extends AppCompatActivity implements SettingsFragm
 		{
 			case android.R.id.home:
 				onBackPressed();
-			default:
-				return super.onOptionsItemSelected(item);
+				break;
+			case 1:
+				onSavePressed();
+				break;
 		}
+		return super.onOptionsItemSelected(item);
+	}
+
+	public void onSavePressed()
+	{
+		SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = sharedPref.edit();
+		editor.putBoolean("useGPS", checkboxWidget.isChecked());
+		editor.apply();
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu)
+	{
+		return super.onCreateOptionsMenu(menu);
 	}
 
 	/**
@@ -98,14 +101,7 @@ public class SettingsActivity extends AppCompatActivity implements SettingsFragm
 	@Override
 	public void onBackPressed()
 	{
-		if(getFragmentManager().getBackStackEntryCount() == 1)
-		{
 			finishActivityAndShowAnimation();
-		}
-		else
-		{
-			getFragmentManager().popBackStack();
-		}
 	}
 
 	/**
@@ -117,19 +113,5 @@ public class SettingsActivity extends AppCompatActivity implements SettingsFragm
 	{
 		super.finish();
 		overridePendingTransition(R.animator.empty_animator, R.animator.fade_out_right);
-	}
-
-	/**
-	 * This method is called from a callback when the user presses a Settings Button
-	 *
-	 * methodtype command method
-	 * @param activityClass Contains the next fragment to be shown
-	 */
-	@Override
-	public void onSettingsButtonPressed(Class<?> activityClass)
-	{
-		Intent intent = new Intent(getBaseContext(), activityClass);
-		startActivity(intent);
-		overridePendingTransition(R.animator.fade_in_right, R.animator.empty_animator);
 	}
 }

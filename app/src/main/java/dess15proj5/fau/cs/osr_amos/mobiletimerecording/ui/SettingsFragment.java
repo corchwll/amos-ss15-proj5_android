@@ -19,7 +19,6 @@
 package dess15proj5.fau.cs.osr_amos.mobiletimerecording.ui;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
@@ -34,8 +33,9 @@ public class SettingsFragment extends PreferenceFragment
 		 * This method is used when the button changeUserProfile is pressed
 		 *
 		 * methodtype callback method
+		 * @param activityClass
 		 */
-		void onSettingsButtonPressed(Fragment fragment);
+		void onSettingsButtonPressed(Class<?> activityClass);
 	}
 
 	SettingsFragmentListener listener;
@@ -77,7 +77,18 @@ public class SettingsFragment extends PreferenceFragment
 			@Override
 			public boolean onPreferenceClick(Preference preference)
 			{
-				listener.onSettingsButtonPressed(new EditUserProfileFragment());
+				listener.onSettingsButtonPressed(SettingsChangeUserProfileActivity.class);
+				return false;
+			}
+		});
+
+		PreferenceScreen gpsScreen = (PreferenceScreen) findPreference("GPS");
+		gpsScreen.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()
+		{
+			@Override
+			public boolean onPreferenceClick(Preference preference)
+			{
+				listener.onSettingsButtonPressed(SettingsEditGPSActivity.class);
 				return false;
 			}
 		});

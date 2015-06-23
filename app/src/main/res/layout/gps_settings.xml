@@ -17,11 +17,24 @@
   ~     along with this program.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <PreferenceScreen
-        android:key="changeUserProfile"
-        android:title="@string/changeUserProfile" />
-    <PreferenceScreen
-        android:key="GPS"
-        android:title="GPS Settings" />
-</PreferenceScreen>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <include layout="@layout/toolbar"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@android:style/TextAppearance.DeviceDefault.Large"
+            android:text="@string/gps_settings_menu" />
+
+    <CheckBox android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:id="@+id/useGPS"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/use_gps_for_ordering" />
+</LinearLayout>
