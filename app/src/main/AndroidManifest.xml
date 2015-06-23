@@ -48,6 +48,8 @@
         <activity android:name=".ui.SettingsChangeUserProfileActivity"
                   android:label="@string/changeUserProfile">
         </activity>
+        <activity android:name=".ui.EditGPSSettingsFragment">
+        </activity>
         <receiver android:name=".businesslogic.RecordingAlarmReceiver"></receiver>
     </application>
 
