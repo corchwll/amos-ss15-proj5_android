@@ -25,6 +25,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.CheckBox;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.R;
@@ -52,10 +53,16 @@ public class SettingsEditGPSActivity extends AppCompatActivity
 
 	public void loadPreferences()
 	{
-		SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+		SharedPreferences sharedPref = getSharedPreferences("gpsSettings", Context.MODE_PRIVATE);
 		checkboxWidget.setChecked(sharedPref.getBoolean("useGPS", false));
 	}
 
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.menu_add, menu);
+		return true;
+	}
 
 	/**
 	 * This method is called in the android lifecycle when a menu item is clicked on.
@@ -69,11 +76,12 @@ public class SettingsEditGPSActivity extends AppCompatActivity
 	{
 		switch(item.getItemId())
 		{
+			case R.id.action_save_new_item:
+				onSavePressed();
+				finishActivityAndShowAnimation();
+				break;
 			case android.R.id.home:
 				onBackPressed();
-				break;
-			case 1:
-				onSavePressed();
 				break;
 		}
 		return super.onOptionsItemSelected(item);
@@ -81,16 +89,10 @@ public class SettingsEditGPSActivity extends AppCompatActivity
 
 	public void onSavePressed()
 	{
-		SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+		SharedPreferences sharedPref = getSharedPreferences("gpsSettings", Context.MODE_PRIVATE);
 		SharedPreferences.Editor editor = sharedPref.edit();
 		editor.putBoolean("useGPS", checkboxWidget.isChecked());
 		editor.apply();
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu)
-	{
-		return super.onCreateOptionsMenu(menu);
 	}
 
 	/**
