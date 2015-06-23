@@ -21,6 +21,7 @@ package dess15proj5.fau.cs.osr_amos.mobiletimerecording.ui;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.database.sqlite.SQLiteConstraintException;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -30,6 +31,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Toast;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.R;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.persistence.DataAccessObjectFactory;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.persistence.ProjectsDAO;
@@ -51,7 +53,6 @@ public class AddProject extends AppCompatActivity
 	private int selectedYear;
 	private int selectedMonth;
 	private int selectedDay;
-	private Date date;
 
 	/**
 	 * This method is called in the android lifecycle when the activity is created.
@@ -100,6 +101,11 @@ public class AddProject extends AppCompatActivity
 		locationEditText = (EditText) findViewById(R.id.locationEditText);
 	}
 
+	/**
+	 * This method sets the value of the attribute projectId based on the intent of this activity.
+	 *
+	 * methodtype command method
+	 */
 	public void setDataFromIntent()
 	{
 		Intent intent = getIntent();
@@ -139,8 +145,8 @@ public class AddProject extends AppCompatActivity
 			public void onClick(View v)
 			{
 				Calendar cal = Calendar.getInstance();
-				new DatePickerDialog(AddProject.this, datePickerDialog, cal.get(Calendar.YEAR), cal.get
-						(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)).show();
+				new DatePickerDialog(AddProject.this, datePickerDialog, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH),
+						cal.get(Calendar.DAY_OF_MONTH)).show();
 			}
 		});
 	}
@@ -160,6 +166,11 @@ public class AddProject extends AppCompatActivity
 						"." + year);
 	}
 
+	/**
+	 * This method sets an onclickListener to it. If EditText is clicked a new activity is started
+	 *
+	 * methodtype initialization method
+	 */
 	private void initLocationEditText()
 	{
 		locationEditText.setOnClickListener(new View.OnClickListener()
@@ -174,6 +185,12 @@ public class AddProject extends AppCompatActivity
 		});
 	}
 
+	/**
+	 * Called when an activity you launched exits, giving you the requestCode you started it with, the resultCode it
+	 * returned, and any additional data from it.
+	 *
+	 * methodtype command method
+	 */
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
@@ -183,8 +200,8 @@ public class AddProject extends AppCompatActivity
 			case LOCATION_INTENT_IDENTIFIER:
 				if(resultCode == Activity.RESULT_OK)
 				{
-					lat = data.getDoubleExtra("lat", 0.0);
-					lng = data.getDoubleExtra("lng", 0.0);
+					lat = data.getDoubleExtra("lat", 1000.0);
+					lng = data.getDoubleExtra("lng", 1000.0);
 					locationEditText.setText(String.valueOf(lat) + "\n" + String.valueOf(lng));
 				}
 				break;
@@ -249,23 +266,30 @@ public class AddProject extends AppCompatActivity
 				return super.onOptionsItemSelected(item);
 		}
 	}
-	
+
+	/**
+	 * This method is used to validate the projectID
+	 *
+	 * methodtype assertion method
+	 */
 	private void validateInputs()
 	{
 		String projectId = projectIdWidget.getText().toString();
 
 		if(projectId.length() == 5)
 		{
-			//Todo check if id already exists in database
 			try
 			{
 				writeProjectInDb();
+			} catch(SQLiteConstraintException e)
+			{
+				setErrorMessageToWidget(projectIdWidget, "ID is already registered in the database.");
 			} catch(SQLException e)
 			{
-				//TODO
-				e.printStackTrace();
+				Toast.makeText(this, "Could not create new project due to database errors!",
+						Toast.LENGTH_SHORT).show();
 			}
-			startNextActivity();
+			finishActivityAndShowAnimation();
 		}
 		else
 		{
@@ -290,6 +314,11 @@ public class AddProject extends AppCompatActivity
 		projectsDAO.create(projectId, projectName, date, true, false, true, lat, lng);
 	}
 
+	/**
+	 * Initialize a date object with class members and returns it.
+	 *
+	 * methodtype get method
+	 */
 	public Date getDate()
 	{
 		Calendar cal = Calendar.getInstance();
@@ -299,12 +328,14 @@ public class AddProject extends AppCompatActivity
 		return cal.getTime();
 	}
 
-	private void startNextActivity()
-	{
-		//show projectList
-		finishActivityAndShowAnimation();
-	}
-
+	/**
+	 * Sets an error message to a widget
+	 *
+	 * @param projectIdWidget EditText on which the error message should appear
+	 * @param message given message that should be shown
+	 *
+	 * methodtype helper method
+	 */
 	private void setErrorMessageToWidget(EditText projectIdWidget, String message)
 	{
 		projectIdWidget.setError(message);

@@ -82,6 +82,12 @@ public class AddProjectMapActivity extends AppCompatActivity
 		setSupportActionBar(toolbar);
 	}
 
+	/**
+	 * This method initializes the map fragment. Sets a first Marker on the map. Sets onMapClickListener to replace
+	 * the marker
+	 *
+	 * methodtype initialization method
+	 */
 	private void initMapFragment()
 	{
 		mapFragment = (MapFragment)getFragmentManager().findFragmentById(R.id.map);
@@ -127,6 +133,12 @@ public class AddProjectMapActivity extends AppCompatActivity
 		});
 	}
 
+	/**
+	 * This method removes the marker and sets a new marker to the given LatLng
+	 *
+	 * @param latLng defines the position of the new marker
+	 * methodtype command method
+	 */
 	private void replaceMarker(LatLng latLng)
 	{
 		marker.remove();
@@ -138,6 +150,11 @@ public class AddProjectMapActivity extends AppCompatActivity
 		}
 	}
 
+	/**
+	 * This method initializes LocationManager and LocationListener. Sets the LocationListener to LocationManager
+	 *
+	 * methodtype initialization method
+	 */
 	private void initLocation()
 	{
 		locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -178,6 +195,11 @@ public class AddProjectMapActivity extends AppCompatActivity
 	}
 
 	//todo replace this with a dialog
+	/**
+	 * Shows a toast to show that no GPS is available
+	 *
+	 * methodtype helper method
+	 */
 	private void showNoGPSEnabledToast()
 	{
 		Toast.makeText(this, getResources().getString(R.string.noGPSWarning), Toast.LENGTH_SHORT).show();
@@ -195,6 +217,11 @@ public class AddProjectMapActivity extends AppCompatActivity
 		super.onPause();
 	}
 
+	/**
+	 * Removes the LocationListener from LocationManager to safe battery.
+	 *
+	 * methodtype command method
+	 */
 	public void removeLocationListener()
 	{
 		if(locationManager != null)
@@ -205,7 +232,7 @@ public class AddProjectMapActivity extends AppCompatActivity
 	}
 
 	/**
-	 *  Called when the activity has detected the user's press of the back key.
+	 * Called when the activity has detected the user's press of the back key.
 	 *
 	 * methodtype command method
 	 */
@@ -216,7 +243,7 @@ public class AddProjectMapActivity extends AppCompatActivity
 	}
 
 	/**
-	 *  Finish the activity and shows an animation
+	 * Finish the activity and shows an animation
 	 *
 	 * methodtype command method
 	 */
@@ -257,14 +284,16 @@ public class AddProjectMapActivity extends AppCompatActivity
 				return true;
 			case R.id.action_save_new_item:
 					finishActivity();
-//				{
-//					Toast.makeText(this, "Could not save project due to database errors!", Toast.LENGTH_LONG).show();
-//				}
 			default:
 				return super.onOptionsItemSelected(item);
 		}
 	}
 
+	/**
+	 * Finishes the activity. Put latitude and longitude to intent.
+	 *
+	 * methodtype command method
+	 */
 	private void finishActivity()
 	{
 		Intent resultIntent = new Intent();

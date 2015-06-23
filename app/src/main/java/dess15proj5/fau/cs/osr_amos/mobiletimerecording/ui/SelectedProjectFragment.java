@@ -477,7 +477,7 @@ public class SelectedProjectFragment extends Fragment
 	//Todo callback an die activity?
 	private void startAddProjectIdAndNameActivity()
 	{
-		Intent intent = new Intent(getActivity(), AddProjectIdAndName.class);
+		Intent intent = new Intent(getActivity(), AddProject.class);
 		intent.putExtra("project_id", projectId);
 		intent.putExtra("project_name", projectName);
 		startActivity(intent);

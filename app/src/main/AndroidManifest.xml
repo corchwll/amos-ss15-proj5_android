@@ -52,7 +52,7 @@
             android:name=".ui.MainActivity"
                 android:label="@string/app_name" >
         </activity>
-        <activity android:name=".ui.AddProjectIdAndName"
+        <activity android:name=".ui.AddProject"
                   android:label="@string/add_project"/>
         <activity android:name=".ui.AddProjectMapActivity"
                   android:label="@string/add_project"/>

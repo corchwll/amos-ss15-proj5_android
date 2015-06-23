@@ -285,7 +285,7 @@ public class AddSessionActivity extends AppCompatActivity
 	/**
 	 * This method sets the value of the attribute projectId based on the intent of this activity.
 	 *
-	 * methodtype set method
+	 * methodtype command method
 	 */
 	private void setDataFromIntent()
 	{

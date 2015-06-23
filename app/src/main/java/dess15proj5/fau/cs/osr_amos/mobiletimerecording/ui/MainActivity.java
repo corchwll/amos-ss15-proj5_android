@@ -23,7 +23,6 @@ import android.app.Fragment;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -141,7 +140,7 @@ public class MainActivity extends AppCompatActivity implements AbstractUserProfi
 
 	/**
 	 * This method is used to initialize an alarm manager for this app. If the alarm is triggered, the app will check
-	 * whether it has to send a notifcation to the user reminding him to record for today.
+	 * whether it has to send a notification to the user reminding him to record for today.
 	 *
 	 * methodtype initialization method
 	 */

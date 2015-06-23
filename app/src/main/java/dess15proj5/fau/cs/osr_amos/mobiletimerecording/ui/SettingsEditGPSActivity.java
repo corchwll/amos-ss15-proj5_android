@@ -34,6 +34,12 @@ public class SettingsEditGPSActivity extends AppCompatActivity
 {
 	protected CheckBox checkboxWidget;
 
+	/**
+	 * This method is called in the android lifecycle when the activity is created.
+	 *
+	 * @param savedInstanceState this param contains several key value pairs in order to save the instance state
+	 * methodtype initialization method
+	 */
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState)
 	{
@@ -51,12 +57,23 @@ public class SettingsEditGPSActivity extends AppCompatActivity
 		}
 	}
 
+	/**
+	 * This method loads a boolean from the sharedPreferences
+	 *
+	 * methodtype helper method
+	 */
 	public void loadPreferences()
 	{
 		SharedPreferences sharedPref = getSharedPreferences("gpsSettings", Context.MODE_PRIVATE);
 		checkboxWidget.setChecked(sharedPref.getBoolean("useGPS", false));
 	}
 
+	/**
+	 * This method is called in the android lifecycle when a menu is created.
+	 *
+	 * @param menu the menu item which has to be created
+	 * methodtype initialization method
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
@@ -87,6 +104,11 @@ public class SettingsEditGPSActivity extends AppCompatActivity
 		return super.onOptionsItemSelected(item);
 	}
 
+	/**
+	 * This method stores a boolean into shared preferences
+	 *
+	 * methodtype command method
+	 */
 	public void onSavePressed()
 	{
 		SharedPreferences sharedPref = getSharedPreferences("gpsSettings", Context.MODE_PRIVATE);
