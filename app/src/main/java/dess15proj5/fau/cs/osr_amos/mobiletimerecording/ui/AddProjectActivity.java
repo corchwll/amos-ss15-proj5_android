@@ -43,7 +43,7 @@ import java.util.Date;
 
 public class AddProjectActivity extends AppCompatActivity
 {
-	private final static int LOCATION_INTENT_IDENTIFIER = 1;
+	public final static int LOCATION_INTENT_IDENTIFIER = 1;
 	protected EditText projectIdWidget;
 	protected EditText projectNameWidget;
 	protected EditText datePickerEditText;
@@ -150,7 +150,7 @@ public class AddProjectActivity extends AppCompatActivity
 	 *
 	 * methodtype initialization method
 	 */
-	private void initLocationEditText()
+	protected void initLocationEditText()
 	{
 		locationEditText.setOnClickListener(new View.OnClickListener()
 		{

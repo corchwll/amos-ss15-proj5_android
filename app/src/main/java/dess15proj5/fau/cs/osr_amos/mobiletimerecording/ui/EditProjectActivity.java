@@ -20,7 +20,9 @@ package dess15proj5.fau.cs.osr_amos.mobiletimerecording.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
+import dess15proj5.fau.cs.osr_amos.mobiletimerecording.R;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.models.GPSPoint;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.models.Project;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.persistence.DataAccessObjectFactory;
@@ -75,6 +77,32 @@ public class EditProjectActivity extends AddProjectActivity
 		selectedMonth = cal.get(Calendar.MONTH);
 		selectedDay = cal.get(Calendar.DAY_OF_MONTH);
 		setDatePickerEditText(selectedYear, selectedMonth, selectedDay);
+
+		//location
+		lat = project.getPoint().getLatitude();
+		lng = project.getPoint().getLongitude();
+	}
+
+	/**
+	 * This method sets an onclickListener to it. If EditText is clicked a new activity is started
+	 *
+	 * methodtype initialization method
+	 */
+	@Override
+	protected void initLocationEditText()
+	{
+		locationEditText.setOnClickListener(new View.OnClickListener()
+		{
+			@Override
+			public void onClick(View view)
+			{
+				Intent intent = new Intent(getBaseContext(), AddProjectMapActivity.class);
+				intent.putExtra("lat", lat);
+				intent.putExtra("lng", lng);
+				startActivityForResult(intent, AddProjectActivity.LOCATION_INTENT_IDENTIFIER);
+				overridePendingTransition(R.animator.fade_in_right, R.animator.empty_animator);
+			}
+		});
 	}
 
 	/**

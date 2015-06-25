@@ -139,7 +139,7 @@ public class AddProjectMapActivity extends AppCompatActivity
 	 * @param latLng defines the position of the new marker
 	 * methodtype command method
 	 */
-	private void replaceMarker(LatLng latLng)
+	protected void replaceMarker(LatLng latLng)
 	{
 		marker.remove();
 		GoogleMap map = mapFragment.getMap();
@@ -303,6 +303,6 @@ public class AddProjectMapActivity extends AppCompatActivity
 			resultIntent.putExtra("lng", marker.getPosition().longitude);
 			setResult(Activity.RESULT_OK, resultIntent);
 		}
-		finish();
+		finishActivityAndShowAnimation();
 	}
 }
