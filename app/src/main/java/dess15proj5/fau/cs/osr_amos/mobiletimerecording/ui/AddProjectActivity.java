@@ -124,8 +124,8 @@ public class AddProjectActivity extends AppCompatActivity
 			public void onClick(View v)
 			{
 				Calendar cal = Calendar.getInstance();
-				new DatePickerDialog(AddProjectActivity.this, datePickerDialog, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH),
-						cal.get(Calendar.DAY_OF_MONTH)).show();
+				new DatePickerDialog(AddProjectActivity.this, datePickerDialog, cal.get(Calendar.YEAR),
+						cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)).show();
 			}
 		});
 	}
@@ -219,7 +219,7 @@ public class AddProjectActivity extends AppCompatActivity
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
 		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.menu_next, menu);
+		inflater.inflate(R.menu.menu_add, menu);
 		return true;
 	}
 
@@ -238,7 +238,7 @@ public class AddProjectActivity extends AppCompatActivity
 			case android.R.id.home:
 				finishActivityAndShowAnimation();
 				return true;
-			case R.id.action_next:
+			case R.id.action_save_new_item:
 				validateInputs();
 				return true;
 			default:
