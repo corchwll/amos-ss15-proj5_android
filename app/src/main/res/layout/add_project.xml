@@ -50,6 +50,7 @@
                     android:inputType="number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:minWidth="120dp"
                     android:hint="@string/newProjectId"/>
         </FrameLayout>
     </LinearLayout>
@@ -79,6 +80,7 @@
                     android:inputType="text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:minWidth="120dp"
                     android:hint="@string/inputProjectName"/>
         </FrameLayout>
     </LinearLayout>
@@ -107,6 +109,7 @@
             <EditText
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:minWidth="120dp"
                     android:id="@+id/datePickerAddProject"
                     android:focusable="false"
                     android:inputType="none"/>
@@ -137,6 +140,7 @@
             <EditText
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:minWidth="120dp"
                     android:id="@+id/locationEditText"
                     android:focusable="false"
                     android:inputType="none"/>
