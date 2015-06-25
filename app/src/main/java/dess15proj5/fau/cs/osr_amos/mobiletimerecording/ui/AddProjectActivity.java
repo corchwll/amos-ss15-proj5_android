@@ -260,6 +260,7 @@ public class AddProjectActivity extends AppCompatActivity
 			try
 			{
 				writeProjectInDb();
+				finishActivityAndShowAnimation();
 			} catch(SQLiteConstraintException e)
 			{
 				setErrorMessageToWidget(projectIdWidget, "ID is already registered in the database.");
@@ -268,7 +269,6 @@ public class AddProjectActivity extends AppCompatActivity
 				Toast.makeText(this, "Could not create new project due to database errors!",
 						Toast.LENGTH_SHORT).show();
 			}
-			finishActivityAndShowAnimation();
 		}
 		else
 		{
