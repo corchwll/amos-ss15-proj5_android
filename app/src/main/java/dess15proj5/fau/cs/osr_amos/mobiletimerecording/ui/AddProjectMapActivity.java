@@ -296,10 +296,13 @@ public class AddProjectMapActivity extends AppCompatActivity
 	 */
 	private void finishActivity()
 	{
-		Intent resultIntent = new Intent();
-		resultIntent.putExtra("lat", marker.getPosition().latitude);
-		resultIntent.putExtra("lng", marker.getPosition().longitude);
-		setResult(Activity.RESULT_OK, resultIntent);
+		if(marker != null)
+		{
+			Intent resultIntent = new Intent();
+			resultIntent.putExtra("lat", marker.getPosition().latitude);
+			resultIntent.putExtra("lng", marker.getPosition().longitude);
+			setResult(Activity.RESULT_OK, resultIntent);
+		}
 		finish();
 	}
 }
