@@ -452,6 +452,7 @@ public class SelectedProjectFragment extends Fragment
 		if(projectId == null && projectName == null || isSpecialProject())
 		{
 			menu.getItem(0).setEnabled(false);
+			menu.getItem(1).setEnabled(false);
 		}
 	}
 
