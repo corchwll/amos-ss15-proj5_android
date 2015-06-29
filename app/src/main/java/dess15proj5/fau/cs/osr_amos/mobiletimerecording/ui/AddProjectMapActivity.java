@@ -50,6 +50,8 @@ public class AddProjectMapActivity extends AppCompatActivity
 	private LocationManager locationManager;
 	private LocationListener locationListener;
 	private Marker marker;
+	protected double firstLat;
+	protected double firstLng;
 
 	/**
 	 * This method is called in the android lifecycle when the activity is created.
@@ -68,6 +70,7 @@ public class AddProjectMapActivity extends AppCompatActivity
 			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 			getSupportActionBar().setHomeButtonEnabled(true);
 		}
+		initFirstMarkerPosition();
 		initMapFragment();
 	}
 
@@ -106,20 +109,8 @@ public class AddProjectMapActivity extends AppCompatActivity
 						return false;
 					}
 				});
-
-				TypedValue latValue = new TypedValue();
-				getResources().getValue(R.dimen.lat, latValue, true);
-				float lat = latValue.getFloat();
-
-				TypedValue lngValue = new TypedValue();
-				getResources().getValue(R.dimen.lng, lngValue, true);
-				float lng = lngValue.getFloat();
-
-				marker = googleMap.addMarker(new MarkerOptions().position(new LatLng(lat, lng))
-																.title(getResources().getString(R.string.marker)));
-				mapFragment.getMap()
-						   .moveCamera(CameraUpdateFactory.newLatLng(new LatLng(lat, lng)));
-
+				marker = googleMap.addMarker(new MarkerOptions().position(new LatLng(firstLat, firstLng)));
+				mapFragment.getMap().moveCamera(CameraUpdateFactory.newLatLng(new LatLng(firstLat, firstLng)));
 				googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener()
 				{
 					@Override
@@ -133,6 +124,17 @@ public class AddProjectMapActivity extends AppCompatActivity
 		});
 	}
 
+	private void initFirstMarkerPosition()
+	{
+		TypedValue latValue = new TypedValue();
+		getResources().getValue(R.dimen.lat, latValue, true);
+		firstLat = latValue.getFloat();
+
+		TypedValue lngValue = new TypedValue();
+		getResources().getValue(R.dimen.lng, lngValue, true);
+		firstLng = lngValue.getFloat();
+	}
+
 	/**
 	 * This method removes the marker and sets a new marker to the given LatLng
 	 *
@@ -141,12 +143,36 @@ public class AddProjectMapActivity extends AppCompatActivity
 	 */
 	protected void replaceMarker(LatLng latLng)
 	{
-		marker.remove();
+		removeOldMarker();
+		addNewMarker(latLng);
+	}
+
+	/**
+	 * This method removes the old marker.
+	 *
+	 * methodtype command method
+	 */
+	private void removeOldMarker()
+	{
+		if(marker != null)
+		{
+			marker.remove();
+		}
+	}
+
+	/**
+	 * adds a new marker to the map.
+	 *
+	 * @param latLng the position where the marker should be placed.
+	 * methodtype command method
+	 */
+	private void addNewMarker(LatLng latLng)
+	{
 		GoogleMap map = mapFragment.getMap();
 		if(map != null)
 		{
-			marker = mapFragment.getMap().addMarker(new MarkerOptions().position(latLng));
-			mapFragment.getMap().animateCamera(CameraUpdateFactory.newLatLng(latLng));
+			marker = map.addMarker(new MarkerOptions().position(latLng));
+			map.animateCamera(CameraUpdateFactory.newLatLng(latLng));
 		}
 	}
 

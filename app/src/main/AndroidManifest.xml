@@ -58,6 +58,8 @@
                   android:label="@string/add_project"/>
         <activity android:name=".ui.EditProjectActivity"
                   android:label="@string/edit_project"/>
+        <activity android:name=".ui.EditProjectMapActivity"
+                  android:label="@string/edit_project"/>
         <activity android:name=".ui.AddSessionActivity"
                   android:label="@string/add_new_session" >
         </activity>

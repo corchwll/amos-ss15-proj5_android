@@ -20,10 +20,15 @@ package dess15proj5.fau.cs.osr_amos.mobiletimerecording.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import com.google.android.gms.maps.model.LatLng;
 
 public class EditProjectMapActivity extends AddProjectMapActivity
 {
+	/**
+	 * This method is called in the android lifecycle when the activity is created.
+	 *
+	 * @param savedInstanceState this param contains several key value pairs in order to save the instance state
+	 * methodtype initialization method
+	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
@@ -31,8 +36,7 @@ public class EditProjectMapActivity extends AddProjectMapActivity
 
 		Intent intent = getIntent();
 		Bundle data = intent.getExtras();
-		double lat = data.getDouble("lat");
-		double lng = data.getDouble("lng");
-		replaceMarker(new LatLng(lat, lng));
+		firstLat = data.getDouble("lat");
+		firstLng = data.getDouble("lng");
 	}
 }

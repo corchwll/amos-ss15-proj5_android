@@ -81,6 +81,7 @@ public class EditProjectActivity extends AddProjectActivity
 		//location
 		lat = project.getPoint().getLatitude();
 		lng = project.getPoint().getLongitude();
+		locationEditText.setText(String.valueOf(lat) + "\n" + String.valueOf(lng));
 	}
 
 	/**
@@ -96,7 +97,7 @@ public class EditProjectActivity extends AddProjectActivity
 			@Override
 			public void onClick(View view)
 			{
-				Intent intent = new Intent(getBaseContext(), AddProjectMapActivity.class);
+				Intent intent = new Intent(getBaseContext(), EditProjectMapActivity.class);
 				intent.putExtra("lat", lat);
 				intent.putExtra("lng", lng);
 				startActivityForResult(intent, AddProjectActivity.LOCATION_INTENT_IDENTIFIER);
