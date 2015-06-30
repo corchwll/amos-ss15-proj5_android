@@ -19,6 +19,7 @@
 package dess15proj5.fau.cs.osr_amos.mobiletimerecording.businesslogic;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.models.Session;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.models.User;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.persistence.DataAccessObjectFactory;
@@ -161,13 +162,80 @@ public class DashboardInformation
 	 */
 	public int getLeftVacationDays() throws SQLException
 	{
-		List<Session> vacationSessions = DataAccessObjectFactory.getInstance().createSessionsDAO(context)
-																.listAllForProject(PersistenceHelper.VACATION_ID);
+		Date sinceDate = getLastResetDate();
+		List<Session> vacationSessions = DataAccessObjectFactory.getInstance()
+																.createSessionsDAO(context)
+																.listAllForProjectSinceDate(
+																		PersistenceHelper.VACATION_ID, sinceDate);
 		long vacationInMillis = sumUpSessions(vacationSessions);
 
 		double hoursPerDay = currentUser.getWeeklyWorkingTime()/5.0;
 		int vacationInDays = (int)(vacationInMillis/(1000*60*60*hoursPerDay));
 
-		return currentUser.getCurrentVacationTime() - vacationInDays;
+		int currentVacationTime = currentUser.getTotalVacationTime();
+		if(sinceDate.equals(currentUser.getRegistrationDate()))
+		{
+			currentVacationTime = currentUser.getCurrentVacationTime();
+		}
+
+		return currentVacationTime - vacationInDays;
+	}
+
+	/**
+	 * This method is used to get the last reset date so that it is possible to determine if the current vacation
+	 * days of the user object have to be used in calculation or not.
+	 *
+	 * @return the last reset date
+	 * methodtype helper method
+	 */
+	protected Date getLastResetDate()
+	{
+		SharedPreferences sharedPrefs = context.getSharedPreferences("vacation", Context.MODE_PRIVATE);
+		Date resetDate = new Date(sharedPrefs.getLong("lastReset", currentUser.getRegistrationDate().getTime()));
+
+		Calendar calReset = Calendar.getInstance();
+		calReset.setTime(resetDate);
+
+		Date result;
+		if(resetDate.equals(currentUser.getRegistrationDate()))
+		{
+			result = resetDate;
+			doResetNow(calReset, sharedPrefs);
+		} else
+		{
+			Date now = new Date();
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(now);
+
+			if(cal.get(Calendar.MONTH) >= Calendar.APRIL ||
+					(cal.get(Calendar.MONTH) < Calendar.APRIL && cal.get(Calendar.YEAR) > calReset.get(Calendar.YEAR)))
+			{
+				if(resetDate.before(now))
+				{
+					cal = doResetNow(cal, sharedPrefs);
+				}
+			}
+
+			result = cal.getTime();
+		}
+
+		return result;
+	}
+
+	/**
+	 * This method is used to reset a given calendar object to the reset date for the new year.
+	 *
+	 * @param cal the calendar representation of the date that has to be resetted
+	 * @param sharedPrefs the shared preferences where the reset has to be stored
+	 * @return the reseted calendar object
+	 * methodtype helper method
+	 */
+	protected Calendar doResetNow(Calendar cal, SharedPreferences sharedPrefs)
+	{
+		cal.set(Calendar.DAY_OF_MONTH, 1);
+		cal.set(Calendar.MONTH, Calendar.APRIL);
+
+		sharedPrefs.edit().putLong("lastReset", cal.getTimeInMillis()).apply();
+		return cal;
 	}
 }

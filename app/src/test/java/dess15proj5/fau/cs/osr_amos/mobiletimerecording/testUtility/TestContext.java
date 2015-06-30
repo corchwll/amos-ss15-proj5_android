@@ -42,6 +42,7 @@ import java.io.*;
 public class TestContext extends Context
 {
 	private Intent intent;
+	private SharedPreferences prefs;
 
 	public TestContext()
 	{
@@ -56,6 +57,11 @@ public class TestContext extends Context
 	public void setIntent(Intent intent)
 	{
 		this.intent = intent;
+	}
+
+	public void setPrefs(SharedPreferences prefs)
+	{
+		this.prefs = prefs;
 	}
 
 	@Override
@@ -157,7 +163,12 @@ public class TestContext extends Context
 	@Override
 	public SharedPreferences getSharedPreferences(String s, int i)
 	{
-		return null;
+		if(prefs == null)
+		{
+			prefs = new TestSharedPreferences();
+		}
+
+		return prefs;
 	}
 
 	@Override
