@@ -104,6 +104,7 @@
     <string name="vacation_dashboard_textView">Left Vacation / Total Vacation:</string>
     <string name="sendCSV">Send CSV</string>
     <string name="datePickerDialogFragmentMessage">Select the month and year for which you want to send the CSV.</string>
+    <string name="expireOfVacationDaysWarning">Please use your left vacation days until 30th of March.\t</string>
 
     <!--gps settings-->
     <string name="gps_settings_menu">Change GPS Settings</string>

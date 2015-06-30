@@ -31,6 +31,8 @@ import dess15proj5.fau.cs.osr_amos.mobiletimerecording.persistence.DataAccessObj
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.persistence.UsersDAO;
 
 import java.sql.SQLException;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public class DashboardFragment extends Fragment
 {
@@ -124,6 +126,7 @@ public class DashboardFragment extends Fragment
 
 		loadUserFromDB();
 		createDashboardInstance();
+		initExpireOfVacationTextView();
 		initOvertimeToTextView();
 		initVacationToTextView();
 	}
@@ -162,6 +165,45 @@ public class DashboardFragment extends Fragment
 	}
 
 	/**
+	 * shows a TextView with warning from 01 january to 30 march that user should use left vacation days
+	 *
+	 * methodtype initialization method
+	 */
+	private void initExpireOfVacationTextView()
+	{
+		TextView expireOfVacationDaysTextView = (TextView) getActivity().findViewById(R.id
+				.expireOfVacationDaysWarning);
+
+		if(isCurrentDateBetweenFirstJanuaryAndThirtiethMarch())
+		{
+			expireOfVacationDaysTextView.setError("");
+			expireOfVacationDaysTextView.setVisibility(View.VISIBLE);
+		} else
+		{
+			expireOfVacationDaysTextView.setVisibility(View.GONE);
+		}
+	}
+
+	/**
+	 * checks whether current date is between first January and thirtieth march
+	 *
+	 * methodtype boolean query method
+	 */
+	public boolean isCurrentDateBetweenFirstJanuaryAndThirtiethMarch()
+	{
+		boolean isInBetween = false;
+		Calendar currentDate = Calendar.getInstance();
+		int currentYear = currentDate.get(Calendar.YEAR);
+		Calendar firstJanuary = new GregorianCalendar(currentYear, 1,1);
+		Calendar thirtiethMarch = new GregorianCalendar(currentYear, 3, 30);
+		if(currentDate.after(firstJanuary) && currentDate.before(thirtiethMarch))
+		{
+			isInBetween = true;
+		}
+		return  isInBetween;
+	}
+
+	/**
 	 * This method initializes the overtime TextView
 	 *
 	 * methodtype initialization method
@@ -194,5 +236,4 @@ public class DashboardFragment extends Fragment
 					Toast.LENGTH_SHORT).show();
 		}
 	}
-
 }
