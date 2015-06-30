@@ -43,6 +43,7 @@ public class SelectedProjectFragment extends Fragment
 {
 	private String projectId;
 	private String projectName;
+	private Date finalDate;
 	private Session session;
 	private SessionArrayAdapter adapter;
 	private ListView sessionListView;
@@ -83,6 +84,7 @@ public class SelectedProjectFragment extends Fragment
 	{
 		projectId = getArguments().getString("project_id");
 		projectName = getArguments().getString("project_name");
+		finalDate = new Date(getArguments().getLong("final_date"));
 	}
 
 	/**
@@ -96,6 +98,7 @@ public class SelectedProjectFragment extends Fragment
 		SharedPreferences.Editor editor = sharedPref.edit();
 		editor.putString("project_id", projectId);
 		editor.putString("project_name", projectName);
+		editor.putLong("final_date", finalDate.getTime());
 		editor.apply();
 	}
 
@@ -149,12 +152,18 @@ public class SelectedProjectFragment extends Fragment
 				@Override
 				public void onClick(View v)
 				{
-					if(!timer.isRunning())
+					if(!timer.isRunning() && !(new Date().after(finalDate)))
 					{
 						startNewSession(startStopBtn, timer);
 					} else
 					{
 						stopCurrentSession(startStopBtn, timer);
+					}
+
+					if(new Date().after(finalDate))
+					{
+						final String message = getResources().getString(R.string.finalDateExpired);
+						Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
 					}
 				}
 
@@ -332,6 +341,7 @@ public class SelectedProjectFragment extends Fragment
 		SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
 		projectId = sharedPref.getString("project_id", null);
 		projectName = sharedPref.getString("project_name", null);
+		finalDate = new Date(sharedPref.getLong("final_date", Long.MAX_VALUE));
 	}
 
 	/**
@@ -552,6 +562,7 @@ public class SelectedProjectFragment extends Fragment
 	{
 		projectId = null;
 		projectName = null;
+		finalDate = new Date(Long.MAX_VALUE);
 		saveArgumentsIntoSharedPreferences();
 	}
 
