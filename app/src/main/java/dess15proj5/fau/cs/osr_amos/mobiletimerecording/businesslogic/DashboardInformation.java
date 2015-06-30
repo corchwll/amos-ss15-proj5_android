@@ -193,15 +193,16 @@ public class DashboardInformation
 		SharedPreferences sharedPrefs = context.getSharedPreferences("vacation", Context.MODE_PRIVATE);
 		Date resetDate = new Date(sharedPrefs.getLong("lastReset", currentUser.getRegistrationDate().getTime()));
 
+		Calendar calReset = Calendar.getInstance();
+		calReset.setTime(resetDate);
+
 		Date result;
 		if(resetDate.equals(currentUser.getRegistrationDate()))
 		{
 			result = resetDate;
+			doResetNow(calReset, sharedPrefs);
 		} else
 		{
-			Calendar calReset = Calendar.getInstance();
-			calReset.setTime(resetDate);
-
 			Date now = new Date();
 			Calendar cal = Calendar.getInstance();
 			cal.setTime(now);
@@ -234,7 +235,7 @@ public class DashboardInformation
 		cal.set(Calendar.DAY_OF_MONTH, 1);
 		cal.set(Calendar.MONTH, Calendar.APRIL);
 
-		sharedPrefs.edit().putLong("lastReset", cal.getTimeInMillis());
+		sharedPrefs.edit().putLong("lastReset", cal.getTimeInMillis()).apply();
 		return cal;
 	}
 }
