@@ -118,7 +118,7 @@ public class PersistenceHelper extends SQLiteOpenHelper
 	 * Constants for database name and version
 	 */
 	private static final String DATABASE_NAME = "mobile_time_recording";
-	private static final int DATABASE_VERSION = 8;
+	private static final int DATABASE_VERSION = 9;
 
 	/**
 	 * Constructor for the PersistenceHelper.
@@ -158,7 +158,7 @@ public class PersistenceHelper extends SQLiteOpenHelper
 		ContentValues values = new ContentValues();
 		values.put(PROJECTS_ID, VACATION_ID);
 		values.put(PROJECTS_NAME, "Vacation");
-		values.put(PROJECTS_FINAL_DATE, 0);
+		values.put(PROJECTS_FINAL_DATE, Long.MAX_VALUE);
 		values.put(PROJECTS_IS_DISPLAYED, 1);
 		values.put(PROJECTS_IS_USED, 1);
 		values.put(PROJECTS_IS_ARCHIVED, 0);
@@ -170,7 +170,7 @@ public class PersistenceHelper extends SQLiteOpenHelper
 		values = new ContentValues();
 		values.put(PROJECTS_ID, TRAINING_ID);
 		values.put(PROJECTS_NAME, "Training");
-		values.put(PROJECTS_FINAL_DATE, 0);
+		values.put(PROJECTS_FINAL_DATE, Long.MAX_VALUE);
 		values.put(PROJECTS_IS_DISPLAYED, 1);
 		values.put(PROJECTS_IS_USED, 1);
 		values.put(PROJECTS_IS_ARCHIVED, 0);
@@ -182,7 +182,7 @@ public class PersistenceHelper extends SQLiteOpenHelper
 		values = new ContentValues();
 		values.put(PROJECTS_ID, ILLNESS_ID);
 		values.put(PROJECTS_NAME, "Illness");
-		values.put(PROJECTS_FINAL_DATE, 0);
+		values.put(PROJECTS_FINAL_DATE, Long.MAX_VALUE);
 		values.put(PROJECTS_IS_DISPLAYED, 1);
 		values.put(PROJECTS_IS_USED, 1);
 		values.put(PROJECTS_IS_ARCHIVED, 0);
@@ -194,7 +194,7 @@ public class PersistenceHelper extends SQLiteOpenHelper
 		values = new ContentValues();
 		values.put(PROJECTS_ID, OFFICE_ID);
 		values.put(PROJECTS_NAME, "Office");
-		values.put(PROJECTS_FINAL_DATE, 0);
+		values.put(PROJECTS_FINAL_DATE, Long.MAX_VALUE);
 		values.put(PROJECTS_IS_DISPLAYED, 1);
 		values.put(PROJECTS_IS_USED, 1);
 		values.put(PROJECTS_IS_ARCHIVED, 0);

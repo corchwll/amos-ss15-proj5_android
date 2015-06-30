@@ -53,6 +53,7 @@ public class AddProjectActivity extends AppCompatActivity
 	protected int selectedYear;
 	protected int selectedMonth;
 	protected int selectedDay;
+	private boolean isDateSet = false;
 
 	/**
 	 * This method is called in the android lifecycle when the activity is created.
@@ -111,6 +112,7 @@ public class AddProjectActivity extends AppCompatActivity
 		{
 			public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth)
 			{
+				isDateSet = true;
 				setDatePickerEditText(year, monthOfYear, dayOfMonth);
 				selectedYear = year;
 				selectedMonth = monthOfYear;
@@ -301,12 +303,19 @@ public class AddProjectActivity extends AppCompatActivity
 	protected Date getDate()
 	{
 		Calendar cal = Calendar.getInstance();
-		cal.set(Calendar.YEAR, selectedYear);
-		cal.set(Calendar.MONTH, selectedMonth);
-		cal.set(Calendar.DAY_OF_MONTH, selectedDay);
-		cal.set(Calendar.HOUR_OF_DAY, 23);
-		cal.set(Calendar.MINUTE, 59);
-		cal.set(Calendar.SECOND, 59);
+		if(isDateSet)
+		{
+			cal.set(Calendar.YEAR, selectedYear);
+			cal.set(Calendar.MONTH, selectedMonth);
+			cal.set(Calendar.DAY_OF_MONTH, selectedDay);
+			cal.set(Calendar.HOUR_OF_DAY, 23);
+			cal.set(Calendar.MINUTE, 59);
+			cal.set(Calendar.SECOND, 59);
+		}
+		else
+		{
+			cal.setTime(new Date(Long.MAX_VALUE));
+		}
 		return cal.getTime();
 	}
 
