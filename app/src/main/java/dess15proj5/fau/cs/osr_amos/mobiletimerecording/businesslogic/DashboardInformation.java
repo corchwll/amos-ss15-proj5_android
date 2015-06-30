@@ -185,23 +185,33 @@ public class DashboardInformation
 	{
 		SharedPreferences sharedPrefs = context.getSharedPreferences("vacation", Context.MODE_PRIVATE);
 		Date resetDate = new Date(sharedPrefs.getLong("lastReset", currentUser.getRegistrationDate().getTime()));
-		Calendar calReset = Calendar.getInstance();
-		calReset.setTime(resetDate);
 
-		Date now = new Date();
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(now);
-
-		if(cal.get(Calendar.MONTH) >= Calendar.APRIL || (cal.get(Calendar.MONTH) < Calendar.APRIL &&
-				cal.get(Calendar.YEAR) > calReset.get(Calendar.YEAR)))
+		Date result;
+		if(resetDate.equals(currentUser.getRegistrationDate()))
 		{
-			if(resetDate.before(now))
+			result = resetDate;
+		} else
+		{
+			Calendar calReset = Calendar.getInstance();
+			calReset.setTime(resetDate);
+
+			Date now = new Date();
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(now);
+
+			if(cal.get(Calendar.MONTH) >= Calendar.APRIL ||
+					(cal.get(Calendar.MONTH) < Calendar.APRIL && cal.get(Calendar.YEAR) > calReset.get(Calendar.YEAR)))
 			{
-				cal = doResetNow(cal, sharedPrefs);
+				if(resetDate.before(now))
+				{
+					cal = doResetNow(cal, sharedPrefs);
+				}
 			}
+
+			result = cal.getTime();
 		}
 
-		return cal.getTime();
+		return result;
 	}
 
 	protected Calendar doResetNow(Calendar cal, SharedPreferences sharedPrefs)
