@@ -152,18 +152,16 @@ public class SelectedProjectFragment extends Fragment
 				@Override
 				public void onClick(View v)
 				{
-					if(!timer.isRunning() && !(new Date().after(finalDate)))
-					{
-						startNewSession(startStopBtn, timer);
-					} else
+					if(timer.isRunning())
 					{
 						stopCurrentSession(startStopBtn, timer);
-					}
-
-					if(new Date().after(finalDate))
+					} else if(new Date().after(finalDate))
 					{
 						final String message = getResources().getString(R.string.finalDateExpired);
 						Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
+					} else
+					{
+						startNewSession(startStopBtn, timer);
 					}
 				}
 
