@@ -67,8 +67,7 @@ public class DashboardInformation
 		{
 			Date startTime = sessions.get(0)
 									 .getStartTime();
-			Date stopTime = sessions.get(sessions.size() - 1)
-									.getStopTime();
+			Date stopTime = new Date();
 
 			int amountOfHolidays = Holidays.getHolidaysInbetween(startTime, stopTime);
 			long amountOfWorkdays = calculateWorkdays(startTime, stopTime);
