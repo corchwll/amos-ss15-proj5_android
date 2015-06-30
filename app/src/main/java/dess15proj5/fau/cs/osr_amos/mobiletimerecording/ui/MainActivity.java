@@ -268,6 +268,14 @@ public class MainActivity extends AppCompatActivity implements AbstractUserProfi
 		Bundle args = new Bundle();
 		args.putString("project_id", selectedProject.getId());
 		args.putString("project_name", selectedProject.getName());
+		if(selectedProject.getFinalDate() == null)
+		{
+			args.putLong("final_date", Long.MAX_VALUE);
+		} else
+		{
+			args.putLong("final_date", selectedProject.getFinalDate().getTime());
+		}
+
 		selectedProjectFragment.setArguments(args);
 		setTitleOfActionBar(getResources().getString(R.string.overview));
 		getFragmentManager().beginTransaction()
