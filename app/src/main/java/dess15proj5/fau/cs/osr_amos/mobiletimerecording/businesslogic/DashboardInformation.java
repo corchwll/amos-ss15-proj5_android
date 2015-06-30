@@ -181,6 +181,13 @@ public class DashboardInformation
 		return currentVacationTime - vacationInDays;
 	}
 
+	/**
+	 * This method is used to get the last reset date so that it is possible to determine if the current vacation
+	 * days of the user object have to be used in calculation or not.
+	 *
+	 * @return the last reset date
+	 * methodtype helper method
+	 */
 	protected Date getLastResetDate()
 	{
 		SharedPreferences sharedPrefs = context.getSharedPreferences("vacation", Context.MODE_PRIVATE);
@@ -214,6 +221,14 @@ public class DashboardInformation
 		return result;
 	}
 
+	/**
+	 * This method is used to reset a given calendar object to the reset date for the new year.
+	 *
+	 * @param cal the calendar representation of the date that has to be resetted
+	 * @param sharedPrefs the shared preferences where the reset has to be stored
+	 * @return the reseted calendar object
+	 * methodtype helper method
+	 */
 	protected Calendar doResetNow(Calendar cal, SharedPreferences sharedPrefs)
 	{
 		cal.set(Calendar.DAY_OF_MONTH, 1);
