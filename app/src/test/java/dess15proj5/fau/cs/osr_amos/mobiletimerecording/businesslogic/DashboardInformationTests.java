@@ -18,6 +18,8 @@
 
 package dess15proj5.fau.cs.osr_amos.mobiletimerecording.businesslogic;
 
+import android.content.SharedPreferences;
+import dess15proj5.fau.cs.osr_amos.mobiletimerecording.testUtility.TestSharedPreferences;
 import org.junit.Test;
 
 import java.util.Calendar;
@@ -67,5 +69,44 @@ public class DashboardInformationTests
 		long workdays = db.calculateWorkdays(cal.getTime(), cal2.getTime());
 
 		assertTrue("Amount of workdays should be 281, but was " + workdays, workdays == 261);
+	}
+
+	@Test
+	public void testDoResetNow_MethodCalled_SuccessfulResetted()
+	{
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.YEAR, 2015);
+		cal.set(Calendar.MONTH, Calendar.JUNE);
+		cal.set(Calendar.DAY_OF_MONTH, 30);
+
+		SharedPreferences prefs = new TestSharedPreferences();
+
+		DashboardInformation db = new DashboardInformation();
+		Calendar calReseted = db.doResetNow(cal, prefs);
+
+		int day = calReseted.get(Calendar.DAY_OF_MONTH);
+		int month = calReseted.get(Calendar.MONTH);
+
+		assertTrue("day has to be 1, but was " + day + " and month has to be " + Calendar.APRIL + " but was " +
+				month, month == Calendar.APRIL && day == 1);
+	}
+
+	@Test
+	public void testDoResetNow_MethodCalled_PreferencesSuccessfullyUpdated()
+	{
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.YEAR, 2015);
+		cal.set(Calendar.MONTH, Calendar.JUNE);
+		cal.set(Calendar.DAY_OF_MONTH, 30);
+
+		SharedPreferences prefs = new TestSharedPreferences();
+
+		DashboardInformation db = new DashboardInformation();
+		Calendar calReset = db.doResetNow(cal, prefs);
+
+		long savedPref = prefs.getLong("lastReset", -1L);
+
+		assertTrue("savedPref has to be " + calReset.getTimeInMillis() + ", but was " + savedPref + ". If it was -1L " +
+				"there was no setting saved!", savedPref == calReset.getTimeInMillis());
 	}
 }
