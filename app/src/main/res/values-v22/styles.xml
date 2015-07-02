@@ -24,9 +24,11 @@
 
         <item name="colorControlActivated">@color/bluePrimaryColor</item>
         <item name="colorControlHighlight">@color/bluePrimaryColor</item>
+
+        <item name="android:dialogTheme">@style/AppTheme.DialogTheme</item>
     </style>
 
-    <style name="DatePickerThemeOverlay">
+    <style name="AppTheme.DialogTheme" parent="Theme.AppCompat.Light.Dialog">
         <item name="android:colorAccent">@color/bluePrimaryColor</item>
     </style>
 
