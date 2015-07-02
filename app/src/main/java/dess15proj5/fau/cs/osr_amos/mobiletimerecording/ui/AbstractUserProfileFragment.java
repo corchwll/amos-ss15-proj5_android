@@ -22,7 +22,6 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -184,7 +183,6 @@ public abstract class AbstractUserProfileFragment extends Fragment
 		InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
 		if(imm.isAcceptingText())
 		{
-			Log.e("test", "hideSoftwareKey");
 			imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
 		}
 	}
