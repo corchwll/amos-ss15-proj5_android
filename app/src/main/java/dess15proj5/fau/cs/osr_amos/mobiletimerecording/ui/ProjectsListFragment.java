@@ -24,6 +24,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.SearchView;
 import android.view.*;
 import android.view.inputmethod.InputMethodManager;
@@ -35,7 +36,7 @@ import dess15proj5.fau.cs.osr_amos.mobiletimerecording.models.Project;
 public class ProjectsListFragment extends ListFragment
 {
 	private ListView projectListView;
-	private ImageButton addProjectFAB;
+	private FloatingActionButton addProjectFAB;
 	private ProjectArrayAdapter adapter;
 	private static ProjectsListFragmentListener listener;
 	private SearchView searchView;
@@ -96,7 +97,7 @@ public class ProjectsListFragment extends ListFragment
 	{
 		View view = inflater.inflate(R.layout.projects_list_fragment, container, false);
 		projectListView = (ListView) view.findViewById(android.R.id.list);
-		addProjectFAB = (ImageButton) view.findViewById(R.id.addProjectFAB);
+		addProjectFAB = (FloatingActionButton) view.findViewById(R.id.addProjectFAB);
 		return view;
 	}
 

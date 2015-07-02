@@ -17,10 +17,11 @@
   ~     along with this program.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
-<RelativeLayout
+<FrameLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                   android:orientation="vertical"
@@ -101,15 +102,13 @@
         </ListView>
     </LinearLayout>
 
-    <ImageButton style="@style/AppTheme"
-                 android:layout_width="70dp"
-                 android:layout_height="70dp"
-                 android:text="@string/add_new_session"
-                 android:contentDescription="@string/add_new_session"
-                 android:id="@+id/addSessionFAB"
-                 android:src="@drawable/ic_add_white_24dp"
-                 android:background="@drawable/fab"
-                 android:layout_alignParentBottom="true"
-                 android:layout_alignParentRight="true"
-                 android:layout_alignParentEnd="true"/>
-</RelativeLayout>
+    <android.support.design.widget.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/addSessionFAB"
+            android:src="@drawable/ic_add_white_24dp"
+            app:elevation="6dp"
+            app:borderWidth="0dp"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="10dp"/>
+</FrameLayout>

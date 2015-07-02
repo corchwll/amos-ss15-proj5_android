@@ -25,6 +25,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.view.*;
 import android.widget.*;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.R;
@@ -385,7 +386,7 @@ public class SelectedProjectFragment extends Fragment
 	 */
 	private void setClickListenerToFAB()
 	{
-		ImageButton addSessionFAB = (ImageButton) getActivity().findViewById(R.id.addSessionFAB);
+		FloatingActionButton addSessionFAB = (FloatingActionButton) getActivity().findViewById(R.id.addSessionFAB);
 		addSessionFAB.setOnClickListener(new View.OnClickListener()
 		{
 			@Override

@@ -25,6 +25,8 @@
 
     <item name="colorControlActivated">@color/bluePrimaryColor</item>
     <item name="colorControlHighlight">@color/bluePrimaryColor</item>
+    <!--floatingActionButton-->
+    <item name="colorAccent">@color/bluePrimaryColor</item>
   </style>
 
 </resources>
