@@ -69,7 +69,8 @@
         <activity android:name=".ui.SettingsChangeUserProfileActivity"
                   android:label="@string/changeUserProfile">
         </activity>
-        <activity android:name=".ui.SettingsEditGPSActivity">
+        <activity android:name=".ui.SettingsEditGPSActivity"
+                  android:label="@string/gps_settings_menu">
         </activity>
         <receiver android:name=".businesslogic.RecordingAlarmReceiver"></receiver>
     </application>
