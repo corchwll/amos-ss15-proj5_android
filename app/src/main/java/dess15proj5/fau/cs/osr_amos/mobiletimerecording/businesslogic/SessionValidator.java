@@ -178,6 +178,13 @@ public class SessionValidator
 		return result;
 	}
 
+	/**
+	 * This method checks whether the day is on a public holiday or on weekend. If the current day is not on a
+	 * working day a message is displayed.
+	 *
+	 * @param session the session that has to be checked
+	 * methodtype command method
+	 */
 	public void checkDay(Session session)
 	{
 		Calendar cal = Calendar.getInstance();
@@ -196,6 +203,13 @@ public class SessionValidator
 		}
 	}
 
+	/**
+	 * This method checks whether the calendar object is on a working day.
+	 *
+	 * @param calendar the calendar object that has to be checked
+	 * @return true if it is on a working day, false if not
+	 * methodtype boolean query method
+	 */
 	protected boolean isWorkday(Calendar calendar)
 	{
 		boolean result = true;
@@ -208,6 +222,13 @@ public class SessionValidator
 		return result;
 	}
 
+	/**
+	 * This method checks whether the calendar object is on a public holiday.
+	 *
+	 * @param calendar the calendar object that has to be checked
+	 * @return true if it is on a public holiday, false if not
+	 * methodtype boolean query method
+	 */
 	protected boolean isHoliday(Calendar calendar)
 	{
 		boolean result = false;
