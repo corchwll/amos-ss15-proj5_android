@@ -21,4 +21,5 @@
   <color name="bluePrimaryColor">#00375b</color>
   <color name="grey_text_view">#9e9e9e</color>
   <color name="red_text_view">#f44336</color>
+  <color name="recordSessionBtnColor">#d50000</color>
 </resources>

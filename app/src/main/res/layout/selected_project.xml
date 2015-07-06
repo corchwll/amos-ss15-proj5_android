@@ -29,26 +29,49 @@
                   android:layout_height="wrap_content">
 
         <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:orientation="horizontal"
+                android:weightSum="1.0"
+                android:gravity="center_vertical">
 
             <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:id="@+id/name_of_selected_project"/>
-
-            <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/startStopBtn"
-                    android:text="@string/start_button"/>
+                    android:gravity="center"
+                    android:layout_weight="0.33"
+                    android:id="@+id/name_of_selected_project"
+                    android:textSize="20sp"
+                    />
 
             <view
                     class="dess15proj5.fau.cs.osr_amos.mobiletimerecording.utility.ProjectTimer"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:id="@+id/timer"/>
+                    android:gravity="center"
+                    android:layout_weight="0.33"
+                    android:id="@+id/timer"
+                    android:textSize="20sp"
+                    />
+
+            <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.33"
+                    >
+
+                <android.support.design.widget.FloatingActionButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:id="@+id/startStopBtn"
+                        app:backgroundTint="@color/recordSessionBtnColor"
+                        android:src="@drawable/ic_play_arrow_white_24dp"
+                        app:elevation="6dp"
+                        app:borderWidth="0dp"
+                        />
+
+            </FrameLayout>
         </LinearLayout>
 
         <LinearLayout
