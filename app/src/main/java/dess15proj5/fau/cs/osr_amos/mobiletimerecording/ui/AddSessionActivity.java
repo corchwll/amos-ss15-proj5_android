@@ -177,6 +177,7 @@ public class AddSessionActivity extends AppCompatActivity
 					Session cutOffSession = sessionValidator.cutWorkingTime(newSession);
 					showToastIfSessionWasCutOff(stopDate, cutOffSession);
 					saveSessionInDatabase(cutOffSession.getStartTime(), cutOffSession.getStopTime());
+					sessionValidator.checkDay(cutOffSession);
 				}
 				else
 				{

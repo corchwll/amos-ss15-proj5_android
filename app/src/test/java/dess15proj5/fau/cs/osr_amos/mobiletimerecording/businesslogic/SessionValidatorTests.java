@@ -121,4 +121,48 @@ public class SessionValidatorTests
 
 		assertTrue("result has to be 0 hours in millis, but was " + leftTime, leftTime == 0L);
 	}
+
+	@Test
+	public void testIsWorkday_WorkdayChecked_ReturnsTrue()
+	{
+		Calendar cal = Calendar.getInstance();
+		cal.set(2015, 6, 6);
+
+		boolean isWorkday = validator.isWorkday(cal);
+
+		assertTrue("result has to be true, but was " + isWorkday, isWorkday);
+	}
+
+	@Test
+	public void testIsWorkday_WeekendChecked_ReturnsFalse()
+	{
+		Calendar cal = Calendar.getInstance();
+		cal.set(2015, 6, 5);
+
+		boolean isWorkday = validator.isWorkday(cal);
+
+		assertFalse("result has to be false, but was " + isWorkday, isWorkday);
+	}
+
+	@Test
+	public void testIsHoliday_HolidayChecked_ReturnsTrue()
+	{
+		Calendar cal = Calendar.getInstance();
+		cal.set(2015, 4, 1);
+
+		boolean isHoliday = validator.isHoliday(cal);
+
+		assertTrue("result has to be true, but was " + isHoliday, isHoliday);
+	}
+
+	@Test
+	public void testIsHoliday_NormalDayChecked_ReturnsFalse()
+	{
+		Calendar cal = Calendar.getInstance();
+		cal.set(2015, 6, 6);
+
+		boolean isHoliday = validator.isHoliday(cal);
+
+		assertFalse("result has to be true, but was " + isHoliday, isHoliday);
+	}
 }

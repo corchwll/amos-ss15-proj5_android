@@ -29,6 +29,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.view.*;
 import android.widget.*;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.R;
+import dess15proj5.fau.cs.osr_amos.mobiletimerecording.businesslogic.SessionValidator;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.models.Session;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.persistence.DataAccessObjectFactory;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.persistence.PersistenceHelper;
@@ -174,6 +175,8 @@ public class SelectedProjectFragment extends Fragment
 																		 .createSessionsDAO(getActivity());
 						session = sessionsDAO.create(projectId, new Date());
 
+						SessionValidator sessionValidator = SessionValidator.getInstance(getActivity());
+						sessionValidator.checkDay(session);
 						timer.start();
 						button.setText("Stop");
 					} catch(SQLException e)
