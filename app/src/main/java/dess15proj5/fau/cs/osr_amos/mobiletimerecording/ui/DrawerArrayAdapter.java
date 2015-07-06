@@ -47,7 +47,7 @@ public class DrawerArrayAdapter extends ArrayAdapter<String>
 		{
 			//Time Recording
 			case 0:
-				drawerIcon.setImageResource(R.drawable.ic_timer_white_24dp);
+				drawerIcon.setImageResource(R.drawable.ic_timer_white);
 				drawerListItem.setText(getItem(position));
 				break;
 			//Projects
