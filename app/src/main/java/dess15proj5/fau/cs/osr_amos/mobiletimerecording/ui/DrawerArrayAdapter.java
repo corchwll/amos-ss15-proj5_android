@@ -62,7 +62,7 @@ public class DrawerArrayAdapter extends ArrayAdapter<String>
 				break;
 			//Settings
 			case 3:
-				drawerIcon.setImageResource(R.drawable.ic_settings_white_24dp);
+				drawerIcon.setImageResource(R.drawable.ic_settings_white);
 				drawerListItem.setText(getItem(position));
 				break;
 		}
