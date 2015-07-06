@@ -267,7 +267,7 @@ public class SelectedProjectFragment extends Fragment
 			View view = getViewByPosition(selectedPosition, sessionListView);
 			if(view != null)
 			{
-				(((LinearLayout)view).getChildAt(4)).setVisibility(View.GONE);
+				(((LinearLayout)view).getChildAt(4)).setVisibility(View.INVISIBLE);
 			}
 		}
 	}
