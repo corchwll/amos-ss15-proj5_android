@@ -19,6 +19,7 @@
 package dess15proj5.fau.cs.osr_amos.mobiletimerecording.businesslogic;
 
 import android.content.Context;
+import android.widget.Toast;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.models.Session;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.persistence.DataAccessObjectFactory;
 
@@ -172,6 +173,56 @@ public class SessionValidator
 		} else
 		{
 			result = tenHours - currentTime;
+		}
+
+		return result;
+	}
+
+	public void checkDay(Session session)
+	{
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(session.getStartTime());
+
+		boolean workday = isWorkday(cal);
+		boolean holiday = isHoliday(cal);
+
+		if(!workday)
+		{
+			Toast.makeText(context, "The session will be on weekend, are you sure?", Toast.LENGTH_LONG).show();
+		} else if(holiday)
+		{
+			Toast.makeText(context, "The session will be on a public holiday, are you sure?", Toast.LENGTH_LONG)
+				 .show();
+		}
+	}
+
+	protected boolean isWorkday(Calendar calendar)
+	{
+		boolean result = true;
+
+		if(calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY || calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY)
+		{
+			result = false;
+		}
+
+		return result;
+	}
+
+	protected boolean isHoliday(Calendar calendar)
+	{
+		boolean result = false;
+
+		List<Calendar> holidays = Holidays.getHolidaysForYear(calendar.get(Calendar.YEAR));
+
+		for(Calendar holiday : holidays)
+		{
+			if(holiday.get(Calendar.DAY_OF_MONTH) == calendar.get(Calendar.DAY_OF_MONTH) && holiday.get(Calendar
+					.MONTH) == calendar.get(Calendar.MONTH) && holiday.get(Calendar.YEAR) == calendar.get
+					(Calendar.YEAR))
+			{
+				result = true;
+				break;
+			}
 		}
 
 		return result;
