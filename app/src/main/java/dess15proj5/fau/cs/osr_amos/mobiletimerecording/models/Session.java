@@ -88,7 +88,7 @@ public class Session
 	 * Sets the related project id if greater than zero.
 	 *
 	 * methodtype set method
-	 * pre projectId > 0
+	 * pre projectId has to have 5 digits
 	 * post project id successfully set.
 	 */
 	public void setProjectId(String projectId)
