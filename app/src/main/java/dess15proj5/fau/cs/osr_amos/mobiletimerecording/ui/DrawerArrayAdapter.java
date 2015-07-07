@@ -47,22 +47,22 @@ public class DrawerArrayAdapter extends ArrayAdapter<String>
 		{
 			//Time Recording
 			case 0:
-				drawerIcon.setImageResource(R.drawable.ic_timer_white_24dp);
+				drawerIcon.setImageResource(R.drawable.ic_timer_white);
 				drawerListItem.setText(getItem(position));
 				break;
 			//Projects
 			case 1:
-				drawerIcon.setImageResource(R.drawable.ic_list_white_24dp);
+				drawerIcon.setImageResource(R.drawable.ic_list_white);
 				drawerListItem.setText(getItem(position));
 				break;
 			//Dashboard
 			case 2:
-				drawerIcon.setImageResource(R.drawable.ic_insert_chart_white_24dp);
+				drawerIcon.setImageResource(R.drawable.ic_dashboard_white);
 				drawerListItem.setText(getItem(position));
 				break;
 			//Settings
 			case 3:
-				drawerIcon.setImageResource(R.drawable.ic_settings_white_24dp);
+				drawerIcon.setImageResource(R.drawable.ic_settings_white);
 				drawerListItem.setText(getItem(position));
 				break;
 		}

@@ -194,8 +194,8 @@ public class DashboardFragment extends Fragment
 		boolean isInBetween = false;
 		Calendar currentDate = Calendar.getInstance();
 		int currentYear = currentDate.get(Calendar.YEAR);
-		Calendar firstJanuary = new GregorianCalendar(currentYear, 1,1);
-		Calendar thirtiethMarch = new GregorianCalendar(currentYear, 3, 30);
+		Calendar firstJanuary = new GregorianCalendar(currentYear, 0,1);
+		Calendar thirtiethMarch = new GregorianCalendar(currentYear, 2, 30);
 		if(currentDate.after(firstJanuary) && currentDate.before(thirtiethMarch))
 		{
 			isInBetween = true;

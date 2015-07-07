@@ -32,6 +32,7 @@
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="18sp"
                 android:text="@string/use_gps_for_ordering" />
 
         <CheckBox android:layout_width="wrap_content"
