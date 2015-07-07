@@ -19,13 +19,13 @@
 <resources>
     <string name="app_name">Mobile Time Accounting</string>
 
-    <string name="save">Save</string>
+    <!--menu-->
+    <string name="menu_save">Save</string>
 
     <!--projectFragment-->
     <string name="search_title">Search</string>
     <string name="separator_special_projects">SPECIAL PROJECTS</string>
     <string name="separator_added_projects">ADDED PROJECTS</string>
-    <string name="editProject">Edit Project</string>
 
     <!--navigationDrawer-->
     <string name="drawer_open">open</string>
@@ -60,27 +60,20 @@
     <string name="project_name">Project name:</string>
     <string name="finalProjectTextView">Final project date(optional):</string>
     <string name="locationTextView">Location (optional):</string>
-    <string name="marker">develop group</string>
     <string name="mapDescription">Select a location for the new project.\nTab on the map to set a new marker or click
         the location button to determine your current position via GPS.</string>
     <string name="noGPSWarning">GPS not enabled. If you want to use GPS to determine your position you have to enable it
         in the settings.</string>
-    <string name="next">Next</string>
 
     <!--add_session_to_project.xml-->
     <string name="add_new_session">Add new session</string>
     <string name="dateText">DATE:</string>
     <string name="hoursFrom">FROM:</string>
     <string name="hoursTo">TO:</string>
-    <string name="confirm_project_change_button">OK</string>
     <string name="errorMessageAddSession">Negative times are not allowed."</string>
     <string name="warningAlreadyRecordedSession">You have already recorded for this time.</string>
     <string name="warningSessionWasCutOff">The total working hours can not exceed ten hours per day. Session
         was cut off.</string>
-    
-    <!--change_user_profile.xml-->
-    <string name="changeUserProfileText">Change details of your user profile</string>
-    <string name="changeUserProfileBtn">Save</string>
 
     <!--selected_project.xml-->
     <string name="start_button">Start</string>

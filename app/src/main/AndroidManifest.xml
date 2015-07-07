@@ -29,50 +29,49 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
 
-        <meta-data
-                android:name="com.google.android.gms.version"
-                android:value="@integer/google_play_services_version" />
+        <meta-data android:name="com.google.android.gms.version"
+                   android:value="@integer/google_play_services_version"/>
 
-        <meta-data
-                android:name="com.google.android.geo.API_KEY"
-                android:value="AIzaSyAdzBXQ3OEtqNZitQvKBjslfbPXSUhT9MM"/>
+        <meta-data android:name="com.google.android.geo.API_KEY"
+                   android:value="AIzaSyAdzBXQ3OEtqNZitQvKBjslfbPXSUhT9MM"/>
 
-        <activity
-            android:name=".ui.RegistrationActivity"
-            android:label="@string/app_name"
-            android:noHistory="true">
+        <activity android:name=".ui.RegistrationActivity"
+                  android:label="@string/app_name"
+                  android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ui.MainActivity"
-                android:label="@string/app_name" >
-        </activity>
+
+        <activity android:name=".ui.MainActivity"
+                  android:label="@string/app_name"/>
+
         <activity android:name=".ui.AddProjectActivity"
                   android:label="@string/add_project"/>
+
         <activity android:name=".ui.AddProjectMapActivity"
                   android:label="@string/add_project"/>
+
         <activity android:name=".ui.EditProjectActivity"
                   android:label="@string/edit_project"/>
+
         <activity android:name=".ui.EditProjectMapActivity"
                   android:label="@string/edit_project"/>
-        <activity android:name=".ui.AddSessionActivity"
-                  android:label="@string/add_new_session" >
-        </activity>
-        <activity android:name=".ui.SettingsActivity"
-                  android:label="@string/settings">
-        </activity>
-        <activity android:name=".ui.SettingsChangeUserProfileActivity"
-                  android:label="@string/changeUserProfile">
-        </activity>
-        <activity android:name=".ui.SettingsEditGPSActivity"
-                  android:label="@string/gps_settings_menu">
-        </activity>
-        <receiver android:name=".businesslogic.RecordingAlarmReceiver"></receiver>
-    </application>
 
+        <activity android:name=".ui.AddSessionActivity"
+                  android:label="@string/add_new_session"/>
+
+        <activity android:name=".ui.SettingsActivity"
+                  android:label="@string/settings"/>
+
+        <activity android:name=".ui.SettingsChangeUserProfileActivity"
+                  android:label="@string/changeUserProfile"/>
+
+        <activity android:name=".ui.SettingsEditGPSActivity"
+                  android:label="@string/gps_settings_menu"/>
+        <receiver android:name=".businesslogic.RecordingAlarmReceiver"/>
+    </application>
 </manifest>

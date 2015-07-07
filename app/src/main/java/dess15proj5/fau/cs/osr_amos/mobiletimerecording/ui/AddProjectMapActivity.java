@@ -220,7 +220,6 @@ public class AddProjectMapActivity extends AppCompatActivity
 		}
 	}
 
-	//todo replace this with a dialog
 	/**
 	 * Shows a toast to show that no GPS is available
 	 *

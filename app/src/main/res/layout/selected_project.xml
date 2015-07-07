@@ -23,10 +23,11 @@
         android:layout_height="match_parent"
         android:layout_width="match_parent">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                  android:orientation="vertical"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content">
+    <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
         <LinearLayout
                 android:layout_width="wrap_content"
@@ -76,7 +77,6 @@
                     android:layout_marginRight="26dp"
                     android:layout_marginEnd="26dp"/>
 
-
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -91,15 +91,13 @@
                     android:layout_height="wrap_content"
                     android:text="@string/sessionDuration"
                     android:textColor="@color/grey_text_view"
-                    android:textStyle="bold"
-                    />
+                    android:textStyle="bold"/>
         </LinearLayout>
 
         <ListView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/sessionList">
-        </ListView>
+                android:id="@+id/sessionList"/>
     </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
