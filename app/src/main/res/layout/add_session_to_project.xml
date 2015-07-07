@@ -17,10 +17,11 @@
   ~     along with this program.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
     <include layout="@layout/toolbar"/>
 
@@ -44,9 +45,8 @@
                     android:textColor="@color/grey_text_view"
                     android:textStyle="bold"
                     android:layout_weight="0.4"
-                    android:gravity="right"
-                    android:paddingRight="20dp"
-                    />
+                    android:gravity="end"
+                    android:paddingRight="20dp"/>
 
             <FrameLayout
                     android:layout_width="0dp"
@@ -75,10 +75,9 @@
                     android:text="@string/hoursFrom"
                     android:textColor="@color/grey_text_view"
                     android:textStyle="bold"
-                    android:gravity="right"
+                    android:gravity="end"
                     android:layout_weight="0.4"
-                    android:paddingRight="20dp"
-                    />
+                    android:paddingRight="20dp"/>
 
             <FrameLayout
                     android:layout_width="0dp"
@@ -109,9 +108,8 @@
                     android:textColor="@color/grey_text_view"
                     android:textStyle="bold"
                     android:layout_weight="0.4"
-                    android:gravity="right"
-                    android:paddingRight="20dp"
-                    />
+                    android:gravity="end"
+                    android:paddingRight="20dp"/>
 
             <FrameLayout
                     android:layout_width="0dp"

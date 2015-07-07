@@ -146,5 +146,4 @@
                     android:inputType="none"/>
         </FrameLayout>
     </LinearLayout>
-
 </LinearLayout>
