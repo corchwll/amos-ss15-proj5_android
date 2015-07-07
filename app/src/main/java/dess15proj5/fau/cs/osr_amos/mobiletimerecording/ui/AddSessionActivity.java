@@ -168,7 +168,6 @@ public class AddSessionActivity extends AppCompatActivity
 		if(startDate.compareTo(stopDate) < 0)
 		{
 			SessionValidator sessionValidator  = SessionValidator.getInstance(this);
-			//TODO change constructor of session
 			Session newSession = new Session(0L, null, startDate, stopDate);
 			try
 			{
