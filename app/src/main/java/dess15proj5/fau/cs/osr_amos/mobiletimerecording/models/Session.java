@@ -71,6 +71,7 @@ public class Session
 	 */
 	public void setId(long id)
 	{
+		assert id > 0 : "id has to be greater than zero";
 		this.id = id;
 	}
 
@@ -93,6 +94,7 @@ public class Session
 	 */
 	public void setProjectId(String projectId)
 	{
+		assert projectId.length() == 5 : "project ID has to have five digits";
 		this.projectId = projectId;
 	}
 
@@ -115,6 +117,7 @@ public class Session
 	 */
 	public void setStartTime(Date startTime)
 	{
+		assert startTime != null : "null is not allowed for startTime";
 		this.startTime = startTime;
 	}
 
@@ -137,6 +140,7 @@ public class Session
 	 */
 	public void setStopTime(Date stopTime)
 	{
+		assert stopTime != null : "null is not allowed for stopTime";
 		this.stopTime = stopTime;
 	}
 }
