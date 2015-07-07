@@ -94,7 +94,7 @@ public class SessionArrayAdapter extends ArrayAdapter<Session>
 			}
 			else
 			{
-				viewHolder.deleteSessionBtn.setVisibility(View.GONE);
+				viewHolder.deleteSessionBtn.setVisibility(View.INVISIBLE);
 			}
 		}
 		SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm", Locale.GERMANY);

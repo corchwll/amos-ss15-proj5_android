@@ -26,6 +26,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
 import android.view.*;
 import android.widget.*;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.R;
@@ -52,7 +53,7 @@ public class SelectedProjectFragment extends Fragment
 
 	private TextView projectNameTextView;
 	private ProjectTimer timer;
-	private Button startStopBtn;
+	private FloatingActionButton startStopBtn;
 
 	private boolean firstTimeStartup = true;
 	private View selectedView;
@@ -167,7 +168,7 @@ public class SelectedProjectFragment extends Fragment
 					}
 				}
 
-				private void startNewSession(Button button, ProjectTimer timer)
+				private void startNewSession(FloatingActionButton button, ProjectTimer timer)
 				{
 					try
 					{
@@ -178,7 +179,8 @@ public class SelectedProjectFragment extends Fragment
 						SessionValidator sessionValidator = SessionValidator.getInstance(getActivity());
 						sessionValidator.checkDay(session);
 						timer.start();
-						button.setText("Stop");
+						button.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable
+								.ic_stop_white_24dp));
 					} catch(SQLException e)
 					{
 						Toast.makeText(getActivity(), "Could not start timer due to database errors!",
@@ -187,7 +189,7 @@ public class SelectedProjectFragment extends Fragment
 					}
 				}
 
-				private void stopCurrentSession(Button button, ProjectTimer timer)
+				private void stopCurrentSession(FloatingActionButton button, ProjectTimer timer)
 				{
 					try
 					{
@@ -198,7 +200,9 @@ public class SelectedProjectFragment extends Fragment
 						sessionsDAO.update(session);
 
 						timer.stop();
-						button.setText("Start");
+
+						button.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable
+										.ic_play_arrow_white_24dp));
 
 						addSessionsToAdapter();
 					} catch(SQLException e)
@@ -266,7 +270,7 @@ public class SelectedProjectFragment extends Fragment
 			View view = getViewByPosition(selectedPosition, sessionListView);
 			if(view != null)
 			{
-				(((LinearLayout)view).getChildAt(4)).setVisibility(View.GONE);
+				(((LinearLayout)view).getChildAt(4)).setVisibility(View.INVISIBLE);
 			}
 		}
 	}
@@ -355,7 +359,7 @@ public class SelectedProjectFragment extends Fragment
 	{
 		projectNameTextView = (TextView)getActivity().findViewById(R.id.name_of_selected_project);
 		timer = (ProjectTimer)getActivity().findViewById(R.id.timer);
-		startStopBtn = (Button)getActivity().findViewById(R.id.startStopBtn);
+		startStopBtn = (FloatingActionButton)getActivity().findViewById(R.id.startStopBtn);
 	}
 
 	/**
