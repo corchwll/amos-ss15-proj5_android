@@ -45,7 +45,7 @@ public class User
 	 * Sets the user id if greater than zero.
 	 *
 	 * methodtype set method
-	 * pre employeeId > 0;
+	 * pre employeeId has to have 5 digits;
 	 * post user id successfully set.
 	 */
 	public void setEmployeeId(String employeeId)

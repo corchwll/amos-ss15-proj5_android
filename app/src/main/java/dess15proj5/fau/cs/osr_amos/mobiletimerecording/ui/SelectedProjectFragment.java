@@ -158,10 +158,9 @@ public class SelectedProjectFragment extends Fragment
 					if(timer.isRunning())
 					{
 						stopCurrentSession(startStopBtn, timer);
-					} else if(new Date().after(finalDate))
+					} else if(isProjectRecordingExpired())
 					{
-						final String message = getResources().getString(R.string.finalDateExpired);
-						Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
+						showToastFinalDateExpiredMessage();
 					} else
 					{
 						startNewSession(startStopBtn, timer);
@@ -217,6 +216,27 @@ public class SelectedProjectFragment extends Fragment
 		setClickListenerToListView();
 		addSessionsToAdapter();
 		setClickListenerToFAB();
+	}
+
+	/**
+	 * Returns true if Final Date is after current date.
+	 *
+	 * methodtype boolean query method
+	 */
+	public boolean isProjectRecordingExpired()
+	{
+		return new Date().after(finalDate);
+	}
+
+	/**
+	 * Shows a toast with a message that it isn't possible to record times after final project date.
+	 *
+	 * methodtype command method
+	 */
+	private void showToastFinalDateExpiredMessage()
+	{
+		final String message = getResources().getString(R.string.finalDateExpired);
+		Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
 	}
 
 	/**
@@ -399,7 +419,14 @@ public class SelectedProjectFragment extends Fragment
 			@Override
 			public void onClick(View view)
 			{
-				createAddSessionActivity();
+				if(isProjectRecordingExpired())
+				{
+					showToastFinalDateExpiredMessage();
+				}
+				else
+				{
+					createAddSessionActivity();
+				}
 			}
 		});
 	}
@@ -530,10 +557,10 @@ public class SelectedProjectFragment extends Fragment
 			@Override
 			public void onShow(DialogInterface arg0)
 			{
-				dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getResources()
-						.getColor(R.color.bluePrimaryColor));
-				dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(getResources()
-						.getColor(R.color.bluePrimaryColor));
+				dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+					  .setTextColor(getResources().getColor(R.color.bluePrimaryColor));
+				dialog.getButton(AlertDialog.BUTTON_NEGATIVE)
+					  .setTextColor(getResources().getColor(R.color.bluePrimaryColor));
 			}
 		});
 		dialog.show();
