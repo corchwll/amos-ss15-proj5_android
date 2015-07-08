@@ -52,14 +52,12 @@
                     android:gravity="center"
                     android:layout_weight="0.33"
                     android:id="@+id/timer"
-                    android:textSize="25sp"
-                    />
+                    android:textSize="25sp"/>
 
             <FrameLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.33"
-                    >
+                    android:layout_weight="0.33">
 
                 <android.support.design.widget.FloatingActionButton
                         android:layout_width="wrap_content"
@@ -69,16 +67,14 @@
                         app:backgroundTint="@color/recordSessionBtnColor"
                         android:src="@drawable/ic_play_arrow_white_24dp"
                         app:elevation="6dp"
-                        app:borderWidth="0dp"
-                        />
-
+                        app:borderWidth="0dp"/>
             </FrameLayout>
         </LinearLayout>
 
         <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@android:color/darker_gray" />
+                android:background="@android:color/darker_gray"/>
 
         <LinearLayout
                 android:layout_width="match_parent"
