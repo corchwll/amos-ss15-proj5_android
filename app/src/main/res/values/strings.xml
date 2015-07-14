@@ -102,4 +102,6 @@
     <!--gps settings-->
     <string name="gps_settings_menu">Change GPS Settings</string>
     <string name="use_gps_for_ordering">Use GPS for project ordering</string>
+    
+    <string name="warningCurrentRecording">A session is being recorded. Switched to Recording Tab!</string>
 </resources>

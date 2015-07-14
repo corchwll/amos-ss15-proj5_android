@@ -24,7 +24,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.CursorIndexOutOfBoundsException;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.view.*;
@@ -128,7 +130,39 @@ public class SelectedProjectFragment extends Fragment
 	public void onResume()
 	{
 		super.onResume();
+
 		addSessionsToAdapter();
+
+		SharedPreferences sharedPref = getActivity().getSharedPreferences("selectedProject", Context.MODE_PRIVATE);
+		boolean isRecording = sharedPref.getBoolean("isRecording", false);
+		if(isRecording)
+		{
+			long sessionId = sharedPref.getLong("sessionId", 0L);
+			try
+			{
+				SessionsDAO sessionsDAO = DataAccessObjectFactory.getInstance().createSessionsDAO(getActivity());
+				session = sessionsDAO.load(sessionId);
+				Date startTime = session.getStartTime();
+				Date stopTime = session.getStopTime();
+				if(startTime.equals(stopTime))
+				{
+					startStopBtn.setImageDrawable(
+							ContextCompat.getDrawable(getActivity(), R.drawable.ic_stop_white_24dp));
+					long elapsedRealTimeOffset = System.currentTimeMillis() - SystemClock.elapsedRealtime();
+					Long difference = startTime.getTime() - elapsedRealTimeOffset;
+					timer.start();
+					timer.setBase(difference);
+				}
+			} catch(CursorIndexOutOfBoundsException e)
+			{
+				Toast.makeText(getActivity(), "Could not load session due to database errors!",
+						Toast.LENGTH_LONG).show();
+			} catch(SQLException e)
+			{
+				Toast.makeText(getActivity(), "Could not load session due to database errors!",
+						Toast.LENGTH_LONG).show();
+			}
+		}
 	}
 
 	/**
@@ -157,17 +191,17 @@ public class SelectedProjectFragment extends Fragment
 				{
 					if(timer.isRunning())
 					{
-						stopCurrentSession(startStopBtn, timer);
+						stopCurrentSession(startStopBtn);
 					} else if(isProjectRecordingExpired())
 					{
 						showToastFinalDateExpiredMessage();
 					} else
 					{
-						startNewSession(startStopBtn, timer);
+						startNewSession(startStopBtn);
 					}
 				}
 
-				private void startNewSession(FloatingActionButton button, ProjectTimer timer)
+				private void startNewSession(FloatingActionButton button)
 				{
 					try
 					{
@@ -177,18 +211,19 @@ public class SelectedProjectFragment extends Fragment
 
 						SessionValidator sessionValidator = SessionValidator.getInstance(getActivity());
 						sessionValidator.checkDay(session);
+
 						timer.start();
-						button.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable
-								.ic_stop_white_24dp));
+						button.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_stop_white_24dp));
+						setRecordingBooleanInSharedPreferences(true);
+						setSessionIdInSharedPreferences(session.getId());
 					} catch(SQLException e)
 					{
 						Toast.makeText(getActivity(), "Could not start timer due to database errors!",
-								Toast.LENGTH_LONG)
-							 .show();
+								Toast.LENGTH_LONG).show();
 					}
 				}
 
-				private void stopCurrentSession(FloatingActionButton button, ProjectTimer timer)
+				private void stopCurrentSession(FloatingActionButton button)
 				{
 					try
 					{
@@ -200,10 +235,11 @@ public class SelectedProjectFragment extends Fragment
 
 						timer.stop();
 
-						button.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable
-										.ic_play_arrow_white_24dp));
+						button.setImageDrawable(
+								ContextCompat.getDrawable(getActivity(), R.drawable.ic_play_arrow_white_24dp));
 
 						addSessionsToAdapter();
+						setRecordingBooleanInSharedPreferences(false);
 					} catch(SQLException e)
 					{
 						Toast.makeText(getActivity(), "Could not stop timer due to database errors!", Toast.LENGTH_LONG)
@@ -237,6 +273,32 @@ public class SelectedProjectFragment extends Fragment
 	{
 		final String message = getResources().getString(R.string.finalDateExpired);
 		Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
+	}
+
+	/**
+	 * Sets a boolean if the activity records a session.
+	 *
+	 * methodtype command method
+	 */
+	public void setRecordingBooleanInSharedPreferences(boolean isRecording)
+	{
+		SharedPreferences sharedPref = getActivity().getSharedPreferences("selectedProject", Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = sharedPref.edit();
+		editor.putBoolean("isRecording", isRecording);
+		editor.apply();
+	}
+
+	/**
+	 * Sets the session id in the Shared Preferences
+	 *
+	 * methodtype command method
+	 */
+	public void setSessionIdInSharedPreferences(long sessionId)
+	{
+		SharedPreferences sharedPref = getActivity().getSharedPreferences("selectedProject", Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = sharedPref.edit();
+		editor.putLong("sessionId", sessionId);
+		editor.apply();
 	}
 
 	/**
@@ -422,8 +484,7 @@ public class SelectedProjectFragment extends Fragment
 				if(isProjectRecordingExpired())
 				{
 					showToastFinalDateExpiredMessage();
-				}
-				else
+				} else
 				{
 					createAddSessionActivity();
 				}
@@ -609,5 +670,11 @@ public class SelectedProjectFragment extends Fragment
 		getFragmentManager().beginTransaction()
 							.replace(R.id.frameLayout, new ProjectsListFragment())
 							.commit();
+	}
+
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data)
+	{
+		super.onActivityResult(requestCode, resultCode, data);
 	}
 }

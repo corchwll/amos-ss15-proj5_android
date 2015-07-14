@@ -21,7 +21,9 @@ package dess15proj5.fau.cs.osr_amos.mobiletimerecording.ui;
 import android.app.AlarmManager;
 import android.app.Fragment;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -31,6 +33,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.R;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.businesslogic.AccountingNotification;
 import dess15proj5.fau.cs.osr_amos.mobiletimerecording.businesslogic.RecordingAlarmReceiver;
@@ -181,8 +184,18 @@ public class MainActivity extends AppCompatActivity implements AbstractUserProfi
 	 */
 	private void showProjectsListFragment()
 	{
-		ProjectsListFragment projectsListFragment = new ProjectsListFragment();
-		showFragment(projectsListFragment, getResources().getString(R.string.project_list));
+		SharedPreferences sharedPref = getSharedPreferences("selectedProject", Context.MODE_PRIVATE);
+		boolean isRecording = sharedPref.getBoolean("isRecording", false);
+		if(isRecording)
+		{
+			showSelectedFragment();
+			Toast.makeText(getBaseContext(), getResources().getString(R.string.warningCurrentRecording), Toast.LENGTH_LONG).show();
+		}
+		else
+		{
+			ProjectsListFragment projectsListFragment = new ProjectsListFragment();
+			showFragment(projectsListFragment, getResources().getString(R.string.project_list));
+		}
 	}
 
 	/**
